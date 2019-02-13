@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  
+  <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+
+
+<meta name="date" content="2018-09-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="glms.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#subsec:learning-goals"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#subsec:pipeline"><i class="fa fa-check"></i><b>1.2</b> Data/science pipeline</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#inspirations-and-references"><i class="fa fa-check"></i><b>1.3</b> Inspirations and references</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#sec:about-book"><i class="fa fa-check"></i><b>1.4</b> About this book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting started in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started.html"><a href="getting-started.html#some-history"><i class="fa fa-check"></i><b>2.1</b> Some history</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-started.html"><a href="getting-started.html#what-are-r-and-rstudio"><i class="fa fa-check"></i><b>2.2</b> What are R and RStudio?</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started.html"><a href="getting-started.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>2.2.1</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started.html"><a href="getting-started.html#using-r-via-rstudio"><i class="fa fa-check"></i><b>2.2.2</b> Using R via RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="getting-started.html"><a href="getting-started.html#code"><i class="fa fa-check"></i><b>2.3</b> How do I code in R?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="getting-started.html"><a href="getting-started.html#tips-on-learning-to-code"><i class="fa fa-check"></i><b>2.3.1</b> Tips on learning to code</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="getting-started.html"><a href="getting-started.html#packages"><i class="fa fa-check"></i><b>2.4</b> What are R packages?</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="getting-started.html"><a href="getting-started.html#package-installation"><i class="fa fa-check"></i><b>2.4.1</b> Package installation</a></li>
+<li class="chapter" data-level="2.4.2" data-path="getting-started.html"><a href="getting-started.html#package-loading"><i class="fa fa-check"></i><b>2.4.2</b> Package loading</a></li>
+<li class="chapter" data-level="2.4.3" data-path="getting-started.html"><a href="getting-started.html#packages-on-cran"><i class="fa fa-check"></i><b>2.4.3</b> Packages on CRAN</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="getting-started.html"><a href="getting-started.html#conclusion"><i class="fa fa-check"></i><b>2.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
+<li class="chapter" data-level="4.2.2" data-path="started-with-data.html"><a href="started-with-data.html#find-minimum-or-maximum"><i class="fa fa-check"></i><b>4.2.2</b> Find minimum or maximum</a></li>
+<li class="chapter" data-level="4.2.3" data-path="started-with-data.html"><a href="started-with-data.html#sorting"><i class="fa fa-check"></i><b>4.2.3</b> Sorting</a></li>
+<li class="chapter" data-level="4.2.4" data-path="started-with-data.html"><a href="started-with-data.html#merging"><i class="fa fa-check"></i><b>4.2.4</b> Merging</a></li>
+<li class="chapter" data-level="4.2.5" data-path="started-with-data.html"><a href="started-with-data.html#aggregate"><i class="fa fa-check"></i><b>4.2.5</b> Aggregate</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="started-with-data.html"><a href="started-with-data.html#exploratory-data-analysis-eda"><i class="fa fa-check"></i><b>4.3</b> Exploratory Data Analysis (EDA)</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-numerical-variable"><i class="fa fa-check"></i><b>4.3.1</b> Exploring a numerical variable</a></li>
+<li class="chapter" data-level="4.3.2" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-categorical-or-factor-variable"><i class="fa fa-check"></i><b>4.3.2</b> Exploring a categorical (or: factor) variable</a></li>
+<li class="chapter" data-level="4.3.3" data-path="started-with-data.html"><a href="started-with-data.html#exploring-two-categorical-or-factor-variables"><i class="fa fa-check"></i><b>4.3.3</b> Exploring two categorical (or: factor) variables</a></li>
+<li class="chapter" data-level="4.3.4" data-path="started-with-data.html"><a href="started-with-data.html#exploring-one-numerical-and-one-categorical-variable"><i class="fa fa-check"></i><b>4.3.4</b> Exploring one numerical and one categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="started-with-data.html"><a href="started-with-data.html#exercises-1"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-viz.html"><a href="data-viz.html"><i class="fa fa-check"></i><b>5</b> Visualizing data in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-viz.html"><a href="data-viz.html#basic-plot-instructions"><i class="fa fa-check"></i><b>5.1</b> Basic plot instructions</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-viz.html"><a href="data-viz.html#scatterplot"><i class="fa fa-check"></i><b>5.1.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-viz.html"><a href="data-viz.html#saving-the-scatterplot-as-a-pdf"><i class="fa fa-check"></i><b>5.1.2</b> Saving the scatterplot as a pdf</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-viz.html"><a href="data-viz.html#the-curve-function"><i class="fa fa-check"></i><b>5.1.3</b> The <code>curve()</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-viz.html"><a href="data-viz.html#more-fancy-plots"><i class="fa fa-check"></i><b>5.2</b> More fancy plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-viz.html"><a href="data-viz.html#creating-graphics-with-ggplot2"><i class="fa fa-check"></i><b>5.2.1</b> Creating graphics with <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-viz.html"><a href="data-viz.html#fancy-correlation-plots"><i class="fa fa-check"></i><b>5.2.2</b> Fancy correlation plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-viz.html"><a href="data-viz.html#exercises-2"><i class="fa fa-check"></i><b>5.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>6</b> Data wrangling in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#ideas-from-the-tidyverse"><i class="fa fa-check"></i><b>6.1</b> Ideas from the <code>tidyverse</code></a><ul>
+<li class="chapter" data-level="6.1.1" data-path="data-wrangling.html"><a href="data-wrangling.html#a-tibble-instead-of-a-data.frame"><i class="fa fa-check"></i><b>6.1.1</b> A <code>tibble</code> instead of a <code>data.frame</code></a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-wrangling.html"><a href="data-wrangling.html#pipes-in-r"><i class="fa fa-check"></i><b>6.1.2</b> Pipes in R</a></li>
+<li class="chapter" data-level="6.1.3" data-path="data-wrangling.html"><a href="data-wrangling.html#filter-observations-using-filter"><i class="fa fa-check"></i><b>6.1.3</b> Filter observations using <code>filter</code></a></li>
+<li class="chapter" data-level="6.1.4" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-variables-using-summarize"><i class="fa fa-check"></i><b>6.1.4</b> Summarize variables using <code>summarize</code></a></li>
+<li class="chapter" data-level="6.1.5" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-based-on-groupings-of-another-variable"><i class="fa fa-check"></i><b>6.1.5</b> Summarize based on groupings of another variable</a></li>
+<li class="chapter" data-level="6.1.6" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-tibbles"><i class="fa fa-check"></i><b>6.1.6</b> Joining tibbles</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data-science-the-data.table-way"><i class="fa fa-check"></i><b>6.2</b> Data science the <code>data.table</code> way</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#speed-junkies-love-data.table"><i class="fa fa-check"></i><b>6.2.1</b> Speed junkies love <code>data.table</code></a></li>
+<li class="chapter" data-level="6.2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#what-is-a-data.table"><i class="fa fa-check"></i><b>6.2.2</b> What is a <code>data.table</code>?</a></li>
+<li class="chapter" data-level="6.2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#identify-keys"><i class="fa fa-check"></i><b>6.2.3</b> Identify keys</a></li>
+<li class="chapter" data-level="6.2.4" data-path="data-wrangling.html"><a href="data-wrangling.html#alternative-and-faster-ways-to-aggregate"><i class="fa fa-check"></i><b>6.2.4</b> Alternative and faster ways to <code>aggregate</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-data.tables"><i class="fa fa-check"></i><b>6.2.5</b> Joining <code>data.tables</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#exercises-3"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probs.html"><a href="probs.html"><i class="fa fa-check"></i><b>7</b> Working with probability distributions in R</a><ul>
+<li class="chapter" data-level="7.1" data-path="probs.html"><a href="probs.html#discrete-distributions"><i class="fa fa-check"></i><b>7.1</b> Discrete distributions</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="probs.html"><a href="probs.html#the-binomial-distribution"><i class="fa fa-check"></i><b>7.1.1</b> The binomial distribution</a></li>
+<li class="chapter" data-level="7.1.2" data-path="probs.html"><a href="probs.html#the-poisson-distribution"><i class="fa fa-check"></i><b>7.1.2</b> The Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="probs.html"><a href="probs.html#continuous-distributions"><i class="fa fa-check"></i><b>7.2</b> Continuous distributions</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="probs.html"><a href="probs.html#the-normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> The normal distribution</a></li>
+<li class="chapter" data-level="7.2.2" data-path="probs.html"><a href="probs.html#the-gamma-distribution"><i class="fa fa-check"></i><b>7.2.2</b> The gamma distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
+<li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
+<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-4"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
+<li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
+<li class="chapter" data-level="9.2" data-path="optimization.html"><a href="optimization.html#find-the-maximum-of-a-function"><i class="fa fa-check"></i><b>9.2</b> Find the maximum of a function</a></li>
+<li class="chapter" data-level="9.3" data-path="optimization.html"><a href="optimization.html#do-maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>9.3</b> Do Maximum Likelihood Estimation (MLE)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lms.html"><a href="lms.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models in R</a><ul>
+<li class="chapter" data-level="10.1" data-path="lms.html"><a href="lms.html#a-simple-linear-regression-model"><i class="fa fa-check"></i><b>10.1</b> A simple linear regression model</a></li>
+<li class="chapter" data-level="10.2" data-path="lms.html"><a href="lms.html#a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>10.2</b> A multiple linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="glms.html"><a href="glms.html"><i class="fa fa-check"></i><b>11</b> Generalized Linear Models in R</a><ul>
+<li class="chapter" data-level="11.1" data-path="glms.html"><a href="glms.html#modelling-count-data-with-poisson-regression-models"><i class="fa fa-check"></i><b>11.1</b> Modelling count data with Poisson regression models</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="glms.html"><a href="glms.html#a-first-data-set"><i class="fa fa-check"></i><b>11.1.1</b> A first data set</a></li>
+<li class="chapter" data-level="11.1.2" data-path="glms.html"><a href="glms.html#fit-a-poisson-glm"><i class="fa fa-check"></i><b>11.1.2</b> Fit a Poisson GLM</a></li>
+<li class="chapter" data-level="11.1.3" data-path="glms.html"><a href="glms.html#the-use-of-exposure"><i class="fa fa-check"></i><b>11.1.3</b> The use of exposure</a></li>
+<li class="chapter" data-level="11.1.4" data-path="glms.html"><a href="glms.html#analysis-of-deviance-for-glms"><i class="fa fa-check"></i><b>11.1.4</b> Analysis of deviance for GLMs</a></li>
+<li class="chapter" data-level="11.1.5" data-path="glms.html"><a href="glms.html#an-example"><i class="fa fa-check"></i><b>11.1.5</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="glms.html"><a href="glms.html#overdispersed-poisson-regression"><i class="fa fa-check"></i><b>11.2</b> Overdispersed Poisson regression</a></li>
+<li class="chapter" data-level="11.3" data-path="glms.html"><a href="glms.html#negative-binomial-regression"><i class="fa fa-check"></i><b>11.3</b> Negative Binomial regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="biblio.html"><a href="biblio.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data science in insurance: an R intro</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="biblio" class="section level1">
+<h1><span class="header-section-number">12</span> References</h1>
+
+<div id="refs" class="references">
+<div>
+<p>Chihara, Laura M., and Tim C. Hesterberg. 2011. <em>Mathematical Statistics with Resampling and R</em>. Hoboken, NJ: John Wiley; Sons. <a href="https://sites.google.com/site/chiharahesterberg/home" class="uri">https://sites.google.com/site/chiharahesterberg/home</a>.</p>
+</div>
+<div>
+<p>Diez, David M, Christopher D Barr, and Mine Çetinkaya-Rundel. 2014. <em>Introductory Statistics with Randomization and Simulation</em>. First Edition. <a href="https://www.openintro.org/stat/textbook.php?stat_book=isrs" class="uri">https://www.openintro.org/stat/textbook.php?stat_book=isrs</a>.</p>
+</div>
+<div>
+<p>Grolemund, Garrett, and Hadley Wickham. 2016. <em>R for Data Science</em>. <a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>.</p>
+</div>
+<div>
+<p>Ismay, Chester. 2016. <em>Getting Used to R, RStudio, and R Markdown</em>. <a href="http://ismayc.github.io/rbasics-book" class="uri">http://ismayc.github.io/rbasics-book</a>.</p>
+</div>
+<div>
+<p>Ismay, Chester, and Albert Y. Kim. 2018. <em>ModernDive: An Introduction to Statistical and Data Sciences via R</em>. <a href="http://moderndive.com/" class="uri">http://moderndive.com/</a>.</p>
+</div>
+<div>
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Rob Tibshirani. 20AD. <em>An Introduction to Statistical Learning, with Applications in R</em>. Springer.</p>
+</div>
+<div>
+<p>Kleiber, Christian, and Achim Zeileis. 2008. <em>Applied Econometrics with R</em>. Springer.</p>
+</div>
+<div>
+<p>Lander, Jared. 2017. <em>R for Everyone: Advanced Analytics and Graphics</em>. Addison Wesley Data; Analytics Section.</p>
+</div>
+<div>
+<p>Xie, Yihui. 2018. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown" class="uri">https://CRAN.R-project.org/package=bookdown</a>.</p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="glms.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

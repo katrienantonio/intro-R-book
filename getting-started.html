@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  
+  <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+
+
+<meta name="date" content="2018-09-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="objects-data-types.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#subsec:learning-goals"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#subsec:pipeline"><i class="fa fa-check"></i><b>1.2</b> Data/science pipeline</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#inspirations-and-references"><i class="fa fa-check"></i><b>1.3</b> Inspirations and references</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#sec:about-book"><i class="fa fa-check"></i><b>1.4</b> About this book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting started in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started.html"><a href="getting-started.html#some-history"><i class="fa fa-check"></i><b>2.1</b> Some history</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-started.html"><a href="getting-started.html#what-are-r-and-rstudio"><i class="fa fa-check"></i><b>2.2</b> What are R and RStudio?</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started.html"><a href="getting-started.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>2.2.1</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started.html"><a href="getting-started.html#using-r-via-rstudio"><i class="fa fa-check"></i><b>2.2.2</b> Using R via RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="getting-started.html"><a href="getting-started.html#code"><i class="fa fa-check"></i><b>2.3</b> How do I code in R?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="getting-started.html"><a href="getting-started.html#tips-on-learning-to-code"><i class="fa fa-check"></i><b>2.3.1</b> Tips on learning to code</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="getting-started.html"><a href="getting-started.html#packages"><i class="fa fa-check"></i><b>2.4</b> What are R packages?</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="getting-started.html"><a href="getting-started.html#package-installation"><i class="fa fa-check"></i><b>2.4.1</b> Package installation</a></li>
+<li class="chapter" data-level="2.4.2" data-path="getting-started.html"><a href="getting-started.html#package-loading"><i class="fa fa-check"></i><b>2.4.2</b> Package loading</a></li>
+<li class="chapter" data-level="2.4.3" data-path="getting-started.html"><a href="getting-started.html#packages-on-cran"><i class="fa fa-check"></i><b>2.4.3</b> Packages on CRAN</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="getting-started.html"><a href="getting-started.html#conclusion"><i class="fa fa-check"></i><b>2.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
+<li class="chapter" data-level="4.2.2" data-path="started-with-data.html"><a href="started-with-data.html#find-minimum-or-maximum"><i class="fa fa-check"></i><b>4.2.2</b> Find minimum or maximum</a></li>
+<li class="chapter" data-level="4.2.3" data-path="started-with-data.html"><a href="started-with-data.html#sorting"><i class="fa fa-check"></i><b>4.2.3</b> Sorting</a></li>
+<li class="chapter" data-level="4.2.4" data-path="started-with-data.html"><a href="started-with-data.html#merging"><i class="fa fa-check"></i><b>4.2.4</b> Merging</a></li>
+<li class="chapter" data-level="4.2.5" data-path="started-with-data.html"><a href="started-with-data.html#aggregate"><i class="fa fa-check"></i><b>4.2.5</b> Aggregate</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="started-with-data.html"><a href="started-with-data.html#exploratory-data-analysis-eda"><i class="fa fa-check"></i><b>4.3</b> Exploratory Data Analysis (EDA)</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-numerical-variable"><i class="fa fa-check"></i><b>4.3.1</b> Exploring a numerical variable</a></li>
+<li class="chapter" data-level="4.3.2" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-categorical-or-factor-variable"><i class="fa fa-check"></i><b>4.3.2</b> Exploring a categorical (or: factor) variable</a></li>
+<li class="chapter" data-level="4.3.3" data-path="started-with-data.html"><a href="started-with-data.html#exploring-two-categorical-or-factor-variables"><i class="fa fa-check"></i><b>4.3.3</b> Exploring two categorical (or: factor) variables</a></li>
+<li class="chapter" data-level="4.3.4" data-path="started-with-data.html"><a href="started-with-data.html#exploring-one-numerical-and-one-categorical-variable"><i class="fa fa-check"></i><b>4.3.4</b> Exploring one numerical and one categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="started-with-data.html"><a href="started-with-data.html#exercises-1"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-viz.html"><a href="data-viz.html"><i class="fa fa-check"></i><b>5</b> Visualizing data in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-viz.html"><a href="data-viz.html#basic-plot-instructions"><i class="fa fa-check"></i><b>5.1</b> Basic plot instructions</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-viz.html"><a href="data-viz.html#scatterplot"><i class="fa fa-check"></i><b>5.1.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-viz.html"><a href="data-viz.html#saving-the-scatterplot-as-a-pdf"><i class="fa fa-check"></i><b>5.1.2</b> Saving the scatterplot as a pdf</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-viz.html"><a href="data-viz.html#the-curve-function"><i class="fa fa-check"></i><b>5.1.3</b> The <code>curve()</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-viz.html"><a href="data-viz.html#more-fancy-plots"><i class="fa fa-check"></i><b>5.2</b> More fancy plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-viz.html"><a href="data-viz.html#creating-graphics-with-ggplot2"><i class="fa fa-check"></i><b>5.2.1</b> Creating graphics with <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-viz.html"><a href="data-viz.html#fancy-correlation-plots"><i class="fa fa-check"></i><b>5.2.2</b> Fancy correlation plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-viz.html"><a href="data-viz.html#exercises-2"><i class="fa fa-check"></i><b>5.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>6</b> Data wrangling in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#ideas-from-the-tidyverse"><i class="fa fa-check"></i><b>6.1</b> Ideas from the <code>tidyverse</code></a><ul>
+<li class="chapter" data-level="6.1.1" data-path="data-wrangling.html"><a href="data-wrangling.html#a-tibble-instead-of-a-data.frame"><i class="fa fa-check"></i><b>6.1.1</b> A <code>tibble</code> instead of a <code>data.frame</code></a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-wrangling.html"><a href="data-wrangling.html#pipes-in-r"><i class="fa fa-check"></i><b>6.1.2</b> Pipes in R</a></li>
+<li class="chapter" data-level="6.1.3" data-path="data-wrangling.html"><a href="data-wrangling.html#filter-observations-using-filter"><i class="fa fa-check"></i><b>6.1.3</b> Filter observations using <code>filter</code></a></li>
+<li class="chapter" data-level="6.1.4" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-variables-using-summarize"><i class="fa fa-check"></i><b>6.1.4</b> Summarize variables using <code>summarize</code></a></li>
+<li class="chapter" data-level="6.1.5" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-based-on-groupings-of-another-variable"><i class="fa fa-check"></i><b>6.1.5</b> Summarize based on groupings of another variable</a></li>
+<li class="chapter" data-level="6.1.6" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-tibbles"><i class="fa fa-check"></i><b>6.1.6</b> Joining tibbles</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data-science-the-data.table-way"><i class="fa fa-check"></i><b>6.2</b> Data science the <code>data.table</code> way</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#speed-junkies-love-data.table"><i class="fa fa-check"></i><b>6.2.1</b> Speed junkies love <code>data.table</code></a></li>
+<li class="chapter" data-level="6.2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#what-is-a-data.table"><i class="fa fa-check"></i><b>6.2.2</b> What is a <code>data.table</code>?</a></li>
+<li class="chapter" data-level="6.2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#identify-keys"><i class="fa fa-check"></i><b>6.2.3</b> Identify keys</a></li>
+<li class="chapter" data-level="6.2.4" data-path="data-wrangling.html"><a href="data-wrangling.html#alternative-and-faster-ways-to-aggregate"><i class="fa fa-check"></i><b>6.2.4</b> Alternative and faster ways to <code>aggregate</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-data.tables"><i class="fa fa-check"></i><b>6.2.5</b> Joining <code>data.tables</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#exercises-3"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probs.html"><a href="probs.html"><i class="fa fa-check"></i><b>7</b> Working with probability distributions in R</a><ul>
+<li class="chapter" data-level="7.1" data-path="probs.html"><a href="probs.html#discrete-distributions"><i class="fa fa-check"></i><b>7.1</b> Discrete distributions</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="probs.html"><a href="probs.html#the-binomial-distribution"><i class="fa fa-check"></i><b>7.1.1</b> The binomial distribution</a></li>
+<li class="chapter" data-level="7.1.2" data-path="probs.html"><a href="probs.html#the-poisson-distribution"><i class="fa fa-check"></i><b>7.1.2</b> The Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="probs.html"><a href="probs.html#continuous-distributions"><i class="fa fa-check"></i><b>7.2</b> Continuous distributions</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="probs.html"><a href="probs.html#the-normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> The normal distribution</a></li>
+<li class="chapter" data-level="7.2.2" data-path="probs.html"><a href="probs.html#the-gamma-distribution"><i class="fa fa-check"></i><b>7.2.2</b> The gamma distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
+<li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
+<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-4"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
+<li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
+<li class="chapter" data-level="9.2" data-path="optimization.html"><a href="optimization.html#find-the-maximum-of-a-function"><i class="fa fa-check"></i><b>9.2</b> Find the maximum of a function</a></li>
+<li class="chapter" data-level="9.3" data-path="optimization.html"><a href="optimization.html#do-maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>9.3</b> Do Maximum Likelihood Estimation (MLE)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lms.html"><a href="lms.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models in R</a><ul>
+<li class="chapter" data-level="10.1" data-path="lms.html"><a href="lms.html#a-simple-linear-regression-model"><i class="fa fa-check"></i><b>10.1</b> A simple linear regression model</a></li>
+<li class="chapter" data-level="10.2" data-path="lms.html"><a href="lms.html#a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>10.2</b> A multiple linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="glms.html"><a href="glms.html"><i class="fa fa-check"></i><b>11</b> Generalized Linear Models in R</a><ul>
+<li class="chapter" data-level="11.1" data-path="glms.html"><a href="glms.html#modelling-count-data-with-poisson-regression-models"><i class="fa fa-check"></i><b>11.1</b> Modelling count data with Poisson regression models</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="glms.html"><a href="glms.html#a-first-data-set"><i class="fa fa-check"></i><b>11.1.1</b> A first data set</a></li>
+<li class="chapter" data-level="11.1.2" data-path="glms.html"><a href="glms.html#fit-a-poisson-glm"><i class="fa fa-check"></i><b>11.1.2</b> Fit a Poisson GLM</a></li>
+<li class="chapter" data-level="11.1.3" data-path="glms.html"><a href="glms.html#the-use-of-exposure"><i class="fa fa-check"></i><b>11.1.3</b> The use of exposure</a></li>
+<li class="chapter" data-level="11.1.4" data-path="glms.html"><a href="glms.html#analysis-of-deviance-for-glms"><i class="fa fa-check"></i><b>11.1.4</b> Analysis of deviance for GLMs</a></li>
+<li class="chapter" data-level="11.1.5" data-path="glms.html"><a href="glms.html#an-example"><i class="fa fa-check"></i><b>11.1.5</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="glms.html"><a href="glms.html#overdispersed-poisson-regression"><i class="fa fa-check"></i><b>11.2</b> Overdispersed Poisson regression</a></li>
+<li class="chapter" data-level="11.3" data-path="glms.html"><a href="glms.html#negative-binomial-regression"><i class="fa fa-check"></i><b>11.3</b> Negative Binomial regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="biblio.html"><a href="biblio.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data science in insurance: an R intro</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="getting-started" class="section level1">
+<h1><span class="header-section-number">2</span> Getting started in R</h1>
+<p>Before we can start exploring data in R, there are some key concepts to understand first:</p>
+<ol style="list-style-type: decimal">
+<li>What are R and RStudio?</li>
+<li>How do I code in R?</li>
+<li>What are R packages?</li>
+</ol>
+<p>Much of this chapter is based on two sources which you should feel free to use as references if you are looking for additional details:</p>
+<ol style="list-style-type: decimal">
+<li>Ismay’s <a href="http://ismayc.github.io/rbasics-book">Getting used to R, RStudio, and R Markdown</a> <span class="citation">(Ismay 2016)</span>, which includes video screen recordings that you can follow along and pause as you learn.</li>
+<li>DataCamp’s online tutorials. DataCamp is a browser-based interactive platform for learning data science and their tutorials will help facilitate your learning of the above concepts (and other topics in this book). Go to <a href="https://www.datacamp.com/">DataCamp</a> and create an account before continuing.</li>
+</ol>
+<hr />
+<div id="some-history" class="section level2">
+<h2><span class="header-section-number">2.1</span> Some history</h2>
+<p>R is a dialect of the S language (developed by John Chambers at Bell Labs in the 70s), namely ‘Gnu-S’. R was written by Robert Gentleman and Ross Ihaka (while being at the University of Auckland) in 1993.</p>
+<p><img src="images/NYTimesR2009.jpg" width="308" style="display: block; margin: auto;" /></p>
+<p>The <span class="citation">(Kleiber and Zeileis 2008)</span> book sketches the history of R, in Sections 1.5 and 1.6. The R source code was first released under the GNU General Public License (GPL) in 1995. Since mid-1997, there has been the R Development Core Team, currently comprising 20 members. In 1998, the Comprehensive R Archive Network <a href="http://CRAN.R-project.org/">CRAN</a> was established, a family of mirror sites around the world that store identical, up-to-date versions of code and documentation for R. The first official release, R version 1.0.0, dates to 2000-02-29. Currently, version 3.5.0 is available.</p>
+<p>R is open source, i.e. <a href="http://en.wikipedia.org/wiki/GNU_General_Public_License">GNU General Public License</a>. The R environment (see <a href="http://www.r-project.org/about.html">About R</a>) is ‘an integrated suite of software facilities for data manipulation, calculation and graphical display’.</p>
+</div>
+<div id="what-are-r-and-rstudio" class="section level2">
+<h2><span class="header-section-number">2.2</span> What are R and RStudio?</h2>
+<p>For much of this book, we will assume that you are using R via RStudio. First time users often confuse the two. At its simplest:</p>
+<ul>
+<li>R is like a car’s engine</li>
+<li>RStudio is like a car’s dashboard</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">R: Engine</th>
+<th align="center">RStudio: Dashboard</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><img src="images/engine.jpg" alt="Drawing" style="height: 200px;"/></td>
+<td align="center"><img src="images/dashboard.jpg" alt="Drawing" style="height: 200px;"/></td>
+</tr>
+</tbody>
+</table>
+<p>More precisely, R is a programming language that runs computations while RStudio is an <em>integrated development environment (IDE)</em> that provides an interface by adding many convenient features and tools. So the way of having access to a speedometer, rearview mirrors, and a navigation system makes driving much easier, using RStudio’s interface makes using R much easier as well.</p>
+<p>Optional: For a more in-depth discussion on the difference between R and RStudio IDE, watch this <a href="https://campus.datacamp.com/courses/working-with-the-rstudio-ide-part-1/orientation?ex=1">DataCamp video (2m52s)</a>.</p>
+<div id="installing-r-and-rstudio" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Installing R and RStudio</h3>
+<p>You will first need to download and install both R and RStudio (Desktop version) on your computer.</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://cran.r-project.org/">Download and install R</a>.</li>
+</ol>
+<ul>
+<li>Note: You must do this first.</li>
+<li>Click on the download link corresponding to your computer’s operating system.</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><a href="https://www.rstudio.com/products/rstudio/download3/">Download and install RStudio</a>.</li>
+</ol>
+<ul>
+<li>Scroll down to “Installers for Supported Platforms”</li>
+<li>Click on the download link corresponding to your computer’s operating system.</li>
+</ul>
+<p>Optional: If you need more detailed instructions on how to install R and RStudio, watch this <a href="https://campus.datacamp.com/courses/working-with-the-rstudio-ide-part-1/orientation?ex=3">DataCamp video (1m22s)</a>.</p>
+</div>
+<div id="using-r-via-rstudio" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Using R via RStudio</h3>
+<p>Recall our car analogy from above. Much as we don’t drive a car by interacting directly with the engine but rather by using elements on the car’s dashboard, we won’t be using R directly but rather we will use RStudio’s interface. After you install R and RStudio on your computer, you’ll have two new programs AKA applications you can open. We will always work in RStudio and not R. In other words:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">R: Do not open this</th>
+<th align="center">RStudio: Open this</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><img src="images/Rlogo.png" alt="Drawing" style="height: 100px;"/></td>
+<td align="center"><img src="images/RStudiologo.png" alt="Drawing" style="height: 100px;"/></td>
+</tr>
+</tbody>
+</table>
+<p>After you open RStudio, you should see the following:</p>
+<div class="figure">
+<img src="images/rstudio.png" />
+
+</div>
+<p>Watch the following <a href="https://campus.datacamp.com/courses/working-with-the-rstudio-ide-part-1/orientation?ex=5">DataCamp video (4m10s)</a> to learn about the different <em>panes</em> in RStudio, in particular the <em>Console pane</em> where you will later run R code.</p>
+<hr />
+</div>
+</div>
+<div id="code" class="section level2">
+<h2><span class="header-section-number">2.3</span> How do I code in R?</h2>
+<p>Now that you’re set up with R and RStudio, you are probably asking yourself “OK. Now how do I use R?” The first thing to note as that unlike other software like Excel, STATA, or SAS that provide <a href="https://en.wikipedia.org/wiki/Point_and_click">point and click</a> interfaces, R is an <a href="https://en.wikipedia.org/wiki/Interpreted_language">interpreted language</a>, meaning you have to enter in R commands written in R code i.e. you have to program in R (we use the terms “coding” and “programming” interchangeably in this book).</p>
+<p>While it is not required to be a seasoned coder/computer programmer to use R, there is still a set of basic programming concepts that R users need to understand. Consequently, while this book is not a book on programming, you will still learn just enough of these basic programming concepts needed to explore and analyze data effectively.</p>
+<div id="tips-on-learning-to-code" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Tips on learning to code</h3>
+<p>Learning to code/program is very much like learning a foreign language, it can be very daunting and frustrating at first. However just as with learning a foreign language, if you put in the effort and are not afraid to make mistakes, anybody can learn. Lastly, there are a few useful things to keep in mind as you learn to program:</p>
+<ul>
+<li><strong>Computers are stupid</strong>: You have to tell a computer everything it needs to do. Furthermore, your instructions can’t have any mistakes in them, nor can they be ambiguous in any way.</li>
+<li><strong>Take the “copy/paste/tweak” approach</strong>: Especially when learning your first programming language, it is often much easier to taking existing code that you know works and modify it to suit your ends, rather than trying to write new code from scratch. We call this the <em>copy/paste/tweak</em> approach. So early on, we suggest not trying to code from scratch, but please take the code we provide throughout this book and play around with it!</li>
+<li><strong>Practice is key</strong>: Just as the only solution to improving your foreign language skills is practice, so also the only way to get better at R is through pracitice. Don’t worry however, we’ll give you plenty of opportunities to practice!</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="packages" class="section level2">
+<h2><span class="header-section-number">2.4</span> What are R packages?</h2>
+<p>Another point of confusion with new R users is the notion of a package. R packages extend the functionality of R by providing additional functions, data, and documentation and can be downloaded for free from the internet. They are written by a world-wide community of R users. For example, among the many packages we will use in this book are the</p>
+<ul>
+<li><code>ggplot2</code> package for data visualization in Chapter <a href="data-viz.html#data-viz">5</a></li>
+<li><code>dplyr</code> package for data wrangling in Chapter <a href="data-wrangling.html#data-wrangling">6</a></li>
+</ul>
+<p>There are two key things to remember about R packages:</p>
+<ol style="list-style-type: decimal">
+<li><em>Installation</em>: Most packages are not installed by default when you install R and RStudio. You need to install a package before you can use it. Once you’ve installed it, you likely don’t need to install it again unless you want to update it to a newer version of the package.</li>
+<li><em>Loading</em>: Packages are not loaded automatically when you open RStudio. You need to load them everytime you open RStudio using the <code>library()</code> command.</li>
+</ol>
+<p>A good analogy for R packages is they are like apps you can download onto a mobile phone:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">R: A new phone</th>
+<th align="center">R Packages: Apps you can download</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><img src="images/iphone.jpg" alt="Drawing" style="height: 200px;"/></td>
+<td align="center"><img src="images/apps.jpg" alt="Drawing" style="height: 200px;"/></td>
+</tr>
+</tbody>
+</table>
+<p>So, expanding on this analogy a bit:</p>
+<ol style="list-style-type: decimal">
+<li>R is like a new mobile phone. It has a certain amount of functionality when you use it for the first time, but it doesn’t have everything.</li>
+<li>R packages are like the apps you can download onto your phone, much like those offered in the App Store and Google Play. For example: Instagram.</li>
+<li>In order to use a package, just like in order to use Instagram, you must:</li>
+<li>First download it and install it. You do this only once.</li>
+<li>Load it, or in other words, “open” it, using the <code>library()</code> command.</li>
+</ol>
+<p>So just as you can only start sharing photos with your friends on Instagram if you first install the app and then open it, you can only access an R package’s data and functions if you first install the package and then load it with the <code>library()</code> command. Let’s cover these two steps:</p>
+<div id="package-installation" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Package installation</h3>
+<p>(Note that if you are working on an RStudio Server, you probably will not need to install your own packages as that has been already done for you. Still it is important that you know this process for later when you are not using the RStudio Server but rather your own installation of RStudio Desktop.)</p>
+<p>There are two ways to install an R package. For example, to install the <code>ggplot2</code> package:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Easy way</strong>: In the Files pane of RStudio:</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Click on the “Packages” tab</li>
+<li>Click on “Install”</li>
+<li>Type the name of the package under “Packages (separate multiple with space or comma):” In this case, type <code>ggplot2</code></li>
+<li>Click “Install”</li>
+</ol>
+<ol style="list-style-type: decimal">
+<li><strong>Alternative way</strong>: In the Console pane run <code>install.packages(&quot;ggplot2&quot;)</code> (you must include the quotation marks).</li>
+</ol>
+<p>Repeat this for the <code>dplyr</code> and <code>nycflights13</code> packages. If you still experience problems, have a look at this blog post <a href="https://www.r-bloggers.com/installing-r-packages/">Installing R packages</a>.</p>
+<p><strong>Note</strong>: You only have to install a package once, unless you want to update an already installed package to the latest version. If you want to update a package to the latest version, then re-install it by repeating the above steps.</p>
+</div>
+<div id="package-loading" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> Package loading</h3>
+<p>After you’ve installed a package, you can now load it using the <code>library()</code> command. For example, to load the <code>ggplot2</code> and <code>dplyr</code> packages, run the following code in the Console pane:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(dplyr)</code></pre></div>
+<p><strong>Note</strong>: You have to reload each package you want to use every time you open a new session of RStudio. This is a little annoying to get used to and will be your most common error as you begin. When you see an error such as</p>
+<pre><code>Error: could not find function</code></pre>
+<p>remember that this likely comes from you trying to use a function in a package that has not been loaded. Remember to run the <code>library()</code> function with the appropriate package to fix this error.</p>
+</div>
+<div id="packages-on-cran" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Packages on CRAN</h3>
+<p>R comes with a set of <code>base</code> packages or <code>base</code> system, maintained by the R core team only. Examples: <code>base</code>, <code>datasets</code>, <code>graphics</code>. Additional packages are on CRAN (Thursday 1/23/2014: 5,140 packages; Sunday 9/7/2014: 5,852 packages; Saturday 11/08/2014: 6,041 packages; Tuesday 11/8/2016: 9,473 packages; Monday 12/04/2017: 11,946 packages; Tuesday 04/10/2018: 12,430 packages). These packages are developed and maintained by R users worldwide, and shared with the R community through CRAN.</p>
+<hr />
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2><span class="header-section-number">2.5</span> Conclusion</h2>
+<p>You are now ready to get start your journey as an R-enthusiast!</p>
+<hr />
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="objects-data-types.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

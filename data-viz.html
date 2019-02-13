@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  
+  <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+
+
+<meta name="date" content="2018-09-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="started-with-data.html">
+<link rel="next" href="data-wrangling.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#subsec:learning-goals"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#subsec:pipeline"><i class="fa fa-check"></i><b>1.2</b> Data/science pipeline</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#inspirations-and-references"><i class="fa fa-check"></i><b>1.3</b> Inspirations and references</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#sec:about-book"><i class="fa fa-check"></i><b>1.4</b> About this book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting started in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started.html"><a href="getting-started.html#some-history"><i class="fa fa-check"></i><b>2.1</b> Some history</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-started.html"><a href="getting-started.html#what-are-r-and-rstudio"><i class="fa fa-check"></i><b>2.2</b> What are R and RStudio?</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started.html"><a href="getting-started.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>2.2.1</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started.html"><a href="getting-started.html#using-r-via-rstudio"><i class="fa fa-check"></i><b>2.2.2</b> Using R via RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="getting-started.html"><a href="getting-started.html#code"><i class="fa fa-check"></i><b>2.3</b> How do I code in R?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="getting-started.html"><a href="getting-started.html#tips-on-learning-to-code"><i class="fa fa-check"></i><b>2.3.1</b> Tips on learning to code</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="getting-started.html"><a href="getting-started.html#packages"><i class="fa fa-check"></i><b>2.4</b> What are R packages?</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="getting-started.html"><a href="getting-started.html#package-installation"><i class="fa fa-check"></i><b>2.4.1</b> Package installation</a></li>
+<li class="chapter" data-level="2.4.2" data-path="getting-started.html"><a href="getting-started.html#package-loading"><i class="fa fa-check"></i><b>2.4.2</b> Package loading</a></li>
+<li class="chapter" data-level="2.4.3" data-path="getting-started.html"><a href="getting-started.html#packages-on-cran"><i class="fa fa-check"></i><b>2.4.3</b> Packages on CRAN</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="getting-started.html"><a href="getting-started.html#conclusion"><i class="fa fa-check"></i><b>2.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
+<li class="chapter" data-level="4.2.2" data-path="started-with-data.html"><a href="started-with-data.html#find-minimum-or-maximum"><i class="fa fa-check"></i><b>4.2.2</b> Find minimum or maximum</a></li>
+<li class="chapter" data-level="4.2.3" data-path="started-with-data.html"><a href="started-with-data.html#sorting"><i class="fa fa-check"></i><b>4.2.3</b> Sorting</a></li>
+<li class="chapter" data-level="4.2.4" data-path="started-with-data.html"><a href="started-with-data.html#merging"><i class="fa fa-check"></i><b>4.2.4</b> Merging</a></li>
+<li class="chapter" data-level="4.2.5" data-path="started-with-data.html"><a href="started-with-data.html#aggregate"><i class="fa fa-check"></i><b>4.2.5</b> Aggregate</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="started-with-data.html"><a href="started-with-data.html#exploratory-data-analysis-eda"><i class="fa fa-check"></i><b>4.3</b> Exploratory Data Analysis (EDA)</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-numerical-variable"><i class="fa fa-check"></i><b>4.3.1</b> Exploring a numerical variable</a></li>
+<li class="chapter" data-level="4.3.2" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-categorical-or-factor-variable"><i class="fa fa-check"></i><b>4.3.2</b> Exploring a categorical (or: factor) variable</a></li>
+<li class="chapter" data-level="4.3.3" data-path="started-with-data.html"><a href="started-with-data.html#exploring-two-categorical-or-factor-variables"><i class="fa fa-check"></i><b>4.3.3</b> Exploring two categorical (or: factor) variables</a></li>
+<li class="chapter" data-level="4.3.4" data-path="started-with-data.html"><a href="started-with-data.html#exploring-one-numerical-and-one-categorical-variable"><i class="fa fa-check"></i><b>4.3.4</b> Exploring one numerical and one categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="started-with-data.html"><a href="started-with-data.html#exercises-1"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-viz.html"><a href="data-viz.html"><i class="fa fa-check"></i><b>5</b> Visualizing data in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-viz.html"><a href="data-viz.html#basic-plot-instructions"><i class="fa fa-check"></i><b>5.1</b> Basic plot instructions</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-viz.html"><a href="data-viz.html#scatterplot"><i class="fa fa-check"></i><b>5.1.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-viz.html"><a href="data-viz.html#saving-the-scatterplot-as-a-pdf"><i class="fa fa-check"></i><b>5.1.2</b> Saving the scatterplot as a pdf</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-viz.html"><a href="data-viz.html#the-curve-function"><i class="fa fa-check"></i><b>5.1.3</b> The <code>curve()</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-viz.html"><a href="data-viz.html#more-fancy-plots"><i class="fa fa-check"></i><b>5.2</b> More fancy plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-viz.html"><a href="data-viz.html#creating-graphics-with-ggplot2"><i class="fa fa-check"></i><b>5.2.1</b> Creating graphics with <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-viz.html"><a href="data-viz.html#fancy-correlation-plots"><i class="fa fa-check"></i><b>5.2.2</b> Fancy correlation plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-viz.html"><a href="data-viz.html#exercises-2"><i class="fa fa-check"></i><b>5.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>6</b> Data wrangling in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#ideas-from-the-tidyverse"><i class="fa fa-check"></i><b>6.1</b> Ideas from the <code>tidyverse</code></a><ul>
+<li class="chapter" data-level="6.1.1" data-path="data-wrangling.html"><a href="data-wrangling.html#a-tibble-instead-of-a-data.frame"><i class="fa fa-check"></i><b>6.1.1</b> A <code>tibble</code> instead of a <code>data.frame</code></a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-wrangling.html"><a href="data-wrangling.html#pipes-in-r"><i class="fa fa-check"></i><b>6.1.2</b> Pipes in R</a></li>
+<li class="chapter" data-level="6.1.3" data-path="data-wrangling.html"><a href="data-wrangling.html#filter-observations-using-filter"><i class="fa fa-check"></i><b>6.1.3</b> Filter observations using <code>filter</code></a></li>
+<li class="chapter" data-level="6.1.4" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-variables-using-summarize"><i class="fa fa-check"></i><b>6.1.4</b> Summarize variables using <code>summarize</code></a></li>
+<li class="chapter" data-level="6.1.5" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-based-on-groupings-of-another-variable"><i class="fa fa-check"></i><b>6.1.5</b> Summarize based on groupings of another variable</a></li>
+<li class="chapter" data-level="6.1.6" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-tibbles"><i class="fa fa-check"></i><b>6.1.6</b> Joining tibbles</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data-science-the-data.table-way"><i class="fa fa-check"></i><b>6.2</b> Data science the <code>data.table</code> way</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#speed-junkies-love-data.table"><i class="fa fa-check"></i><b>6.2.1</b> Speed junkies love <code>data.table</code></a></li>
+<li class="chapter" data-level="6.2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#what-is-a-data.table"><i class="fa fa-check"></i><b>6.2.2</b> What is a <code>data.table</code>?</a></li>
+<li class="chapter" data-level="6.2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#identify-keys"><i class="fa fa-check"></i><b>6.2.3</b> Identify keys</a></li>
+<li class="chapter" data-level="6.2.4" data-path="data-wrangling.html"><a href="data-wrangling.html#alternative-and-faster-ways-to-aggregate"><i class="fa fa-check"></i><b>6.2.4</b> Alternative and faster ways to <code>aggregate</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-data.tables"><i class="fa fa-check"></i><b>6.2.5</b> Joining <code>data.tables</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#exercises-3"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probs.html"><a href="probs.html"><i class="fa fa-check"></i><b>7</b> Working with probability distributions in R</a><ul>
+<li class="chapter" data-level="7.1" data-path="probs.html"><a href="probs.html#discrete-distributions"><i class="fa fa-check"></i><b>7.1</b> Discrete distributions</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="probs.html"><a href="probs.html#the-binomial-distribution"><i class="fa fa-check"></i><b>7.1.1</b> The binomial distribution</a></li>
+<li class="chapter" data-level="7.1.2" data-path="probs.html"><a href="probs.html#the-poisson-distribution"><i class="fa fa-check"></i><b>7.1.2</b> The Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="probs.html"><a href="probs.html#continuous-distributions"><i class="fa fa-check"></i><b>7.2</b> Continuous distributions</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="probs.html"><a href="probs.html#the-normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> The normal distribution</a></li>
+<li class="chapter" data-level="7.2.2" data-path="probs.html"><a href="probs.html#the-gamma-distribution"><i class="fa fa-check"></i><b>7.2.2</b> The gamma distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
+<li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
+<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-4"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
+<li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
+<li class="chapter" data-level="9.2" data-path="optimization.html"><a href="optimization.html#find-the-maximum-of-a-function"><i class="fa fa-check"></i><b>9.2</b> Find the maximum of a function</a></li>
+<li class="chapter" data-level="9.3" data-path="optimization.html"><a href="optimization.html#do-maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>9.3</b> Do Maximum Likelihood Estimation (MLE)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lms.html"><a href="lms.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models in R</a><ul>
+<li class="chapter" data-level="10.1" data-path="lms.html"><a href="lms.html#a-simple-linear-regression-model"><i class="fa fa-check"></i><b>10.1</b> A simple linear regression model</a></li>
+<li class="chapter" data-level="10.2" data-path="lms.html"><a href="lms.html#a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>10.2</b> A multiple linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="glms.html"><a href="glms.html"><i class="fa fa-check"></i><b>11</b> Generalized Linear Models in R</a><ul>
+<li class="chapter" data-level="11.1" data-path="glms.html"><a href="glms.html#modelling-count-data-with-poisson-regression-models"><i class="fa fa-check"></i><b>11.1</b> Modelling count data with Poisson regression models</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="glms.html"><a href="glms.html#a-first-data-set"><i class="fa fa-check"></i><b>11.1.1</b> A first data set</a></li>
+<li class="chapter" data-level="11.1.2" data-path="glms.html"><a href="glms.html#fit-a-poisson-glm"><i class="fa fa-check"></i><b>11.1.2</b> Fit a Poisson GLM</a></li>
+<li class="chapter" data-level="11.1.3" data-path="glms.html"><a href="glms.html#the-use-of-exposure"><i class="fa fa-check"></i><b>11.1.3</b> The use of exposure</a></li>
+<li class="chapter" data-level="11.1.4" data-path="glms.html"><a href="glms.html#analysis-of-deviance-for-glms"><i class="fa fa-check"></i><b>11.1.4</b> Analysis of deviance for GLMs</a></li>
+<li class="chapter" data-level="11.1.5" data-path="glms.html"><a href="glms.html#an-example"><i class="fa fa-check"></i><b>11.1.5</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="glms.html"><a href="glms.html#overdispersed-poisson-regression"><i class="fa fa-check"></i><b>11.2</b> Overdispersed Poisson regression</a></li>
+<li class="chapter" data-level="11.3" data-path="glms.html"><a href="glms.html#negative-binomial-regression"><i class="fa fa-check"></i><b>11.3</b> Negative Binomial regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="biblio.html"><a href="biblio.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data science in insurance: an R intro</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-viz" class="section level1">
+<h1><span class="header-section-number">5</span> Visualizing data in R</h1>
+<p>You’ll now continue with building insightful graphics in R.</p>
+<div id="basic-plot-instructions" class="section level2">
+<h2><span class="header-section-number">5.1</span> Basic plot instructions</h2>
+<div id="scatterplot" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Scatterplot</h3>
+<p>Your starting point is the construction of a scatterplot. You’ll work with the <code>Journals</code> data from the <code>AER</code> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load the &#39;Journals&#39; data set in the AER package</span>
+<span class="kw">data</span>(<span class="st">&quot;Journals&quot;</span>)
+<span class="co"># scan the data</span>
+<span class="kw">head</span>(Journals)</code></pre></div>
+<pre><code>                                                     title
+APEL                     Asian-Pacific Economic Literature
+SAJoEH           South African Journal of Economic History
+CE                                 Computational Economics
+MEPiTE MOCT-MOST Economic Policy in Transitional Economics
+JoSE                            Journal of Socio-Economics
+LabEc                                     Labour Economics
+                    publisher society price pages charpp citations foundingyear
+APEL                Blackwell      no   123   440   3822        21         1986
+SAJoEH So Afr ec history assn      no    20   309   1782        22         1986
+CE                     Kluwer      no   443   567   2924        22         1987
+MEPiTE                 Kluwer      no   276   520   3234        22         1991
+JoSE                 Elsevier      no   295   791   3024        24         1972
+LabEc                Elsevier      no   344   609   2967        24         1994
+       subs             field
+APEL     14           General
+SAJoEH   59  Economic History
+CE       17       Specialized
+MEPiTE    2      Area Studies
+JoSE     96 Interdisciplinary
+LabEc    15             Labor</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(Journals)</code></pre></div>
+<pre><code> [1] &quot;title&quot;        &quot;publisher&quot;    &quot;society&quot;      &quot;price&quot;        &quot;pages&quot;       
+ [6] &quot;charpp&quot;       &quot;citations&quot;    &quot;foundingyear&quot; &quot;subs&quot;         &quot;field&quot;       </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># e.g. get variable &#39;price&#39; </span>
+Journals<span class="op">$</span>price</code></pre></div>
+<pre><code>  [1]  123   20  443  276  295  344   90  242  226  262  279  165  242  905  355
+ [16]  375  135  171  284  242  371  115  355  355  835  223  172   62  191  411
+ [31]  274  130  100   80  235  392  410  464  650  558  317  495  535  123  717
+ [46]  481   54  379  168   82  355   95  240  448  255  448  392  475   85  108
+ [61]  394  336  565  255  165   99  203  318  476  473  186  170  824  805  132
+ [76]   50  424  130   90  805   96  448  130  595  474  410  395  437  270  265
+ [91]  899  133  262  506 1140  211  799  760  442  296  272   45  614  436  481
+[106]   95  357  280  142  710  490  870 1147  743  759   36  224   82  160 1170
+[121]   90  742  575  163  175  120  590 2120  205  128 1539  346 1046   97  686
+[136]  914   85  206 1154   45 1146   95  138  115  640  122  110  923 1000 1234
+[151] 1492  810   90  177   74  113  145  590 1154 1450 1431   47   45   47   81
+[166] 1010  334  190  180 1893 1400  301 1339   90  310  226  148  159  178   47</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(Journals<span class="op">$</span>price)</code></pre></div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+     20     134     282     418     541    2120 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># focus on price of journal per citation</span>
+Journals<span class="op">$</span>citeprice &lt;-<span class="st"> </span>Journals<span class="op">$</span>price<span class="op">/</span>Journals<span class="op">$</span>citations</code></pre></div>
+<p>Now you’ll construct a scatterplot of the number of subscriptions versus the price per citation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(Journals)
+<span class="kw">plot</span>(<span class="kw">log</span>(subs), <span class="kw">log</span>(citeprice))
+<span class="kw">rug</span>(<span class="kw">log</span>(subs))  <span class="co"># adds ticks, thus visualizing the marginal distributions of</span>
+            <span class="co"># the variables, along one or both axes of an existing plot.        </span>
+<span class="kw">rug</span>(<span class="kw">log</span>(citeprice), <span class="dt">side =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(Journals)
+<span class="co"># avoid &quot;attach()&quot; and &quot;detach()&quot;</span>
+<span class="kw">plot</span>(<span class="kw">log</span>(subs) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(citeprice), <span class="dt">data =</span> Journals)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-53-2.png" width="576" style="display: block; margin: auto;" /> R has many plotting options that allow you to flex a graph. For example, <code>pch</code> for the plotting character, <code>col</code> for the color of the plotting characters, <code>xlim</code> and <code>ylim</code> to adjust the limits on the x- and y-axis of the scatterplot.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">log</span>(citeprice)<span class="op">~</span><span class="kw">log</span>(subs), <span class="dt">data =</span> Journals, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">8</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">7</span>, <span class="dv">4</span>), <span class="dt">main =</span> <span class="st">&quot;Library subscriptions&quot;</span>)
+<span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>subs))
+<span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>citeprice), <span class="dt">side=</span><span class="dv">2</span>)
+<span class="co"># subset data, look at journal entitled &quot;Econometrica&quot;</span>
+journal &lt;-<span class="st"> &quot;Econometrica&quot;</span>
+journal_info &lt;-<span class="st"> </span><span class="kw">subset</span>(Journals, title<span class="op">==</span>journal)
+x.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>subs)
+y.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>citeprice)
+<span class="kw">text</span>(x.val, y.val, journal, <span class="dt">pos=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="saving-the-scatterplot-as-a-pdf" class="section level3">
+<h3><span class="header-section-number">5.1.2</span> Saving the scatterplot as a pdf</h3>
+<p>It is often very useful to directly store your customized graph as a pdf (with appropriate dimensions) in a particular directory on your machine.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&#39;C:/Users/u0043788/Dropbox/PE Introduction to R/graphs&#39;</span>)
+graph.path &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;myfile.pdf&quot;</span>)
+<span class="kw">pdf</span>(graph.path, <span class="dt">height =</span> <span class="dv">5</span>, <span class="dt">width =</span> <span class="dv">6</span>)
+    <span class="kw">plot</span>(<span class="kw">log</span>(citeprice)<span class="op">~</span><span class="kw">log</span>(subs), <span class="dt">data =</span> Journals, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">xlim =</span>   
+           <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">8</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">7</span>, <span class="dv">4</span>),
+    <span class="dt">main =</span> <span class="st">&quot;Library subscriptions&quot;</span>)
+    <span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>subs))
+    <span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>citeprice),<span class="dt">side=</span><span class="dv">2</span>)
+    journal &lt;-<span class="st"> &quot;Econometrica&quot;</span>
+  journal_info &lt;-<span class="st"> </span><span class="kw">subset</span>(Journals, title<span class="op">==</span>journal)
+  x.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>subs)
+  y.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>citeprice)
+  <span class="kw">text</span>(x.val, y.val, journal, <span class="dt">pos=</span><span class="dv">2</span>)
+<span class="kw">dev.off</span>()</code></pre></div>
+</div>
+<div id="the-curve-function" class="section level3">
+<h3><span class="header-section-number">5.1.3</span> The <code>curve()</code> function</h3>
+<p>This function draws a curve corresponding to a function over the interval [from, to].</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">curve</span>(dnorm, <span class="dt">from =</span> <span class="op">-</span><span class="dv">5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&quot;slategray&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">main =</span> <span class="st">&quot;Density of the standard normal distribution&quot;</span>)
+<span class="kw">text</span>(<span class="op">-</span><span class="dv">5</span>, <span class="fl">0.3</span>, <span class="kw">expression</span>(<span class="kw">f</span>(x) <span class="op">==</span><span class="st"> </span><span class="kw">frac</span>(<span class="dv">1</span>, sigma <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi)) <span class="op">~</span><span class="er">~</span><span class="st"> </span>e<span class="op">^</span>{<span class="op">-</span><span class="kw">frac</span>((x <span class="op">-</span><span class="st"> </span>mu)<span class="op">^</span><span class="dv">2</span>, <span class="dv">2</span><span class="op">*</span>sigma<span class="op">^</span><span class="dv">2</span>)}),<span class="dt">adj=</span><span class="dv">0</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="576" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+</div>
+<div id="more-fancy-plots" class="section level2">
+<h2><span class="header-section-number">5.2</span> More fancy plots</h2>
+<p>R has many dedicated packages for advanced plotting. You will work with two of them in this Section.</p>
+<div id="creating-graphics-with-ggplot2" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Creating graphics with <code>ggplot2</code></h3>
+<p><code>ggplot2</code> is a package created and maintained by prof. Hadley Wickham, it’s aim is to Create Elegant Data Visualisations Using the Grammar of Graphics. Here is the basic explanation of how <code>ggplot2</code> works from <span class="citation">(Grolemund and Wickham 2016)</span>.</p>
+<p>With <code>ggplot2</code>, you begin a plot with the function <code>ggplot()</code>. <code>ggplot()</code> creates a coordinate system that you can add layers to. The first argument of <code>ggplot()</code> is the dataset to use in the graph. So <code>ggplot(data = mpg)</code> or <code>ggplot(mpg)</code> creates an empty graph.</p>
+<p>You complete your graph by adding one or more layers to <code>ggplot()</code>. The function <code>geom_point()</code> adds a layer of points to your plot, which creates a scatterplot. <code>ggplot2</code> comes with many geom functions that each add a different type of layer to a plot.</p>
+<p>Each geom function in <code>ggplot2</code> takes a mapping argument. This defines how variables in your dataset are mapped to visual properties. The mapping argument is always paired with <code>aes()</code>, and the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> arguments of <code>aes()</code> specify which variables to map to the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axes. <code>ggplot2</code> looks for the mapped variable in the data argument, in this case, <code>mpg</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+
+<span class="co"># use default theme</span>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> mtcars, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>() </code></pre></div>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># shorter</span>
+<span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>() </code></pre></div>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use black and white lay-out</span>
+<span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>() </code></pre></div>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-3.png" width="576" style="display: block; margin: auto;" /></p>
+<p>You can add a third variable to a two dimensional scatterplot by mapping it to an aesthetic. An aesthetic is a visual property of the objects in your plot. Aesthetics include things like the size, the shape, or the color of your points. You can display a point in different ways by changing the values of its aesthetic properties.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> gear))</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Or you could have mapped this variable to the alpha aesthetic, which controls the transparency of the points, or the shape of the points.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">alpha =</span> gear))</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">size =</span> gear))</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-59-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p>You’ll now construct a boxplot of <code>mpg</code> per <code>cyl</code> using <code>ggplot()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-60-1.png" width="576" style="display: block; margin: auto;" /> Another way to code the same example</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg))
+p <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="fancy-correlation-plots" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Fancy correlation plots</h3>
+<p>You use the package <code>corrplot</code> to visualize correlations between variables. For more examples, see <a href="http://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html">corrplot</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(corrplot)
+<span class="co"># get correlation matrix</span>
+M &lt;-<span class="st"> </span><span class="kw">cor</span>(mtcars)
+<span class="kw">str</span>(M)</code></pre></div>
+<pre><code> num [1:11, 1:11] 1 -0.852 -0.848 -0.776 0.681 ...
+ - attr(*, &quot;dimnames&quot;)=List of 2
+  ..$ : chr [1:11] &quot;mpg&quot; &quot;cyl&quot; &quot;disp&quot; &quot;hp&quot; ...
+  ..$ : chr [1:11] &quot;mpg&quot; &quot;cyl&quot; &quot;disp&quot; &quot;hp&quot; ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">M</code></pre></div>
+<pre><code>          mpg      cyl     disp       hp      drat       wt      qsec       vs
+mpg   1.00000 -0.85216 -0.84755 -0.77617  0.681172 -0.86766  0.418684  0.66404
+cyl  -0.85216  1.00000  0.90203  0.83245 -0.699938  0.78250 -0.591242 -0.81081
+disp -0.84755  0.90203  1.00000  0.79095 -0.710214  0.88798 -0.433698 -0.71042
+hp   -0.77617  0.83245  0.79095  1.00000 -0.448759  0.65875 -0.708223 -0.72310
+drat  0.68117 -0.69994 -0.71021 -0.44876  1.000000 -0.71244  0.091205  0.44028
+wt   -0.86766  0.78250  0.88798  0.65875 -0.712441  1.00000 -0.174716 -0.55492
+qsec  0.41868 -0.59124 -0.43370 -0.70822  0.091205 -0.17472  1.000000  0.74454
+vs    0.66404 -0.81081 -0.71042 -0.72310  0.440278 -0.55492  0.744535  1.00000
+am    0.59983 -0.52261 -0.59123 -0.24320  0.712711 -0.69250 -0.229861  0.16835
+gear  0.48028 -0.49269 -0.55557 -0.12570  0.699610 -0.58329 -0.212682  0.20602
+carb -0.55093  0.52699  0.39498  0.74981 -0.090790  0.42761 -0.656249 -0.56961
+            am     gear      carb
+mpg   0.599832  0.48028 -0.550925
+cyl  -0.522607 -0.49269  0.526988
+disp -0.591227 -0.55557  0.394977
+hp   -0.243204 -0.12570  0.749812
+drat  0.712711  0.69961 -0.090790
+wt   -0.692495 -0.58329  0.427606
+qsec -0.229861 -0.21268 -0.656249
+vs    0.168345  0.20602 -0.569607
+am    1.000000  0.79406  0.057534
+gear  0.794059  1.00000  0.274073
+carb  0.057534  0.27407  1.000000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize the correlation structure</span>
+<span class="kw">corrplot</span>(M, <span class="dt">method=</span><span class="st">&quot;circle&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-62-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">corrplot</span>(M, <span class="dt">method=</span><span class="st">&quot;square&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-62-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">corrplot</span>(M, <span class="dt">method=</span><span class="st">&quot;color&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-62-3.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">corrplot</span>(M, <span class="dt">type=</span><span class="st">&quot;upper&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-62-4.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">corrplot</span>(M, <span class="dt">type=</span><span class="st">&quot;upper&quot;</span>, <span class="dt">method=</span><span class="st">&quot;square&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-62-5.png" width="576" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+</div>
+<div id="exercises-2" class="section level2">
+<h2><span class="header-section-number">5.3</span> Exercises</h2>
+<div class="learncheck">
+<p>
+<strong><em>Learning check</em></strong>
+</p>
+</div>
+<ol style="list-style-type: decimal">
+<li><p>Use the Danish fire insurance losses. Plot the arrival of losses over time. Use <code>type= &quot;l&quot;</code> for a line plot, label the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>-axis, and give the plot a title using <code>main</code>.</p></li>
+<li><p>Do the same with instructions from <code>ggplot2</code>. Get inspiration from <a href="http://r4ds.had.co.nz/data-visualisation.html">R for Data Science</a> and use <code>geom_line()</code> to create the line plot.</p></li>
+<li>Use the data set ‘car_price.csv’ available in the documentation.</li>
+</ol>
+<ul>
+<li>Import the data in R.</li>
+<li>Explore the data.</li>
+<li>Make a scatterplot of price versus income, use basic plotting instructions and use <code>ggplot2</code>.</li>
+<li>Add a smooth line to each of the plots (using <code>lines</code> to add a line to an existing plot and <code>lowess</code> to do scatterplot smoothing and using <code>geom_smooth</code> in the <code>ggplot2</code> grammar).</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>Use the <code>mpg</code> data set. Work through the following steps. The data contains observations collected by the US Environment Protection Agency on 38 models of car.</li>
+</ol>
+<ul>
+<li>Explore the data.</li>
+<li>Plot <code>displ</code>, a car’s engine size, in litres on the <span class="math inline">\(x\)</span>-axis and <code>hwy</code>, on the <span class="math inline">\(y\)</span>-axis, that is the car’s fuel efficiency on the highway, in miles per gallon (mpg).</li>
+<li>Now do the same but use different colors for the points, based on the <code>class</code> variable in <code>mpg</code>. Add a smooth line.</li>
+</ul>
+<div class="learncheck">
+
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="started-with-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-wrangling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

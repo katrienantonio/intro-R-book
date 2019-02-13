@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  
+  <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+
+
+<meta name="date" content="2018-09-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="optimization.html">
+<link rel="next" href="glms.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#subsec:learning-goals"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#subsec:pipeline"><i class="fa fa-check"></i><b>1.2</b> Data/science pipeline</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#inspirations-and-references"><i class="fa fa-check"></i><b>1.3</b> Inspirations and references</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#sec:about-book"><i class="fa fa-check"></i><b>1.4</b> About this book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting started in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started.html"><a href="getting-started.html#some-history"><i class="fa fa-check"></i><b>2.1</b> Some history</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-started.html"><a href="getting-started.html#what-are-r-and-rstudio"><i class="fa fa-check"></i><b>2.2</b> What are R and RStudio?</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started.html"><a href="getting-started.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>2.2.1</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started.html"><a href="getting-started.html#using-r-via-rstudio"><i class="fa fa-check"></i><b>2.2.2</b> Using R via RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="getting-started.html"><a href="getting-started.html#code"><i class="fa fa-check"></i><b>2.3</b> How do I code in R?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="getting-started.html"><a href="getting-started.html#tips-on-learning-to-code"><i class="fa fa-check"></i><b>2.3.1</b> Tips on learning to code</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="getting-started.html"><a href="getting-started.html#packages"><i class="fa fa-check"></i><b>2.4</b> What are R packages?</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="getting-started.html"><a href="getting-started.html#package-installation"><i class="fa fa-check"></i><b>2.4.1</b> Package installation</a></li>
+<li class="chapter" data-level="2.4.2" data-path="getting-started.html"><a href="getting-started.html#package-loading"><i class="fa fa-check"></i><b>2.4.2</b> Package loading</a></li>
+<li class="chapter" data-level="2.4.3" data-path="getting-started.html"><a href="getting-started.html#packages-on-cran"><i class="fa fa-check"></i><b>2.4.3</b> Packages on CRAN</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="getting-started.html"><a href="getting-started.html#conclusion"><i class="fa fa-check"></i><b>2.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
+<li class="chapter" data-level="4.2.2" data-path="started-with-data.html"><a href="started-with-data.html#find-minimum-or-maximum"><i class="fa fa-check"></i><b>4.2.2</b> Find minimum or maximum</a></li>
+<li class="chapter" data-level="4.2.3" data-path="started-with-data.html"><a href="started-with-data.html#sorting"><i class="fa fa-check"></i><b>4.2.3</b> Sorting</a></li>
+<li class="chapter" data-level="4.2.4" data-path="started-with-data.html"><a href="started-with-data.html#merging"><i class="fa fa-check"></i><b>4.2.4</b> Merging</a></li>
+<li class="chapter" data-level="4.2.5" data-path="started-with-data.html"><a href="started-with-data.html#aggregate"><i class="fa fa-check"></i><b>4.2.5</b> Aggregate</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="started-with-data.html"><a href="started-with-data.html#exploratory-data-analysis-eda"><i class="fa fa-check"></i><b>4.3</b> Exploratory Data Analysis (EDA)</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-numerical-variable"><i class="fa fa-check"></i><b>4.3.1</b> Exploring a numerical variable</a></li>
+<li class="chapter" data-level="4.3.2" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-categorical-or-factor-variable"><i class="fa fa-check"></i><b>4.3.2</b> Exploring a categorical (or: factor) variable</a></li>
+<li class="chapter" data-level="4.3.3" data-path="started-with-data.html"><a href="started-with-data.html#exploring-two-categorical-or-factor-variables"><i class="fa fa-check"></i><b>4.3.3</b> Exploring two categorical (or: factor) variables</a></li>
+<li class="chapter" data-level="4.3.4" data-path="started-with-data.html"><a href="started-with-data.html#exploring-one-numerical-and-one-categorical-variable"><i class="fa fa-check"></i><b>4.3.4</b> Exploring one numerical and one categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="started-with-data.html"><a href="started-with-data.html#exercises-1"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-viz.html"><a href="data-viz.html"><i class="fa fa-check"></i><b>5</b> Visualizing data in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-viz.html"><a href="data-viz.html#basic-plot-instructions"><i class="fa fa-check"></i><b>5.1</b> Basic plot instructions</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-viz.html"><a href="data-viz.html#scatterplot"><i class="fa fa-check"></i><b>5.1.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-viz.html"><a href="data-viz.html#saving-the-scatterplot-as-a-pdf"><i class="fa fa-check"></i><b>5.1.2</b> Saving the scatterplot as a pdf</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-viz.html"><a href="data-viz.html#the-curve-function"><i class="fa fa-check"></i><b>5.1.3</b> The <code>curve()</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-viz.html"><a href="data-viz.html#more-fancy-plots"><i class="fa fa-check"></i><b>5.2</b> More fancy plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-viz.html"><a href="data-viz.html#creating-graphics-with-ggplot2"><i class="fa fa-check"></i><b>5.2.1</b> Creating graphics with <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-viz.html"><a href="data-viz.html#fancy-correlation-plots"><i class="fa fa-check"></i><b>5.2.2</b> Fancy correlation plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-viz.html"><a href="data-viz.html#exercises-2"><i class="fa fa-check"></i><b>5.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>6</b> Data wrangling in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#ideas-from-the-tidyverse"><i class="fa fa-check"></i><b>6.1</b> Ideas from the <code>tidyverse</code></a><ul>
+<li class="chapter" data-level="6.1.1" data-path="data-wrangling.html"><a href="data-wrangling.html#a-tibble-instead-of-a-data.frame"><i class="fa fa-check"></i><b>6.1.1</b> A <code>tibble</code> instead of a <code>data.frame</code></a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-wrangling.html"><a href="data-wrangling.html#pipes-in-r"><i class="fa fa-check"></i><b>6.1.2</b> Pipes in R</a></li>
+<li class="chapter" data-level="6.1.3" data-path="data-wrangling.html"><a href="data-wrangling.html#filter-observations-using-filter"><i class="fa fa-check"></i><b>6.1.3</b> Filter observations using <code>filter</code></a></li>
+<li class="chapter" data-level="6.1.4" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-variables-using-summarize"><i class="fa fa-check"></i><b>6.1.4</b> Summarize variables using <code>summarize</code></a></li>
+<li class="chapter" data-level="6.1.5" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-based-on-groupings-of-another-variable"><i class="fa fa-check"></i><b>6.1.5</b> Summarize based on groupings of another variable</a></li>
+<li class="chapter" data-level="6.1.6" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-tibbles"><i class="fa fa-check"></i><b>6.1.6</b> Joining tibbles</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data-science-the-data.table-way"><i class="fa fa-check"></i><b>6.2</b> Data science the <code>data.table</code> way</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#speed-junkies-love-data.table"><i class="fa fa-check"></i><b>6.2.1</b> Speed junkies love <code>data.table</code></a></li>
+<li class="chapter" data-level="6.2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#what-is-a-data.table"><i class="fa fa-check"></i><b>6.2.2</b> What is a <code>data.table</code>?</a></li>
+<li class="chapter" data-level="6.2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#identify-keys"><i class="fa fa-check"></i><b>6.2.3</b> Identify keys</a></li>
+<li class="chapter" data-level="6.2.4" data-path="data-wrangling.html"><a href="data-wrangling.html#alternative-and-faster-ways-to-aggregate"><i class="fa fa-check"></i><b>6.2.4</b> Alternative and faster ways to <code>aggregate</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-data.tables"><i class="fa fa-check"></i><b>6.2.5</b> Joining <code>data.tables</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#exercises-3"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probs.html"><a href="probs.html"><i class="fa fa-check"></i><b>7</b> Working with probability distributions in R</a><ul>
+<li class="chapter" data-level="7.1" data-path="probs.html"><a href="probs.html#discrete-distributions"><i class="fa fa-check"></i><b>7.1</b> Discrete distributions</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="probs.html"><a href="probs.html#the-binomial-distribution"><i class="fa fa-check"></i><b>7.1.1</b> The binomial distribution</a></li>
+<li class="chapter" data-level="7.1.2" data-path="probs.html"><a href="probs.html#the-poisson-distribution"><i class="fa fa-check"></i><b>7.1.2</b> The Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="probs.html"><a href="probs.html#continuous-distributions"><i class="fa fa-check"></i><b>7.2</b> Continuous distributions</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="probs.html"><a href="probs.html#the-normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> The normal distribution</a></li>
+<li class="chapter" data-level="7.2.2" data-path="probs.html"><a href="probs.html#the-gamma-distribution"><i class="fa fa-check"></i><b>7.2.2</b> The gamma distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
+<li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
+<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-4"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
+<li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
+<li class="chapter" data-level="9.2" data-path="optimization.html"><a href="optimization.html#find-the-maximum-of-a-function"><i class="fa fa-check"></i><b>9.2</b> Find the maximum of a function</a></li>
+<li class="chapter" data-level="9.3" data-path="optimization.html"><a href="optimization.html#do-maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>9.3</b> Do Maximum Likelihood Estimation (MLE)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lms.html"><a href="lms.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models in R</a><ul>
+<li class="chapter" data-level="10.1" data-path="lms.html"><a href="lms.html#a-simple-linear-regression-model"><i class="fa fa-check"></i><b>10.1</b> A simple linear regression model</a></li>
+<li class="chapter" data-level="10.2" data-path="lms.html"><a href="lms.html#a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>10.2</b> A multiple linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="glms.html"><a href="glms.html"><i class="fa fa-check"></i><b>11</b> Generalized Linear Models in R</a><ul>
+<li class="chapter" data-level="11.1" data-path="glms.html"><a href="glms.html#modelling-count-data-with-poisson-regression-models"><i class="fa fa-check"></i><b>11.1</b> Modelling count data with Poisson regression models</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="glms.html"><a href="glms.html#a-first-data-set"><i class="fa fa-check"></i><b>11.1.1</b> A first data set</a></li>
+<li class="chapter" data-level="11.1.2" data-path="glms.html"><a href="glms.html#fit-a-poisson-glm"><i class="fa fa-check"></i><b>11.1.2</b> Fit a Poisson GLM</a></li>
+<li class="chapter" data-level="11.1.3" data-path="glms.html"><a href="glms.html#the-use-of-exposure"><i class="fa fa-check"></i><b>11.1.3</b> The use of exposure</a></li>
+<li class="chapter" data-level="11.1.4" data-path="glms.html"><a href="glms.html#analysis-of-deviance-for-glms"><i class="fa fa-check"></i><b>11.1.4</b> Analysis of deviance for GLMs</a></li>
+<li class="chapter" data-level="11.1.5" data-path="glms.html"><a href="glms.html#an-example"><i class="fa fa-check"></i><b>11.1.5</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="glms.html"><a href="glms.html#overdispersed-poisson-regression"><i class="fa fa-check"></i><b>11.2</b> Overdispersed Poisson regression</a></li>
+<li class="chapter" data-level="11.3" data-path="glms.html"><a href="glms.html#negative-binomial-regression"><i class="fa fa-check"></i><b>11.3</b> Negative Binomial regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="biblio.html"><a href="biblio.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data science in insurance: an R intro</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lms" class="section level1">
+<h1><span class="header-section-number">10</span> Linear Regression Models in R</h1>
+<p>You’ll journey as a model builder in R will start from studying linear models and the use of the <code>lm</code> function.</p>
+<div id="a-simple-linear-regression-model" class="section level2">
+<h2><span class="header-section-number">10.1</span> A simple linear regression model</h2>
+<p>You analayze Ford dealership data as registered in Milwaukee, September/October 1990. Data on 62 credit card applicants are available, including the car purchase price <span class="math inline">\(Y\)</span> and the applicant’s annual income <span class="math inline">\(X\)</span>. Data are available in the <code>.csv</code> file <code>car_price</code>.</p>
+<p>You first load and explore the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&#39;data&#39;</span>)
+path.car &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;car_price.csv&quot;</span>)
+car_price &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.car)</code></pre></div>
+<p>Then you explore the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(car_price)
+<span class="kw">summary</span>(price)</code></pre></div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   7200   11850   14500   15416   18500   28000 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(income)</code></pre></div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  15000   30500   40950   45190   55500  102000 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># average</span>
+<span class="kw">mean</span>(price)</code></pre></div>
+<pre><code>[1] 15416</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(income)</code></pre></div>
+<pre><code>[1] 45190</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># standard deviation</span>
+<span class="kw">sd</span>(price)</code></pre></div>
+<pre><code>[1] 5040.4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(income)</code></pre></div>
+<pre><code>[1] 20873</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the 5-th and 95-th percentiles</span>
+<span class="kw">quantile</span>(price, <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</code></pre></div>
+<pre><code>   5%   95% 
+ 7830 25900 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(income, <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</code></pre></div>
+<pre><code>   5%   95% 
+18150 85700 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># histograms of price and income</span>
+<span class="co"># density histogram for &#39;price&#39;</span>
+<span class="kw">hist</span>(price, <span class="dt">br =</span> <span class="dv">20</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">5000</span>, <span class="dv">30000</span>), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">freq=</span><span class="ot">FALSE</span>)
+<span class="kw">lines</span>(<span class="kw">density</span>(price), <span class="dt">col=</span><span class="dv">4</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-110-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># frequency histogram for &#39;income/1000&#39;</span>
+<span class="kw">hist</span>(income<span class="op">/</span><span class="dv">1000</span>, <span class="dt">br=</span><span class="dv">10</span>, <span class="dt">xlab=</span><span class="st">&quot;income (in $000&#39;s)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">120</span>), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-110-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># scatter plot &#39;income/1000&#39; versus &#39;price&#39;</span>
+<span class="kw">plot</span>(income<span class="op">/</span><span class="dv">1000</span>, price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab=</span><span class="st">&quot;income (in $000&#39;s)&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-110-3.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(car_price)</code></pre></div>
+<p>Explore the data with <code>ggplot</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ggplot2&quot;</span>)
+<span class="kw">ggplot</span>(car_price, <span class="kw">aes</span>(<span class="dt">x =</span> income<span class="op">/</span><span class="dv">1000</span>, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>() </code></pre></div>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-111-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>You will now fit a simple regression model with income as predictor to purchase price. You assign the output of the <code>lm</code> function to the object <code>lm1</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> car_price)
+<span class="kw">summary</span>(lm1)</code></pre></div>
+<pre><code>
+Call:
+lm(formula = price ~ income, data = car_price)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+ -5365  -1185   -251   1334   6284 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 5.87e+03   7.50e+02    7.82  9.8e-11 ***
+income      2.11e-01   1.51e-02   14.01  &lt; 2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 2460 on 60 degrees of freedom
+Multiple R-squared:  0.766, Adjusted R-squared:  0.762 
+F-statistic:  196 on 1 and 60 DF,  p-value: &lt;2e-16</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># check attributes of object &#39;lm1&#39;</span>
+<span class="kw">names</span>(lm1)</code></pre></div>
+<pre><code> [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+ [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+ [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;        </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># some useful stuff: &#39;coefficients&#39;, &#39;residuals&#39;, &#39;fitted.values&#39;, &#39;model&#39;</span>
+lm1<span class="op">$</span>coef</code></pre></div>
+<pre><code>(Intercept)      income 
+ 5866.33390     0.21132 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1<span class="op">$</span>residuals</code></pre></div>
+<pre><code>        1         2         3         4         5         6         7         8 
+ -719.290  1146.822  4329.836  3258.062 -3649.431  -483.570  4144.823 -1206.051 
+        9        10        11        12        13        14        15        16 
+ -664.585   480.710  6284.374 -1040.023 -4383.403 -1262.670 -4421.372  4273.216 
+       17        18        19        20        21        22        23        24 
+-1373.761    33.583 -1051.346 -1102.387  1392.034 -1836.192    54.316   167.554 
+       25        26        27        28        29        30        31        32 
+ -257.092  -877.824  3124.091  1427.921   367.554 -2355.177    77.679 -2462.670 
+       33        34        35        36        37        38        39        40 
+ 1159.977  -274.078   732.384 -2707.167 -2566.817 -1120.805  5129.669  2895.864 
+       41        42        43        44        45        46        47        48 
+ 1111.484  2197.613  1971.301  -883.403  3129.669  1744.823  1026.006   142.908 
+       49        50        51        52        53        54        55        56 
+-3653.428   190.119 -1616.575 -1085.318 -1866.501 -4379.739  1980.943   -40.023 
+       57        58        59        60        61        62 
+ 3735.415 -1000.472  -672.079  -245.684 -1087.233 -5364.585 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1<span class="op">$</span>fitted.values</code></pre></div>
+<pre><code>      1       2       3       4       5       6       7       8       9      10 
+14319.3  9353.2  9670.2 14741.9 11149.4 22983.6 16855.2 12206.1 15164.6 14319.3 
+     11      12      13      14      15      16      17      18      19      20 
+21715.6 12840.0 11783.4 13262.7 27421.4 10726.8 23173.8 11466.4 13051.3 19602.4 
+     21      22      23      24      25      26      27      28      29      30 
+14108.0  9036.2 12945.7 10832.4 18757.1 17277.8 15375.9 11572.1 10832.4 16855.2 
+     31      32      33      34      35      36      37      38      39      40 
+15122.3 13262.7 12840.0 19074.1 15967.6 11107.2 12966.8 14720.8 20870.3 10304.1 
+     41      42      43      44      45      46      47      48      49      50 
+25688.5 19602.4 12628.7 11783.4 20870.3 16855.2 13474.0 18757.1 26153.4 16009.9 
+     51      52      53      54      55      56      57      58      59      60 
+ 9416.6 13685.3 17066.5 19179.7 24019.1 12840.0 15164.6 17700.5 11572.1 12945.7 
+     61      62 
+15587.2 15164.6 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use built-in plot function</span>
+<span class="co"># you may have noticed that we have used the function plot with all kinds of arguments: </span>
+<span class="co"># one or two variables, a data frame, and now a linear model fit;</span>
+<span class="co"># in R jargon plot is a generic function; it checks for the kind of object that you # are plotting and then calls the appropriate (more specialized) function to do the work.</span>
+<span class="kw">plot</span>(lm1)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-112-1.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-112-2.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-112-3.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-112-4.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add the regression line to the scatter plot</span>
+<span class="kw">plot</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab =</span> <span class="st">&quot;income&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Simple linear regression&quot;</span>)
+<span class="co"># add LS line like this</span>
+<span class="kw">abline</span>(lm1, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
+<span class="co"># or like this</span>
+<span class="kw">abline</span>(lm1<span class="op">$</span>coefficients[<span class="dv">1</span>], lm1<span class="op">$</span>coefficients[<span class="dv">2</span>])</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-112-5.png" width="576" style="display: block; margin: auto;" /> Similarly, you can illustrate the fit with <code>ggplot</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(car_price, <span class="kw">aes</span>(<span class="dt">x =</span> income, <span class="dt">y =</span> price)) <span class="op">+</span><span class="st"> </span>
+<span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st"> </span><span class="kw">geom_smooth</span>()<span class="op">+</span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> lm1<span class="op">$</span>coef[<span class="dv">1</span>], <span class="dt">slope =</span> lm1<span class="op">$</span>coef[<span class="dv">2</span>],   <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>) </code></pre></div>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-113-1.png" width="576" style="display: block; margin: auto;" /> You can graphically illustrate what vertical distance means.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab =</span> <span class="st">&quot;income&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Simple linear regression&quot;</span>)
+<span class="kw">abline</span>(lm1, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
+<span class="kw">segments</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, car_price<span class="op">$</span>income, lm1<span class="op">$</span>fitted.values, <span class="dt">lty=</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-114-1.png" width="576" style="display: block; margin: auto;" /> Get the anova table.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># anova table</span>
+<span class="kw">anova</span>(lm1)</code></pre></div>
+<pre><code>Analysis of Variance Table
+
+Response: price
+          Df   Sum Sq  Mean Sq F value Pr(&gt;F)    
+income     1 1.19e+09 1.19e+09     196 &lt;2e-16 ***
+Residuals 60 3.63e+08 6.05e+06                   
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(car_price)
+total.SS &lt;-<span class="st"> </span><span class="kw">sum</span>((price<span class="op">-</span><span class="kw">mean</span>(price))<span class="op">^</span><span class="dv">2</span>)
+total.SS</code></pre></div>
+<pre><code>[1] 1549743871</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">error.SS &lt;-<span class="st"> </span><span class="kw">sum</span>(lm1<span class="op">$</span>resid<span class="op">^</span><span class="dv">2</span>)
+error.SS</code></pre></div>
+<pre><code>[1] 362851718</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># R^2?</span>
+(total.SS<span class="op">-</span>error.SS)<span class="op">/</span>total.SS</code></pre></div>
+<pre><code>[1] 0.76586</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># F-statistic in anova?</span>
+lm0 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)
+error0.SS &lt;-<span class="st"> </span><span class="kw">sum</span>(lm0<span class="op">$</span>resid<span class="op">^</span><span class="dv">2</span>)
+
+<span class="co"># calculate F-statistic</span>
+F &lt;-<span class="st"> </span>((<span class="kw">anova</span>(lm0)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>)<span class="op">-</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">2</span>]))<span class="op">/</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Mean Sq&quot;</span>[<span class="dv">2</span>]) 
+<span class="co"># critical values</span>
+<span class="kw">qf</span>(<span class="fl">0.95</span>, <span class="dv">1</span>, <span class="dv">60</span>)</code></pre></div>
+<pre><code>[1] 4.0012</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(F, <span class="dv">1</span>, <span class="dv">60</span>)</code></pre></div>
+<pre><code>[1] 0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(car_price)</code></pre></div>
+<hr />
+</div>
+<div id="a-multiple-linear-regression-model" class="section level2">
+<h2><span class="header-section-number">10.2</span> A multiple linear regression model</h2>
+<p>You’ll now move on from simple to multiple linear regression. You model the data by McDonald and Schwing (1973) published in Technometrics. The sampled data consists of vars obtained for year 1960 for 60 Standard Metropolitan Statistical Areas (SMSA) in the US. The goal is to relate mortality in these SMSA to explanatory variables. For each sample area, we have information concerning the age-adjusted mortality rate for all causes, expressed as deaths per 100,000 population. This will be our response variable. The list of explanatory variables is:</p>
+<ul>
+<li>weather-related variables:</li>
+<li><code>prec</code>: average annual precipitation in inches</li>
+<li><code>jant</code>: average January temperature in degrees F</li>
+<li><code>jult</code>: average July temperature in degrees F</li>
+<li><code>humid</code>: annual average % relative humidity at 1 pm</li>
+<li>scocio-economic characteristics:</li>
+<li><code>ovr65</code>: % of 1960 SMSA population aged 65 and older</li>
+<li><code>popn</code>: average household size</li>
+<li><code>educ</code> : median school years completed by those over 22</li>
+<li><code>hous</code> : % of housing units which are sound and with all facilities</li>
+<li><code>educ</code> : median school years completed by those over 22</li>
+<li><code>dens</code> : population per sq mile in urbanized areas, 1960</li>
+<li><code>nonw</code> : % of non-white population in urbanized areas, 1960</li>
+<li><code>wwdrk</code> : % of employed in white collar occupations</li>
+<li><code>poor</code> : % of families with income less than $3,000</li>
+<li>pollutants:</li>
+<li><code>hc</code> : relative pollution potential of hydrocarbons</li>
+<li><code>nox</code> : relative pollution potential of oxides of nitrogen</li>
+<li><code>so2</code>: relative pollution potential of sulfur dioxides</li>
+</ul>
+<p>First, you’ll load the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&#39;data&#39;</span>)
+path.mort &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;pollution.csv&quot;</span>)
+mort_poll &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.mort)</code></pre></div>
+<p>Then, you’ll explore the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
+<pre><code>The following objects are masked from mort_poll (pos = 3):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 4):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 6):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mort_poll)</code></pre></div>
+<pre><code>      prec           jant           jult          ovr65            popn     
+ Min.   :10.0   Min.   :12.0   Min.   :63.0   Min.   : 5.60   Min.   :2.92  
+ 1st Qu.:32.8   1st Qu.:27.0   1st Qu.:72.0   1st Qu.: 7.67   1st Qu.:3.21  
+ Median :38.0   Median :31.5   Median :74.0   Median : 9.00   Median :3.27  
+ Mean   :37.4   Mean   :34.0   Mean   :74.6   Mean   : 8.80   Mean   :3.26  
+ 3rd Qu.:43.2   3rd Qu.:40.0   3rd Qu.:77.2   3rd Qu.: 9.70   3rd Qu.:3.36  
+ Max.   :60.0   Max.   :67.0   Max.   :85.0   Max.   :11.80   Max.   :3.53  
+      educ           hous           dens           nonw           wwdrk     
+ Min.   : 9.0   Min.   :66.8   Min.   :1441   Min.   : 0.80   Min.   :33.8  
+ 1st Qu.:10.4   1st Qu.:78.4   1st Qu.:3104   1st Qu.: 4.95   1st Qu.:43.2  
+ Median :11.1   Median :81.2   Median :3567   Median :10.40   Median :45.5  
+ Mean   :11.0   Mean   :80.9   Mean   :3876   Mean   :11.87   Mean   :46.1  
+ 3rd Qu.:11.5   3rd Qu.:83.6   3rd Qu.:4520   3rd Qu.:15.65   3rd Qu.:49.5  
+ Max.   :12.3   Max.   :90.7   Max.   :9699   Max.   :38.50   Max.   :59.7  
+      poor            hc             nox             so2            humid     
+ Min.   : 9.4   Min.   :  1.0   Min.   :  1.0   Min.   :  1.0   Min.   :38.0  
+ 1st Qu.:12.0   1st Qu.:  7.0   1st Qu.:  4.0   1st Qu.: 11.0   1st Qu.:55.0  
+ Median :13.2   Median : 14.5   Median :  9.0   Median : 30.0   Median :57.0  
+ Mean   :14.4   Mean   : 37.9   Mean   : 22.6   Mean   : 53.8   Mean   :57.7  
+ 3rd Qu.:15.2   3rd Qu.: 30.2   3rd Qu.: 23.8   3rd Qu.: 69.0   3rd Qu.:60.0  
+ Max.   :26.4   Max.   :648.0   Max.   :319.0   Max.   :278.0   Max.   :73.0  
+      mort     
+ Min.   : 791  
+ 1st Qu.: 898  
+ Median : 944  
+ Mean   : 940  
+ 3rd Qu.: 983  
+ Max.   :1113  </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># get correlation matrix</span>
+<span class="kw">round</span>(<span class="kw">cor</span>(mort_poll), <span class="dv">4</span>)</code></pre></div>
+<pre><code>         prec    jant    jult   ovr65    popn    educ    hous    dens    nonw
+prec   1.0000  0.0922  0.5033  0.1011  0.2634 -0.4904 -0.4908 -0.0035  0.4132
+jant   0.0922  1.0000  0.3463 -0.3981 -0.2092  0.1163  0.0149 -0.1001  0.4538
+jult   0.5033  0.3463  1.0000 -0.4340  0.2623 -0.2385 -0.4150 -0.0610  0.5753
+ovr65  0.1011 -0.3981 -0.4340  1.0000 -0.5091 -0.1389  0.0650  0.1620 -0.6378
+popn   0.2634 -0.2092  0.2623 -0.5091  1.0000 -0.3951 -0.4106 -0.1843  0.4194
+educ  -0.4904  0.1163 -0.2385 -0.1389 -0.3951  1.0000  0.5522 -0.2439 -0.2088
+hous  -0.4908  0.0149 -0.4150  0.0650 -0.4106  0.5522  1.0000  0.1819 -0.4103
+dens  -0.0035 -0.1001 -0.0610  0.1620 -0.1843 -0.2439  0.1819  1.0000 -0.0057
+nonw   0.4132  0.4538  0.5753 -0.6378  0.4194 -0.2088 -0.4103 -0.0057  1.0000
+wwdrk -0.2973  0.2380 -0.0214 -0.1177 -0.4257  0.7032  0.3387 -0.0318 -0.0044
+poor   0.5066  0.5653  0.6193 -0.3098  0.2599 -0.4033 -0.6807 -0.1629  0.7049
+hc    -0.5318  0.3508 -0.3565 -0.0205 -0.3882  0.2868  0.3868  0.1203 -0.0259
+nox   -0.4873  0.3210 -0.3377 -0.0021 -0.3584  0.2244  0.3483  0.1653  0.0184
+so2   -0.1069 -0.1078 -0.0993  0.0172 -0.0041 -0.2343  0.1180  0.4321  0.1593
+humid -0.0773  0.0679 -0.4528  0.1124 -0.1357  0.1765  0.1219 -0.1250 -0.1180
+mort   0.5095 -0.0300  0.2770 -0.1746  0.3573 -0.5110 -0.4268  0.2655  0.6437
+        wwdrk    poor      hc     nox     so2   humid    mort
+prec  -0.2973  0.5066 -0.5318 -0.4873 -0.1069 -0.0773  0.5095
+jant   0.2380  0.5653  0.3508  0.3210 -0.1078  0.0679 -0.0300
+jult  -0.0214  0.6193 -0.3565 -0.3377 -0.0993 -0.4528  0.2770
+ovr65 -0.1177 -0.3098 -0.0205 -0.0021  0.0172  0.1124 -0.1746
+popn  -0.4257  0.2599 -0.3882 -0.3584 -0.0041 -0.1357  0.3573
+educ   0.7032 -0.4033  0.2868  0.2244 -0.2343  0.1765 -0.5110
+hous   0.3387 -0.6807  0.3868  0.3483  0.1180  0.1219 -0.4268
+dens  -0.0318 -0.1629  0.1203  0.1653  0.4321 -0.1250  0.2655
+nonw  -0.0044  0.7049 -0.0259  0.0184  0.1593 -0.1180  0.6437
+wwdrk  1.0000 -0.1852  0.2037  0.1600 -0.0685  0.0607 -0.2848
+poor  -0.1852  1.0000 -0.1298 -0.1025 -0.0965 -0.1522  0.4105
+hc     0.2037 -0.1298  1.0000  0.9838  0.2823 -0.0202 -0.1772
+nox    0.1600 -0.1025  0.9838  1.0000  0.4094 -0.0459 -0.0774
+so2   -0.0685 -0.0965  0.2823  0.4094  1.0000 -0.1026  0.4259
+humid  0.0607 -0.1522 -0.0202 -0.0459 -0.1026  1.0000 -0.0885
+mort  -0.2848  0.4105 -0.1772 -0.0774  0.4259 -0.0885  1.0000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create dataframes</span>
+<span class="co"># weather related vars</span>
+mort_poll_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(mort, prec, jant, jult, humid)
+<span class="co"># socio-economic vars</span>
+mort_poll_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(mort, ovr65, popn, educ, hous, dens, nonw, wwdrk, poor)
+<span class="co"># pollution effects</span>
+mort_poll_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(mort, hc, nox, so2)
+
+<span class="co"># matrix scatterplots</span>
+<span class="kw">pairs</span>(mort_poll_<span class="dv">1</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">19</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-117-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(mort_poll_<span class="dv">2</span>, <span class="dt">cex=</span><span class="fl">0.5</span>, <span class="dt">pch=</span><span class="dv">19</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-117-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(mort_poll_<span class="dv">3</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">19</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-117-3.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+<p>First, you fit a rather simple linear model to explain <code>mort</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
+<pre><code>The following objects are masked from mort_poll (pos = 3):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 4):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 6):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>so2)
+<span class="kw">summary</span>(lm1)</code></pre></div>
+<pre><code>
+Call:
+lm(formula = mort ~ educ + so2)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-136.56  -30.37   -7.73   34.48  148.80 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 1274.602     89.761   14.20  &lt; 2e-16 ***
+educ         -32.017      8.020   -3.99  0.00019 ***
+so2            0.318      0.107    2.97  0.00432 ** 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 50.6 on 57 degrees of freedom
+Multiple R-squared:  0.36,  Adjusted R-squared:  0.338 
+F-statistic: 16.1 on 2 and 57 DF,  p-value: 2.96e-06</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lm1)</code></pre></div>
+<pre><code>Analysis of Variance Table
+
+Response: mort
+          Df Sum Sq Mean Sq F value  Pr(&gt;F)    
+educ       1  59612   59612   23.26 1.1e-05 ***
+so2        1  22642   22642    8.84  0.0043 ** 
+Residuals 57 146054    2562                    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Use the object <code>lm1</code> to construct confidence and prediction intervals for a single observation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
+<pre><code>The following objects are masked from mort_poll (pos = 3):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 4):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 5):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 7):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x0 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">educ =</span> <span class="dv">10</span>, <span class="dt">so2 =</span> <span class="kw">exp</span>(<span class="dv">2</span>))
+<span class="kw">predict</span>(lm1, x0, <span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)</code></pre></div>
+<pre><code>     fit    lwr    upr
+1 956.78 932.55 981.01</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(lm1, x0, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)</code></pre></div>
+<pre><code>     fit    lwr  upr
+1 956.78 852.56 1061</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+<p>and for a grid of <code>educ</code> values, when <code>so2</code> is fixed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
+<pre><code>The following objects are masked from mort_poll (pos = 3):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 4):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 5):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 7):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grid &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">8</span>, <span class="dv">15</span>, <span class="fl">0.1</span>)
+x.new &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">educ =</span> grid, <span class="dt">so2 =</span> <span class="kw">exp</span>(<span class="dv">2</span>))
+p &lt;-<span class="st"> </span><span class="kw">predict</span>(lm1, x.new, <span class="dt">se=</span><span class="ot">TRUE</span>, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>)
+p1 &lt;-<span class="st"> </span><span class="kw">predict</span>(lm1, x.new, <span class="dt">se=</span><span class="ot">TRUE</span>, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>)
+<span class="kw">matplot</span>(grid, p<span class="op">$</span>fit, <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;educ&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;mort&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Predicted mort over a range of educ, log(so2)=2&quot;</span>)
+<span class="kw">matlines</span>(grid, p1<span class="op">$</span>fit, <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;blue&quot;</span>))
+<span class="kw">rug</span>(educ)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-120-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># for an explanation wrt different shapes, see </span>
+<span class="co"># http://stats.stackexchange.com/questions/85560/shape-of-confidence-interval-for-p# redicted-values-in-linear-regression</span>
+<span class="kw">detach</span>(mort_poll)</code></pre></div>
+<p>Then you fit a linear model with all 15 variables in the dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
+<pre><code>The following objects are masked from mort_poll (pos = 3):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 4):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 5):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 7):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>humid <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span>nox <span class="op">+</span><span class="st"> </span>so2 <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor)
+lm2<span class="op">$</span>coef</code></pre></div>
+<pre><code>(Intercept)        prec        jant        jult       humid          hc 
+ 1.7640e+03  1.9054e+00 -1.9376e+00 -3.1004e+00  1.0680e-01 -6.7214e-01 
+        nox         so2       ovr65        popn        educ        hous 
+ 1.3401e+00  8.6252e-02 -9.0654e+00 -1.0683e+02 -1.7157e+01 -6.5112e-01 
+       dens        nonw       wwdrk        poor 
+ 3.6005e-03  4.4596e+00 -1.8706e-01 -1.6764e-01 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+<p>Now perform model selection stepwise, based on AIC.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># model selection based on AIC</span>
+<span class="kw">library</span>(MASS)
+<span class="kw">attach</span>(mort_poll)</code></pre></div>
+<pre><code>The following objects are masked from mort_poll (pos = 3):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 4):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 5):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 7):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)
+<span class="co"># get AIC, mind the difference</span>
+<span class="kw">AIC</span>(lm1)</code></pre></div>
+<pre><code>[1] 668.92</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">extractAIC</span>(lm1)</code></pre></div>
+<pre><code>[1]   1.00 496.65</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># for linear models with unknown scale (i.e., for lm and aov), </span>
+<span class="co"># -2 log L is computed from the deviance and uses a different additive constant to </span>
+<span class="co"># logLik and hence AIC </span>
+
+<span class="co"># forward search</span>
+<span class="kw">stepAIC</span>(lm1, <span class="kw">list</span>(<span class="dt">upper =</span> <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid, <span class="dt">lower =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>)</code></pre></div>
+<pre><code>Start:  AIC=496.65
+mort ~ 1
+
+           Df Sum of Sq    RSS AIC
++ nonw      1     94613 133695 467
++ educ      1     59612 168696 480
++ prec      1     59266 169041 481
++ hous      1     41592 186716 487
++ poor      1     38470 189838 488
++ log(so2)  1     37087 191221 488
++ popn      1     29149 199159 490
++ log(nox)  1     19465 208843 493
++ wwdrk     1     18518 209789 494
++ jult      1     17520 210788 494
++ dens      1     16093 212214 494
+&lt;none&gt;                  228308 497
++ hc        1      7172 221136 497
++ ovr65     1      6960 221347 497
++ humid     1      1788 226520 498
++ jant      1       206 228102 499
+
+Step:  AIC=466.54
+mort ~ nonw
+
+           Df Sum of Sq    RSS AIC
++ educ      1     33853  99841 451
++ log(so2)  1     31223 102471 453
++ jant      1     29835 103859 453
++ ovr65     1     21435 112259 458
++ wwdrk     1     18153 115541 460
++ dens      1     16540 117155 461
++ prec      1     16324 117371 461
++ hous      1      7264 126430 465
++ log(nox)  1      6836 126859 465
++ hc        1      5892 127803 466
+&lt;none&gt;                  133695 467
++ jult      1      2973 130721 467
++ popn      1      2112 131582 468
++ poor      1       851 132844 468
++ humid     1        37 133658 469
+
+Step:  AIC=451.02
+mort ~ nonw + educ
+
+           Df Sum of Sq   RSS AIC
++ log(so2)  1     18177 81664 441
++ jant      1     17453 82389 441
++ poor      1     10921 88920 446
++ log(nox)  1      8814 91027 447
++ ovr65     1      7352 92489 448
++ dens      1      7262 92579 448
++ jult      1      6836 93005 449
+&lt;none&gt;                  99841 451
++ prec      1      2468 97373 452
++ hc        1       617 99224 453
++ humid     1       530 99312 453
++ popn      1       359 99482 453
++ hous      1       167 99674 453
++ wwdrk     1        14 99827 453
+
+Step:  AIC=440.96
+mort ~ nonw + educ + log(so2)
+
+           Df Sum of Sq   RSS AIC
++ prec      1      9399 72266 436
++ jant      1      7885 73780 437
++ hc        1      6355 75309 438
++ ovr65     1      2770 78895 441
+&lt;none&gt;                  81664 441
++ poor      1      2236 79428 441
++ dens      1       794 80871 442
++ humid     1       692 80973 442
++ hous      1       538 81126 443
++ log(nox)  1       312 81352 443
++ wwdrk     1       281 81383 443
++ jult      1       132 81532 443
++ popn      1         3 81661 443
+
+Step:  AIC=435.63
+mort ~ nonw + educ + log(so2) + prec
+
+           Df Sum of Sq   RSS AIC
++ jant      1      5764 66502 433
++ poor      1      2878 69388 435
+&lt;none&gt;                  72266 436
++ hc        1      1594 70672 436
++ log(nox)  1      1089 71177 437
++ jult      1       981 71285 437
++ dens      1       752 71513 437
++ humid     1       508 71758 437
++ wwdrk     1       405 71861 437
++ hous      1       125 72141 438
++ popn      1        70 72196 438
++ ovr65     1         2 72263 438
+
+Step:  AIC=432.64
+mort ~ nonw + educ + log(so2) + prec + jant
+
+           Df Sum of Sq   RSS AIC
++ log(nox)  1      8313 58188 427
+&lt;none&gt;                  66502 433
++ popn      1      1724 64778 433
++ dens      1      1455 65047 433
++ jult      1      1097 65405 434
++ humid     1       958 65544 434
++ poor      1       474 66028 434
++ hous      1        74 66428 435
++ ovr65     1        56 66446 435
++ wwdrk     1        27 66475 435
++ hc        1        25 66477 435
+
+Step:  AIC=426.63
+mort ~ nonw + educ + log(so2) + prec + jant + log(nox)
+
+        Df Sum of Sq   RSS AIC
++ popn   1      2793 55396 426
+&lt;none&gt;               58188 427
++ dens   1      1379 56810 427
++ hc     1       792 57396 428
++ jult   1        43 58145 429
++ poor   1        25 58164 429
++ humid  1        16 58172 429
++ hous   1         8 58181 429
++ wwdrk  1         6 58182 429
++ ovr65  1         0 58188 429
+
+Step:  AIC=425.67
+mort ~ nonw + educ + log(so2) + prec + jant + log(nox) + popn
+
+        Df Sum of Sq   RSS AIC
+&lt;none&gt;               55396 426
++ ovr65  1      1802 53594 426
++ hc     1      1587 53809 426
++ dens   1       570 54826 427
++ jult   1       142 55254 428
++ wwdrk  1       129 55267 428
++ poor   1        54 55341 428
++ humid  1        10 55386 428
++ hous   1         4 55392 428</code></pre>
+<pre><code>
+Call:
+lm(formula = mort ~ nonw + educ + log(so2) + prec + jant + log(nox) + 
+    popn)
+
+Coefficients:
+(Intercept)         nonw         educ     log(so2)         prec         jant  
+    1315.91         4.50       -19.04        -6.15         2.19        -2.86  
+   log(nox)         popn  
+      24.01       -73.76  </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># backward search</span>
+lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span>
+<span class="st">         </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid)
+<span class="kw">stepAIC</span>(lm1, <span class="kw">list</span>(<span class="dt">upper =</span> <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid, <span class="dt">lower =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>)</code></pre></div>
+<pre><code>Start:  AIC=435.55
+mort ~ prec + jant + jult + ovr65 + popn + educ + hous + dens + 
+    nonw + wwdrk + poor + hc + log(nox) + log(so2) + humid
+
+           Df Sum of Sq   RSS AIC
+- poor      1         1 50019 434
+- hous      1       224 50243 434
+- wwdrk     1       447 50465 434
+- dens      1       448 50467 434
+- humid     1       704 50723 434
+- ovr65     1      1490 51508 435
+- jult      1      1543 51562 435
+&lt;none&gt;                  50019 436
+- log(so2)  1      1758 51776 436
+- hc        1      1879 51897 436
+- educ      1      2667 52686 437
+- popn      1      5218 55237 440
+- jant      1      6882 56901 441
+- prec      1      9111 59130 444
+- nonw      1     10236 60255 445
+- log(nox)  1     10651 60669 445
+
+Step:  AIC=433.55
+mort ~ prec + jant + jult + ovr65 + popn + educ + hous + dens + 
+    nonw + wwdrk + hc + log(nox) + log(so2) + humid
+
+           Df Sum of Sq   RSS AIC
+- hous      1       386 50406 432
+- dens      1       450 50469 432
+- wwdrk     1       473 50492 432
+- humid     1       728 50747 432
+- jult      1      1561 51580 433
+&lt;none&gt;                  50019 434
+- ovr65     1      1703 51723 434
+- log(so2)  1      1757 51776 434
+- hc        1      1950 51969 434
+- educ      1      2668 52687 435
+- popn      1      5284 55304 438
+- prec      1      9583 59602 442
+- log(nox)  1     10672 60691 443
+- jant      1     11569 61589 444
+- nonw      1     13554 63573 446
+
+Step:  AIC=432.01
+mort ~ prec + jant + jult + ovr65 + popn + educ + dens + nonw + 
+    wwdrk + hc + log(nox) + log(so2) + humid
+
+           Df Sum of Sq   RSS AIC
+- dens      1       256 50662 430
+- wwdrk     1       401 50806 430
+- humid     1       691 51097 431
+- ovr65     1      1434 51840 432
+- jult      1      1434 51840 432
+&lt;none&gt;                  50406 432
+- log(so2)  1      1774 52179 432
+- hc        1      2076 52482 432
+- educ      1      4067 54473 435
+- popn      1      5101 55507 436
+- prec      1      9231 59637 440
+- log(nox)  1     10385 60791 441
+- jant      1     11860 62266 443
+- nonw      1     17454 67860 448
+
+Step:  AIC=430.31
+mort ~ prec + jant + jult + ovr65 + popn + educ + nonw + wwdrk + 
+    hc + log(nox) + log(so2) + humid
+
+           Df Sum of Sq   RSS AIC
+- wwdrk     1       351 51013 429
+- humid     1       752 51414 429
+- jult      1      1398 52059 430
+- log(so2)  1      1630 52292 430
+&lt;none&gt;                  50662 430
+- ovr65     1      1735 52397 430
+- hc        1      2141 52803 431
+- educ      1      4949 55610 434
+- popn      1      6396 57058 435
+- prec      1      9657 60318 439
+- log(nox)  1     10995 61657 440
+- jant      1     12455 63117 442
+- nonw      1     17200 67862 446
+
+Step:  AIC=428.73
+mort ~ prec + jant + jult + ovr65 + popn + educ + nonw + hc + 
+    log(nox) + log(so2) + humid
+
+           Df Sum of Sq   RSS AIC
+- humid     1       672 51684 428
+- jult      1      1512 52524 428
+- log(so2)  1      1699 52712 429
+&lt;none&gt;                  51013 429
+- ovr65     1      1816 52829 429
+- hc        1      1862 52874 429
+- popn      1      6052 57064 433
+- prec      1     10101 61113 438
+- educ      1     10538 61551 438
+- log(nox)  1     10737 61749 438
+- jant      1     13041 64054 440
+- nonw      1     16852 67864 444
+
+Step:  AIC=427.51
+mort ~ prec + jant + jult + ovr65 + popn + educ + nonw + hc + 
+    log(nox) + log(so2)
+
+           Df Sum of Sq   RSS AIC
+- jult      1       847 52531 426
+- log(so2)  1      1161 52846 427
+- hc        1      1248 52932 427
+&lt;none&gt;                  51684 428
+- ovr65     1      1801 53485 428
+- popn      1      5567 57251 432
+- prec      1      9735 61419 436
+- log(nox)  1     10131 61815 436
+- educ      1     10422 62106 437
+- jant      1     13560 65244 439
+- nonw      1     16185 67869 442
+
+Step:  AIC=426.49
+mort ~ prec + jant + ovr65 + popn + educ + nonw + hc + log(nox) + 
+    log(so2)
+
+           Df Sum of Sq   RSS AIC
+- log(so2)  1      1024 53555 426
+- hc        1      1063 53594 426
+- ovr65     1      1277 53809 426
+&lt;none&gt;                  52531 426
+- popn      1      4802 57333 430
+- prec      1      9117 61648 434
+- educ      1      9576 62107 435
+- log(nox)  1     11716 64248 437
+- jant      1     13524 66055 438
+- nonw      1     15419 67951 440
+
+Step:  AIC=425.65
+mort ~ prec + jant + ovr65 + popn + educ + nonw + hc + log(nox)
+
+           Df Sum of Sq   RSS AIC
+- hc        1       959 54515 425
+- ovr65     1      1306 54861 425
+&lt;none&gt;                  53555 426
+- popn      1      4006 57562 428
+- prec      1      8495 62050 432
+- educ      1      8553 62108 433
+- nonw      1     14573 68129 438
+- jant      1     14730 68285 438
+- log(nox)  1     17866 71421 441
+
+Step:  AIC=424.71
+mort ~ prec + jant + ovr65 + popn + educ + nonw + log(nox)
+
+           Df Sum of Sq   RSS AIC
+- ovr65     1      1809 56323 425
+&lt;none&gt;                  54515 425
+- popn      1      3867 58382 427
+- educ      1      9051 63566 432
+- prec      1     12481 66996 435
+- nonw      1     14126 68641 437
+- log(nox)  1     18324 72839 440
+- jant      1     21424 75939 443
+
+Step:  AIC=424.67
+mort ~ prec + jant + popn + educ + nonw + log(nox)
+
+           Df Sum of Sq   RSS AIC
+&lt;none&gt;                  56323 425
+- popn      1      2067 58391 425
+- educ      1      7387 63710 430
+- prec      1     11450 67773 434
+- log(nox)  1     16531 72854 438
+- jant      1     20400 76724 441
+- nonw      1     33353 89676 451</code></pre>
+<pre><code>
+Call:
+lm(formula = mort ~ prec + jant + popn + educ + nonw + log(nox))
+
+Coefficients:
+(Intercept)         prec         jant         popn         educ         nonw  
+    1232.06         2.08        -2.38       -60.09       -16.88         4.36  
+   log(nox)  
+      17.74  </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># both directions search</span>
+lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)
+lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span>
+<span class="st">         </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid)
+<span class="kw">stepAIC</span>(lm1, <span class="kw">list</span>(<span class="dt">upper =</span> <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid, <span class="dt">lower =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">direction =</span> <span class="st">&quot;both&quot;</span>)</code></pre></div>
+<pre><code>Start:  AIC=435.55
+mort ~ prec + jant + jult + ovr65 + popn + educ + hous + dens + 
+    nonw + wwdrk + poor + hc + log(nox) + log(so2) + humid
+
+           Df Sum of Sq   RSS AIC
+- poor      1         1 50019 434
+- hous      1       224 50243 434
+- wwdrk     1       447 50465 434
+- dens      1       448 50467 434
+- humid     1       704 50723 434
+- ovr65     1      1490 51508 435
+- jult      1      1543 51562 435
+&lt;none&gt;                  50019 436
+- log(so2)  1      1758 51776 436
+- hc        1      1879 51897 436
+- educ      1      2667 52686 437
+- popn      1      5218 55237 440
+- jant      1      6882 56901 441
+- prec      1      9111 59130 444
+- nonw      1     10236 60255 445
+- log(nox)  1     10651 60669 445
+
+Step:  AIC=433.55
+mort ~ prec + jant + jult + ovr65 + popn + educ + hous + dens + 
+    nonw + wwdrk + hc + log(nox) + log(so2) + humid
+
+           Df Sum of Sq   RSS AIC
+- hous      1       386 50406 432
+- dens      1       450 50469 432
+- wwdrk     1       473 50492 432
+- humid     1       728 50747 432
+- jult      1      1561 51580 433
+&lt;none&gt;                  50019 434
+- ovr65     1      1703 51723 434
+- log(so2)  1      1757 51776 434
+- hc        1      1950 51969 434
+- educ      1      2668 52687 435
++ poor      1         1 50019 436
+- popn      1      5284 55304 438
+- prec      1      9583 59602 442
+- log(nox)  1     10672 60691 443
+- jant      1     11569 61589 444
+- nonw      1     13554 63573 446
+
+Step:  AIC=432.01
+mort ~ prec + jant + jult + ovr65 + popn + educ + dens + nonw + 
+    wwdrk + hc + log(nox) + log(so2) + humid
+
+           Df Sum of Sq   RSS AIC
+- dens      1       256 50662 430
+- wwdrk     1       401 50806 430
+- humid     1       691 51097 431
+- ovr65     1      1434 51840 432
+- jult      1      1434 51840 432
+&lt;none&gt;                  50406 432
+- log(so2)  1      1774 52179 432
+- hc        1      2076 52482 432
++ hous      1       386 50019 434
++ poor      1       163 50243 434
+- educ      1      4067 54473 435
+- popn      1      5101 55507 436
+- prec      1      9231 59637 440
+- log(nox)  1     10385 60791 441
+- jant      1     11860 62266 443
+- nonw      1     17454 67860 448
+
+Step:  AIC=430.31
+mort ~ prec + jant + jult + ovr65 + popn + educ + nonw + wwdrk + 
+    hc + log(nox) + log(so2) + humid
+
+           Df Sum of Sq   RSS AIC
+- wwdrk     1       351 51013 429
+- humid     1       752 51414 429
+- jult      1      1398 52059 430
+- log(so2)  1      1630 52292 430
+&lt;none&gt;                  50662 430
+- ovr65     1      1735 52397 430
+- hc        1      2141 52803 431
++ dens      1       256 50406 432
++ hous      1       193 50469 432
++ poor      1        61 50600 432
+- educ      1      4949 55610 434
+- popn      1      6396 57058 435
+- prec      1      9657 60318 439
+- log(nox)  1     10995 61657 440
+- jant      1     12455 63117 442
+- nonw      1     17200 67862 446
+
+Step:  AIC=428.73
+mort ~ prec + jant + jult + ovr65 + popn + educ + nonw + hc + 
+    log(nox) + log(so2) + humid
+
+           Df Sum of Sq   RSS AIC
+- humid     1       672 51684 428
+- jult      1      1512 52524 428
+- log(so2)  1      1699 52712 429
+&lt;none&gt;                  51013 429
+- ovr65     1      1816 52829 429
+- hc        1      1862 52874 429
++ wwdrk     1       351 50662 430
++ dens      1       206 50806 430
++ hous      1       161 50852 431
++ poor      1       103 50909 431
+- popn      1      6052 57064 433
+- prec      1     10101 61113 438
+- educ      1     10538 61551 438
+- log(nox)  1     10737 61749 438
+- jant      1     13041 64054 440
+- nonw      1     16852 67864 444
+
+Step:  AIC=427.51
+mort ~ prec + jant + jult + ovr65 + popn + educ + nonw + hc + 
+    log(nox) + log(so2)
+
+           Df Sum of Sq   RSS AIC
+- jult      1       847 52531 426
+- log(so2)  1      1161 52846 427
+- hc        1      1248 52932 427
+&lt;none&gt;                  51684 428
+- ovr65     1      1801 53485 428
++ humid     1       672 51013 429
++ wwdrk     1       270 51414 429
++ dens      1       264 51420 429
++ poor      1       142 51542 429
++ hous      1       129 51555 429
+- popn      1      5567 57251 432
+- prec      1      9735 61419 436
+- log(nox)  1     10131 61815 436
+- educ      1     10422 62106 437
+- jant      1     13560 65244 439
+- nonw      1     16185 67869 442
+
+Step:  AIC=426.49
+mort ~ prec + jant + ovr65 + popn + educ + nonw + hc + log(nox) + 
+    log(so2)
+
+           Df Sum of Sq   RSS AIC
+- log(so2)  1      1024 53555 426
+- hc        1      1063 53594 426
+- ovr65     1      1277 53809 426
+&lt;none&gt;                  52531 426
++ jult      1       847 51684 428
++ wwdrk     1       434 52098 428
++ dens      1       172 52360 428
++ hous      1        89 52442 428
++ poor      1        30 52502 428
++ humid     1         7 52524 428
+- popn      1      4802 57333 430
+- prec      1      9117 61648 434
+- educ      1      9576 62107 435
+- log(nox)  1     11716 64248 437
+- jant      1     13524 66055 438
+- nonw      1     15419 67951 440
+
+Step:  AIC=425.65
+mort ~ prec + jant + ovr65 + popn + educ + nonw + hc + log(nox)
+
+           Df Sum of Sq   RSS AIC
+- hc        1       959 54515 425
+- ovr65     1      1306 54861 425
+&lt;none&gt;                  53555 426
++ log(so2)  1      1024 52531 426
++ jult      1       710 52846 427
++ wwdrk     1       526 53029 427
++ hous      1       139 53416 427
++ dens      1        59 53496 428
++ poor      1        40 53515 428
++ humid     1        32 53523 428
+- popn      1      4006 57562 428
+- prec      1      8495 62050 432
+- educ      1      8553 62108 433
+- nonw      1     14573 68129 438
+- jant      1     14730 68285 438
+- log(nox)  1     17866 71421 441
+
+Step:  AIC=424.71
+mort ~ prec + jant + ovr65 + popn + educ + nonw + log(nox)
+
+           Df Sum of Sq   RSS AIC
+- ovr65     1      1809 56323 425
+&lt;none&gt;                  54515 425
++ hc        1       959 53555 426
++ log(so2)  1       921 53594 426
++ jult      1       556 53959 426
++ wwdrk     1       233 54281 426
++ hous      1       221 54293 426
++ humid     1       211 54304 426
++ poor      1       109 54406 427
++ dens      1        86 54429 427
+- popn      1      3867 58382 427
+- educ      1      9051 63566 432
+- prec      1     12481 66996 435
+- nonw      1     14126 68641 437
+- log(nox)  1     18324 72839 440
+- jant      1     21424 75939 443
+
+Step:  AIC=424.67
+mort ~ prec + jant + popn + educ + nonw + log(nox)
+
+           Df Sum of Sq   RSS AIC
+&lt;none&gt;                  56323 425
++ ovr65     1      1809 54515 425
+- popn      1      2067 58391 425
++ hc        1      1462 54861 425
++ log(so2)  1       928 55396 426
++ dens      1       348 55975 426
++ wwdrk     1       187 56136 426
++ humid     1       102 56222 427
++ jult      1        97 56226 427
++ poor      1        47 56277 427
++ hous      1        15 56308 427
+- educ      1      7387 63710 430
+- prec      1     11450 67773 434
+- log(nox)  1     16531 72854 438
+- jant      1     20400 76724 441
+- nonw      1     33353 89676 451</code></pre>
+<pre><code>
+Call:
+lm(formula = mort ~ prec + jant + popn + educ + nonw + log(nox))
+
+Coefficients:
+(Intercept)         prec         jant         popn         educ         nonw  
+    1232.06         2.08        -2.38       -60.09       -16.88         4.36  
+   log(nox)  
+      17.74  </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="optimization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="glms.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

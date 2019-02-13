@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  
+  <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+
+
+<meta name="date" content="2018-09-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="lms.html">
+<link rel="next" href="biblio.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#subsec:learning-goals"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#subsec:pipeline"><i class="fa fa-check"></i><b>1.2</b> Data/science pipeline</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#inspirations-and-references"><i class="fa fa-check"></i><b>1.3</b> Inspirations and references</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#sec:about-book"><i class="fa fa-check"></i><b>1.4</b> About this book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting started in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started.html"><a href="getting-started.html#some-history"><i class="fa fa-check"></i><b>2.1</b> Some history</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-started.html"><a href="getting-started.html#what-are-r-and-rstudio"><i class="fa fa-check"></i><b>2.2</b> What are R and RStudio?</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started.html"><a href="getting-started.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>2.2.1</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started.html"><a href="getting-started.html#using-r-via-rstudio"><i class="fa fa-check"></i><b>2.2.2</b> Using R via RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="getting-started.html"><a href="getting-started.html#code"><i class="fa fa-check"></i><b>2.3</b> How do I code in R?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="getting-started.html"><a href="getting-started.html#tips-on-learning-to-code"><i class="fa fa-check"></i><b>2.3.1</b> Tips on learning to code</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="getting-started.html"><a href="getting-started.html#packages"><i class="fa fa-check"></i><b>2.4</b> What are R packages?</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="getting-started.html"><a href="getting-started.html#package-installation"><i class="fa fa-check"></i><b>2.4.1</b> Package installation</a></li>
+<li class="chapter" data-level="2.4.2" data-path="getting-started.html"><a href="getting-started.html#package-loading"><i class="fa fa-check"></i><b>2.4.2</b> Package loading</a></li>
+<li class="chapter" data-level="2.4.3" data-path="getting-started.html"><a href="getting-started.html#packages-on-cran"><i class="fa fa-check"></i><b>2.4.3</b> Packages on CRAN</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="getting-started.html"><a href="getting-started.html#conclusion"><i class="fa fa-check"></i><b>2.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
+<li class="chapter" data-level="4.2.2" data-path="started-with-data.html"><a href="started-with-data.html#find-minimum-or-maximum"><i class="fa fa-check"></i><b>4.2.2</b> Find minimum or maximum</a></li>
+<li class="chapter" data-level="4.2.3" data-path="started-with-data.html"><a href="started-with-data.html#sorting"><i class="fa fa-check"></i><b>4.2.3</b> Sorting</a></li>
+<li class="chapter" data-level="4.2.4" data-path="started-with-data.html"><a href="started-with-data.html#merging"><i class="fa fa-check"></i><b>4.2.4</b> Merging</a></li>
+<li class="chapter" data-level="4.2.5" data-path="started-with-data.html"><a href="started-with-data.html#aggregate"><i class="fa fa-check"></i><b>4.2.5</b> Aggregate</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="started-with-data.html"><a href="started-with-data.html#exploratory-data-analysis-eda"><i class="fa fa-check"></i><b>4.3</b> Exploratory Data Analysis (EDA)</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-numerical-variable"><i class="fa fa-check"></i><b>4.3.1</b> Exploring a numerical variable</a></li>
+<li class="chapter" data-level="4.3.2" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-categorical-or-factor-variable"><i class="fa fa-check"></i><b>4.3.2</b> Exploring a categorical (or: factor) variable</a></li>
+<li class="chapter" data-level="4.3.3" data-path="started-with-data.html"><a href="started-with-data.html#exploring-two-categorical-or-factor-variables"><i class="fa fa-check"></i><b>4.3.3</b> Exploring two categorical (or: factor) variables</a></li>
+<li class="chapter" data-level="4.3.4" data-path="started-with-data.html"><a href="started-with-data.html#exploring-one-numerical-and-one-categorical-variable"><i class="fa fa-check"></i><b>4.3.4</b> Exploring one numerical and one categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="started-with-data.html"><a href="started-with-data.html#exercises-1"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-viz.html"><a href="data-viz.html"><i class="fa fa-check"></i><b>5</b> Visualizing data in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-viz.html"><a href="data-viz.html#basic-plot-instructions"><i class="fa fa-check"></i><b>5.1</b> Basic plot instructions</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-viz.html"><a href="data-viz.html#scatterplot"><i class="fa fa-check"></i><b>5.1.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-viz.html"><a href="data-viz.html#saving-the-scatterplot-as-a-pdf"><i class="fa fa-check"></i><b>5.1.2</b> Saving the scatterplot as a pdf</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-viz.html"><a href="data-viz.html#the-curve-function"><i class="fa fa-check"></i><b>5.1.3</b> The <code>curve()</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-viz.html"><a href="data-viz.html#more-fancy-plots"><i class="fa fa-check"></i><b>5.2</b> More fancy plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-viz.html"><a href="data-viz.html#creating-graphics-with-ggplot2"><i class="fa fa-check"></i><b>5.2.1</b> Creating graphics with <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-viz.html"><a href="data-viz.html#fancy-correlation-plots"><i class="fa fa-check"></i><b>5.2.2</b> Fancy correlation plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-viz.html"><a href="data-viz.html#exercises-2"><i class="fa fa-check"></i><b>5.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>6</b> Data wrangling in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#ideas-from-the-tidyverse"><i class="fa fa-check"></i><b>6.1</b> Ideas from the <code>tidyverse</code></a><ul>
+<li class="chapter" data-level="6.1.1" data-path="data-wrangling.html"><a href="data-wrangling.html#a-tibble-instead-of-a-data.frame"><i class="fa fa-check"></i><b>6.1.1</b> A <code>tibble</code> instead of a <code>data.frame</code></a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-wrangling.html"><a href="data-wrangling.html#pipes-in-r"><i class="fa fa-check"></i><b>6.1.2</b> Pipes in R</a></li>
+<li class="chapter" data-level="6.1.3" data-path="data-wrangling.html"><a href="data-wrangling.html#filter-observations-using-filter"><i class="fa fa-check"></i><b>6.1.3</b> Filter observations using <code>filter</code></a></li>
+<li class="chapter" data-level="6.1.4" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-variables-using-summarize"><i class="fa fa-check"></i><b>6.1.4</b> Summarize variables using <code>summarize</code></a></li>
+<li class="chapter" data-level="6.1.5" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-based-on-groupings-of-another-variable"><i class="fa fa-check"></i><b>6.1.5</b> Summarize based on groupings of another variable</a></li>
+<li class="chapter" data-level="6.1.6" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-tibbles"><i class="fa fa-check"></i><b>6.1.6</b> Joining tibbles</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data-science-the-data.table-way"><i class="fa fa-check"></i><b>6.2</b> Data science the <code>data.table</code> way</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#speed-junkies-love-data.table"><i class="fa fa-check"></i><b>6.2.1</b> Speed junkies love <code>data.table</code></a></li>
+<li class="chapter" data-level="6.2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#what-is-a-data.table"><i class="fa fa-check"></i><b>6.2.2</b> What is a <code>data.table</code>?</a></li>
+<li class="chapter" data-level="6.2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#identify-keys"><i class="fa fa-check"></i><b>6.2.3</b> Identify keys</a></li>
+<li class="chapter" data-level="6.2.4" data-path="data-wrangling.html"><a href="data-wrangling.html#alternative-and-faster-ways-to-aggregate"><i class="fa fa-check"></i><b>6.2.4</b> Alternative and faster ways to <code>aggregate</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-data.tables"><i class="fa fa-check"></i><b>6.2.5</b> Joining <code>data.tables</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#exercises-3"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probs.html"><a href="probs.html"><i class="fa fa-check"></i><b>7</b> Working with probability distributions in R</a><ul>
+<li class="chapter" data-level="7.1" data-path="probs.html"><a href="probs.html#discrete-distributions"><i class="fa fa-check"></i><b>7.1</b> Discrete distributions</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="probs.html"><a href="probs.html#the-binomial-distribution"><i class="fa fa-check"></i><b>7.1.1</b> The binomial distribution</a></li>
+<li class="chapter" data-level="7.1.2" data-path="probs.html"><a href="probs.html#the-poisson-distribution"><i class="fa fa-check"></i><b>7.1.2</b> The Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="probs.html"><a href="probs.html#continuous-distributions"><i class="fa fa-check"></i><b>7.2</b> Continuous distributions</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="probs.html"><a href="probs.html#the-normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> The normal distribution</a></li>
+<li class="chapter" data-level="7.2.2" data-path="probs.html"><a href="probs.html#the-gamma-distribution"><i class="fa fa-check"></i><b>7.2.2</b> The gamma distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
+<li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
+<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-4"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
+<li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
+<li class="chapter" data-level="9.2" data-path="optimization.html"><a href="optimization.html#find-the-maximum-of-a-function"><i class="fa fa-check"></i><b>9.2</b> Find the maximum of a function</a></li>
+<li class="chapter" data-level="9.3" data-path="optimization.html"><a href="optimization.html#do-maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>9.3</b> Do Maximum Likelihood Estimation (MLE)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lms.html"><a href="lms.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models in R</a><ul>
+<li class="chapter" data-level="10.1" data-path="lms.html"><a href="lms.html#a-simple-linear-regression-model"><i class="fa fa-check"></i><b>10.1</b> A simple linear regression model</a></li>
+<li class="chapter" data-level="10.2" data-path="lms.html"><a href="lms.html#a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>10.2</b> A multiple linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="glms.html"><a href="glms.html"><i class="fa fa-check"></i><b>11</b> Generalized Linear Models in R</a><ul>
+<li class="chapter" data-level="11.1" data-path="glms.html"><a href="glms.html#modelling-count-data-with-poisson-regression-models"><i class="fa fa-check"></i><b>11.1</b> Modelling count data with Poisson regression models</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="glms.html"><a href="glms.html#a-first-data-set"><i class="fa fa-check"></i><b>11.1.1</b> A first data set</a></li>
+<li class="chapter" data-level="11.1.2" data-path="glms.html"><a href="glms.html#fit-a-poisson-glm"><i class="fa fa-check"></i><b>11.1.2</b> Fit a Poisson GLM</a></li>
+<li class="chapter" data-level="11.1.3" data-path="glms.html"><a href="glms.html#the-use-of-exposure"><i class="fa fa-check"></i><b>11.1.3</b> The use of exposure</a></li>
+<li class="chapter" data-level="11.1.4" data-path="glms.html"><a href="glms.html#analysis-of-deviance-for-glms"><i class="fa fa-check"></i><b>11.1.4</b> Analysis of deviance for GLMs</a></li>
+<li class="chapter" data-level="11.1.5" data-path="glms.html"><a href="glms.html#an-example"><i class="fa fa-check"></i><b>11.1.5</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="glms.html"><a href="glms.html#overdispersed-poisson-regression"><i class="fa fa-check"></i><b>11.2</b> Overdispersed Poisson regression</a></li>
+<li class="chapter" data-level="11.3" data-path="glms.html"><a href="glms.html#negative-binomial-regression"><i class="fa fa-check"></i><b>11.3</b> Negative Binomial regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="biblio.html"><a href="biblio.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data science in insurance: an R intro</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="glms" class="section level1">
+<h1><span class="header-section-number">11</span> Generalized Linear Models in R</h1>
+<p>You’ll now study the use of Generalized Linear Models in <code>R</code> for insurance ratemaking. You focus first on the example from Rob Kaas’ et al. (2008) Modern Actuarial Risk Theory book (see Section 9.5 in this book), with simulated claim frequency data.</p>
+<div id="modelling-count-data-with-poisson-regression-models" class="section level2">
+<h2><span class="header-section-number">11.1</span> Modelling count data with Poisson regression models</h2>
+<div id="a-first-data-set" class="section level3">
+<h3><span class="header-section-number">11.1.1</span> A first data set</h3>
+<p>This example uses artifical, simulated data. You consider data on claim frequencies, registered on 54 risk cells over a period of 7 years. <code>n</code> gives the number of claims, and <code>expo</code> the corresponding number of policies in a risk cell; each policy is followed over a period of 7 years and <code>n</code> is the number of claims reported over this total period.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">scan</span>(<span class="dt">n =</span> <span class="dv">54</span>)
+<span class="dv">1</span>  <span class="dv">8</span> <span class="dv">10</span>  <span class="dv">8</span>  <span class="dv">5</span> <span class="dv">11</span> <span class="dv">14</span> <span class="dv">12</span> <span class="dv">11</span> <span class="dv">10</span>  <span class="dv">5</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">12</span> <span class="dv">15</span> <span class="dv">13</span> <span class="dv">12</span> <span class="dv">24</span>
+<span class="dv">12</span> <span class="dv">11</span>  <span class="dv">6</span>  <span class="dv">8</span> <span class="dv">16</span> <span class="dv">19</span> <span class="dv">28</span> <span class="dv">11</span> <span class="dv">14</span>  <span class="dv">4</span> <span class="dv">12</span>  <span class="dv">8</span> <span class="dv">18</span>  <span class="dv">3</span> <span class="dv">17</span>  <span class="dv">6</span> <span class="dv">11</span> <span class="dv">18</span>
+<span class="dv">12</span>  <span class="dv">3</span> <span class="dv">10</span> <span class="dv">18</span> <span class="dv">10</span> <span class="dv">13</span> <span class="dv">12</span> <span class="dv">31</span> <span class="dv">16</span> <span class="dv">16</span> <span class="dv">13</span> <span class="dv">14</span>  <span class="dv">8</span> <span class="dv">19</span> <span class="dv">20</span>  <span class="dv">9</span> <span class="dv">23</span> <span class="dv">27</span>
+
+expo &lt;-<span class="st"> </span><span class="kw">scan</span>(<span class="dt">n =</span> <span class="dv">54</span>) <span class="op">*</span><span class="st"> </span><span class="dv">7</span>
+<span class="dv">10</span> <span class="dv">22</span> <span class="dv">30</span> <span class="dv">11</span> <span class="dv">15</span> <span class="dv">20</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">23</span> <span class="dv">28</span> <span class="dv">19</span> <span class="dv">22</span> <span class="dv">19</span> <span class="dv">21</span> <span class="dv">19</span> <span class="dv">16</span> <span class="dv">18</span> <span class="dv">29</span>
+<span class="dv">25</span> <span class="dv">18</span> <span class="dv">20</span> <span class="dv">13</span> <span class="dv">26</span> <span class="dv">21</span> <span class="dv">27</span> <span class="dv">14</span> <span class="dv">16</span> <span class="dv">11</span> <span class="dv">23</span> <span class="dv">26</span> <span class="dv">29</span> <span class="dv">13</span> <span class="dv">26</span> <span class="dv">13</span> <span class="dv">17</span> <span class="dv">27</span>
+<span class="dv">20</span> <span class="dv">18</span> <span class="dv">20</span> <span class="dv">29</span> <span class="dv">27</span> <span class="dv">24</span> <span class="dv">23</span> <span class="dv">26</span> <span class="dv">18</span> <span class="dv">25</span> <span class="dv">17</span> <span class="dv">29</span> <span class="dv">11</span> <span class="dv">24</span> <span class="dv">16</span> <span class="dv">11</span> <span class="dv">22</span> <span class="dv">29</span>
+
+n
+expo</code></pre></div>
+<pre><code> [1]  1  8 10  8  5 11 14 12 11 10  5 12 13 12 15 13 12 24 12 11  6  8 16 19 28
+[26] 11 14  4 12  8 18  3 17  6 11 18 12  3 10 18 10 13 12 31 16 16 13 14  8 19
+[51] 20  9 23 27</code></pre>
+<pre><code> [1]  70 154 210  77 105 140 175 175 161 196 133 154 133 147 133 112 126 203 175
+[20] 126 140  91 182 147 189  98 112  77 161 182 203  91 182  91 119 189 140 126
+[39] 140 203 189 168 161 182 126 175 119 203  77 168 112  77 154 203</code></pre>
+<p>The goal is to illustrate ratemaking by explaining the expected number of claims as a function of a set of observable risk factors. Since artificial data are used in this example, you use simulated or self constructed risk factors. 4 factor variables are created, the <code>sex</code> of the policyholder (1=female and 2=male), the <code>region</code> where she lives (1=countryside, 2=elsewhere and 3=big city), the <code>type</code> of car (1=small, 2=middle and 3=big) and <code>job</code> class of the insured (1=civil servant/actuary/…, 2=in-between and 3=dynamic drivers). You use the <code>R</code> instruction <code>rep()</code> to construct these risk factors. In total 54 risk cells are created in this way. Note that you use the <code>R</code> instruction <code>as.factor()</code> to specify the risk factors as factor (or: categorical) covariates.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sex &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">each=</span><span class="dv">27</span>, <span class="dt">len=</span><span class="dv">54</span>))
+region &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">each=</span><span class="dv">9</span>, <span class="dt">len=</span><span class="dv">54</span>))
+type &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">each=</span><span class="dv">3</span>, <span class="dt">len=</span><span class="dv">54</span>))
+job &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">each=</span><span class="dv">1</span>, <span class="dt">len=</span><span class="dv">54</span>))
+sex</code></pre></div>
+<pre><code> [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+[39] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+Levels: 1 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">region</code></pre></div>
+<pre><code> [1] 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 1 1 1 1 1 1 1 1 1 2 2
+[39] 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3
+Levels: 1 2 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">type</code></pre></div>
+<pre><code> [1] 1 1 1 2 2 2 3 3 3 1 1 1 2 2 2 3 3 3 1 1 1 2 2 2 3 3 3 1 1 1 2 2 2 3 3 3 1 1
+[39] 1 2 2 2 3 3 3 1 1 1 2 2 2 3 3 3
+Levels: 1 2 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">job</code></pre></div>
+<pre><code> [1] 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2
+[39] 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3
+Levels: 1 2 3</code></pre>
+</div>
+<div id="fit-a-poisson-glm" class="section level3">
+<h3><span class="header-section-number">11.1.2</span> Fit a Poisson GLM</h3>
+<p>The response variable <span class="math inline">\(N_i\)</span> is the number of claims reported on risk cell <code>i</code>, hence it is reasonable to assume a Poisson distribution for this random variable. You fit the following Poisson GLM to the data</p>
+<span class="math display">\[\begin{eqnarray*}
+N_i &amp;\sim&amp; \text{POI}(d_i \cdot \lambda_i) 
+\end{eqnarray*}\]</span>
+<p>where <span class="math inline">\(\lambda_i = \exp{(\boldsymbol{x}^{&#39;}_i\boldsymbol{\beta})}\)</span> and <span class="math inline">\(d_i\)</span> is the exposure for risk cell <span class="math inline">\(i\)</span>. In <code>R</code> you use the instruction <code>glm</code> to fit a GLM. Covariates are listed with <code>+</code>, and the log of <code>expo</code> is used as an offset. Indeed,</p>
+<span class="math display">\[\begin{eqnarray*}
+N_i &amp;\sim&amp; \text{POI}(d_i \cdot \lambda_i) \\
+&amp;= &amp; \text{POI}(\exp{(\boldsymbol{x}^{&#39;}_i \boldsymbol{\beta}+\log{(d_i)})})
+\end{eqnarray*}\]</span>
+<p>The <code>R</code> instruction to fit this GLM (with <code>sex</code>, <code>region</code>, <code>type</code> and <code>job</code> the factor variables that construct the linear predictor) then goes as follows</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>region <span class="op">+</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>job <span class="op">+</span><span class="st"> </span><span class="kw">offset</span>(<span class="kw">log</span>(expo)), <span class="dt">fam =</span> <span class="kw">poisson</span>(<span class="dt">link =</span> log))</code></pre></div>
+<p>where the argument <code>fam=</code> indicates the distribution from the exponential family that is assumed. In this case you work with the Poisson distribution with logarithmic link (which is the default link in <code>R</code>). All available distributions and their default link functions are listed here <a href="http://stat.ethz.ch/R-manual/R-patched/library/stats/html/family.html" class="uri">http://stat.ethz.ch/R-manual/R-patched/library/stats/html/family.html</a>.</p>
+<p>You store the results of the <code>glm</code> fit in the object <code>g1</code>. You consult this object with the <code>summary</code> instruction</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(g1)</code></pre></div>
+<pre><code>
+Call:
+glm(formula = n ~ sex + region + type + job + offset(log(expo)), 
+    family = poisson(link = log))
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.9278  -0.6303  -0.0215   0.5380   2.3000  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -3.0996     0.1229  -25.21  &lt; 2e-16 ***
+sex2          0.1030     0.0763    1.35   0.1771    
+region2       0.2347     0.0992    2.36   0.0180 *  
+region3       0.4643     0.0965    4.81  1.5e-06 ***
+type2         0.3946     0.1017    3.88   0.0001 ***
+type3         0.5844     0.0971    6.02  1.8e-09 ***
+job2         -0.0362     0.0970   -0.37   0.7091    
+job3          0.0607     0.0926    0.66   0.5121    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 104.73  on 53  degrees of freedom
+Residual deviance:  41.93  on 46  degrees of freedom
+AIC: 288.2
+
+Number of Fisher Scoring iterations: 4</code></pre>
+<p>This <code>summary</code> of a <code>glm</code> fit lists (among others) the following items:</p>
+<ul>
+<li>the covariates used in the model, the corresponding estimates for the regression parameters (<span class="math inline">\(\boldsymbol{\hat{\beta}}\)</span>), their standard errors, <span class="math inline">\(z\)</span> statistics and corresponding <span class="math inline">\(P\)</span> values;</li>
+<li>the dispersion parameter used (<span class="math inline">\(\phi\)</span> in the lecture sheets); for the standard Poisson regression model this dispersion parameter is equal to 1, as indicated in the <code>R</code> output;</li>
+<li>the null deviance - the deviance of the model that uses only an intercept - and the residual deviance - the deviance of the current model;
+<ul>
+<li>the null deviance corresponds to <span class="math inline">\(53\)</span> degrees of freedom, that is <span class="math inline">\(54-1\)</span> where <span class="math inline">\(54\)</span> is the number of observations used and <span class="math inline">\(1\)</span> the number of parameters (here: just the intercept);</li>
+<li>the residual deviance corresponds to <span class="math inline">\(54-8=46\)</span> degrees of freedom, since it uses <span class="math inline">\(8\)</span> parameters;</li>
+</ul></li>
+<li>the AIC calculated for the considered regression model;</li>
+<li>the number of Fisher’s iterations needed to get convergence of the iterative numerical method to calculate the MLEs of the regression parameters in <span class="math inline">\(\boldsymbol{\beta}\)</span>.</li>
+</ul>
+<p>The instruction <code>names</code> shows the names of the variables stored within a <code>glm</code> object. One of these variables is called <code>coef</code> and contains the vector of regression parameter estimates (<span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span>). It can be extracted with the instruction <code>g1$coef</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(g1)</code></pre></div>
+<pre><code> [1] &quot;coefficients&quot;      &quot;residuals&quot;         &quot;fitted.values&quot;    
+ [4] &quot;effects&quot;           &quot;R&quot;                 &quot;rank&quot;             
+ [7] &quot;qr&quot;                &quot;family&quot;            &quot;linear.predictors&quot;
+[10] &quot;deviance&quot;          &quot;aic&quot;               &quot;null.deviance&quot;    
+[13] &quot;iter&quot;              &quot;weights&quot;           &quot;prior.weights&quot;    
+[16] &quot;df.residual&quot;       &quot;df.null&quot;           &quot;y&quot;                
+[19] &quot;converged&quot;         &quot;boundary&quot;          &quot;model&quot;            
+[22] &quot;call&quot;              &quot;formula&quot;           &quot;terms&quot;            
+[25] &quot;data&quot;              &quot;offset&quot;            &quot;control&quot;          
+[28] &quot;method&quot;            &quot;contrasts&quot;         &quot;xlevels&quot;          </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1<span class="op">$</span>coef</code></pre></div>
+<pre><code>(Intercept)        sex2     region2     region3       type2       type3 
+  -3.099592    0.103034    0.234677    0.464340    0.394632    0.584428 
+       job2        job3 
+  -0.036174    0.060717 </code></pre>
+<p>Other variables can be consulted in a similar way. For example, fitted values at the original level are <span class="math inline">\(\hat{\mu}_i=\exp{(\hat{\eta}_i)}\)</span> where the fitted values at the level of the linear predictor are stored in <span class="math inline">\(\hat{\eta}_i=\log{(d_i)}+\boldsymbol{x}^{&#39;}_i\hat{\boldsymbol{\beta}}\)</span>. You then plot the fitted values versus the observed number of claims <code>n</code>. You add two reference lines: the diagonal and the least squares line.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1<span class="op">$</span>fitted.values</code></pre></div>
+<pre><code>      1       2       3       4       5       6       7       8       9      10 
+ 3.1547  6.6938 10.0566  5.1492  6.7722  9.9483 14.1487 13.6460 13.8316 11.1697 
+     11      12      13      14      15      16      17      18      19      20 
+ 7.3101  9.3255 11.2466 11.9888 11.9506 11.4503 12.4239 22.0527 12.5477  8.7134 
+     21      22      23      24      25      26      27      28      29      30 
+10.6665  9.6817 18.6755 16.6187 24.3109 12.1578 15.3083  3.8468  7.7576  9.6617 
+     31      32      33      34      35      36      37      38      39      40 
+15.0485  6.5062 14.3364  8.1558 10.2864 17.9993  8.8442  7.6770  9.3978 19.0289 
+     41      42      43      44      45      46      47      48      49      50 
+17.0871 16.7338 18.2461 19.8933 15.1734 13.9095  9.1224 17.1450  9.0813 19.1099 
+     51      52      53      54 
+14.0361 10.9794 21.1786 30.7575 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1<span class="op">$</span>linear.predictors</code></pre></div>
+<pre><code>     1      2      3      4      5      6      7      8      9     10     11 
+1.1489 1.9012 2.3082 1.6388 1.9128 2.2974 2.6496 2.6134 2.6270 2.4132 1.9893 
+    12     13     14     15     16     17     18     19     20     21     22 
+2.2328 2.4201 2.4840 2.4808 2.4380 2.5196 3.0934 2.5295 2.1649 2.3671 2.2702 
+    23     24     25     26     27     28     29     30     31     32     33 
+2.9272 2.8105 3.1909 2.4980 2.7284 1.3472 2.0487 2.2682 2.7113 1.8728 2.6628 
+    34     35     36     37     38     39     40     41     42     43     44 
+2.0987 2.3308 2.8903 2.1798 2.0382 2.2405 2.9460 2.8383 2.8174 2.9040 2.9904 
+    45     46     47     48     49     50     51     52     53     54 
+2.7195 2.6326 2.2107 2.8417 2.2062 2.9502 2.6416 2.3960 3.0530 3.4261 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(g1<span class="op">$</span>fitted.values, n, <span class="dt">xlab =</span> <span class="st">&quot;Fitted values&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Observed claims&quot;</span>)
+<span class="kw">abline</span>(<span class="kw">lm</span>(g1<span class="op">$</span>fitted <span class="op">~</span><span class="st"> </span>n), <span class="dt">col=</span><span class="st">&quot;light blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
+<span class="kw">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;dark blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-129-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>To extract the AIC you use</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(g1)</code></pre></div>
+<pre><code>[1] 288.24</code></pre>
+</div>
+<div id="the-use-of-exposure" class="section level3">
+<h3><span class="header-section-number">11.1.3</span> The use of exposure</h3>
+<p>The use of <code>expo</code>, the exposure measure, in a Poisson GLM often leads to confusion. For example, the following <code>glm</code> instruction uses a transformed response variable <span class="math inline">\(n/expo\)</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g2 &lt;-<span class="st"> </span><span class="kw">glm</span>(n<span class="op">/</span>expo <span class="op">~</span><span class="st"> </span>sex<span class="op">+</span>region<span class="op">+</span>type<span class="op">+</span>job,<span class="dt">fam=</span><span class="kw">poisson</span>(<span class="dt">link=</span>log))
+<span class="kw">summary</span>(g2)</code></pre></div>
+<pre><code>
+Call:
+glm(formula = n/expo ~ sex + region + type + job, family = poisson(link = log))
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-0.16983  -0.05628  -0.00118   0.04680   0.17676  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)  
+(Intercept)  -3.1392     1.4846   -2.11    0.034 *
+sex2          0.1007     0.9224    0.11    0.913  
+region2       0.2624     1.2143    0.22    0.829  
+region3       0.4874     1.1598    0.42    0.674  
+type2         0.4095     1.2298    0.33    0.739  
+type3         0.5757     1.1917    0.48    0.629  
+job2         -0.0308     1.1502   -0.03    0.979  
+job3          0.0957     1.1150    0.09    0.932  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 0.77537  on 53  degrees of freedom
+Residual deviance: 0.31739  on 46  degrees of freedom
+AIC: Inf
+
+Number of Fisher Scoring iterations: 5</code></pre>
+<p>and the object <code>g3</code> stores the result of a Poisson fit on the same response variable, while taking <code>expo</code> into account as weights in the likelihood.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g3 &lt;-<span class="st"> </span><span class="kw">glm</span>(n<span class="op">/</span>expo <span class="op">~</span><span class="st"> </span>sex<span class="op">+</span>region<span class="op">+</span>type<span class="op">+</span>job,<span class="dt">weights=</span>expo,<span class="dt">fam=</span><span class="kw">poisson</span>(<span class="dt">link=</span>log))
+<span class="kw">summary</span>(g3)</code></pre></div>
+<pre><code>
+Call:
+glm(formula = n/expo ~ sex + region + type + job, family = poisson(link = log), 
+    weights = expo)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.9278  -0.6303  -0.0215   0.5380   2.3000  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -3.0996     0.1229  -25.21  &lt; 2e-16 ***
+sex2          0.1030     0.0763    1.35   0.1771    
+region2       0.2347     0.0992    2.36   0.0180 *  
+region3       0.4643     0.0965    4.81  1.5e-06 ***
+type2         0.3946     0.1017    3.88   0.0001 ***
+type3         0.5844     0.0971    6.02  1.8e-09 ***
+job2         -0.0362     0.0970   -0.37   0.7091    
+job3          0.0607     0.0926    0.66   0.5121    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 104.73  on 53  degrees of freedom
+Residual deviance:  41.93  on 46  degrees of freedom
+AIC: Inf
+
+Number of Fisher Scoring iterations: 5</code></pre>
+<p>Based on this output you conclude that <code>g1</code> (with the log of exposure as offset in the linear predictor) and <code>g3</code> are the same, but <code>g2</code> is not. The mathematical explanation for this observation is given in the note ‘WeightsInGLMs.pdf’ available from Katrien’s lecture notes (available upon request).</p>
+</div>
+<div id="analysis-of-deviance-for-glms" class="section level3">
+<h3><span class="header-section-number">11.1.4</span> Analysis of deviance for GLMs</h3>
+<div id="the-basics" class="section level4">
+<h4><span class="header-section-number">11.1.4.1</span> The basics</h4>
+<p>You now focus on the selection of variables within a GLM based on a drop in deviance analysis. Your starting point is the GLM object <code>g1</code> and the <code>anova</code> instruction.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>region <span class="op">+</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>job, poisson, <span class="dt">offset =</span> <span class="kw">log</span>(expo))
+<span class="kw">anova</span>(g1, <span class="dt">test=</span><span class="st">&quot;Chisq&quot;</span>)</code></pre></div>
+<pre><code>Analysis of Deviance Table
+
+Model: poisson, link: log
+
+Response: n
+
+Terms added sequentially (first to last)
+
+       Df Deviance Resid. Df Resid. Dev Pr(&gt;Chi)    
+NULL                      53      104.7             
+region  2     21.6        51       83.1  2.0e-05 ***
+type    2     38.2        49       44.9  5.1e-09 ***
+job     2      1.2        47       43.8     0.55    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The analysis of deviance table first summarizes the Poisson GLM object (response <code>n</code>, link is <code>log</code>, family is <code>poisson</code>). The table starts with the deviance of the <code>NULL</code> model (just using an intercept), and then adds risk factors sequentially. Recall that in this example only factor covariates are present. Adding <code>region</code> (which has three levels, and requires two dummy variables) to the <code>NULL</code> model causes a drop in deviance of <code>21.597</code>, corresponding to <code>54-1-2</code> degrees of freedom and a resulting (residual) deviance of <code>83.135</code>. The drop in deviance test allows to test whether the model term <code>region</code> is significant. That is: <span class="math display">\[ H_0: \beta_{\text{region}_2}=0\ \text{and}\ \beta_{\text{region}_3}=0. \]</span> The distribution of the corresponding test statistic is a Chi-squared distribution with <code>2</code> (i.e <code>53-51</code>) degrees of freedom. The corresponding <span class="math inline">\(P\)</span>-value is <code>2.043e-05</code>. Hence, the model using <code>region</code> and the intercept is preferred above the <code>NULL</code> model. We can verify the <span class="math inline">\(P\)</span>-value by calculating the following probability</p>
+<p><span class="math display">\[ Pr(X &gt; 21.597)\ \text{with}\ X \sim \chi^2_{2}.\]</span></p>
+<p>Indeed, this is the probability - under <span class="math inline">\(H_0\)</span> - to obtain a value of the test statistic that is the same or more extreme than the actual observed value of the test statistic. Calculations in <code>R</code> are as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># p-value for region</span>
+<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pchisq</span>(<span class="fl">21.597</span>, <span class="dv">2</span>)</code></pre></div>
+<pre><code>[1] 2.043e-05</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or</span>
+<span class="kw">pchisq</span>(<span class="fl">21.597</span>, <span class="dv">2</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>[1] 2.043e-05</code></pre>
+<p>Continuing the discussion of the above printed <code>anova</code> table, the next step is to add <code>type</code> to the model using an intercept and <code>region</code>. This causes a drop in deviance of <code>38.195</code>. You conclude that also <code>type</code> is a significant model term. The last step adds <code>job</code> to the existing model (with intercept, <code>region</code> and <code>type</code>). You conclude that <code>job</code> does not have a significant impact when explaining the expected number of claims.</p>
+<p>Based on this analysis of deviance table <code>region</code> and <code>type</code> seem to be relevant risk factors, but <code>job</code> is not, when explaining the expected number of claims.</p>
+<p>The Chi-squared distribution is used here, since the regular Poisson regression model does not require the estimation of a dispersion parameter.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(g1,<span class="dt">test=</span><span class="st">&quot;Chisq&quot;</span>)</code></pre></div>
+<p>The setting changes when the dispersion parameter is unknown and should be estimated. If you run the analysis of deviance for glm object <code>g1</code> with the <code>F</code> distribution as distribution for the test statistic, you obtain:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># what if we use &#39;F&#39; instead of &#39;Chisq&#39;?</span>
+<span class="kw">anova</span>(g1,<span class="dt">test=</span><span class="st">&quot;F&quot;</span>) </code></pre></div>
+<pre><code>Warning in anova.glm(g1, test = &quot;F&quot;): using F test with a &#39;poisson&#39; family is
+inappropriate</code></pre>
+<pre><code>Analysis of Deviance Table
+
+Model: poisson, link: log
+
+Response: n
+
+Terms added sequentially (first to last)
+
+       Df Deviance Resid. Df Resid. Dev     F  Pr(&gt;F)    
+NULL                      53      104.7                  
+region  2     21.6        51       83.1 10.80 2.0e-05 ***
+type    2     38.2        49       44.9 19.10 5.1e-09 ***
+job     2      1.2        47       43.8  0.59    0.55    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># not appropriate for regular Poisson regression, see Warning message in the console!</span></code></pre></div>
+<p>and a <code>Warning message</code> is printed in the console that says</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Warning message:</span>
+<span class="co"># In anova.glm(g1, test = &quot;F&quot;) :</span>
+<span class="co">#   using F test with a &#39;poisson&#39; family is inappropriate</span></code></pre></div>
+<p>It is insightful to understand how the output shown for the <span class="math inline">\(F\)</span> statistic and corresponding <span class="math inline">\(P\)</span>-value is calculated. For example, the drop in deviance test comparing the <code>NULL</code> model viz a model using an intercept and <code>region</code> corresponds to an observed test statistic of <code>10.7985</code>. The calculation of the <span class="math inline">\(F\)</span> statistic requires</p>
+<p><span class="math display">\[ \frac{\text{Drop-in-deviance}/q}{\hat{\phi}},  \]</span> where <span class="math inline">\(q\)</span> is the difference in degrees of freedom between the compared models and <span class="math inline">\(\hat{\phi}\)</span> is the estimate for the dispersion parameter. In this example <span class="math inline">\(F\)</span> corresponding to <code>region</code> is calculated as</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="fl">21.597</span><span class="op">/</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">1</span></code></pre></div>
+<pre><code>[1] 10.799</code></pre>
+<p>However, as explained, since the model investigated has a known dispersion, the Chi-squared test is most appropriate here. More details are here: <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/anova.glm.html" class="uri">https://stat.ethz.ch/R-manual/R-devel/library/stats/html/anova.glm.html</a>.</p>
+</div>
+</div>
+<div id="an-example" class="section level3">
+<h3><span class="header-section-number">11.1.5</span> An example</h3>
+<p>You are now ready to study a complete analysis-of-deviance table. This table investigates 10 possible model specifications <code>g1-g10</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># construct an analysis-of-deviance table</span>
+g1 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, poisson , <span class="dt">offset=</span><span class="kw">log</span>(expo))
+g2 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span>sex, poisson , <span class="dt">offset=</span><span class="kw">log</span>(expo))
+g3 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span>sex<span class="op">+</span>region, poisson, <span class="dt">offset=</span><span class="kw">log</span>(expo))
+g4 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span>sex<span class="op">+</span>region<span class="op">+</span>sex<span class="op">:</span>region, poisson, <span class="dt">offset=</span><span class="kw">log</span>(expo))
+g5 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span>type, poisson, <span class="dt">offset=</span><span class="kw">log</span>(expo))
+g6 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span>region, poisson, <span class="dt">offset=</span><span class="kw">log</span>(expo))
+g7 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span>region<span class="op">+</span>type, poisson, <span class="dt">offset=</span><span class="kw">log</span>(expo))
+g8 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span>region<span class="op">+</span>type<span class="op">+</span>region<span class="op">:</span>type, poisson, <span class="dt">offset=</span><span class="kw">log</span>(expo))
+g9 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span>region<span class="op">+</span>type<span class="op">+</span>job, poisson, <span class="dt">offset=</span><span class="kw">log</span>(expo))
+g10 &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span>region<span class="op">+</span>type<span class="op">+</span>sex, poisson, <span class="dt">offset=</span><span class="kw">log</span>(expo))</code></pre></div>
+<p>For example, the residual deviance obtained with model <code>g8</code> (using intercept, <code>region</code>, <code>type</code> and the interaction of <code>region</code> and <code>type</code>) is 42.4, see</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(g8)</code></pre></div>
+<pre><code>
+Call:
+glm(formula = n ~ region + type + region:type, family = poisson, 
+    offset = log(expo))
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.8296  -0.4893  -0.0622   0.5377   1.8974  
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)    -2.9887     0.1525  -19.60   &lt;2e-16 ***
+region2         0.1499     0.2061    0.73    0.467    
+region3         0.4216     0.1927    2.19    0.029 *  
+type2           0.4338     0.1985    2.19    0.029 *  
+type3           0.4520     0.1927    2.35    0.019 *  
+region2:type2  -0.0808     0.2664   -0.30    0.762    
+region3:type2  -0.0223     0.2537   -0.09    0.930    
+region2:type3   0.2556     0.2562    1.00    0.318    
+region3:type3   0.1086     0.2449    0.44    0.657    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 104.732  on 53  degrees of freedom
+Residual deviance:  42.412  on 45  degrees of freedom
+AIC: 290.7
+
+Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g8<span class="op">$</span>deviance</code></pre></div>
+<pre><code>[1] 42.412</code></pre>
+<p>Using the technique of drop in deviance analysis you compare the models that are nested (!!) and decide which model specification is the preferred one. To do this, one can run multiple <code>anova</code> instructions such as</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(g1, g2, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</code></pre></div>
+<pre><code>Analysis of Deviance Table
+
+Model 1: n ~ 1
+Model 2: n ~ sex
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+1        53        105                     
+2        52        103  1     1.93     0.17</code></pre>
+<p>which compares nested models <code>g1</code> and <code>g2</code>, or <code>g7</code> and <code>g8</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(g7, g8, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</code></pre></div>
+<pre><code>Analysis of Deviance Table
+
+Model 1: n ~ region + type
+Model 2: n ~ region + type + region:type
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+1        49       44.9                     
+2        45       42.4  4     2.53     0.64</code></pre>
+<hr />
+</div>
+</div>
+<div id="overdispersed-poisson-regression" class="section level2">
+<h2><span class="header-section-number">11.2</span> Overdispersed Poisson regression</h2>
+<p>The overdispersed Poisson model builds a regression model for the mean of the response variable <span class="math display">\[ EN_i = \exp{(\log d_i + \boldsymbol{x}_i^{&#39;}\boldsymbol{\beta})} \]</span> and expressses the variance as <span class="math display">\[ \text{Var}(N_i) = \phi \cdot EN_i, \]</span> with <span class="math inline">\(N_i\)</span> the number of claims reported by policyholder <span class="math inline">\(i\)</span> and <span class="math inline">\(\phi\)</span> an unknown dispersion parameter that should be estimated. This is called a quasi-Poisson model (see <a href="http://stat.ethz.ch/R-manual/R-patched/library/stats/html/family.html" class="uri">http://stat.ethz.ch/R-manual/R-patched/library/stats/html/family.html</a>) and Section 1 in <a href="http://data.princeton.edu/wws509/notes/c4a.pdf" class="uri">http://data.princeton.edu/wws509/notes/c4a.pdf</a> for a more detailed explanation. To illustrate the differences between a regular Poisson and an overdispersed Poisson model, we fit the models <code>g.poi</code> and <code>g.quasi</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g.poi &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>region <span class="op">+</span><span class="st"> </span>type, poisson, <span class="dt">offset =</span> <span class="kw">log</span>(expo))
+<span class="kw">summary</span>(g.poi)</code></pre></div>
+<pre><code>
+Call:
+glm(formula = n ~ 1 + region + type, family = poisson, offset = log(expo))
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.9233  -0.6564  -0.0573   0.4790   2.3144  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -3.0313     0.1015  -29.86  &lt; 2e-16 ***
+region2       0.2314     0.0990    2.34   0.0195 *  
+region3       0.4605     0.0965    4.77  1.8e-06 ***
+type2         0.3942     0.1015    3.88   0.0001 ***
+type3         0.5833     0.0971    6.01  1.9e-09 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 104.73  on 53  degrees of freedom
+Residual deviance:  44.94  on 49  degrees of freedom
+AIC: 285.2
+
+Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g.quasi &lt;-<span class="st"> </span><span class="kw">glm</span>(n <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>region <span class="op">+</span><span class="st"> </span>type, quasipoisson, <span class="dt">offset =</span> <span class="kw">log</span>(expo))
+<span class="kw">summary</span>(g.quasi)</code></pre></div>
+<pre><code>
+Call:
+glm(formula = n ~ 1 + region + type, family = quasipoisson, offset = log(expo))
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.9233  -0.6564  -0.0573   0.4790   2.3144  
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -3.0313     0.0961  -31.54  &lt; 2e-16 ***
+region2       0.2314     0.0938    2.47  0.01715 *  
+region3       0.4605     0.0913    5.04  6.7e-06 ***
+type2         0.3942     0.0961    4.10  0.00015 ***
+type3         0.5833     0.0919    6.35  6.8e-08 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasipoisson family taken to be 0.89654)
+
+    Null deviance: 104.73  on 53  degrees of freedom
+Residual deviance:  44.94  on 49  degrees of freedom
+AIC: NA
+
+Number of Fisher Scoring iterations: 4</code></pre>
+<p>Parameter estimates in both models are the same, but standard errors (and hence <span class="math inline">\(P\)</span>-values) are not! You also see that <code>g.poi</code> reports <code>z-value</code> whereas <code>g.quasi</code> reports <code>t-value</code>, because the latter model estimates an extra parameter, i.e. the dispersion parameter.</p>
+<p>Various methods are available to estimate the dispersion parameter, e.g.</p>
+<p><span class="math display">\[ \hat{\phi} = \frac{\text{Deviance}}{n-(p+1)}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[ \hat{\phi} = \frac{\text{Pearson}\ \chi^2}{n-(p+1)}\]</span></p>
+<p>where <span class="math inline">\(p+1\)</span> is the total number of parameters (including the intercept) used in the considered model. The (residual) deviance is the deviance of the considered model and can also be obtained as the sum of squared deviance residuals. The Pearson <span class="math inline">\(\chi^2\)</span> statistic is the sum of the squared Pearson residuals. The latter is the default in R. Hence, you can verify the dispersion parameter of <code>0.896</code> as printed in the <code>summary</code> of <code>g.quasi</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dispersion parameter in g is estimated as follows</span>
+phi &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">residuals</span>(g.poi, <span class="st">&quot;pearson&quot;</span>)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>g.poi<span class="op">$</span>df.residual
+phi</code></pre></div>
+<pre><code>[1] 0.89654</code></pre>
+<p>Since <span class="math inline">\(\hat{\phi}\)</span> is less than 1, the result seems to indicate underdispersion. However, as discussed in Section 2.4 ‘Overdispersion’ in the book of Denuit et al. (2007), real data on reported claim counts very often reveal overdispersion. The counterintuitive result that is obtained here is probably due to the fact that artificial, self-constructed data are used.</p>
+<p>When going from <code>g.poi</code> (regular Poisson) to <code>g.quasi</code> the standard errors are changed as follows:</p>
+<p><span class="math display">\[ \text{SE}_{\text{Q-POI}} = \sqrt{\hat{\phi}} \cdot \text{SE}_{\text{POI}},\]</span></p>
+<p>where <span class="math inline">\(\text{Q-POI}\)</span> is for quasi-Poisson.</p>
+<p>As a last step, you run the analysis of deviance for the quasi-Poisson model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(g.quasi, <span class="dt">test =</span> <span class="st">&quot;F&quot;</span>)</code></pre></div>
+<pre><code>Analysis of Deviance Table
+
+Model: quasipoisson, link: log
+
+Response: n
+
+Terms added sequentially (first to last)
+
+       Df Deviance Resid. Df Resid. Dev    F  Pr(&gt;F)    
+NULL                      53      104.7                 
+region  2     21.6        51       83.1 12.0 5.6e-05 ***
+type    2     38.2        49       44.9 21.3 2.2e-07 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>For example, the <span class="math inline">\(F\)</span>-statistic for <code>region</code> is calculated as</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">F &lt;-<span class="st"> </span>(<span class="fl">21.597</span><span class="op">/</span><span class="dv">2</span>)<span class="op">/</span>phi
+F</code></pre></div>
+<pre><code>[1] 12.045</code></pre>
+<p>and the corresponding <span class="math inline">\(P\)</span>-value is</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pf</span>(F, <span class="dv">2</span>, <span class="dv">49</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>[1] 5.5642e-05</code></pre>
+<hr />
+</div>
+<div id="negative-binomial-regression" class="section level2">
+<h2><span class="header-section-number">11.3</span> Negative Binomial regression</h2>
+<p>You now focus on the use of yet another useful count regression model, that is the Negative Binomial regression model. The routine to fit a NB regression model is available in the package <code>MASS</code> and is called <code>glm.nb</code>, see <a href="https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/glm.nb.html" class="uri">https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/glm.nb.html</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;MASS&quot;)</span>
+<span class="kw">library</span>(MASS)
+g.nb &lt;-<span class="st"> </span><span class="kw">glm.nb</span>(n <span class="op">~</span><span class="st"> </span><span class="dv">1</span><span class="op">+</span>region<span class="op">+</span>sex<span class="op">+</span><span class="kw">offset</span>(<span class="kw">log</span>(expo)))
+<span class="kw">summary</span>(g.nb)</code></pre></div>
+<pre><code>
+Call:
+glm.nb(formula = n ~ 1 + region + sex + offset(log(expo)), init.theta = 26.38897379, 
+    link = log)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.6222  -0.6531  -0.0586   0.6587   2.3542  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  -2.7342     0.1019  -26.84  &lt; 2e-16 ***
+region2       0.2359     0.1195    1.97  0.04837 *  
+region3       0.4533     0.1176    3.85  0.00012 ***
+sex2          0.1049     0.0939    1.12  0.26392    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for Negative Binomial(26.389) family taken to be 1)
+
+    Null deviance: 71.237  on 53  degrees of freedom
+Residual deviance: 54.917  on 50  degrees of freedom
+AIC: 316.1
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  26.4 
+          Std. Err.:  15.3 
+
+ 2 x log-likelihood:  -306.06 </code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lms.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="biblio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

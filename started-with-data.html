@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  
+  <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  
+
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+
+
+<meta name="date" content="2018-09-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="objects-data-types.html">
+<link rel="next" href="data-viz.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#subsec:learning-goals"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#subsec:pipeline"><i class="fa fa-check"></i><b>1.2</b> Data/science pipeline</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#inspirations-and-references"><i class="fa fa-check"></i><b>1.3</b> Inspirations and references</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#sec:about-book"><i class="fa fa-check"></i><b>1.4</b> About this book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting started in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started.html"><a href="getting-started.html#some-history"><i class="fa fa-check"></i><b>2.1</b> Some history</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-started.html"><a href="getting-started.html#what-are-r-and-rstudio"><i class="fa fa-check"></i><b>2.2</b> What are R and RStudio?</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started.html"><a href="getting-started.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>2.2.1</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started.html"><a href="getting-started.html#using-r-via-rstudio"><i class="fa fa-check"></i><b>2.2.2</b> Using R via RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="getting-started.html"><a href="getting-started.html#code"><i class="fa fa-check"></i><b>2.3</b> How do I code in R?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="getting-started.html"><a href="getting-started.html#tips-on-learning-to-code"><i class="fa fa-check"></i><b>2.3.1</b> Tips on learning to code</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="getting-started.html"><a href="getting-started.html#packages"><i class="fa fa-check"></i><b>2.4</b> What are R packages?</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="getting-started.html"><a href="getting-started.html#package-installation"><i class="fa fa-check"></i><b>2.4.1</b> Package installation</a></li>
+<li class="chapter" data-level="2.4.2" data-path="getting-started.html"><a href="getting-started.html#package-loading"><i class="fa fa-check"></i><b>2.4.2</b> Package loading</a></li>
+<li class="chapter" data-level="2.4.3" data-path="getting-started.html"><a href="getting-started.html#packages-on-cran"><i class="fa fa-check"></i><b>2.4.3</b> Packages on CRAN</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="getting-started.html"><a href="getting-started.html#conclusion"><i class="fa fa-check"></i><b>2.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
+<li class="chapter" data-level="4.2.2" data-path="started-with-data.html"><a href="started-with-data.html#find-minimum-or-maximum"><i class="fa fa-check"></i><b>4.2.2</b> Find minimum or maximum</a></li>
+<li class="chapter" data-level="4.2.3" data-path="started-with-data.html"><a href="started-with-data.html#sorting"><i class="fa fa-check"></i><b>4.2.3</b> Sorting</a></li>
+<li class="chapter" data-level="4.2.4" data-path="started-with-data.html"><a href="started-with-data.html#merging"><i class="fa fa-check"></i><b>4.2.4</b> Merging</a></li>
+<li class="chapter" data-level="4.2.5" data-path="started-with-data.html"><a href="started-with-data.html#aggregate"><i class="fa fa-check"></i><b>4.2.5</b> Aggregate</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="started-with-data.html"><a href="started-with-data.html#exploratory-data-analysis-eda"><i class="fa fa-check"></i><b>4.3</b> Exploratory Data Analysis (EDA)</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-numerical-variable"><i class="fa fa-check"></i><b>4.3.1</b> Exploring a numerical variable</a></li>
+<li class="chapter" data-level="4.3.2" data-path="started-with-data.html"><a href="started-with-data.html#exploring-a-categorical-or-factor-variable"><i class="fa fa-check"></i><b>4.3.2</b> Exploring a categorical (or: factor) variable</a></li>
+<li class="chapter" data-level="4.3.3" data-path="started-with-data.html"><a href="started-with-data.html#exploring-two-categorical-or-factor-variables"><i class="fa fa-check"></i><b>4.3.3</b> Exploring two categorical (or: factor) variables</a></li>
+<li class="chapter" data-level="4.3.4" data-path="started-with-data.html"><a href="started-with-data.html#exploring-one-numerical-and-one-categorical-variable"><i class="fa fa-check"></i><b>4.3.4</b> Exploring one numerical and one categorical variable</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="started-with-data.html"><a href="started-with-data.html#exercises-1"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-viz.html"><a href="data-viz.html"><i class="fa fa-check"></i><b>5</b> Visualizing data in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-viz.html"><a href="data-viz.html#basic-plot-instructions"><i class="fa fa-check"></i><b>5.1</b> Basic plot instructions</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-viz.html"><a href="data-viz.html#scatterplot"><i class="fa fa-check"></i><b>5.1.1</b> Scatterplot</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-viz.html"><a href="data-viz.html#saving-the-scatterplot-as-a-pdf"><i class="fa fa-check"></i><b>5.1.2</b> Saving the scatterplot as a pdf</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-viz.html"><a href="data-viz.html#the-curve-function"><i class="fa fa-check"></i><b>5.1.3</b> The <code>curve()</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-viz.html"><a href="data-viz.html#more-fancy-plots"><i class="fa fa-check"></i><b>5.2</b> More fancy plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-viz.html"><a href="data-viz.html#creating-graphics-with-ggplot2"><i class="fa fa-check"></i><b>5.2.1</b> Creating graphics with <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-viz.html"><a href="data-viz.html#fancy-correlation-plots"><i class="fa fa-check"></i><b>5.2.2</b> Fancy correlation plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-viz.html"><a href="data-viz.html#exercises-2"><i class="fa fa-check"></i><b>5.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>6</b> Data wrangling in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#ideas-from-the-tidyverse"><i class="fa fa-check"></i><b>6.1</b> Ideas from the <code>tidyverse</code></a><ul>
+<li class="chapter" data-level="6.1.1" data-path="data-wrangling.html"><a href="data-wrangling.html#a-tibble-instead-of-a-data.frame"><i class="fa fa-check"></i><b>6.1.1</b> A <code>tibble</code> instead of a <code>data.frame</code></a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-wrangling.html"><a href="data-wrangling.html#pipes-in-r"><i class="fa fa-check"></i><b>6.1.2</b> Pipes in R</a></li>
+<li class="chapter" data-level="6.1.3" data-path="data-wrangling.html"><a href="data-wrangling.html#filter-observations-using-filter"><i class="fa fa-check"></i><b>6.1.3</b> Filter observations using <code>filter</code></a></li>
+<li class="chapter" data-level="6.1.4" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-variables-using-summarize"><i class="fa fa-check"></i><b>6.1.4</b> Summarize variables using <code>summarize</code></a></li>
+<li class="chapter" data-level="6.1.5" data-path="data-wrangling.html"><a href="data-wrangling.html#summarize-based-on-groupings-of-another-variable"><i class="fa fa-check"></i><b>6.1.5</b> Summarize based on groupings of another variable</a></li>
+<li class="chapter" data-level="6.1.6" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-tibbles"><i class="fa fa-check"></i><b>6.1.6</b> Joining tibbles</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data-science-the-data.table-way"><i class="fa fa-check"></i><b>6.2</b> Data science the <code>data.table</code> way</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#speed-junkies-love-data.table"><i class="fa fa-check"></i><b>6.2.1</b> Speed junkies love <code>data.table</code></a></li>
+<li class="chapter" data-level="6.2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#what-is-a-data.table"><i class="fa fa-check"></i><b>6.2.2</b> What is a <code>data.table</code>?</a></li>
+<li class="chapter" data-level="6.2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#identify-keys"><i class="fa fa-check"></i><b>6.2.3</b> Identify keys</a></li>
+<li class="chapter" data-level="6.2.4" data-path="data-wrangling.html"><a href="data-wrangling.html#alternative-and-faster-ways-to-aggregate"><i class="fa fa-check"></i><b>6.2.4</b> Alternative and faster ways to <code>aggregate</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="data-wrangling.html"><a href="data-wrangling.html#joining-data.tables"><i class="fa fa-check"></i><b>6.2.5</b> Joining <code>data.tables</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#exercises-3"><i class="fa fa-check"></i><b>6.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probs.html"><a href="probs.html"><i class="fa fa-check"></i><b>7</b> Working with probability distributions in R</a><ul>
+<li class="chapter" data-level="7.1" data-path="probs.html"><a href="probs.html#discrete-distributions"><i class="fa fa-check"></i><b>7.1</b> Discrete distributions</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="probs.html"><a href="probs.html#the-binomial-distribution"><i class="fa fa-check"></i><b>7.1.1</b> The binomial distribution</a></li>
+<li class="chapter" data-level="7.1.2" data-path="probs.html"><a href="probs.html#the-poisson-distribution"><i class="fa fa-check"></i><b>7.1.2</b> The Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="probs.html"><a href="probs.html#continuous-distributions"><i class="fa fa-check"></i><b>7.2</b> Continuous distributions</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="probs.html"><a href="probs.html#the-normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> The normal distribution</a></li>
+<li class="chapter" data-level="7.2.2" data-path="probs.html"><a href="probs.html#the-gamma-distribution"><i class="fa fa-check"></i><b>7.2.2</b> The gamma distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
+<li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
+<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-4"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
+<li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
+<li class="chapter" data-level="9.2" data-path="optimization.html"><a href="optimization.html#find-the-maximum-of-a-function"><i class="fa fa-check"></i><b>9.2</b> Find the maximum of a function</a></li>
+<li class="chapter" data-level="9.3" data-path="optimization.html"><a href="optimization.html#do-maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>9.3</b> Do Maximum Likelihood Estimation (MLE)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lms.html"><a href="lms.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models in R</a><ul>
+<li class="chapter" data-level="10.1" data-path="lms.html"><a href="lms.html#a-simple-linear-regression-model"><i class="fa fa-check"></i><b>10.1</b> A simple linear regression model</a></li>
+<li class="chapter" data-level="10.2" data-path="lms.html"><a href="lms.html#a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>10.2</b> A multiple linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="glms.html"><a href="glms.html"><i class="fa fa-check"></i><b>11</b> Generalized Linear Models in R</a><ul>
+<li class="chapter" data-level="11.1" data-path="glms.html"><a href="glms.html#modelling-count-data-with-poisson-regression-models"><i class="fa fa-check"></i><b>11.1</b> Modelling count data with Poisson regression models</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="glms.html"><a href="glms.html#a-first-data-set"><i class="fa fa-check"></i><b>11.1.1</b> A first data set</a></li>
+<li class="chapter" data-level="11.1.2" data-path="glms.html"><a href="glms.html#fit-a-poisson-glm"><i class="fa fa-check"></i><b>11.1.2</b> Fit a Poisson GLM</a></li>
+<li class="chapter" data-level="11.1.3" data-path="glms.html"><a href="glms.html#the-use-of-exposure"><i class="fa fa-check"></i><b>11.1.3</b> The use of exposure</a></li>
+<li class="chapter" data-level="11.1.4" data-path="glms.html"><a href="glms.html#analysis-of-deviance-for-glms"><i class="fa fa-check"></i><b>11.1.4</b> Analysis of deviance for GLMs</a></li>
+<li class="chapter" data-level="11.1.5" data-path="glms.html"><a href="glms.html#an-example"><i class="fa fa-check"></i><b>11.1.5</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="glms.html"><a href="glms.html#overdispersed-poisson-regression"><i class="fa fa-check"></i><b>11.2</b> Overdispersed Poisson regression</a></li>
+<li class="chapter" data-level="11.3" data-path="glms.html"><a href="glms.html#negative-binomial-regression"><i class="fa fa-check"></i><b>11.3</b> Negative Binomial regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="biblio.html"><a href="biblio.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data science in insurance: an R intro</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="started-with-data" class="section level1">
+<h1><span class="header-section-number">4</span> Getting started with data in R</h1>
+<div id="importing-data" class="section level2">
+<h2><span class="header-section-number">4.1</span> Importing data</h2>
+<p>Importing data into R to start your analyses-it should be the easiest step. Unfortunately, this is almost never the case. Data come in all sorts of formats, ranging from CSV and text files and statistical software files to databases and HTML data. Knowing which approach to use is key to getting started with the actual analysis. (Quote from DataCamp’s ‘Importing Data in R (Part 1)’ course)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># what is the current working directory?</span>
+<span class="kw">getwd</span>()
+<span class="co"># which files are currently stored in my working directory?</span>
+<span class="kw">dir</span>()</code></pre></div>
+<p>Specify the path where the data are stored.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># where are my data files?</span>
+path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&#39;data&#39;</span>)
+<span class="co"># how to find a path name on your computer?</span>
+<span class="co"># file.choose()</span></code></pre></div>
+<div id="importing-a-.csv-file-with-read.csv" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Importing a .csv file with <code>read.csv()</code></h3>
+<p>The <code>utils</code> package, which is automatically loaded in your R session on startup, can import CSV files with the <code>read.csv()</code> function. You will now load a data set on swimming pools in Brisbane, Australia (source: <a href="data.gov.au" class="uri">data.gov.au</a>). The file contains the column names in the first row. It uses a comma to separate values within rows. (Quote and example from DataCamp’s ‘Importing Data in R (Part 1)’ course)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path.pools &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;swimming_pools.csv&quot;</span>)
+pools &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.pools)
+<span class="kw">str</span>(pools)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   20 obs. of  4 variables:
+ $ Name     : Factor w/ 20 levels &quot;Acacia Ridge Leisure Centre&quot;,..: 1 2 3 4 5 6 19 7 8 9 ...
+ $ Address  : Factor w/ 20 levels &quot;1 Fairlead Crescent, Manly&quot;,..: 5 20 18 10 9 11 6 15 12 17 ...
+ $ Latitude : num  -27.6 -27.6 -27.6 -27.5 -27.4 ...
+ $ Longitude: num  153 153 153 153 153 ...</code></pre>
+<p>With <code>stringsAsFactors</code>, you can tell R whether it should convert strings in the flat file to factors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pools &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.pools, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+<span class="kw">str</span>(pools)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   20 obs. of  4 variables:
+ $ Name     : chr  &quot;Acacia Ridge Leisure Centre&quot; &quot;Bellbowrie Pool&quot; &quot;Carole Park&quot; &quot;Centenary Pool (inner City)&quot; ...
+ $ Address  : chr  &quot;1391 Beaudesert Road, Acacia Ridge&quot; &quot;Sugarwood Street, Bellbowrie&quot; &quot;Cnr Boundary Road and Waterford Road Wacol&quot; &quot;400 Gregory Terrace, Spring Hill&quot; ...
+ $ Latitude : num  -27.6 -27.6 -27.6 -27.5 -27.4 ...
+ $ Longitude: num  153 153 153 153 153 ...</code></pre>
+</div>
+<div id="importing-a-.txt-file-the-danish-fire-insurance-data" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Importing a .txt file: the Danish fire insurance data</h3>
+<p><code>read.table()</code> is the most basic importing function; you can specify tons of different arguments in this function. The header argument defaults to FALSE and the sep argument is “” by default. (Quote from DataCamp’s ‘Importing Data in R (Part 1)’ course)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path.fire &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;danish.txt&quot;</span>)
+danish &lt;-<span class="st"> </span><span class="kw">read.table</span>(path.fire, <span class="dt">header =</span> <span class="ot">TRUE</span>)
+<span class="kw">head</span>(danish) <span class="co"># use the argument &#39;n&#39; to display less/more records</span></code></pre></div>
+<pre><code>        Date Loss.in.DKM
+1 01/03/1980       1.684
+2 01/04/1980       2.094
+3 01/05/1980       1.733
+4 01/07/1980       1.780
+5 01/07/1980       4.612
+6 01/10/1980       8.725</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(danish)</code></pre></div>
+<pre><code>           Date Loss.in.DKM
+2162 12/24/1990       1.238
+2163 12/27/1990       1.115
+2164 12/30/1990       1.403
+2165 12/30/1990       4.868
+2166 12/30/1990       1.073
+2167 12/31/1990       4.125</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(danish)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   2167 obs. of  2 variables:
+ $ Date       : Factor w/ 1645 levels &quot;01/01/1981&quot;,&quot;01/01/1984&quot;,..: 11 18 23 31 31 50 50 80 80 92 ...
+ $ Loss.in.DKM: num  1.68 2.09 1.73 1.78 4.61 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(danish)</code></pre></div>
+<pre><code>[1] &quot;Date&quot;        &quot;Loss.in.DKM&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(danish)</code></pre></div>
+<pre><code>[1] 2167    2</code></pre>
+<p>What goes wrong when importing the Danish fire insurance losses stored in <code>danish.txt</code>?</p>
+<p>You can specify the column names and also the column types or column classes of the resulting data frame. You can do this by setting the <code>col.names</code> and the <code>colClasses</code> argument to a vector of strings. (Quote from DataCamp’s ‘Importing Data in R (Part 1)’ course)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path.hotdogs &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;hotdogs.txt&quot;</span>)
+hotdogs &lt;-<span class="st"> </span><span class="kw">read.table</span>(path.hotdogs, <span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;type&quot;</span>, <span class="st">&quot;calories&quot;</span>, <span class="st">&quot;sodium&quot;</span>))
+<span class="co"># display structure of hotdogs</span>
+<span class="kw">str</span>(hotdogs)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   54 obs. of  3 variables:
+ $ type    : Factor w/ 3 levels &quot;Beef&quot;,&quot;Meat&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ calories: int  186 181 176 149 184 190 158 139 175 148 ...
+ $ sodium  : int  495 477 425 322 482 587 370 322 479 375 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># edit the colClasses argument to import the data correctly: hotdogs2</span>
+hotdogs2 &lt;-<span class="st"> </span><span class="kw">read.table</span>(path.hotdogs, <span class="dt">header =</span> <span class="ot">FALSE</span>, 
+                       <span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;type&quot;</span>, <span class="st">&quot;calories&quot;</span>, <span class="st">&quot;sodium&quot;</span>),
+                       <span class="dt">colClasses =</span> <span class="kw">c</span>(<span class="st">&quot;factor&quot;</span>, <span class="st">&quot;NULL&quot;</span>, <span class="st">&quot;numeric&quot;</span>))
+<span class="co"># display structure of hotdogs2</span>
+<span class="kw">str</span>(hotdogs2)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   54 obs. of  2 variables:
+ $ type  : Factor w/ 3 levels &quot;Beef&quot;,&quot;Meat&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ sodium: num  495 477 425 322 482 587 370 322 479 375 ...</code></pre>
+<p>What happened? What is the effect of specifying one of the <code>colClasses</code> as <code>NULL</code>?</p>
+<p>Now fix the colmun types in the <code>danish</code> data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">danish<span class="op">$</span>Date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(danish<span class="op">$</span>Date, <span class="st">&quot;%m/%d/%Y&quot;</span>)
+<span class="kw">str</span>(danish)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   2167 obs. of  2 variables:
+ $ Date       : Date, format: &quot;1980-01-03&quot; &quot;1980-01-04&quot; ...
+ $ Loss.in.DKM: num  1.68 2.09 1.73 1.78 4.61 ...</code></pre>
+<p>Or you can try to fix this directly when importing the <code>danish.txt</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path.fire &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;danish.txt&quot;</span>)
+danish &lt;-<span class="st"> </span><span class="kw">read.table</span>(path.fire, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">colClasses =</span> <span class="kw">c</span>(<span class="st">&quot;Date&quot;</span>, <span class="st">&quot;numeric&quot;</span>))</code></pre></div>
+<p>However, this requires some extra effort …</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setAs</span>(<span class="st">&quot;character&quot;</span>,<span class="st">&quot;myDate&quot;</span>, <span class="cf">function</span>(from) <span class="kw">as.Date</span>(from, <span class="dt">format=</span><span class="st">&quot;%m/%d/%Y&quot;</span>) )</code></pre></div>
+<pre><code>in method for &#39;coerce&#39; with signature &#39;&quot;character&quot;,&quot;myDate&quot;&#39;: no definition for class &quot;myDate&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">danish2 &lt;-<span class="st"> </span><span class="kw">read.table</span>(path.fire, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">colClasses =</span> <span class="kw">c</span>(<span class="st">&quot;myDate&quot;</span>, <span class="st">&quot;numeric&quot;</span>))
+<span class="kw">str</span>(danish2)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   2167 obs. of  2 variables:
+ $ Date       : Date, format: &quot;1980-01-03&quot; &quot;1980-01-04&quot; ...
+ $ Loss.in.DKM: num  1.68 2.09 1.73 1.78 4.61 ...</code></pre>
+</div>
+<div id="importing-a-.csv-file-policy-data" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Importing a .csv file: policy data</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">policy.path &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;policy.csv&quot;</span>)
+policy &lt;-<span class="st"> </span><span class="kw">read.table</span>(policy.path, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&quot;;&quot;</span>)
+<span class="kw">head</span>(policy)</code></pre></div>
+<pre><code>  numeropol  debut_pol    fin_pol freq_paiement langue  type_prof alimentation
+1         3 14/09/1995 24/04/1996       mensuel      F Technicien   Végétarien
+2         3 25/04/1996 23/12/1996       mensuel      F Technicien   Végétarien
+3         6  1/03/1995 27/02/1996        annuel      A Technicien    Carnivore
+4         6  1/03/1996 14/01/1997        annuel      A Technicien    Carnivore
+5         6 15/01/1997 31/01/1997        annuel      A Technicien    Carnivore
+6         6  1/02/1997 28/02/1997        annuel      A Technicien    Carnivore
+  type_territoire         utilisation presence_alarme marque_voiture sexe cout1
+1          Urbain   Travail-quotidien             non     VOLKSWAGEN    F    NA
+2          Urbain   Travail-quotidien             non     VOLKSWAGEN    F    NA
+3          Urbain Travail-occasionnel             oui         NISSAN    M 279.6
+4          Urbain Travail-occasionnel             oui         NISSAN    M    NA
+5          Urbain Travail-occasionnel             oui         NISSAN    M    NA
+6          Urbain Travail-occasionnel             oui         NISSAN    M    NA
+  cout2 cout3 cout4 nbsin exposition  cout age duree_permis annee_vehicule
+1    NA    NA    NA     0    0.61096    NA  29           10           1989
+2    NA    NA    NA     0    0.66301    NA  30           11           1989
+3    NA    NA    NA     1    0.99452 279.6  42           21           1994
+4    NA    NA    NA     0    0.87397    NA  43           22           1994
+5    NA    NA    NA     0    0.04384    NA  44           23           1994
+6    NA    NA    NA     0    0.07397    NA  44           23           1994</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(policy)</code></pre></div>
+<pre><code>      numeropol  debut_pol    fin_pol freq_paiement langue  type_prof
+39070     88942 31/03/2003 30/03/2004       mensuel      A   Actuaire
+39071     88945 21/03/2003 20/03/2004        annuel      A Technicien
+39072     88972 18/03/2003 17/03/2004       mensuel      F Technicien
+39073     88981 19/03/2003 18/03/2004       mensuel      A Technicien
+39074     88986 28/02/2004 27/02/2005       mensuel      A    Médecin
+39075     89009 24/03/2003 23/03/2004       mensuel      A Technicien
+      alimentation type_territoire         utilisation presence_alarme
+39070    Carnivore          Urbain Travail-occasionnel             oui
+39071   Végétalien          Urbain Travail-occasionnel             oui
+39072   Végétarien     Semi-urbain   Travail-quotidien             non
+39073   Végétalien          Urbain Travail-occasionnel             oui
+39074    Carnivore          Urbain   Travail-quotidien             oui
+39075   Végétarien          Urbain Travail-occasionnel             non
+      marque_voiture sexe cout1 cout2 cout3 cout4 nbsin exposition cout age
+39070            BMW    M    NA    NA    NA    NA     0          1   NA  45
+39071         TOYOTA    M    NA    NA    NA    NA     0          1   NA  24
+39072        PEUGEOT    M    NA    NA    NA    NA     0          1   NA  58
+39073         SUZUKI    F    NA    NA    NA    NA     0          1   NA  23
+39074           FIAT    M    NA    NA    NA    NA     0          1   NA  41
+39075         TOYOTA    M    NA    NA    NA    NA     0          1   NA  58
+      duree_permis annee_vehicule
+39070           30           1989
+39071            5           2000
+39072           33           2003
+39073            5           1998
+39074           19           1989
+39075           37           2003</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(policy)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   39075 obs. of  22 variables:
+ $ numeropol      : int  3 3 6 6 6 6 6 6 6 6 ...
+ $ debut_pol      : Factor w/ 2956 levels &quot;1/01/1996&quot;,&quot;1/01/1997&quot;,..: 554 1681 17 18 587 10 19 20 21 22 ...
+ $ fin_pol        : Factor w/ 3093 levels &quot;1/01/1996&quot;,&quot;1/01/1997&quot;,..: 1652 1620 1931 506 2419 2033 1637 2035 2132 2037 ...
+ $ freq_paiement  : Factor w/ 2 levels &quot;annuel&quot;,&quot;mensuel&quot;: 2 2 1 1 1 1 1 1 1 1 ...
+ $ langue         : Factor w/ 2 levels &quot;A&quot;,&quot;F&quot;: 2 2 1 1 1 1 1 1 1 1 ...
+ $ type_prof      : Factor w/ 10 levels &quot;Actuaire&quot;,&quot;Autre&quot;,..: 10 10 10 10 10 10 10 10 10 10 ...
+ $ alimentation   : Factor w/ 3 levels &quot;Carnivore&quot;,&quot;Végétalien&quot;,..: 3 3 1 1 1 1 1 1 1 1 ...
+ $ type_territoire: Factor w/ 3 levels &quot;Rural&quot;,&quot;Semi-urbain&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+ $ utilisation    : Factor w/ 3 levels &quot;Loisir&quot;,&quot;Travail-occasionnel&quot;,..: 3 3 2 2 2 2 2 2 2 2 ...
+ $ presence_alarme: Factor w/ 2 levels &quot;non&quot;,&quot;oui&quot;: 1 1 2 2 2 2 2 2 2 2 ...
+ $ marque_voiture : Factor w/ 31 levels &quot;ALFAROMEO&quot;,&quot;AUDI&quot;,..: 30 30 19 19 19 19 19 19 19 19 ...
+ $ sexe           : Factor w/ 2 levels &quot;F&quot;,&quot;M&quot;: 1 1 2 2 2 2 2 2 2 2 ...
+ $ cout1          : num  NA NA 280 NA NA ...
+ $ cout2          : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ cout3          : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ cout4          : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ nbsin          : int  0 0 1 0 0 0 0 0 0 0 ...
+ $ exposition     : num  0.611 0.663 0.9945 0.874 0.0438 ...
+ $ cout           : num  NA NA 280 NA NA ...
+ $ age            : int  29 30 42 43 44 44 44 45 46 47 ...
+ $ duree_permis   : int  10 11 21 22 23 23 23 24 25 26 ...
+ $ annee_vehicule : int  1989 1989 1994 1994 1994 1994 1994 1998 1998 1998 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(policy)</code></pre></div>
+<pre><code> [1] &quot;numeropol&quot;       &quot;debut_pol&quot;       &quot;fin_pol&quot;         &quot;freq_paiement&quot;  
+ [5] &quot;langue&quot;          &quot;type_prof&quot;       &quot;alimentation&quot;    &quot;type_territoire&quot;
+ [9] &quot;utilisation&quot;     &quot;presence_alarme&quot; &quot;marque_voiture&quot;  &quot;sexe&quot;           
+[13] &quot;cout1&quot;           &quot;cout2&quot;           &quot;cout3&quot;           &quot;cout4&quot;          
+[17] &quot;nbsin&quot;           &quot;exposition&quot;      &quot;cout&quot;            &quot;age&quot;            
+[21] &quot;duree_permis&quot;    &quot;annee_vehicule&quot; </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(policy)</code></pre></div>
+<pre><code>[1] 39075    22</code></pre>
+</div>
+<div id="importing-a-.sas7bdat-file" class="section level3">
+<h3><span class="header-section-number">4.1.4</span> Importing a .sas7bdat file</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&#39;sas7bdat&#39;)</span>
+<span class="kw">library</span>(sas7bdat)
+path.severity &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;severity.sas7bdat&quot;</span>)
+severity &lt;-<span class="st"> </span><span class="kw">read.sas7bdat</span>(path.severity)
+<span class="kw">head</span>(severity)</code></pre></div>
+<pre><code>  policyId claimId    rc deductible claimAmount
+1    6e+05   9e+05 35306       1200       35306
+2    6e+05   9e+05 19773         50       19773
+3    6e+05   9e+05 41639        100       41639
+4    6e+05   9e+05 10649         50       10649
+5    6e+05   9e+05 20479         50       20479
+6    6e+05   9e+05  9853         50        9853</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(severity)</code></pre></div>
+<pre><code>      policyId claimId   rc deductible claimAmount
+19282   612853  919300  NaN         50         151
+19283   612854  919301 1587        300        1587
+19284   612854  919302  NaN        300         574
+19285   612855  919303  NaN         50         323
+19286   612856  919304 1287       1200        1287
+19287   612857  919305 1910       1200        1910</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(severity)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   19287 obs. of  5 variables:
+ $ policyId   : num  6e+05 6e+05 6e+05 6e+05 6e+05 ...
+ $ claimId    : num  9e+05 9e+05 9e+05 9e+05 9e+05 ...
+ $ rc         : num  35306 19773 41639 10649 20479 ...
+ $ deductible : num  1200 50 100 50 50 50 50 50 50 50 ...
+ $ claimAmount: num  35306 19773 41639 10649 20479 ...
+ - attr(*, &quot;pkg.version&quot;)= chr &quot;0.5&quot;
+ - attr(*, &quot;column.info&quot;)=List of 5
+  ..$ :List of 11
+  .. ..$ name  : chr &quot;policyId&quot;
+  .. ..$ offset: int 0
+  .. ..$ length: int 8
+  .. ..$ type  : chr &quot;numeric&quot;
+  .. ..$ format: chr &quot;BEST&quot;
+  .. ..$ fhdr  : int 0
+  .. ..$ foff  : int 44
+  .. ..$ flen  : int 4
+  .. ..$ lhdr  : int 0
+  .. ..$ loff  : int 0
+  .. ..$ llen  : int 0
+  ..$ :List of 11
+  .. ..$ name  : chr &quot;claimId&quot;
+  .. ..$ offset: int 8
+  .. ..$ length: int 8
+  .. ..$ type  : chr &quot;numeric&quot;
+  .. ..$ format: chr &quot;BEST&quot;
+  .. ..$ fhdr  : int 0
+  .. ..$ foff  : int 56
+  .. ..$ flen  : int 4
+  .. ..$ lhdr  : int 0
+  .. ..$ loff  : int 0
+  .. ..$ llen  : int 0
+  ..$ :List of 11
+  .. ..$ name  : chr &quot;rc&quot;
+  .. ..$ offset: int 16
+  .. ..$ length: int 8
+  .. ..$ type  : chr &quot;numeric&quot;
+  .. ..$ format: chr &quot;BEST&quot;
+  .. ..$ fhdr  : int 0
+  .. ..$ foff  : int 64
+  .. ..$ flen  : int 4
+  .. ..$ lhdr  : int 0
+  .. ..$ loff  : int 0
+  .. ..$ llen  : int 0
+  ..$ :List of 11
+  .. ..$ name  : chr &quot;deductible&quot;
+  .. ..$ offset: int 24
+  .. ..$ length: int 8
+  .. ..$ type  : chr &quot;numeric&quot;
+  .. ..$ format: chr &quot;BEST&quot;
+  .. ..$ fhdr  : int 0
+  .. ..$ foff  : int 80
+  .. ..$ flen  : int 4
+  .. ..$ lhdr  : int 0
+  .. ..$ loff  : int 0
+  .. ..$ llen  : int 0
+  ..$ :List of 11
+  .. ..$ name  : chr &quot;claimAmount&quot;
+  .. ..$ offset: int 32
+  .. ..$ length: int 8
+  .. ..$ type  : chr &quot;numeric&quot;
+  .. ..$ format: chr &quot;COMMA&quot;
+  .. ..$ fhdr  : int 0
+  .. ..$ foff  : int 96
+  .. ..$ flen  : int 5
+  .. ..$ lhdr  : int 0
+  .. ..$ loff  : int 0
+  .. ..$ llen  : int 0
+ - attr(*, &quot;date.created&quot;)= POSIXct, format: &quot;1960-01-01&quot;
+ - attr(*, &quot;date.modified&quot;)= POSIXct, format: &quot;1960-01-01&quot;
+ - attr(*, &quot;SAS.release&quot;)= chr &quot;9.0401M1&quot;
+ - attr(*, &quot;SAS.host&quot;)= chr &quot;X64_7PRO&quot;
+ - attr(*, &quot;OS.version&quot;)= chr &quot;&quot;
+ - attr(*, &quot;OS.maker&quot;)= chr &quot;&quot;
+ - attr(*, &quot;OS.name&quot;)= chr &quot;&quot;
+ - attr(*, &quot;endian&quot;)= chr &quot;little&quot;
+ - attr(*, &quot;winunix&quot;)= chr &quot;windows&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(severity)</code></pre></div>
+<pre><code>[1] &quot;policyId&quot;    &quot;claimId&quot;     &quot;rc&quot;          &quot;deductible&quot;  &quot;claimAmount&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(severity)</code></pre></div>
+<pre><code>[1] 19287     5</code></pre>
+</div>
+<div id="importing-a-.xlsx-file" class="section level3">
+<h3><span class="header-section-number">4.1.5</span> Importing a .xlsx file</h3>
+<p>You will import data from Excel using the <code>readxl</code> package (authord by Hacley Wickham and maintained by RStudio).</p>
+<p>Before you can start importing from Excel, you should find out which sheets are available in the workbook. You can use the <code>excel_sheets()</code> function for this. (Quote and example from DataCamp’s ‘Importing Data in R (Part 1)’ course)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load the readxl package</span>
+<span class="kw">library</span>(readxl)
+path.urbanpop &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;urbanpop.xlsx&quot;</span>)
+<span class="kw">excel_sheets</span>(path.urbanpop)</code></pre></div>
+<pre><code>[1] &quot;1960-1966&quot; &quot;1967-1974&quot; &quot;1975-2011&quot;</code></pre>
+<p>You can import the Excel file with the <code>read_excel()</code> function. Here is the recipe:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(path.urbanpop, <span class="dt">sheet =</span> <span class="dv">1</span>)
+pop_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(path.urbanpop, <span class="dt">sheet =</span> <span class="dv">2</span>)
+pop_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">read_excel</span>(path.urbanpop, <span class="dt">sheet =</span> <span class="dv">3</span>)
+<span class="kw">str</span>(pop_<span class="dv">1</span>)</code></pre></div>
+<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   209 obs. of  8 variables:
+ $ country: chr  &quot;Afghanistan&quot; &quot;Albania&quot; &quot;Algeria&quot; &quot;American Samoa&quot; ...
+ $ 1960   : num  769308 494443 3293999 NA NA ...
+ $ 1961   : num  814923 511803 3515148 13660 8724 ...
+ $ 1962   : num  858522 529439 3739963 14166 9700 ...
+ $ 1963   : num  903914 547377 3973289 14759 10748 ...
+ $ 1964   : num  951226 565572 4220987 15396 11866 ...
+ $ 1965   : num  1000582 583983 4488176 16045 13053 ...
+ $ 1966   : num  1058743 602512 4649105 16693 14217 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># put pop_1, pop_2 and pop_3 in a list: pop_list</span>
+pop_list &lt;-<span class="st"> </span><span class="kw">list</span>(pop_<span class="dv">1</span>, pop_<span class="dv">2</span>, pop_<span class="dv">3</span>)</code></pre></div>
+<p>The object <code>pop_1</code> is a <code>tibble</code>, an object of <code>tbl_df</code> class (the ‘tibble’) that provides stricter checking and better formatting than the traditional data frame. The main advantage to using a tbl_df over a regular data frame is the printing: <code>tbl</code> objects only print a few rows and all the columns that fit on one screen, describing the rest of it as text. If you want to stick to traditional data frames, you can switch as follows</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_1_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(pop_<span class="dv">1</span>)
+<span class="kw">str</span>(pop_1_df)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   209 obs. of  8 variables:
+ $ country: chr  &quot;Afghanistan&quot; &quot;Albania&quot; &quot;Algeria&quot; &quot;American Samoa&quot; ...
+ $ 1960   : num  769308 494443 3293999 NA NA ...
+ $ 1961   : num  814923 511803 3515148 13660 8724 ...
+ $ 1962   : num  858522 529439 3739963 14166 9700 ...
+ $ 1963   : num  903914 547377 3973289 14759 10748 ...
+ $ 1964   : num  951226 565572 4220987 15396 11866 ...
+ $ 1965   : num  1000582 583983 4488176 16045 13053 ...
+ $ 1966   : num  1058743 602512 4649105 16693 14217 ...</code></pre>
+<p>In the previous demo you generated a list of three Excel sheets that you imported. However, loading in every sheet manually and then merging them in a list can be quite tedious. Luckily, you can automate this with <code>lapply()</code>. (Quote from DataCamp’s ‘Importing Data in R (Part 1)’ course)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_list &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">excel_sheets</span>(path.urbanpop), read_excel, <span class="dt">path =</span> path.urbanpop)
+<span class="kw">str</span>(pop_list)</code></pre></div>
+<pre><code>List of 3
+ $ :Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   209 obs. of  8 variables:
+  ..$ country: chr [1:209] &quot;Afghanistan&quot; &quot;Albania&quot; &quot;Algeria&quot; &quot;American Samoa&quot; ...
+  ..$ 1960   : num [1:209] 769308 494443 3293999 NA NA ...
+  ..$ 1961   : num [1:209] 814923 511803 3515148 13660 8724 ...
+  ..$ 1962   : num [1:209] 858522 529439 3739963 14166 9700 ...
+  ..$ 1963   : num [1:209] 903914 547377 3973289 14759 10748 ...
+  ..$ 1964   : num [1:209] 951226 565572 4220987 15396 11866 ...
+  ..$ 1965   : num [1:209] 1000582 583983 4488176 16045 13053 ...
+  ..$ 1966   : num [1:209] 1058743 602512 4649105 16693 14217 ...
+ $ :Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   209 obs. of  9 variables:
+  ..$ country: chr [1:209] &quot;Afghanistan&quot; &quot;Albania&quot; &quot;Algeria&quot; &quot;American Samoa&quot; ...
+  ..$ 1967   : num [1:209] 1119067 621180 4826104 17349 15440 ...
+  ..$ 1968   : num [1:209] 1182159 639964 5017299 17996 16727 ...
+  ..$ 1969   : num [1:209] 1248901 658853 5219332 18619 18088 ...
+  ..$ 1970   : num [1:209] 1319849 677839 5429743 19206 19529 ...
+  ..$ 1971   : num [1:209] 1409001 698932 5619042 19752 20929 ...
+  ..$ 1972   : num [1:209] 1502402 720207 5815734 20263 22406 ...
+  ..$ 1973   : num [1:209] 1598835 741681 6020647 20742 23937 ...
+  ..$ 1974   : num [1:209] 1696445 763385 6235114 21194 25482 ...
+ $ :Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   209 obs. of  38 variables:
+  ..$ country: chr [1:209] &quot;Afghanistan&quot; &quot;Albania&quot; &quot;Algeria&quot; &quot;American Samoa&quot; ...
+  ..$ 1975   : num [1:209] 1793266 785350 6460138 21632 27019 ...
+  ..$ 1976   : num [1:209] 1905033 807990 6774099 22047 28366 ...
+  ..$ 1977   : num [1:209] 2021308 830959 7102902 22452 29677 ...
+  ..$ 1978   : num [1:209] 2142248 854262 7447728 22899 31037 ...
+  ..$ 1979   : num [1:209] 2268015 877898 7810073 23457 32572 ...
+  ..$ 1980   : num [1:209] 2398775 901884 8190772 24177 34366 ...
+  ..$ 1981   : num [1:209] 2493265 927224 8637724 25173 36356 ...
+  ..$ 1982   : num [1:209] 2590846 952447 9105820 26342 38618 ...
+  ..$ 1983   : num [1:209] 2691612 978476 9591900 27655 40983 ...
+  ..$ 1984   : num [1:209] 2795656 1006613 10091289 29062 43207 ...
+  ..$ 1985   : num [1:209] 2903078 1037541 10600112 30524 45119 ...
+  ..$ 1986   : num [1:209] 3006983 1072365 11101757 32014 46254 ...
+  ..$ 1987   : num [1:209] 3113957 1109954 11609104 33548 47019 ...
+  ..$ 1988   : num [1:209] 3224082 1146633 12122941 35095 47669 ...
+  ..$ 1989   : num [1:209] 3337444 1177286 12645263 36618 48577 ...
+  ..$ 1990   : num [1:209] 3454129 1198293 13177079 38088 49982 ...
+  ..$ 1991   : num [1:209] 3617842 1215445 13708813 39600 51972 ...
+  ..$ 1992   : num [1:209] 3788685 1222544 14248297 41049 54469 ...
+  ..$ 1993   : num [1:209] 3966956 1222812 14789176 42443 57079 ...
+  ..$ 1994   : num [1:209] 4152960 1221364 15322651 43798 59243 ...
+  ..$ 1995   : num [1:209] 4347018 1222234 15842442 45129 60598 ...
+  ..$ 1996   : num [1:209] 4531285 1228760 16395553 46343 60927 ...
+  ..$ 1997   : num [1:209] 4722603 1238090 16935451 47527 60462 ...
+  ..$ 1998   : num [1:209] 4921227 1250366 17469200 48705 59685 ...
+  ..$ 1999   : num [1:209] 5127421 1265195 18007937 49906 59281 ...
+  ..$ 2000   : num [1:209] 5341456 1282223 18560597 51151 59719 ...
+  ..$ 2001   : num [1:209] 5564492 1315690 19198872 52341 61062 ...
+  ..$ 2002   : num [1:209] 5795940 1352278 19854835 53583 63212 ...
+  ..$ 2003   : num [1:209] 6036100 1391143 20529356 54864 65802 ...
+  ..$ 2004   : num [1:209] 6285281 1430918 21222198 56166 68301 ...
+  ..$ 2005   : num [1:209] 6543804 1470488 21932978 57474 70329 ...
+  ..$ 2006   : num [1:209] 6812538 1512255 22625052 58679 71726 ...
+  ..$ 2007   : num [1:209] 7091245 1553491 23335543 59894 72684 ...
+  ..$ 2008   : num [1:209] 7380272 1594351 24061749 61118 73335 ...
+  ..$ 2009   : num [1:209] 7679982 1635262 24799591 62357 73897 ...
+  ..$ 2010   : num [1:209] 7990746 1676545 25545622 63616 74525 ...
+  ..$ 2011   : num [1:209] 8316976 1716842 26216968 64817 75207 ...</code></pre>
+<p>Apart from path and sheet, there are several other arguments you can specify in <code>read_excel()</code>. One of these arguments is called <code>col_names</code>. By default it is TRUE, denoting whether the first row in the Excel sheets contains the column names. If this is not the case, you can set <code>col_names</code> to FALSE. In this case, R will choose column names for you. You can also choose to set col_names to a character vector with names for each column. (Quote from DataCamp’s ‘Importing Data in R (Part 1)’ course)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path.urbanpop_nonames &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;urbanpop_nonames.xlsx&quot;</span>)
+<span class="co"># Import the the first Excel sheet of urbanpop_nonames.xlsx (R gives names): pop_a</span>
+pop_a &lt;-<span class="st"> </span><span class="kw">read_excel</span>(path.urbanpop_nonames, <span class="dt">col_names =</span> <span class="ot">FALSE</span>)
+<span class="co"># Import the the first Excel sheet of urbanpop_nonames.xlsx (specify col_names): pop_b</span>
+cols &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="kw">paste0</span>(<span class="st">&quot;year_&quot;</span>, <span class="dv">1960</span><span class="op">:</span><span class="dv">1966</span>))
+pop_b &lt;-<span class="st"> </span><span class="kw">read_excel</span>(path.urbanpop_nonames, <span class="dt">col_names =</span> cols)
+<span class="co"># Print the summary of pop_a</span>
+<span class="kw">summary</span>(pop_a)</code></pre></div>
+<pre><code>     X__1                X__2               X__3               X__4         
+ Length:209         Min.   :3.38e+03   Min.   :1.03e+03   Min.   :1.09e+03  
+ Class :character   1st Qu.:8.90e+04   1st Qu.:7.06e+04   1st Qu.:7.50e+04  
+ Mode  :character   Median :5.81e+05   Median :5.70e+05   Median :5.94e+05  
+                    Mean   :4.99e+06   Mean   :4.99e+06   Mean   :5.14e+06  
+                    3rd Qu.:3.08e+06   3rd Qu.:2.81e+06   3rd Qu.:2.95e+06  
+                    Max.   :1.26e+08   Max.   :1.29e+08   Max.   :1.32e+08  
+                    NA&#39;s   :11                                              
+      X__5               X__6               X__7               X__8         
+ Min.   :1.15e+03   Min.   :1.22e+03   Min.   :1.28e+03   Min.   :1.35e+03  
+ 1st Qu.:8.19e+04   1st Qu.:8.50e+04   1st Qu.:8.86e+04   1st Qu.:9.36e+04  
+ Median :6.19e+05   Median :6.45e+05   Median :6.79e+05   Median :7.35e+05  
+ Mean   :5.30e+06   Mean   :5.47e+06   Mean   :5.64e+06   Mean   :5.79e+06  
+ 3rd Qu.:3.15e+06   3rd Qu.:3.30e+06   3rd Qu.:3.32e+06   3rd Qu.:3.42e+06  
+ Max.   :1.35e+08   Max.   :1.37e+08   Max.   :1.40e+08   Max.   :1.42e+08  
+                                                                            </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Print the summary of pop_b</span>
+<span class="kw">summary</span>(pop_b)</code></pre></div>
+<pre><code>   country            year_1960          year_1961          year_1962       
+ Length:209         Min.   :3.38e+03   Min.   :1.03e+03   Min.   :1.09e+03  
+ Class :character   1st Qu.:8.90e+04   1st Qu.:7.06e+04   1st Qu.:7.50e+04  
+ Mode  :character   Median :5.81e+05   Median :5.70e+05   Median :5.94e+05  
+                    Mean   :4.99e+06   Mean   :4.99e+06   Mean   :5.14e+06  
+                    3rd Qu.:3.08e+06   3rd Qu.:2.81e+06   3rd Qu.:2.95e+06  
+                    Max.   :1.26e+08   Max.   :1.29e+08   Max.   :1.32e+08  
+                    NA&#39;s   :11                                              
+   year_1963          year_1964          year_1965          year_1966       
+ Min.   :1.15e+03   Min.   :1.22e+03   Min.   :1.28e+03   Min.   :1.35e+03  
+ 1st Qu.:8.19e+04   1st Qu.:8.50e+04   1st Qu.:8.86e+04   1st Qu.:9.36e+04  
+ Median :6.19e+05   Median :6.45e+05   Median :6.79e+05   Median :7.35e+05  
+ Mean   :5.30e+06   Mean   :5.47e+06   Mean   :5.64e+06   Mean   :5.79e+06  
+ 3rd Qu.:3.15e+06   3rd Qu.:3.30e+06   3rd Qu.:3.32e+06   3rd Qu.:3.42e+06  
+ Max.   :1.35e+08   Max.   :1.37e+08   Max.   :1.40e+08   Max.   :1.42e+08  
+                                                                            </code></pre>
+<p>In the code printed above <code>paste0</code> (and also <code>paste</code>) converts its arguments (via <code>as.character</code>) to character strings, and concatenates them (in case of <code>paste</code> separating them by the string given by sep).</p>
+<p>Many other packages exist to import Excel data, including <code>XLConnect</code>, an Excel Connector for R that provides comprehensive functionality to read, write and format Excel data. See <a href="https://campus.datacamp.com/courses/importing-data-in-r-part-1/">DataCamp’s Importing Data in R (Part 1)</a> course.</p>
+<hr />
+</div>
+</div>
+<div id="basic-data-handling-steps" class="section level2">
+<h2><span class="header-section-number">4.2</span> Basic data handling steps</h2>
+<p>You will now learn some basic instructions to handle data in R. You start with basic instructions (from <code>base</code> R) for data handling. More on data wrangling follows in Chapter <a href="data-wrangling.html#data-wrangling">6</a>. Useful functions from <code>base</code> are <code>subset</code>, <code>sort</code>, <code>order</code>, <code>merge</code>, <code>cbind</code> and <code>rbind</code>. Manipulating the data typically consumes a lot of effort. This often requires repeated operations on different sections of the data, in a ‘split-apply-combine’ way of working.</p>
+<p>Let’s illustrate all of this below. Some of the examples that follow are taken from Michael Clark’s `An introduction to R’.</p>
+<div id="subsetting" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Subsetting</h3>
+<p>The data set <code>state.x77</code> is available from the package <code>datasets</code>. Some data sets related to the 50 states of the United States of America are available and <code>state.x77</code> is a matrix with 50 rows and 8 columns giving a bunch of statistics in the respective columns.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">states &lt;-<span class="st"> </span><span class="kw">data.frame</span>(state.x77)
+<span class="kw">str</span>(states) </code></pre></div>
+<pre><code>&#39;data.frame&#39;:   50 obs. of  8 variables:
+ $ Population: num  3615 365 2212 2110 21198 ...
+ $ Income    : num  3624 6315 4530 3378 5114 ...
+ $ Illiteracy: num  2.1 1.5 1.8 1.9 1.1 0.7 1.1 0.9 1.3 2 ...
+ $ Life.Exp  : num  69 69.3 70.5 70.7 71.7 ...
+ $ Murder    : num  15.1 11.3 7.8 10.1 10.3 6.8 3.1 6.2 10.7 13.9 ...
+ $ HS.Grad   : num  41.3 66.7 58.1 39.9 62.6 63.9 56 54.6 52.6 40.6 ...
+ $ Frost     : num  20 152 15 65 20 166 139 103 11 60 ...
+ $ Area      : num  50708 566432 113417 51945 156361 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(states)</code></pre></div>
+<pre><code>[1] &quot;Population&quot; &quot;Income&quot;     &quot;Illiteracy&quot; &quot;Life.Exp&quot;   &quot;Murder&quot;    
+[6] &quot;HS.Grad&quot;    &quot;Frost&quot;      &quot;Area&quot;      </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(states)</code></pre></div>
+<pre><code>[1] 50  8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(states)</code></pre></div>
+<pre><code>           Population Income Illiteracy Life.Exp Murder HS.Grad Frost   Area
+Alabama          3615   3624        2.1    69.05   15.1    41.3    20  50708
+Alaska            365   6315        1.5    69.31   11.3    66.7   152 566432
+Arizona          2212   4530        1.8    70.55    7.8    58.1    15 113417
+Arkansas         2110   3378        1.9    70.66   10.1    39.9    65  51945
+California      21198   5114        1.1    71.71   10.3    62.6    20 156361
+Colorado         2541   4884        0.7    72.06    6.8    63.9   166 103766</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">states[<span class="dv">14</span>, ]</code></pre></div>
+<pre><code>        Population Income Illiteracy Life.Exp Murder HS.Grad Frost  Area
+Indiana       5313   4458        0.7    70.88    7.1    52.9   122 36097</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">states[<span class="dv">3</span>, <span class="dv">6</span>]</code></pre></div>
+<pre><code>[1] 58.1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">states[, <span class="st">&#39;Frost&#39;</span>] </code></pre></div>
+<pre><code> [1]  20 152  15  65  20 166 139 103  11  60   0 126 127 122 140 114  95  12 161
+[20] 101 103 125 160  50 108 155 139 188 174 115 120  82  80 186 124  82  44 126
+[39] 127  65 172  70  35 137 168  85  32 100 149 173</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">states<span class="op">$</span>Frost</code></pre></div>
+<pre><code> [1]  20 152  15  65  20 166 139 103  11  60   0 126 127 122 140 114  95  12 161
+[20] 101 103 125 160  50 108 155 139 188 174 115 120  82  80 186 124  82  44 126
+[39] 127  65 172  70  35 137 168  85  32 100 149 173</code></pre>
+<p>You will also use the data stord in <code>state.region</code>, a factor giving the region (Northeast, South, North Central, West) that each state belongs to.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">state.region</code></pre></div>
+<pre><code> [1] South         West          West          South         West         
+ [6] West          Northeast     South         South         South        
+[11] West          West          North Central North Central North Central
+[16] North Central South         South         Northeast     South        
+[21] Northeast     North Central North Central South         North Central
+[26] West          North Central West          Northeast     Northeast    
+[31] West          Northeast     South         North Central North Central
+[36] South         West          Northeast     Northeast     South        
+[41] North Central South         South         West          Northeast    
+[46] South         West          South         North Central West         
+Levels: Northeast South North Central West</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(state.region)</code></pre></div>
+<pre><code>[1] 50</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># select those states that are in the south of the US </span>
+mysubset &lt;-<span class="st"> </span><span class="kw">subset</span>(states, state.region <span class="op">==</span><span class="st"> &quot;South&quot;</span>)
+<span class="co"># subset a selection of variables</span>
+<span class="kw">str</span>(states)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   50 obs. of  8 variables:
+ $ Population: num  3615 365 2212 2110 21198 ...
+ $ Income    : num  3624 6315 4530 3378 5114 ...
+ $ Illiteracy: num  2.1 1.5 1.8 1.9 1.1 0.7 1.1 0.9 1.3 2 ...
+ $ Life.Exp  : num  69 69.3 70.5 70.7 71.7 ...
+ $ Murder    : num  15.1 11.3 7.8 10.1 10.3 6.8 3.1 6.2 10.7 13.9 ...
+ $ HS.Grad   : num  41.3 66.7 58.1 39.9 62.6 63.9 56 54.6 52.6 40.6 ...
+ $ Frost     : num  20 152 15 65 20 166 139 103 11 60 ...
+ $ Area      : num  50708 566432 113417 51945 156361 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mysubset &lt;-<span class="st"> </span>states[, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">7</span><span class="op">:</span><span class="dv">8</span>)]
+mysubset &lt;-<span class="st"> </span>states[, <span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Frost&quot;</span>, <span class="st">&quot;Area&quot;</span>)]</code></pre></div>
+</div>
+<div id="find-minimum-or-maximum" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Find minimum or maximum</h3>
+<p>You will now use the function <code>which.min()</code>, that returns the index of the smallest value in a vector. <code>which.max()</code> works in a similar way. Using the information stored in <code>states</code>, which states in the US have the smallest, respectively highest, population density?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">least_pop &lt;-<span class="st"> </span><span class="kw">which.min</span>(states<span class="op">$</span>Population)
+states[least_pop, ]</code></pre></div>
+<pre><code>       Population Income Illiteracy Life.Exp Murder HS.Grad Frost   Area
+Alaska        365   6315        1.5    69.31   11.3    66.7   152 566432</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">most_pop &lt;-<span class="st"> </span><span class="kw">which.max</span>(states<span class="op">$</span>Population)
+states[most_pop, ]</code></pre></div>
+<pre><code>           Population Income Illiteracy Life.Exp Murder HS.Grad Frost   Area
+California      21198   5114        1.1    71.71   10.3    62.6    20 156361</code></pre>
+</div>
+<div id="sorting" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Sorting</h3>
+<p>You will now sort the states based on their population.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sort</span>(states<span class="op">$</span>Population)</code></pre></div>
+<pre><code> [1]   365   376   472   579   590   637   681   746   812   813   868   931
+[13]  1058  1144  1203  1544  1799  2110  2212  2280  2284  2341  2541  2715
+[25]  2816  2861  3100  3387  3559  3615  3806  3921  4122  4173  4589  4767
+[37]  4931  4981  5313  5441  5814  7333  8277  9111 10735 11197 11860 12237
+[49] 18076 21198</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># not what we want, thus</span>
+sort1.states &lt;-<span class="st"> </span>states[<span class="kw">order</span>(states<span class="op">$</span>Population), ]
+<span class="kw">head</span>(sort1.states)</code></pre></div>
+<pre><code>             Population Income Illiteracy Life.Exp Murder HS.Grad Frost   Area
+Alaska              365   6315        1.5    69.31   11.3    66.7   152 566432
+Wyoming             376   4566        0.6    70.29    6.9    62.9   173  97203
+Vermont             472   3907        0.6    71.64    5.5    57.1   168   9267
+Delaware            579   4809        0.9    70.06    6.2    54.6   103   1982
+Nevada              590   5149        0.5    69.03   11.5    65.2   188 109889
+North Dakota        637   5087        0.8    72.78    1.4    50.3   186  69273</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sort by two variables</span>
+sort2.states &lt;-<span class="st"> </span>states[<span class="kw">order</span>(states<span class="op">$</span>Illiteracy, states<span class="op">$</span>Income), ]
+<span class="kw">head</span>(sort2.states)</code></pre></div>
+<pre><code>             Population Income Illiteracy Life.Exp Murder HS.Grad Frost   Area
+South Dakota        681   4167        0.5    72.08    1.7    53.3   172  75955
+Iowa               2861   4628        0.5    72.56    2.3    59.0   140  55941
+Nevada              590   5149        0.5    69.03   11.5    65.2   188 109889
+Vermont             472   3907        0.6    71.64    5.5    57.1   168   9267
+Utah               1203   4022        0.6    72.90    4.5    67.3   137  82096
+Idaho               813   4119        0.6    71.87    5.3    59.5   126  82677</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sort in reverse order</span>
+sort3.states &lt;-<span class="st"> </span>states[<span class="kw">order</span>(<span class="op">-</span>states<span class="op">$</span>Life.Exp), ]
+<span class="kw">head</span>(sort3.states)</code></pre></div>
+<pre><code>             Population Income Illiteracy Life.Exp Murder HS.Grad Frost  Area
+Hawaii              868   4963        1.9    73.60    6.2    61.9     0  6425
+Minnesota          3921   4675        0.6    72.96    2.3    57.6   160 79289
+Utah               1203   4022        0.6    72.90    4.5    67.3   137 82096
+North Dakota        637   5087        0.8    72.78    1.4    50.3   186 69273
+Nebraska           1544   4508        0.6    72.60    2.9    59.3   139 76483
+Kansas             2280   4669        0.6    72.58    4.5    59.9   114 81787</code></pre>
+</div>
+<div id="merging" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Merging</h3>
+<p>You move on with instructions to add columns to existing data frames.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">id =</span> <span class="kw">factor</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>), 
+                    <span class="dt">group =</span> <span class="kw">factor</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">each =</span> <span class="dv">3</span>)))
+<span class="kw">str</span>(mydat)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   12 obs. of  2 variables:
+ $ id   : Factor w/ 12 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+ $ group: Factor w/ 2 levels &quot;1&quot;,&quot;2&quot;: 1 1 1 2 2 2 1 1 1 2 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mydat)</code></pre></div>
+<pre><code>  id group
+1  1     1
+2  2     1
+3  3     1
+4  4     2
+5  5     2
+6  6     2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">12</span>)
+y &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">70</span><span class="op">:</span><span class="dv">100</span>, <span class="dv">12</span>)
+x2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">12</span>)
+<span class="co"># add a column</span>
+mydat<span class="op">$</span>grade &lt;-<span class="st"> </span>y  
+<span class="kw">head</span>(mydat)</code></pre></div>
+<pre><code>  id group grade
+1  1     1    71
+2  2     1    72
+3  3     1    93
+4  4     2    88
+5  5     2    80
+6  6     2    90</code></pre>
+<p>Now, you’ll merge different data frames by adding new columns to an existing data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">id =</span> mydat<span class="op">$</span>id, y)
+<span class="kw">head</span>(df)</code></pre></div>
+<pre><code>  id  y
+1  1 71
+2  2 72
+3  3 93
+4  4 88
+5  5 80
+6  6 90</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydat2 &lt;-<span class="st"> </span><span class="kw">merge</span>(mydat, df, <span class="dt">by =</span> <span class="st">&quot;id&quot;</span>, <span class="dt">sort =</span> F) <span class="co"># using merge</span>
+<span class="kw">head</span>(mydat2)</code></pre></div>
+<pre><code>  id group grade  y
+1  1     1    71 71
+2  2     1    72 72
+3  3     1    93 93
+4  4     2    88 88
+5  5     2    80 80
+6  6     2    90 90</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydat3 &lt;-<span class="st"> </span><span class="kw">cbind</span>(mydat, x) <span class="co"># using cbind()</span>
+<span class="kw">head</span>(mydat3)</code></pre></div>
+<pre><code>  id group grade         x
+1  1     1    71  0.074170
+2  2     1    72 -0.563143
+3  3     1    93 -0.422659
+4  4     2    88 -1.428238
+5  5     2    80 -0.001789
+6  6     2    90 -0.263241</code></pre>
+<p>Now, you’ll add rows to an existing data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add rows</span>
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">id =</span> <span class="kw">factor</span>(<span class="dv">13</span><span class="op">:</span><span class="dv">24</span>), 
+                 <span class="dt">group =</span> <span class="kw">factor</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">e =</span> <span class="dv">3</span>)), <span class="dt">grade =</span> <span class="kw">sample</span>(y))
+df</code></pre></div>
+<pre><code>   id group grade
+1  13     1    80
+2  14     1    85
+3  15     1    72
+4  16     2    78
+5  17     2    93
+6  18     2    79
+7  19     1    90
+8  20     1    71
+9  21     1    70
+10 22     2   100
+11 23     2    88
+12 24     2    99</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydat2 &lt;-<span class="st"> </span><span class="kw">rbind</span>(mydat, df)
+mydat2</code></pre></div>
+<pre><code>   id group grade
+1   1     1    71
+2   2     1    72
+3   3     1    93
+4   4     2    88
+5   5     2    80
+6   6     2    90
+7   7     1    79
+8   8     1    99
+9   9     1    78
+10 10     2   100
+11 11     2    70
+12 12     2    85
+13 13     1    80
+14 14     1    85
+15 15     1    72
+16 16     2    78
+17 17     2    93
+18 18     2    79
+19 19     1    90
+20 20     1    71
+21 21     1    70
+22 22     2   100
+23 23     2    88
+24 24     2    99</code></pre>
+</div>
+<div id="aggregate" class="section level3">
+<h3><span class="header-section-number">4.2.5</span> Aggregate</h3>
+<p>People experienced with SQL generally want to run an aggregation and group by as one of their first tasks with R. <code>aggregate()</code> splits the data into subsets, computes summary statistics for each, and returns the result in a convenient form.</p>
+<p>You will work with <code>diamonds</code>, a data set in the <code>ggplot2</code> package containing the prices and other attributes of almost 54,000 diamonds. <code>ggplot2</code> is a package authored and maintained by Hadley Wickham to `Create Elegant Data Visualisations Using the Grammar of Graphics’.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">head</span>(diamonds)</code></pre></div>
+<pre><code># A tibble: 6 x 10
+  carat cut       color clarity depth table price     x     y     z
+  &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 0.23  Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+2 0.21  Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+3 0.23  Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+4 0.290 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+5 0.31  Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+6 0.24  Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># average price for each type of cut</span>
+<span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean)</code></pre></div>
+<pre><code>        cut price
+1      Fair  4359
+2      Good  3929
+3 Very Good  3982
+4   Premium  4584
+5     Ideal  3458</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># do a manual check, using `subset()`</span>
+s &lt;-<span class="st"> </span><span class="kw">subset</span>(diamonds, cut <span class="op">==</span><span class="st"> &#39;Fair&#39;</span>)
+<span class="kw">mean</span>(s<span class="op">$</span>price)</code></pre></div>
+<pre><code>[1] 4359</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add arguments to the function called</span>
+<span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>        cut price
+1      Fair  4359
+2      Good  3929
+3 Very Good  3982
+4   Premium  4584
+5     Ideal  3458</code></pre>
+<p>Here the argument <code>na.rm</code> of the function <code>mean</code> takes a logical value indicating whether NA values should be stripped before the computation proceeds.</p>
+<p>And some more useful illustrations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s &lt;-<span class="st"> </span><span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean)
+s</code></pre></div>
+<pre><code>        cut price
+1      Fair  4359
+2      Good  3929
+3 Very Good  3982
+4   Premium  4584
+5     Ideal  3458</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dd &lt;-<span class="st"> </span><span class="kw">merge</span>(diamonds, s, <span class="dt">by=</span><span class="st">&quot;cut&quot;</span>, <span class="dt">sort =</span> <span class="st">&quot;FALSE&quot;</span>)
+<span class="kw">head</span>(dd)</code></pre></div>
+<pre><code>    cut carat color clarity depth table price.x    x    y    z price.y
+1 Ideal  0.23     E     SI2  61.5  55.0     326 3.95 3.98 2.43    3458
+2 Ideal  1.02     E     SI1  61.1  56.0    4675 6.51 6.45 3.96    3458
+3 Ideal  1.05     F     SI2  60.9  56.0    4675 6.64 6.56 4.02    3458
+4 Ideal  0.38     I     VS1  61.5  53.9     703 4.66 4.70 2.89    3458
+5 Ideal  0.30     E     VS1  62.5  54.0     703 4.27 4.32 2.69    3458
+6 Ideal  1.22     J     SI2  61.2  57.0    4676 6.86 6.90 4.21    3458</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(diamonds)</code></pre></div>
+<pre><code># A tibble: 6 x 10
+  carat cut       color clarity depth table price     x     y     z
+  &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 0.23  Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+2 0.21  Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+3 0.23  Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+4 0.290 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+5 0.31  Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+6 0.24  Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">subset</span>(dd, cut <span class="op">==</span><span class="st"> &quot;Very Good&quot;</span>))</code></pre></div>
+<pre><code>            cut carat color clarity depth table price.x    x    y    z price.y
+40249 Very Good  1.01     F     VS2  61.6    57    6773 6.39 6.46 3.96    3982
+40250 Very Good  0.30     F    VVS1  61.8    55     783 4.32 4.35 2.68    3982
+40251 Very Good  1.15     I     SI2  62.0    58    4405 6.69 6.73 4.16    3982
+40252 Very Good  0.90     G     SI2  62.0    59    3445 6.14 6.19 3.82    3982
+40253 Very Good  1.00     H    VVS2  62.6    56    6249 6.36 6.39 3.99    3982
+40254 Very Good  0.36     E     VS2  62.1    59     789 4.55 4.59 2.84    3982</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># change name of the column</span>
+<span class="kw">names</span>(dd)[<span class="kw">names</span>(dd) <span class="op">==</span><span class="st"> &#39;price.y&#39;</span>] &lt;-<span class="st"> &#39;average price&#39;</span>
+<span class="co"># add additional grouping variable</span>
+<span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut <span class="op">+</span><span class="st"> </span>color, diamonds, mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>         cut color price
+1       Fair     D  4291
+2       Good     D  3405
+3  Very Good     D  3470
+4    Premium     D  3631
+5      Ideal     D  2629
+6       Fair     E  3682
+7       Good     E  3424
+8  Very Good     E  3215
+9    Premium     E  3539
+10     Ideal     E  2598
+11      Fair     F  3827
+12      Good     F  3496
+13 Very Good     F  3779
+14   Premium     F  4325
+15     Ideal     F  3375
+16      Fair     G  4239
+17      Good     G  4123
+18 Very Good     G  3873
+19   Premium     G  4501
+20     Ideal     G  3721
+21      Fair     H  5136
+22      Good     H  4276
+23 Very Good     H  4535
+24   Premium     H  5217
+25     Ideal     H  3889
+26      Fair     I  4685
+27      Good     I  5079
+28 Very Good     I  5256
+29   Premium     I  5946
+30     Ideal     I  4452
+31      Fair     J  4976
+32      Good     J  4574
+33 Very Good     J  5104
+34   Premium     J  6295
+35     Ideal     J  4918</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># store results in an object</span>
+res &lt;-<span class="st"> </span><span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut <span class="op">+</span><span class="st"> </span>color, diamonds, mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
+<span class="kw">str</span>(res)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   35 obs. of  3 variables:
+ $ cut  : Ord.factor w/ 5 levels &quot;Fair&quot;&lt;&quot;Good&quot;&lt;..: 1 2 3 4 5 1 2 3 4 5 ...
+ $ color: Ord.factor w/ 7 levels &quot;D&quot;&lt;&quot;E&quot;&lt;&quot;F&quot;&lt;&quot;G&quot;&lt;..: 1 1 1 1 1 2 2 2 2 2 ...
+ $ price: num  4291 3405 3470 3631 2629 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(res)</code></pre></div>
+<pre><code>        cut color price
+1      Fair     D  4291
+2      Good     D  3405
+3 Very Good     D  3470
+4   Premium     D  3631
+5     Ideal     D  2629
+6      Fair     E  3682</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># aggregate two variables, combine with &#39;cbind&#39;</span>
+<span class="kw">aggregate</span>(<span class="kw">cbind</span>(price, carat) <span class="op">~</span><span class="st"> </span>cut, diamonds, mean)</code></pre></div>
+<pre><code>        cut price  carat
+1      Fair  4359 1.0461
+2      Good  3929 0.8492
+3 Very Good  3982 0.8064
+4   Premium  4584 0.8920
+5     Ideal  3458 0.7028</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aggregate</span>(<span class="kw">cbind</span>(price, carat) <span class="op">~</span><span class="st"> </span>cut <span class="op">+</span><span class="st"> </span>color, diamonds, mean)</code></pre></div>
+<pre><code>         cut color price  carat
+1       Fair     D  4291 0.9201
+2       Good     D  3405 0.7445
+3  Very Good     D  3470 0.6964
+4    Premium     D  3631 0.7215
+5      Ideal     D  2629 0.5658
+6       Fair     E  3682 0.8566
+7       Good     E  3424 0.7451
+8  Very Good     E  3215 0.6763
+9    Premium     E  3539 0.7177
+10     Ideal     E  2598 0.5784
+11      Fair     F  3827 0.9047
+12      Good     F  3496 0.7759
+13 Very Good     F  3779 0.7410
+14   Premium     F  4325 0.8270
+15     Ideal     F  3375 0.6558
+16      Fair     G  4239 1.0238
+17      Good     G  4123 0.8509
+18 Very Good     G  3873 0.7668
+19   Premium     G  4501 0.8415
+20     Ideal     G  3721 0.7007
+21      Fair     H  5136 1.2192
+22      Good     H  4276 0.9147
+23 Very Good     H  4535 0.9159
+24   Premium     H  5217 1.0164
+25     Ideal     H  3889 0.7995
+26      Fair     I  4685 1.1981
+27      Good     I  5079 1.0572
+28 Very Good     I  5256 1.0470
+29   Premium     I  5946 1.1449
+30     Ideal     I  4452 0.9130
+31      Fair     J  4976 1.3412
+32      Good     J  4574 1.0995
+33 Very Good     J  5104 1.1332
+34   Premium     J  6295 1.2931
+35     Ideal     J  4918 1.0636</code></pre>
+</div>
+</div>
+<div id="exploratory-data-analysis-eda" class="section level2">
+<h2><span class="header-section-number">4.3</span> Exploratory Data Analysis (EDA)</h2>
+<p>EDA is not a formal process with a strict set of rules. More than anything, EDA is a state of mind. During the initial phases of EDA you should feel free to investigate every idea that occurs to you. Some of these ideas will pan out, and some will be dead ends. As your exploration continues, you will home in on a few particularly productive areas that you’ll eventually write up and communicate to others. (Quote from <span class="citation">(Grolemund and Wickham 2016)</span>)</p>
+<div id="exploring-a-numerical-variable" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Exploring a numerical variable</h3>
+<p>You will work with the <code>CPS1985</code> data from the <code>AER</code> package that accompanies <span class="citation">(Kleiber and Zeileis 2008)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(AER)
+<span class="kw">data</span>(<span class="st">&quot;CPS1985&quot;</span>)
+<span class="kw">str</span>(CPS1985)</code></pre></div>
+<pre><code>&#39;data.frame&#39;:   534 obs. of  11 variables:
+ $ wage      : num  5.1 4.95 6.67 4 7.5 ...
+ $ education : num  8 9 12 12 12 13 10 12 16 12 ...
+ $ experience: num  21 42 1 4 17 9 27 9 11 9 ...
+ $ age       : num  35 57 19 22 35 28 43 27 33 27 ...
+ $ ethnicity : Factor w/ 3 levels &quot;cauc&quot;,&quot;hispanic&quot;,..: 2 1 1 1 1 1 1 1 1 1 ...
+ $ region    : Factor w/ 2 levels &quot;south&quot;,&quot;other&quot;: 2 2 2 2 2 2 1 2 2 2 ...
+ $ gender    : Factor w/ 2 levels &quot;male&quot;,&quot;female&quot;: 2 2 1 1 1 1 1 1 1 1 ...
+ $ occupation: Factor w/ 6 levels &quot;worker&quot;,&quot;technical&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ sector    : Factor w/ 3 levels &quot;manufacturing&quot;,..: 1 1 1 3 3 3 3 3 1 3 ...
+ $ union     : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 1 1 1 1 1 2 1 1 1 1 ...
+ $ married   : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 2 2 1 1 2 1 1 1 2 1 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(CPS1985) </code></pre></div>
+<pre><code>      wage education experience age ethnicity region gender occupation
+1     5.10         8         21  35  hispanic  other female     worker
+1100  4.95         9         42  57      cauc  other female     worker
+2     6.67        12          1  19      cauc  other   male     worker
+3     4.00        12          4  22      cauc  other   male     worker
+4     7.50        12         17  35      cauc  other   male     worker
+5    13.07        13          9  28      cauc  other   male     worker
+            sector union married
+1    manufacturing    no     yes
+1100 manufacturing    no     yes
+2    manufacturing    no      no
+3            other    no      no
+4            other    no     yes
+5            other   yes      no</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(CPS1985<span class="op">$</span>wage)</code></pre></div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    5.25    7.78    9.02   11.25   44.50 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># attach the data set; R knows where to find the variables</span>
+<span class="kw">attach</span>(CPS1985)
+<span class="kw">summary</span>(wage)</code></pre></div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    5.25    7.78    9.02   11.25   44.50 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.numeric</span>(wage)</code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(wage)</code></pre></div>
+<pre><code>[1] 9.024</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">median</span>(wage)</code></pre></div>
+<pre><code>[1] 7.78</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fivenum</span>(wage)   <span class="co"># Tukey&#39;s five number summary</span></code></pre></div>
+<pre><code>[1]  1.00  5.25  7.78 11.25 44.50</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">min</span>(wage)</code></pre></div>
+<pre><code>[1] 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(wage)</code></pre></div>
+<pre><code>[1] 44.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(wage)</code></pre></div>
+<pre><code>[1] 26.41</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(wage)</code></pre></div>
+<pre><code>[1] 5.139</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(wage, <span class="dt">freq =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(<span class="kw">log</span>(wage), <span class="dt">freq=</span><span class="ot">FALSE</span>, <span class="dt">nclass=</span><span class="dv">20</span>, <span class="dt">col=</span><span class="st">&quot;pink&quot;</span>)
+<span class="kw">lines</span>(<span class="kw">density</span>(<span class="kw">log</span>(wage)), <span class="dt">col=</span><span class="dv">4</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-44-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(CPS1985)</code></pre></div>
+</div>
+<div id="exploring-a-categorical-or-factor-variable" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Exploring a categorical (or: factor) variable</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(CPS1985)
+<span class="kw">str</span>(occupation) <span class="co"># factor variable with 6 levels</span></code></pre></div>
+<pre><code> Factor w/ 6 levels &quot;worker&quot;,&quot;technical&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(occupation)</code></pre></div>
+<pre><code>    worker  technical   services     office      sales management 
+       156        105         83         97         38         55 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(CPS1985)</code></pre></div>
+<p>To compactify the output you will rename levels 2 and 6 of the factor variable ‘occupation’.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(CPS1985<span class="op">$</span>occupation)[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">6</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;techn&quot;</span>, <span class="st">&quot;mgmt&quot;</span>)
+<span class="kw">summary</span>(CPS1985<span class="op">$</span>occupation)</code></pre></div>
+<pre><code>  worker    techn services   office    sales     mgmt 
+     156      105       83       97       38       55 </code></pre>
+<p>Now you’ll learn how to construct summary tables, barplots and pie charts in R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(CPS1985)
+tab &lt;-<span class="st"> </span><span class="kw">table</span>(occupation)
+tab</code></pre></div>
+<pre><code>occupation
+  worker    techn services   office    sales     mgmt 
+     156      105       83       97       38       55 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(tab)</code></pre></div>
+<pre><code>occupation
+  worker    techn services   office    sales     mgmt 
+ 0.29213  0.19663  0.15543  0.18165  0.07116  0.10300 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">barplot</span>(tab)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pie</span>(tab)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-47-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pie</span>(tab,<span class="dt">col =</span> <span class="kw">gray</span>(<span class="kw">seq</span>(<span class="fl">0.4</span>, <span class="fl">1.0</span>, <span class="dt">length =</span> <span class="dv">6</span>)))</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-47-3.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(CPS1985)</code></pre></div>
+</div>
+<div id="exploring-two-categorical-or-factor-variables" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> Exploring two categorical (or: factor) variables</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(CPS1985)
+<span class="kw">table</span>(gender, occupation)</code></pre></div>
+<pre><code>        occupation
+gender   worker techn services office sales mgmt
+  male      126    53       34     21    21   34
+  female     30    52       49     76    17   21</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(<span class="kw">table</span>(gender, occupation))</code></pre></div>
+<pre><code>        occupation
+gender    worker   techn services  office   sales    mgmt
+  male   0.23596 0.09925  0.06367 0.03933 0.03933 0.06367
+  female 0.05618 0.09738  0.09176 0.14232 0.03184 0.03933</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(<span class="kw">table</span>(gender, occupation), <span class="dv">2</span>)</code></pre></div>
+<pre><code>        occupation
+gender   worker  techn services office  sales   mgmt
+  male   0.8077 0.5048   0.4096 0.2165 0.5526 0.6182
+  female 0.1923 0.4952   0.5904 0.7835 0.4474 0.3818</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use mosaic plot </span>
+<span class="kw">plot</span>(gender <span class="op">~</span><span class="st"> </span>occupation, <span class="dt">data =</span> CPS1985)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(CPS1985)</code></pre></div>
+</div>
+<div id="exploring-one-numerical-and-one-categorical-variable" class="section level3">
+<h3><span class="header-section-number">4.3.4</span> Exploring one numerical and one categorical variable</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(CPS1985)
+<span class="co"># here: apply &#39;mean(.)&#39; to &#39;log(wage)&#39; by &#39;gender&#39;</span>
+<span class="kw">tapply</span>(wage, gender, mean)</code></pre></div>
+<pre><code>  male female 
+ 9.995  7.879 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">digits=</span><span class="dv">5</span>)
+<span class="kw">tapply</span>(<span class="kw">log</span>(wage), <span class="kw">list</span>(gender, occupation), mean)</code></pre></div>
+<pre><code>       worker  techn services office  sales   mgmt
+male   2.1004 2.4466   1.8296 1.9553 2.1411 2.4475
+female 1.6679 2.3075   1.7017 1.9311 1.5794 2.2293</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(CPS1985)
+<span class="co"># let&#39;s check these results</span>
+<span class="co"># use subset(.) to extract part of the data</span>
+s &lt;-<span class="st"> </span><span class="kw">subset</span>(CPS1985, <span class="dt">select=</span><span class="kw">c</span>(gender, occupation, wage))
+s1 &lt;-<span class="st"> </span><span class="kw">subset</span>(s, gender <span class="op">==</span><span class="st"> &quot;female&quot;</span> <span class="op">&amp;</span><span class="st"> </span>occupation <span class="op">==</span><span class="st"> &quot;techn&quot;</span>)
+<span class="kw">mean</span>(<span class="kw">log</span>(s1<span class="op">$</span>wage))</code></pre></div>
+<pre><code>[1] 2.3075</code></pre>
+<p>Now you’ll build an appropriate visualization tool.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(CPS1985)
+<span class="co"># see e.g. http://www.r-bloggers.com/box-plot-with-r-tutorial/</span>
+<span class="kw">boxplot</span>(<span class="kw">log</span>(wage) <span class="op">~</span><span class="st"> </span>gender)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(<span class="kw">log</span>(wage) <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>occupation, <span class="dt">col=</span><span class="st">&quot;light blue&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(<span class="kw">log</span>(wage) <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>occupation, <span class="dt">col=</span><span class="st">&quot;light blue&quot;</span>, <span class="dt">las=</span><span class="dv">2</span>)
+<span class="co"># make it a nice graph</span>
+.pardefault &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">no.readonly =</span> T) <span class="co"># to store the default settings of par(.)</span>
+<span class="kw">boxplot</span>(<span class="kw">log</span>(wage) <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>occupation, <span class="dt">col=</span><span class="st">&quot;light blue&quot;</span>, <span class="dt">las=</span><span class="dv">2</span>, <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>))</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-3.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(.pardefault)
+<span class="kw">detach</span>(CPS1985)</code></pre></div>
+<hr />
+</div>
+</div>
+<div id="exercises-1" class="section level2">
+<h2><span class="header-section-number">4.4</span> Exercises</h2>
+<div class="learncheck">
+<p>
+<strong><em>Learning check</em></strong>
+</p>
+</div>
+<ol style="list-style-type: decimal">
+<li>Import the data set <code>na.txt</code> that is available in the folder ‘data’ that comes with the book.</li>
+</ol>
+<ul>
+<li>Use <code>read.table</code> and interpret the resulting data frame.</li>
+<li>Do you detect any problems (wrt missing values, strange observations)? Check for missing values using the <code>is.na</code> funtion applied to a variable from the <code>na</code> data set.</li>
+<li>If so, try solving those using the arguments of the <code>read.table</code> function. [Hint: check the argument <code>na.strings</code>] Check again for missing values.</li>
+<li>Make sure <code>female</code> is a factor variable (with two levels).</li>
+<li>Count the number of missing values per variable.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>(An exercise taken from <span class="citation">(Kleiber and Zeileis 2008)</span>) “PARADE” is the Sunday newspaper magazine supplementing the Sunday or weekend edition of some 500 daily newspapers in the United States of America. An important yearly feature is an article providing information on some 120150 “randomly” selected US citizens, indicating their profession, hometown and state, and their yearly earnings. The Parade2005 (in library AER) data contain the 2005 version, amended by a variable indicating celebrity status (motivated by substantial oversampling of celebrities in these data). For the Parade2005 data:</li>
+</ol>
+<ul>
+<li>Load the data <code>Parade2005</code> from the <code>AER</code> package, use <code>data(&quot;Parade2005&quot;)</code> to make the data accessible.</li>
+<li>Determine the mean earnings in California.</li>
+<li>Determine the number of individuals residing in Idaho.</li>
+<li>Determine the mean and the median earnings of celebrities.</li>
+<li>Obtain boxplots of log(earnings) stratified by celebrity</li>
+<li>Plot the density of log(earnings), use <code>density</code>.</li>
+</ul>
+<div class="learncheck">
+
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="objects-data-types.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-viz.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
