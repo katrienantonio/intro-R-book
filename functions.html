@@ -25,7 +25,7 @@
 <meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
 
 
-<meta name="date" content="2018-09-20">
+<meta name="date" content="2018-10-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -195,6 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2.1" data-path="probs.html"><a href="probs.html#the-normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> The normal distribution</a></li>
 <li class="chapter" data-level="7.2.2" data-path="probs.html"><a href="probs.html#the-gamma-distribution"><i class="fa fa-check"></i><b>7.2.2</b> The gamma distribution</a></li>
 </ul></li>
+<li class="chapter" data-level="7.3" data-path="probs.html"><a href="probs.html#exercises-4"><i class="fa fa-check"></i><b>7.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
 <li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
@@ -208,7 +209,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
-<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-4"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
 <li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
@@ -218,6 +219,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10" data-path="lms.html"><a href="lms.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models in R</a><ul>
 <li class="chapter" data-level="10.1" data-path="lms.html"><a href="lms.html#a-simple-linear-regression-model"><i class="fa fa-check"></i><b>10.1</b> A simple linear regression model</a></li>
 <li class="chapter" data-level="10.2" data-path="lms.html"><a href="lms.html#a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>10.2</b> A multiple linear regression model</a></li>
+<li class="chapter" data-level="10.3" data-path="lms.html"><a href="lms.html#exercises-6"><i class="fa fa-check"></i><b>10.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="glms.html"><a href="glms.html"><i class="fa fa-check"></i><b>11</b> Generalized Linear Models in R</a><ul>
 <li class="chapter" data-level="11.1" data-path="glms.html"><a href="glms.html#modelling-count-data-with-poisson-regression-models"><i class="fa fa-check"></i><b>11.1</b> Modelling count data with Poisson regression models</a><ul>
@@ -570,7 +572,7 @@ $D
 <p><code>mapply</code> applies a function to each element of multiple lists.</p>
 <hr />
 </div>
-<div id="exercises-4" class="section level2">
+<div id="exercises-5" class="section level2">
 <h2><span class="header-section-number">8.6</span> Exercises</h2>
 <div class="learncheck">
 <p>
@@ -578,7 +580,10 @@ $D
 </p>
 </div>
 <ol style="list-style-type: decimal">
-<li>The function <code>var</code> in R calculates the unbiased variance estimator, given a random sample of data. Write a function <code>variance</code> which returns the biased or unbiased estimate of the variance, depending on the value of the argument <code>bias</code> which can be <code>TRUE</code> or <code>FALSE</code>. By default the function <code>variance</code> should produce the same result as <code>var</code>. Formulas: unbiased = <span class="math inline">\(\frac{1}{n-1}\sum_i (x_i-\bar{x})^2\)</span> and biased = <span class="math inline">\(\frac{1}{n}\sum_i(x_i-\bar{x})^2\)</span> where <span class="math inline">\(\bar{x}=\frac{1}{n} \sum_i x_i\)</span>.</li>
+<li><p>Create a function that will return the sum of 2 integers.</p></li>
+<li><p>The function <code>var</code> in R calculates the unbiased variance estimator, given a random sample of data. Write a function <code>variance</code> which returns the biased or unbiased estimate of the variance, depending on the value of the argument <code>bias</code> which can be <code>TRUE</code> or <code>FALSE</code>. By default the function <code>variance</code> should produce the same result as <code>var</code>. Formulas: unbiased = <span class="math inline">\(\frac{1}{n-1}\sum_i (x_i-\bar{x})^2\)</span> and biased = <span class="math inline">\(\frac{1}{n}\sum_i(x_i-\bar{x})^2\)</span> where <span class="math inline">\(\bar{x}=\frac{1}{n} \sum_i x_i\)</span>.</p></li>
+<li><p>Create a function that given a vector and an integer will return how many times the integer appears inside the vector.</p></li>
+<li><p>Create a function that given a vector will print by screen the mean and the standard deviation, it will optionally also print the median.</p></li>
 </ol>
 <div class="learncheck">
 

@@ -25,7 +25,7 @@
 <meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
 
 
-<meta name="date" content="2018-09-20">
+<meta name="date" content="2018-10-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -195,6 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2.1" data-path="probs.html"><a href="probs.html#the-normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> The normal distribution</a></li>
 <li class="chapter" data-level="7.2.2" data-path="probs.html"><a href="probs.html#the-gamma-distribution"><i class="fa fa-check"></i><b>7.2.2</b> The gamma distribution</a></li>
 </ul></li>
+<li class="chapter" data-level="7.3" data-path="probs.html"><a href="probs.html#exercises-4"><i class="fa fa-check"></i><b>7.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
 <li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
@@ -208,7 +209,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
-<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-4"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
 <li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
@@ -218,6 +219,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10" data-path="lms.html"><a href="lms.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models in R</a><ul>
 <li class="chapter" data-level="10.1" data-path="lms.html"><a href="lms.html#a-simple-linear-regression-model"><i class="fa fa-check"></i><b>10.1</b> A simple linear regression model</a></li>
 <li class="chapter" data-level="10.2" data-path="lms.html"><a href="lms.html#a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>10.2</b> A multiple linear regression model</a></li>
+<li class="chapter" data-level="10.3" data-path="lms.html"><a href="lms.html#exercises-6"><i class="fa fa-check"></i><b>10.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="glms.html"><a href="glms.html"><i class="fa fa-check"></i><b>11</b> Generalized Linear Models in R</a><ul>
 <li class="chapter" data-level="11.1" data-path="glms.html"><a href="glms.html#modelling-count-data-with-poisson-regression-models"><i class="fa fa-check"></i><b>11.1</b> Modelling count data with Poisson regression models</a><ul>
@@ -309,11 +311,11 @@ Journals<span class="op">$</span>citeprice &lt;-<span class="st"> </span>Journal
 <span class="kw">rug</span>(<span class="kw">log</span>(subs))  <span class="co"># adds ticks, thus visualizing the marginal distributions of</span>
             <span class="co"># the variables, along one or both axes of an existing plot.        </span>
 <span class="kw">rug</span>(<span class="kw">log</span>(citeprice), <span class="dt">side =</span> <span class="dv">2</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-85-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(Journals)
 <span class="co"># avoid &quot;attach()&quot; and &quot;detach()&quot;</span>
 <span class="kw">plot</span>(<span class="kw">log</span>(subs) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(citeprice), <span class="dt">data =</span> Journals)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-53-2.png" width="576" style="display: block; margin: auto;" /> R has many plotting options that allow you to flex a graph. For example, <code>pch</code> for the plotting character, <code>col</code> for the color of the plotting characters, <code>xlim</code> and <code>ylim</code> to adjust the limits on the x- and y-axis of the scatterplot.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-85-2.png" width="576" style="display: block; margin: auto;" /> R has many plotting options that allow you to flex a graph. For example, <code>pch</code> for the plotting character, <code>col</code> for the color of the plotting characters, <code>xlim</code> and <code>ylim</code> to adjust the limits on the x- and y-axis of the scatterplot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">log</span>(citeprice)<span class="op">~</span><span class="kw">log</span>(subs), <span class="dt">data =</span> Journals, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">8</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">7</span>, <span class="dv">4</span>), <span class="dt">main =</span> <span class="st">&quot;Library subscriptions&quot;</span>)
 <span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>subs))
 <span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>citeprice), <span class="dt">side=</span><span class="dv">2</span>)
@@ -323,7 +325,7 @@ journal_info &lt;-<span class="st"> </span><span class="kw">subset</span>(Journa
 x.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>subs)
 y.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>citeprice)
 <span class="kw">text</span>(x.val, y.val, journal, <span class="dt">pos=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-86-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="saving-the-scatterplot-as-a-pdf" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Saving the scatterplot as a pdf</h3>
@@ -348,7 +350,7 @@ graph.path &lt;-<span class="st"> </span><span class="kw">file.path</span>(path,
 <p>This function draws a curve corresponding to a function over the interval [from, to].</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">curve</span>(dnorm, <span class="dt">from =</span> <span class="op">-</span><span class="dv">5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&quot;slategray&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">main =</span> <span class="st">&quot;Density of the standard normal distribution&quot;</span>)
 <span class="kw">text</span>(<span class="op">-</span><span class="dv">5</span>, <span class="fl">0.3</span>, <span class="kw">expression</span>(<span class="kw">f</span>(x) <span class="op">==</span><span class="st"> </span><span class="kw">frac</span>(<span class="dv">1</span>, sigma <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi)) <span class="op">~</span><span class="er">~</span><span class="st"> </span>e<span class="op">^</span>{<span class="op">-</span><span class="kw">frac</span>((x <span class="op">-</span><span class="st"> </span>mu)<span class="op">^</span><span class="dv">2</span>, <span class="dv">2</span><span class="op">*</span>sigma<span class="op">^</span><span class="dv">2</span>)}),<span class="dt">adj=</span><span class="dv">0</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="576" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 </div>
@@ -367,44 +369,45 @@ graph.path &lt;-<span class="st"> </span><span class="kw">file.path</span>(path,
 <span class="kw">ggplot</span>(<span class="dt">data =</span> mtcars, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>() </code></pre></div>
-<pre><code>`geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-89-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># shorter</span>
 <span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>() </code></pre></div>
-<pre><code>`geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-57-2.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-89-2.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use black and white lay-out</span>
 <span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_smooth</span>() </code></pre></div>
-<pre><code>`geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-57-3.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-89-3.png" width="576" style="display: block; margin: auto;" /></p>
 <p>You can add a third variable to a two dimensional scatterplot by mapping it to an aesthetic. An aesthetic is a visual property of the objects in your plot. Aesthetics include things like the size, the shape, or the color of your points. You can display a point in different ways by changing the values of its aesthetic properties.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg))<span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> gear))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-90-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Or you could have mapped this variable to the alpha aesthetic, which controls the transparency of the points, or the shape of the points.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg))<span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">alpha =</span> gear))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg))<span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">size =</span> gear))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-59-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-91-2.png" width="576" style="display: block; margin: auto;" /></p>
 <p>You’ll now construct a boxplot of <code>mpg</code> per <code>cyl</code> using <code>ggplot()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg))<span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-60-1.png" width="576" style="display: block; margin: auto;" /> Another way to code the same example</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="576" style="display: block; margin: auto;" /> Another way to code the same example</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg))
 p <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="fancy-correlation-plots" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> Fancy correlation plots</h3>
 <p>You use the package <code>corrplot</code> to visualize correlations between variables. For more examples, see <a href="http://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html">corrplot</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(corrplot)
-<span class="co"># get correlation matrix</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(corrplot)</code></pre></div>
+<pre><code>corrplot 0.84 loaded</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># get correlation matrix</span>
 M &lt;-<span class="st"> </span><span class="kw">cor</span>(mtcars)
 <span class="kw">str</span>(M)</code></pre></div>
 <pre><code> num [1:11, 1:11] 1 -0.852 -0.848 -0.776 0.681 ...
@@ -438,15 +441,15 @@ gear  0.794059  1.00000  0.274073
 carb  0.057534  0.27407  1.000000</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize the correlation structure</span>
 <span class="kw">corrplot</span>(M, <span class="dt">method=</span><span class="st">&quot;circle&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-62-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-94-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">corrplot</span>(M, <span class="dt">method=</span><span class="st">&quot;square&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-62-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-94-2.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">corrplot</span>(M, <span class="dt">method=</span><span class="st">&quot;color&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-62-3.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-94-3.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">corrplot</span>(M, <span class="dt">type=</span><span class="st">&quot;upper&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-62-4.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-94-4.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">corrplot</span>(M, <span class="dt">type=</span><span class="st">&quot;upper&quot;</span>, <span class="dt">method=</span><span class="st">&quot;square&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-62-5.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-94-5.png" width="576" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 </div>

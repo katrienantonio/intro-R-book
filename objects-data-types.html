@@ -25,7 +25,7 @@
 <meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
 
 
-<meta name="date" content="2018-09-20">
+<meta name="date" content="2018-10-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -195,6 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2.1" data-path="probs.html"><a href="probs.html#the-normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> The normal distribution</a></li>
 <li class="chapter" data-level="7.2.2" data-path="probs.html"><a href="probs.html#the-gamma-distribution"><i class="fa fa-check"></i><b>7.2.2</b> The gamma distribution</a></li>
 </ul></li>
+<li class="chapter" data-level="7.3" data-path="probs.html"><a href="probs.html#exercises-4"><i class="fa fa-check"></i><b>7.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
 <li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
@@ -208,7 +209,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
-<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-4"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
 <li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
@@ -218,6 +219,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10" data-path="lms.html"><a href="lms.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models in R</a><ul>
 <li class="chapter" data-level="10.1" data-path="lms.html"><a href="lms.html#a-simple-linear-regression-model"><i class="fa fa-check"></i><b>10.1</b> A simple linear regression model</a></li>
 <li class="chapter" data-level="10.2" data-path="lms.html"><a href="lms.html#a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>10.2</b> A multiple linear regression model</a></li>
+<li class="chapter" data-level="10.3" data-path="lms.html"><a href="lms.html#exercises-6"><i class="fa fa-check"></i><b>10.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="glms.html"><a href="glms.html"><i class="fa fa-check"></i><b>11</b> Generalized Linear Models in R</a><ul>
 <li class="chapter" data-level="11.1" data-path="glms.html"><a href="glms.html#modelling-count-data-with-poisson-regression-models"><i class="fa fa-check"></i><b>11.1</b> Modelling count data with Poisson regression models</a><ul>
@@ -281,7 +283,7 @@ a</code></pre></div>
 <h2><span class="header-section-number">3.3</span> Basic data types</h2>
 <p>R works with numerous data types. Some of the most basic types to get started are:</p>
 <ul>
-<li>Decimals values like 4.5 are called numerics.</li>
+<li>Decimal values like 4.5 are called numerics.</li>
 <li>Natural numbers like 4 are called integers. Integers are also numerics.</li>
 <li>Boolean values (TRUE or FALSE) are called logical.</li>
 <li>Dates or <code>POSIXct</code> for time based variables. Here, <code>Date</code> stores just a date and <code>POSIXct</code> stores a date and time. Both objects are actually represented as the number of days (Date) or seconds (POSIXct) since January 1, 1970.</li>
@@ -308,54 +310,12 @@ my_date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span clas
 <span class="co"># and returns a vector of character strings</span>
 <span class="co"># giving the names of the objects in the specified environment</span>
 <span class="kw">ls</span>()</code></pre></div>
-<pre><code>  [1] &quot;a&quot;                     &quot;b&quot;                     &quot;car_price&quot;            
-  [4] &quot;char&quot;                  &quot;chars&quot;                 &quot;colors&quot;               
-  [7] &quot;cols&quot;                  &quot;CPS1985&quot;               &quot;d&quot;                    
- [10] &quot;danish&quot;                &quot;danish2&quot;               &quot;data_binom&quot;           
- [13] &quot;data_pois&quot;             &quot;dd&quot;                    &quot;df&quot;                   
- [16] &quot;diamonds_DT&quot;           &quot;dmerge&quot;                &quot;error.SS&quot;             
- [19] &quot;error0.SS&quot;             &quot;expo&quot;                  &quot;f&quot;                    
- [22] &quot;F&quot;                     &quot;family&quot;                &quot;g.nb&quot;                 
- [25] &quot;g.poi&quot;                 &quot;g.quasi&quot;               &quot;g1&quot;                   
- [28] &quot;g10&quot;                   &quot;g2&quot;                    &quot;g3&quot;                   
- [31] &quot;g4&quot;                    &quot;g5&quot;                    &quot;g6&quot;                   
- [34] &quot;g7&quot;                    &quot;g8&quot;                    &quot;g9&quot;                   
- [37] &quot;gender&quot;                &quot;grid&quot;                  &quot;hotdogs&quot;              
- [40] &quot;hotdogs2&quot;              &quot;i&quot;                     &quot;jan&quot;                  
- [43] &quot;job&quot;                   &quot;journal&quot;               &quot;journal_info&quot;         
- [46] &quot;Journals&quot;              &quot;katrien&quot;               &quot;L&quot;                    
- [49] &quot;lambda&quot;                &quot;least_pop&quot;             &quot;lm0&quot;                  
- [52] &quot;lm1&quot;                   &quot;lm2&quot;                   &quot;m&quot;                    
- [55] &quot;M&quot;                     &quot;mort_poll&quot;             &quot;mort_poll_1&quot;          
- [58] &quot;mort_poll_2&quot;           &quot;mort_poll_3&quot;           &quot;most_pop&quot;             
- [61] &quot;my_character&quot;          &quot;my_date&quot;               &quot;my_list&quot;              
- [64] &quot;my_logical&quot;            &quot;my_matrix&quot;             &quot;my_names&quot;             
- [67] &quot;my_numeric&quot;            &quot;my_sqrt&quot;               &quot;my_vector&quot;            
- [70] &quot;mydat&quot;                 &quot;mydat2&quot;                &quot;mydat3&quot;               
- [73] &quot;mylist&quot;                &quot;mysubset&quot;              &quot;n&quot;                    
- [76] &quot;needed_pkgs&quot;           &quot;new_diamonds&quot;          &quot;new_pkgs&quot;             
- [79] &quot;nsim&quot;                  &quot;nSim&quot;                  &quot;num_attendees&quot;        
- [82] &quot;num_questions&quot;         &quot;opt&quot;                   &quot;opt_beta&quot;             
- [85] &quot;p&quot;                     &quot;p1&quot;                    &quot;path&quot;                 
- [88] &quot;path.car&quot;              &quot;path.fire&quot;             &quot;path.hotdogs&quot;         
- [91] &quot;path.mort&quot;             &quot;path.pools&quot;            &quot;path.severity&quot;        
- [94] &quot;path.urbanpop&quot;         &quot;path.urbanpop_nonames&quot; &quot;phi&quot;                  
- [97] &quot;policy&quot;                &quot;policy.path&quot;           &quot;pools&quot;                
-[100] &quot;pop_1&quot;                 &quot;pop_1_df&quot;              &quot;pop_2&quot;                
-[103] &quot;pop_3&quot;                 &quot;pop_a&quot;                 &quot;pop_b&quot;                
-[106] &quot;pop_list&quot;              &quot;primes&quot;                &quot;range&quot;                
-[109] &quot;rate&quot;                  &quot;rcount&quot;                &quot;region&quot;               
-[112] &quot;res&quot;                   &quot;rquote&quot;                &quot;s&quot;                    
-[115] &quot;s1&quot;                    &quot;salary&quot;                &quot;severity&quot;             
-[118] &quot;sex&quot;                   &quot;shape&quot;                 &quot;shape1&quot;               
-[121] &quot;shape2&quot;                &quot;sort1.states&quot;          &quot;sort2.states&quot;         
-[124] &quot;sort3.states&quot;          &quot;states&quot;                &quot;sum_abs&quot;              
-[127] &quot;t&quot;                     &quot;tab&quot;                   &quot;todo&quot;                 
-[130] &quot;total.SS&quot;              &quot;type&quot;                  &quot;v&quot;                    
-[133] &quot;wages&quot;                 &quot;x&quot;                     &quot;x.new&quot;                
-[136] &quot;x.val&quot;                 &quot;x0&quot;                    &quot;x2&quot;                   
-[139] &quot;xx&quot;                    &quot;y&quot;                     &quot;y.val&quot;                
-[142] &quot;z&quot;                    </code></pre>
+<pre><code> [1] &quot;a&quot;            &quot;car_price&quot;    &quot;F&quot;            &quot;F_educ&quot;       &quot;F_so2&quot;       
+ [6] &quot;grid&quot;         &quot;lm_educ&quot;      &quot;lm_so2&quot;       &quot;lm0&quot;          &quot;lm00&quot;        
+[11] &quot;lm1&quot;          &quot;lm1_alt&quot;      &quot;lm1_alt_2&quot;    &quot;mort_poll&quot;    &quot;my_character&quot;
+[16] &quot;my_date&quot;      &quot;my_logical&quot;   &quot;my_numeric&quot;   &quot;needed_pkgs&quot;  &quot;new_pkgs&quot;    
+[21] &quot;p&quot;            &quot;p1&quot;           &quot;path&quot;         &quot;path.car&quot;     &quot;path.mort&quot;   
+[26] &quot;x.new&quot;       </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to remove objects from R&#39;s memory, use</span>
 <span class="kw">rm</span>(a)
 <span class="kw">rm</span>(my_character, my_logical)
@@ -531,9 +491,6 @@ t &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x, y, z)</cod
 <pre><code>The following objects are masked _by_ .GlobalEnv:
 
     x, y, z</code></pre>
-<pre><code>The following objects are masked from package:spData:
-
-    x, y</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(z)</code></pre></div>
 <pre><code>[1] 8.667</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(t) <span class="co"># does the job</span>
@@ -588,7 +545,7 @@ six  2      -none- character</code></pre>
 mylist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">sample =</span> <span class="kw">rnorm</span>(<span class="dv">5</span>), <span class="dt">family =</span> <span class="st">&quot;normal distribution&quot;</span>, <span class="dt">parameters =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>))
 mylist</code></pre></div>
 <pre><code>$sample
-[1] -1.9587  1.5949  0.2061 -0.1504  0.2304
+[1] -1.24274  0.08772  0.40050  0.58066 -0.14351
 
 $family
 [1] &quot;normal distribution&quot;
@@ -601,16 +558,16 @@ $parameters$sd
 [1] 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(mylist)</code></pre></div>
 <pre><code>List of 3
- $ sample    : num [1:5] -1.959 1.595 0.206 -0.15 0.23
+ $ sample    : num [1:5] -1.2427 0.0877 0.4005 0.5807 -0.1435
  $ family    : chr &quot;normal distribution&quot;
  $ parameters:List of 2
   ..$ mean: num 0
   ..$ sd  : num 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># now check</span>
 mylist[[<span class="dv">1</span>]]</code></pre></div>
-<pre><code>[1] -1.9587  1.5949  0.2061 -0.1504  0.2304</code></pre>
+<pre><code>[1] -1.24274  0.08772  0.40050  0.58066 -0.14351</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist<span class="op">$</span>sample</code></pre></div>
-<pre><code>[1] -1.9587  1.5949  0.2061 -0.1504  0.2304</code></pre>
+<pre><code>[1] -1.24274  0.08772  0.40050  0.58066 -0.14351</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist<span class="op">$</span>parameters</code></pre></div>
 <pre><code>$mean
 [1] 0
@@ -625,12 +582,15 @@ $sd
 <h2><span class="header-section-number">3.9</span> Exercises</h2>
 <p><strong><em>Learning check</em></strong></p>
 <ol style="list-style-type: decimal">
+<li>Explore the objects and data types in R.</li>
+</ol>
+<ul>
 <li>Create a vector <code>fav_music</code> with the names of your favourite artists.</li>
 <li>Create a vector <code>num_records</code> with the number of records you have in your collection of each of those artists.</li>
 <li>Create vector <code>num_concerts</code> with the number of times you attended a concert of these artists.</li>
 <li>Put everything together in a data frame, assign the name <code>my_music</code> to this data frame and change the labels of the information stored in the columns to <code>artist</code>, <code>records</code> and <code>concerts</code>.</li>
 <li>Extract the variable <code>num_records</code> from the data frame <code>my_music</code>. Calculate the total number of records in your collection (for the defined set of artists). Check the structure of the data frame, ask for a summary.</li>
-</ol>
+</ul>
 
 </div>
 </div>

@@ -25,7 +25,7 @@
 <meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
 
 
-<meta name="date" content="2018-09-20">
+<meta name="date" content="2018-10-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -195,6 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2.1" data-path="probs.html"><a href="probs.html#the-normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> The normal distribution</a></li>
 <li class="chapter" data-level="7.2.2" data-path="probs.html"><a href="probs.html#the-gamma-distribution"><i class="fa fa-check"></i><b>7.2.2</b> The gamma distribution</a></li>
 </ul></li>
+<li class="chapter" data-level="7.3" data-path="probs.html"><a href="probs.html#exercises-4"><i class="fa fa-check"></i><b>7.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
 <li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
@@ -208,7 +209,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
-<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-4"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
 <li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
@@ -218,6 +219,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10" data-path="lms.html"><a href="lms.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models in R</a><ul>
 <li class="chapter" data-level="10.1" data-path="lms.html"><a href="lms.html#a-simple-linear-regression-model"><i class="fa fa-check"></i><b>10.1</b> A simple linear regression model</a></li>
 <li class="chapter" data-level="10.2" data-path="lms.html"><a href="lms.html#a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>10.2</b> A multiple linear regression model</a></li>
+<li class="chapter" data-level="10.3" data-path="lms.html"><a href="lms.html#exercises-6"><i class="fa fa-check"></i><b>10.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="glms.html"><a href="glms.html"><i class="fa fa-check"></i><b>11</b> Generalized Linear Models in R</a><ul>
 <li class="chapter" data-level="11.1" data-path="glms.html"><a href="glms.html#modelling-count-data-with-poisson-regression-models"><i class="fa fa-check"></i><b>11.1</b> Modelling count data with Poisson regression models</a><ul>
@@ -250,11 +252,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="lms" class="section level1">
 <h1><span class="header-section-number">10</span> Linear Regression Models in R</h1>
-<p>You’ll journey as a model builder in R will start from studying linear models and the use of the <code>lm</code> function.</p>
+<p>Your journey as a model builder in R will start from studying linear models and the use of the <code>lm</code> function.</p>
 <div id="a-simple-linear-regression-model" class="section level2">
 <h2><span class="header-section-number">10.1</span> A simple linear regression model</h2>
 <p>You analayze Ford dealership data as registered in Milwaukee, September/October 1990. Data on 62 credit card applicants are available, including the car purchase price <span class="math inline">\(Y\)</span> and the applicant’s annual income <span class="math inline">\(X\)</span>. Data are available in the <code>.csv</code> file <code>car_price</code>.</p>
-<p>You first load and explore the data.</p>
+<p>You first load the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&#39;data&#39;</span>)
 path.car &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;car_price.csv&quot;</span>)
 car_price &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.car)</code></pre></div>
@@ -287,13 +289,13 @@ car_price &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.ca
 <span class="co"># density histogram for &#39;price&#39;</span>
 <span class="kw">hist</span>(price, <span class="dt">br =</span> <span class="dv">20</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">5000</span>, <span class="dv">30000</span>), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">freq=</span><span class="ot">FALSE</span>)
 <span class="kw">lines</span>(<span class="kw">density</span>(price), <span class="dt">col=</span><span class="dv">4</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-110-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-143-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># frequency histogram for &#39;income/1000&#39;</span>
 <span class="kw">hist</span>(income<span class="op">/</span><span class="dv">1000</span>, <span class="dt">br=</span><span class="dv">10</span>, <span class="dt">xlab=</span><span class="st">&quot;income (in $000&#39;s)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">120</span>), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-110-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-143-2.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># scatter plot &#39;income/1000&#39; versus &#39;price&#39;</span>
 <span class="kw">plot</span>(income<span class="op">/</span><span class="dv">1000</span>, price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab=</span><span class="st">&quot;income (in $000&#39;s)&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-110-3.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-143-3.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(car_price)</code></pre></div>
 <p>Explore the data with <code>ggplot</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ggplot2&quot;</span>)
@@ -301,9 +303,19 @@ car_price &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.ca
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_smooth</span>() </code></pre></div>
-<pre><code>`geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-111-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>You will now fit a simple regression model with income as predictor to purchase price. You assign the output of the <code>lm</code> function to the object <code>lm1</code>.</p>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-144-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>You will now fit a simple regression model with income as predictor to purchase price. That is:</p>
+<span class="math display">\[\begin{eqnarray*}
+Y_i &amp;=&amp; \beta_0+\beta_1 \cdot x_i +\epsilon_i,
+\end{eqnarray*}\]</span>
+<p>where <span class="math inline">\(Y_i\)</span> is the car price for observation <span class="math inline">\(i\)</span>, <span class="math inline">\(x_i\)</span> the corresponding income and <span class="math inline">\(\epsilon_i\)</span> an error term. <span class="math inline">\(\beta_0\)</span> is the intercept and <span class="math inline">\(\beta_1\)</span> the slope.</p>
+<p>Recall that fitting a (simple) linear regression model implies minimizing the residual sum of squares. That is:</p>
+<span class="math display">\[\begin{eqnarray*}
+(\hat{\beta}_0,\ \hat{\beta}_1) = \min_{\beta_0, \beta_1} \sum_{i=1}^n \left(Y_i - (\beta_0+\beta_1 \cdot x_{i})\right)^2,
+\end{eqnarray*}\]</span>
+<p>and the fitted values are then specified as <span class="math inline">\(\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1\cdot x_{i}\)</span>. The corresponding residuals are then defined as <span class="math inline">\(\hat{\epsilon}_i = y_i - \hat{y}_i\)</span>.</p>
+<p>You assign the output of the <code>lm</code> function to the object <code>lm1</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> car_price)
 <span class="kw">summary</span>(lm1)</code></pre></div>
 <pre><code>
@@ -365,39 +377,70 @@ lm1<span class="op">$</span>coef</code></pre></div>
  9416.6 13685.3 17066.5 19179.7 24019.1 12840.0 15164.6 17700.5 11572.1 12945.7 
      61      62 
 15587.2 15164.6 </code></pre>
+<p>To visualize this linear model fit you can use the built-in <code>plot</code> function, applied to object <code>lm1</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use built-in plot function</span>
 <span class="co"># you may have noticed that we have used the function plot with all kinds of arguments: </span>
 <span class="co"># one or two variables, a data frame, and now a linear model fit;</span>
 <span class="co"># in R jargon plot is a generic function; it checks for the kind of object that you # are plotting and then calls the appropriate (more specialized) function to do the work.</span>
 <span class="kw">plot</span>(lm1)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-112-1.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-112-2.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-112-3.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-112-4.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-146-1.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-146-2.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-146-3.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-146-4.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Or you can construct your own plots, e.g. by adding the least squares line to the scatter plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add the regression line to the scatter plot</span>
 <span class="kw">plot</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab =</span> <span class="st">&quot;income&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Simple linear regression&quot;</span>)
 <span class="co"># add LS line like this</span>
 <span class="kw">abline</span>(lm1, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
 <span class="co"># or like this</span>
 <span class="kw">abline</span>(lm1<span class="op">$</span>coefficients[<span class="dv">1</span>], lm1<span class="op">$</span>coefficients[<span class="dv">2</span>])</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-112-5.png" width="576" style="display: block; margin: auto;" /> Similarly, you can illustrate the fit with <code>ggplot</code>.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-147-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Similarly, you can illustrate the fit with <code>ggplot</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(car_price, <span class="kw">aes</span>(<span class="dt">x =</span> income, <span class="dt">y =</span> price)) <span class="op">+</span><span class="st"> </span>
 <span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st"> </span><span class="kw">geom_smooth</span>()<span class="op">+</span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> lm1<span class="op">$</span>coef[<span class="dv">1</span>], <span class="dt">slope =</span> lm1<span class="op">$</span>coef[<span class="dv">2</span>],   <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>) </code></pre></div>
-<pre><code>`geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-113-1.png" width="576" style="display: block; margin: auto;" /> You can graphically illustrate what vertical distance means.</p>
+<span class="st"> </span><span class="kw">geom_smooth</span>()<span class="op">+</span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> lm1<span class="op">$</span>coef[<span class="dv">1</span>], <span class="dt">slope =</span> lm1<span class="op">$</span>coef[<span class="dv">2</span>],   <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="fl">1.25</span>) </code></pre></div>
+<pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-148-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The least squares fit minimizes the sum of the squares of the vertical distances between the observed response values and the least squares line (or plane). You now graphically illustrate what vertical distance means.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab =</span> <span class="st">&quot;income&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Simple linear regression&quot;</span>)
 <span class="kw">abline</span>(lm1, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
 <span class="kw">segments</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, car_price<span class="op">$</span>income, lm1<span class="op">$</span>fitted.values, <span class="dt">lty=</span><span class="dv">1</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-114-1.png" width="576" style="display: block; margin: auto;" /> Get the anova table.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># anova table</span>
-<span class="kw">anova</span>(lm1)</code></pre></div>
-<pre><code>Analysis of Variance Table
+<p><img src="_main_files/figure-html/unnamed-chunk-149-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>You now return to the <code>summary(lm1)</code> and try to understand the (rest of the) output that is printed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lm1)</code></pre></div>
+<pre><code>
+Call:
+lm(formula = price ~ income, data = car_price)
 
-Response: price
-          Df   Sum Sq  Mean Sq F value Pr(&gt;F)    
-income     1 1.19e+09 1.19e+09     196 &lt;2e-16 ***
-Residuals 60 3.63e+08 6.05e+06                   
+Residuals:
+   Min     1Q Median     3Q    Max 
+ -5365  -1185   -251   1334   6284 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 5.87e+03   7.50e+02    7.82  9.8e-11 ***
+income      2.11e-01   1.51e-02   14.01  &lt; 2e-16 ***
 ---
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 2460 on 60 degrees of freedom
+Multiple R-squared:  0.766, Adjusted R-squared:  0.762 
+F-statistic:  196 on 1 and 60 DF,  p-value: &lt;2e-16</code></pre>
+Recall that in a general linear model <span class="math inline">\(Y = X\beta + \epsilon\)</span> where <span class="math inline">\(E[\epsilon]=0\)</span> and <span class="math inline">\(\text{Var}(\epsilon)=\sigma^2 I\)</span> with <span class="math inline">\(I\)</span> the identity matrix, the following estimator is used for the variance of the error terms
+<span class="math display">\[\begin{eqnarray*}
+s^2 &amp;=&amp; \frac{1}{n-(p+1)}(Y-X\hat{\beta})^{&#39;}(Y-X\hat{\beta}),
+\end{eqnarray*}\]</span>
+<p>where <span class="math inline">\(\beta = (\beta_0, \beta_1, \ldots, \beta_p)^{&#39;}\)</span>.</p>
+<p>You can recognize this in the output of <code>lm1</code> as follows</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">error.SS &lt;-<span class="st"> </span><span class="kw">sum</span>(lm1<span class="op">$</span>resid<span class="op">^</span><span class="dv">2</span>)
+error.SS</code></pre></div>
+<pre><code>[1] 362851718</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(error.SS<span class="op">/</span>(<span class="kw">nrow</span>(car_price)<span class="op">-</span><span class="dv">2</span>))</code></pre></div>
+<pre><code>[1] 2459.2</code></pre>
+The proportion of the variability in the data that is explained by the regression model is
+<span class="math display">\[\begin{eqnarray*}
+R^2 &amp;=&amp; \frac{\text{Regression SS}}{\text{Total SS}} \\
+&amp;=&amp; \frac{\sum_{i=1}^n (\hat{Y}_i-\bar{Y})^2}{\sum_{i=1}^n (Y_i-\bar{Y})^2} \\
+&amp;=&amp; \frac{\sum_{i=1}^n (Y_i-\bar{Y})^2 - \sum_{i=1}^n (Y_i-\hat{Y})^2}{\sum_{i=1}^n (Y_i-\bar{Y})^2}.
+\end{eqnarray*}\]</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(car_price)
 total.SS &lt;-<span class="st"> </span><span class="kw">sum</span>((price<span class="op">-</span><span class="kw">mean</span>(price))<span class="op">^</span><span class="dv">2</span>)
 total.SS</code></pre></div>
@@ -408,13 +451,28 @@ error.SS</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># R^2?</span>
 (total.SS<span class="op">-</span>error.SS)<span class="op">/</span>total.SS</code></pre></div>
 <pre><code>[1] 0.76586</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># F-statistic in anova?</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(car_price)</code></pre></div>
+<p>Finally, the output of <code>lm1</code> displays the result of a so-called <span class="math inline">\(F\)</span> test, constructed as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(car_price)
+<span class="co"># anova table in R?</span>
+<span class="kw">anova</span>(lm1)</code></pre></div>
+<pre><code>Analysis of Variance Table
+
+Response: price
+          Df   Sum Sq  Mean Sq F value Pr(&gt;F)    
+income     1 1.19e+09 1.19e+09     196 &lt;2e-16 ***
+Residuals 60 3.63e+08 6.05e+06                   
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># F-statistic in anova and in output lm1?</span>
 lm0 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)
 error0.SS &lt;-<span class="st"> </span><span class="kw">sum</span>(lm0<span class="op">$</span>resid<span class="op">^</span><span class="dv">2</span>)
 
 <span class="co"># calculate F-statistic</span>
 F &lt;-<span class="st"> </span>((<span class="kw">anova</span>(lm0)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>)<span class="op">-</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">2</span>]))<span class="op">/</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Mean Sq&quot;</span>[<span class="dv">2</span>]) 
-<span class="co"># critical values</span>
+F</code></pre></div>
+<pre><code>[1] 196.26</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># critical values</span>
 <span class="kw">qf</span>(<span class="fl">0.95</span>, <span class="dv">1</span>, <span class="dv">60</span>)</code></pre></div>
 <pre><code>[1] 4.0012</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(F, <span class="dv">1</span>, <span class="dv">60</span>)</code></pre></div>
@@ -424,7 +482,7 @@ F &lt;-<span class="st"> </span>((<span class="kw">anova</span>(lm0)<span class=
 </div>
 <div id="a-multiple-linear-regression-model" class="section level2">
 <h2><span class="header-section-number">10.2</span> A multiple linear regression model</h2>
-<p>You’ll now move on from simple to multiple linear regression. You model the data by McDonald and Schwing (1973) published in Technometrics. The sampled data consists of vars obtained for year 1960 for 60 Standard Metropolitan Statistical Areas (SMSA) in the US. The goal is to relate mortality in these SMSA to explanatory variables. For each sample area, we have information concerning the age-adjusted mortality rate for all causes, expressed as deaths per 100,000 population. This will be our response variable. The list of explanatory variables is:</p>
+<p>You’ll now move on from simple to multiple linear regression. You model the data by McDonald and Schwing (1973) published in Technometrics. The sampled data consists of variables obtained for year 1960 for 60 Standard Metropolitan Statistical Areas (SMSA) in the US. The goal is to relate mortality in these SMSA to explanatory variables. For each sample area, you have information concerning the age-adjusted mortality rate for all causes, expressed as deaths per 100,000 population. This will be your response variable. The list of explanatory variables is:</p>
 <ul>
 <li>weather-related variables:</li>
 <li><code>prec</code>: average annual precipitation in inches</li>
@@ -452,15 +510,23 @@ path.mort &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, 
 mort_poll &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.mort)</code></pre></div>
 <p>Then, you’ll explore the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 3):
+<pre><code>The following objects are masked from mort_poll (pos = 17):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 4):
+<pre><code>The following objects are masked from mort_poll (pos = 18):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 6):
+<pre><code>The following objects are masked from mort_poll (pos = 19):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 20):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 21):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
@@ -539,23 +605,35 @@ mort_poll_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="k
 
 <span class="co"># matrix scatterplots</span>
 <span class="kw">pairs</span>(mort_poll_<span class="dv">1</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">19</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-117-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-155-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(mort_poll_<span class="dv">2</span>, <span class="dt">cex=</span><span class="fl">0.5</span>, <span class="dt">pch=</span><span class="dv">19</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-117-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-155-2.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(mort_poll_<span class="dv">3</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">19</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-117-3.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-155-3.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
-<p>First, you fit a rather simple linear model to explain <code>mort</code>.</p>
+First, you fit a rather simple linear model to explain <code>mort</code>. That is
+<span class="math display">\[\begin{eqnarray*}
+Y &amp;=&amp; \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i,
+\end{eqnarray*}\]</span>
+<p>where <span class="math inline">\(\beta_0\)</span> is the intercept, <span class="math inline">\(x_1\)</span> the <code>educ</code> and <span class="math inline">\(x_2\)</span> the <code>so2</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 3):
+<pre><code>The following objects are masked from mort_poll (pos = 17):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 4):
+<pre><code>The following objects are masked from mort_poll (pos = 18):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 6):
+<pre><code>The following objects are masked from mort_poll (pos = 19):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 20):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 21):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
@@ -580,6 +658,8 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 50.6 on 57 degrees of freedom
 Multiple R-squared:  0.36,  Adjusted R-squared:  0.338 
 F-statistic: 16.1 on 2 and 57 DF,  p-value: 2.96e-06</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+<p>You inspect the analysis-of-variance table for this linear model <code>lm1</code>. That is</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lm1)</code></pre></div>
 <pre><code>Analysis of Variance Table
 
@@ -590,21 +670,64 @@ so2        1  22642   22642    8.84  0.0043 **
 Residuals 57 146054    2562                    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>Use the object <code>lm1</code> to construct confidence and prediction intervals for a single observation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 3):
+<pre><code>The following objects are masked from mort_poll (pos = 17):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 4):
+<pre><code>The following objects are masked from mort_poll (pos = 18):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 5):
+<pre><code>The following objects are masked from mort_poll (pos = 19):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 7):
+<pre><code>The following objects are masked from mort_poll (pos = 20):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 21):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm0 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)
+lm_educ &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>educ)
+<span class="kw">anova</span>(lm_educ)</code></pre></div>
+<pre><code>Analysis of Variance Table
+
+Response: mort
+          Df Sum Sq Mean Sq F value Pr(&gt;F)    
+educ       1  59612   59612    20.5  3e-05 ***
+Residuals 58 168696    2909                   
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">F_educ &lt;-<span class="st"> </span>((<span class="kw">anova</span>(lm0)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>)<span class="op">-</span>(<span class="kw">anova</span>(lm_educ)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">2</span>]))<span class="op">/</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Mean Sq&quot;</span>[<span class="dv">3</span>]) 
+F_educ</code></pre></div>
+<pre><code>[1] 23.265</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">F_so2 &lt;-<span class="st"> </span>((<span class="kw">anova</span>(lm_educ)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">2</span>])<span class="op">-</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">3</span>]))<span class="op">/</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Mean Sq&quot;</span>[<span class="dv">3</span>]) 
+F_so2</code></pre></div>
+<pre><code>[1] 8.8363</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+<p>You will now use the object <code>lm1</code> to construct confidence and prediction intervals for a single observation. Given a set of predictor values in <span class="math inline">\(x_0\)</span> the predicted response is <span class="math inline">\(\hat{y}_0 = x_0^{&#39;}\hat{\beta}\)</span>. The uncertainty in predicting the mean response is <span class="math inline">\(\text{Var}(x_0^{&#39;}\hat{\beta})\)</span> whereas the uncertainty in predicting the value of an observation is <span class="math inline">\(\text{Var}(x_0^{&#39;}\hat{\beta}+\epsilon_0)\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
+<pre><code>The following objects are masked from mort_poll (pos = 17):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 18):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 19):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 20):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 21):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
@@ -616,21 +739,25 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <pre><code>     fit    lwr  upr
 1 956.78 852.56 1061</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
-<p>and for a grid of <code>educ</code> values, when <code>so2</code> is fixed.</p>
+<p>For a grid of <code>educ</code> values, when <code>so2</code> is fixed, this goes as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 3):
+<pre><code>The following objects are masked from mort_poll (pos = 17):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 4):
+<pre><code>The following objects are masked from mort_poll (pos = 18):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 5):
+<pre><code>The following objects are masked from mort_poll (pos = 19):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 7):
+<pre><code>The following objects are masked from mort_poll (pos = 20):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 21):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
@@ -638,28 +765,33 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 x.new &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">educ =</span> grid, <span class="dt">so2 =</span> <span class="kw">exp</span>(<span class="dv">2</span>))
 p &lt;-<span class="st"> </span><span class="kw">predict</span>(lm1, x.new, <span class="dt">se=</span><span class="ot">TRUE</span>, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>)
 p1 &lt;-<span class="st"> </span><span class="kw">predict</span>(lm1, x.new, <span class="dt">se=</span><span class="ot">TRUE</span>, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>)
+<span class="co"># use `matplot` to plot the columns of one matrix against the columnsof another</span>
 <span class="kw">matplot</span>(grid, p<span class="op">$</span>fit, <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;educ&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;mort&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Predicted mort over a range of educ, log(so2)=2&quot;</span>)
 <span class="kw">matlines</span>(grid, p1<span class="op">$</span>fit, <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;blue&quot;</span>))
 <span class="kw">rug</span>(educ)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-120-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-159-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># for an explanation wrt different shapes, see </span>
 <span class="co"># http://stats.stackexchange.com/questions/85560/shape-of-confidence-interval-for-p# redicted-values-in-linear-regression</span>
 <span class="kw">detach</span>(mort_poll)</code></pre></div>
 <p>Then you fit a linear model with all 15 variables in the dataset.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 3):
+<pre><code>The following objects are masked from mort_poll (pos = 17):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 4):
+<pre><code>The following objects are masked from mort_poll (pos = 18):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 5):
+<pre><code>The following objects are masked from mort_poll (pos = 19):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 7):
+<pre><code>The following objects are masked from mort_poll (pos = 20):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 21):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
@@ -674,21 +806,30 @@ lm2<span class="op">$</span>coef</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
 <p>Now perform model selection stepwise, based on AIC.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># model selection based on AIC</span>
-<span class="kw">library</span>(MASS)
-<span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 3):
+<span class="kw">library</span>(MASS)</code></pre></div>
+<pre><code>
+Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    select</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
+<pre><code>The following objects are masked from mort_poll (pos = 18):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 4):
+<pre><code>The following objects are masked from mort_poll (pos = 19):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 5):
+<pre><code>The following objects are masked from mort_poll (pos = 20):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 7):
+<pre><code>The following objects are masked from mort_poll (pos = 21):
+
+    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
+    poor, popn, prec, so2, wwdrk</code></pre>
+<pre><code>The following objects are masked from mort_poll (pos = 22):
 
     dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
     poor, popn, prec, so2, wwdrk</code></pre>
@@ -1268,6 +1409,31 @@ Coefficients:
    log(nox)  
       17.74  </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+<hr />
+</div>
+<div id="exercises-6" class="section level2">
+<h2><span class="header-section-number">10.3</span> Exercises</h2>
+<p><strong><em>Learning check</em></strong></p>
+<ol style="list-style-type: decimal">
+<li>Load the Boston Housing dataset from the <code>mlbench</code> package.</li>
+</ol>
+<ul>
+<li>Use the following instructions</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mlbench)
+<span class="kw">data</span>(<span class="st">&quot;BostonHousing&quot;</span>)</code></pre></div>
+<ul>
+<li>Inspect the different types of variables present.</li>
+<li>Explore and visualize the distribution of our target variable <code>medv</code>.</li>
+<li>Explore and visualize any potential correlations between <code>medv</code> and the variables <code>crim</code>, <code>rm</code>, <code>age</code>, <code>rad</code>, <code>tax</code> and <code>lstat</code>.</li>
+<li>Set a seed of 123 and split your data into a train and test set using a 75/25 split. You may find the <code>caret</code> library helpful here.</li>
+<li>We have seen that <code>crim</code>, <code>rm</code>, <code>tax</code>, and <code>lstat</code> could be good predictors of <code>medv</code>. To get the ball rolling, let us fit a linear model for these terms.</li>
+<li>Obtain an R-squared value for your model and examine the diagnostic plots found by plotting your linear model.</li>
+<li>We can see a few problems with our model immediately with variables such as 381 exhibiting a high leverage, a poor QQ plot in the tails a relatively poor r-squared value. Let us try another model, this time transforming <code>medv</code> due to the positive skewness it exhibited.</li>
+<li>Examine the diagnostics for the model. What do you conclude? Is this an improvement on the first model? One assumption of a linear model is that the mean of the residuals is zero. You could try and test this.</li>
+<li>Create a data frame of your predicted values and the original values.</li>
+<li>Plot this to visualize the performance of your model.</li>
+</ul>
 
 </div>
 </div>

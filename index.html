@@ -25,7 +25,7 @@
 <meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
 
 
-<meta name="date" content="2018-09-20">
+<meta name="date" content="2018-10-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -195,6 +195,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2.1" data-path="probs.html"><a href="probs.html#the-normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> The normal distribution</a></li>
 <li class="chapter" data-level="7.2.2" data-path="probs.html"><a href="probs.html#the-gamma-distribution"><i class="fa fa-check"></i><b>7.2.2</b> The gamma distribution</a></li>
 </ul></li>
+<li class="chapter" data-level="7.3" data-path="probs.html"><a href="probs.html#exercises-4"><i class="fa fa-check"></i><b>7.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
 <li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
@@ -208,7 +209,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
-<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-4"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
 <li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
@@ -218,6 +219,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10" data-path="lms.html"><a href="lms.html"><i class="fa fa-check"></i><b>10</b> Linear Regression Models in R</a><ul>
 <li class="chapter" data-level="10.1" data-path="lms.html"><a href="lms.html#a-simple-linear-regression-model"><i class="fa fa-check"></i><b>10.1</b> A simple linear regression model</a></li>
 <li class="chapter" data-level="10.2" data-path="lms.html"><a href="lms.html#a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>10.2</b> A multiple linear regression model</a></li>
+<li class="chapter" data-level="10.3" data-path="lms.html"><a href="lms.html#exercises-6"><i class="fa fa-check"></i><b>10.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="glms.html"><a href="glms.html"><i class="fa fa-check"></i><b>11</b> Generalized Linear Models in R</a><ul>
 <li class="chapter" data-level="11.1" data-path="glms.html"><a href="glms.html#modelling-count-data-with-poisson-regression-models"><i class="fa fa-check"></i><b>11.1</b> Modelling count data with Poisson regression models</a><ul>
@@ -251,7 +253,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title">Data science in insurance: an R intro</h1>
 <h4 class="author"><em>Chester Ismay and Albert Y. Kim and Katrien Antonio</em></h4>
-<h4 class="date"><em>2018-09-20</em></h4>
+<h4 class="date"><em>2018-10-28</em></h4>
 </div>
 <div id="index" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
@@ -266,7 +268,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Using and writing functions is the topic of Chapter <a href="functions.html#functions">8</a>.</li>
 <li>Optimization tools help to optimize non straightforward likelihoods as discussed in Chapter <a href="optimization.html#optimization">9</a>.</li>
 <li>First examples of model building focus on linear and generalized linear models in Chapters <a href="lms.html#lms">10</a> and <a href="glms.html#glms">11</a></li>
-<li>References follow in @ref{biblio}.</li>
+<li>References follow in <a href="biblio.html#biblio">12</a>.</li>
 </ul>
 <div id="subsec:learning-goals" class="section level2">
 <h2><span class="header-section-number">1.1</span> Learning outcomes</h2>
@@ -276,7 +278,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>How to use R to calculate, to import/export data, to explore data, to create insightful graphics, to write functions.</li>
 <li>How to find help in the ‘R community’, including finding examples of coding, books, support.</li>
 <li>How to perform simple tasks with R and how to look for more advanced tasks, further learning with specific packages.</li>
-<li>How to answer statistical questions related to pricing and reserving.</li>
+<li>How to answer actuarial questions related to pricing and reserving.</li>
 <li>How to effectively create “data stories” using these tools.</li>
 </ol>
 <p>This book will help you develop your “data science toolbox”, including tools such as data visualization, data formatting, data wrangling, and data modeling using regression.</p>
