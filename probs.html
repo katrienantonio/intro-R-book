@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
   
 
-<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo Campo" />
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo DC Campo" />
 
 
 <meta name="date" content="2020-11-27" />
@@ -305,60 +305,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.1</span> Discrete distributions</h2>
 <div id="the-binomial-distribution" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> The binomial distribution</h3>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="probs.html#cb632-1"></a>nSim       &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb632-2"><a href="probs.html#cb632-2"></a>p        &lt;-<span class="st"> </span><span class="fl">0.3</span></span>
-<span id="cb632-3"><a href="probs.html#cb632-3"></a>n          &lt;-<span class="st"> </span><span class="dv">6</span></span>
-<span id="cb632-4"><a href="probs.html#cb632-4"></a></span>
-<span id="cb632-5"><a href="probs.html#cb632-5"></a><span class="co"># generate &#39;nSim&#39; obs. from Bin(n,p) distribution </span></span>
-<span id="cb632-6"><a href="probs.html#cb632-6"></a>data_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(nSim, n, p)</span>
-<span id="cb632-7"><a href="probs.html#cb632-7"></a></span>
-<span id="cb632-8"><a href="probs.html#cb632-8"></a><span class="co"># calculate mean and variance</span></span>
-<span id="cb632-9"><a href="probs.html#cb632-9"></a><span class="kw">mean</span>(data_binom) <span class="co"># empirical mean</span></span></code></pre></div>
-<pre><code>[1] 1.65</code></pre>
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="probs.html#cb634-1"></a><span class="kw">var</span>(data_binom)  <span class="co"># empirical variance</span></span></code></pre></div>
-<pre><code>[1] 1.1995</code></pre>
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="probs.html#cb636-1"></a>n<span class="op">*</span>p               <span class="co"># theoretical mean</span></span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="probs.html#cb634-1"></a>nSim       &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb634-2"><a href="probs.html#cb634-2"></a>p        &lt;-<span class="st"> </span><span class="fl">0.3</span></span>
+<span id="cb634-3"><a href="probs.html#cb634-3"></a>n          &lt;-<span class="st"> </span><span class="dv">6</span></span>
+<span id="cb634-4"><a href="probs.html#cb634-4"></a></span>
+<span id="cb634-5"><a href="probs.html#cb634-5"></a><span class="co"># generate &#39;nSim&#39; obs. from Bin(n,p) distribution </span></span>
+<span id="cb634-6"><a href="probs.html#cb634-6"></a>data_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(nSim, n, p)</span>
+<span id="cb634-7"><a href="probs.html#cb634-7"></a></span>
+<span id="cb634-8"><a href="probs.html#cb634-8"></a><span class="co"># calculate mean and variance</span></span>
+<span id="cb634-9"><a href="probs.html#cb634-9"></a><span class="kw">mean</span>(data_binom) <span class="co"># empirical mean</span></span></code></pre></div>
+<pre><code>[1] 1.83</code></pre>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="probs.html#cb636-1"></a><span class="kw">var</span>(data_binom)  <span class="co"># empirical variance</span></span></code></pre></div>
+<pre><code>[1] 1.2132</code></pre>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="probs.html#cb638-1"></a>n<span class="op">*</span>p               <span class="co"># theoretical mean</span></span></code></pre></div>
 <pre><code>[1] 1.8</code></pre>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="probs.html#cb638-1"></a>n<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)       <span class="co"># theoretical variance</span></span></code></pre></div>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="probs.html#cb640-1"></a>n<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)       <span class="co"># theoretical variance</span></span></code></pre></div>
 <pre><code>[1] 1.26</code></pre>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="probs.html#cb640-1"></a><span class="co"># visualize</span></span>
-<span id="cb640-2"><a href="probs.html#cb640-2"></a>range &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,n,<span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>)</span>
-<span id="cb640-3"><a href="probs.html#cb640-3"></a><span class="kw">plot</span>(<span class="kw">ecdf</span>(data_binom))   <span class="co"># ecdf</span></span>
-<span id="cb640-4"><a href="probs.html#cb640-4"></a><span class="kw">lines</span>(range,<span class="kw">pbinom</span>(range, n, p), <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>) <span class="co"># cdf</span></span></code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="probs.html#cb642-1"></a><span class="co"># visualize</span></span>
+<span id="cb642-2"><a href="probs.html#cb642-2"></a>range &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,n,<span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>)</span>
+<span id="cb642-3"><a href="probs.html#cb642-3"></a><span class="kw">plot</span>(<span class="kw">ecdf</span>(data_binom))   <span class="co"># ecdf</span></span>
+<span id="cb642-4"><a href="probs.html#cb642-4"></a><span class="kw">lines</span>(range,<span class="kw">pbinom</span>(range, n, p), <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>) <span class="co"># cdf</span></span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-145-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="probs.html#cb641-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb641-2"><a href="probs.html#cb641-2"></a><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span>n, <span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span>n, n, p), <span class="dt">type =</span> <span class="st">&#39;h&#39;</span>) <span class="co"># pdf</span></span>
-<span id="cb641-3"><a href="probs.html#cb641-3"></a><span class="kw">plot</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(data_binom)))</span></code></pre></div>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="probs.html#cb643-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb643-2"><a href="probs.html#cb643-2"></a><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span>n, <span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span>n, n, p), <span class="dt">type =</span> <span class="st">&#39;h&#39;</span>) <span class="co"># pdf</span></span>
+<span id="cb643-3"><a href="probs.html#cb643-3"></a><span class="kw">plot</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(data_binom)))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-145-2.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="probs.html#cb642-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="probs.html#cb644-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 </div>
 <div id="the-poisson-distribution" class="section level3">
 <h3><span class="header-section-number">7.1.2</span> The Poisson distribution</h3>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="probs.html#cb643-1"></a>nSim     &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb643-2"><a href="probs.html#cb643-2"></a>lambda &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb643-3"><a href="probs.html#cb643-3"></a></span>
-<span id="cb643-4"><a href="probs.html#cb643-4"></a><span class="co"># generate &#39;nSim&#39; observations from Poisson(\lambda) distribution</span></span>
-<span id="cb643-5"><a href="probs.html#cb643-5"></a>data_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(nSim, lambda)</span>
-<span id="cb643-6"><a href="probs.html#cb643-6"></a></span>
-<span id="cb643-7"><a href="probs.html#cb643-7"></a><span class="co"># calculate mean and variance</span></span>
-<span id="cb643-8"><a href="probs.html#cb643-8"></a><span class="kw">mean</span>(data_pois) <span class="co"># empirical mean</span></span></code></pre></div>
-<pre><code>[1] 1.07</code></pre>
-<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="probs.html#cb645-1"></a><span class="kw">var</span>(data_pois)  <span class="co"># empirical variance</span></span></code></pre></div>
-<pre><code>[1] 0.81323</code></pre>
-<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="probs.html#cb647-1"></a>lambda      <span class="co"># theoretical mean</span></span></code></pre></div>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="probs.html#cb645-1"></a>nSim     &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb645-2"><a href="probs.html#cb645-2"></a>lambda &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb645-3"><a href="probs.html#cb645-3"></a></span>
+<span id="cb645-4"><a href="probs.html#cb645-4"></a><span class="co"># generate &#39;nSim&#39; observations from Poisson(\lambda) distribution</span></span>
+<span id="cb645-5"><a href="probs.html#cb645-5"></a>data_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(nSim, lambda)</span>
+<span id="cb645-6"><a href="probs.html#cb645-6"></a></span>
+<span id="cb645-7"><a href="probs.html#cb645-7"></a><span class="co"># calculate mean and variance</span></span>
+<span id="cb645-8"><a href="probs.html#cb645-8"></a><span class="kw">mean</span>(data_pois) <span class="co"># empirical mean</span></span></code></pre></div>
+<pre><code>[1] 0.96</code></pre>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="probs.html#cb647-1"></a><span class="kw">var</span>(data_pois)  <span class="co"># empirical variance</span></span></code></pre></div>
+<pre><code>[1] 1.0085</code></pre>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="probs.html#cb649-1"></a>lambda      <span class="co"># theoretical mean</span></span></code></pre></div>
 <pre><code>[1] 1</code></pre>
-<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="probs.html#cb649-1"></a>lambda      <span class="co"># theoretical variance</span></span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="probs.html#cb651-1"></a>lambda      <span class="co"># theoretical variance</span></span></code></pre></div>
 <pre><code>[1] 1</code></pre>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="probs.html#cb651-1"></a><span class="co"># visualize</span></span>
-<span id="cb651-2"><a href="probs.html#cb651-2"></a>range  &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>)</span>
-<span id="cb651-3"><a href="probs.html#cb651-3"></a><span class="kw">plot</span>(<span class="kw">ecdf</span>(data_pois))   <span class="co"># ecdf</span></span>
-<span id="cb651-4"><a href="probs.html#cb651-4"></a><span class="kw">lines</span>(range,<span class="kw">ppois</span>(range, lambda), <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>) <span class="co"># cdf</span></span></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="probs.html#cb653-1"></a><span class="co"># visualize</span></span>
+<span id="cb653-2"><a href="probs.html#cb653-2"></a>range  &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>)</span>
+<span id="cb653-3"><a href="probs.html#cb653-3"></a><span class="kw">plot</span>(<span class="kw">ecdf</span>(data_pois))   <span class="co"># ecdf</span></span>
+<span id="cb653-4"><a href="probs.html#cb653-4"></a><span class="kw">lines</span>(range,<span class="kw">ppois</span>(range, lambda), <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>) <span class="co"># cdf</span></span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-146-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="probs.html#cb652-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb652-2"><a href="probs.html#cb652-2"></a><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">8</span>, <span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">8</span>, lambda), <span class="dt">type =</span> <span class="st">&#39;h&#39;</span>) <span class="co"># pdf</span></span>
-<span id="cb652-3"><a href="probs.html#cb652-3"></a><span class="kw">plot</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(data_pois)))</span></code></pre></div>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="probs.html#cb654-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb654-2"><a href="probs.html#cb654-2"></a><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">8</span>, <span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">8</span>, lambda), <span class="dt">type =</span> <span class="st">&#39;h&#39;</span>) <span class="co"># pdf</span></span>
+<span id="cb654-3"><a href="probs.html#cb654-3"></a><span class="kw">plot</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(data_pois)))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-146-2.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="probs.html#cb653-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="probs.html#cb655-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -366,42 +366,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.2</span> Continuous distributions</h2>
 <div id="the-normal-distribution" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> The normal distribution</h3>
-<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="probs.html#cb654-1"></a><span class="co"># evaluate cdf of N(0,1) in 0</span></span>
-<span id="cb654-2"><a href="probs.html#cb654-2"></a><span class="kw">pnorm</span>(<span class="dv">0</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="probs.html#cb656-1"></a><span class="co"># evaluate cdf of N(0,1) in 0</span></span>
+<span id="cb656-2"><a href="probs.html#cb656-2"></a><span class="kw">pnorm</span>(<span class="dv">0</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>[1] 0.5</code></pre>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="probs.html#cb656-1"></a><span class="co"># or shorter</span></span>
-<span id="cb656-2"><a href="probs.html#cb656-2"></a><span class="kw">pnorm</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="probs.html#cb658-1"></a><span class="co"># or shorter</span></span>
+<span id="cb658-2"><a href="probs.html#cb658-2"></a><span class="kw">pnorm</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>[1] 0.5</code></pre>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="probs.html#cb658-1"></a><span class="co"># 95% quantile of N(0,1) </span></span>
-<span id="cb658-2"><a href="probs.html#cb658-2"></a><span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="probs.html#cb660-1"></a><span class="co"># 95% quantile of N(0,1) </span></span>
+<span id="cb660-2"><a href="probs.html#cb660-2"></a><span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>[1] 1.6449</code></pre>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="probs.html#cb660-1"></a><span class="co"># a set of quantiles</span></span>
-<span id="cb660-2"><a href="probs.html#cb660-2"></a><span class="kw">qnorm</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="fl">0.95</span>, <span class="fl">0.975</span>), <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="probs.html#cb662-1"></a><span class="co"># a set of quantiles</span></span>
+<span id="cb662-2"><a href="probs.html#cb662-2"></a><span class="kw">qnorm</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="fl">0.95</span>, <span class="fl">0.975</span>), <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>[1] -1.9600 -1.6449  0.0000  1.6449  1.9600</code></pre>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="probs.html#cb662-1"></a><span class="co"># generate observations from N(0,1)</span></span>
-<span id="cb662-2"><a href="probs.html#cb662-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">1</span>)</span>
-<span id="cb662-3"><a href="probs.html#cb662-3"></a><span class="co"># visualize</span></span>
-<span id="cb662-4"><a href="probs.html#cb662-4"></a><span class="kw">hist</span>(x, <span class="dt">probability=</span><span class="ot">TRUE</span>, <span class="dt">nclass=</span><span class="dv">55</span>, <span class="dt">col=</span><span class="st">&quot;pink&quot;</span>)</span>
-<span id="cb662-5"><a href="probs.html#cb662-5"></a><span class="kw">curve</span>(<span class="kw">dnorm</span>(x, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">1</span>), <span class="dt">xlim=</span><span class="kw">range</span>(x), <span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">add=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="probs.html#cb664-1"></a><span class="co"># generate observations from N(0,1)</span></span>
+<span id="cb664-2"><a href="probs.html#cb664-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">1</span>)</span>
+<span id="cb664-3"><a href="probs.html#cb664-3"></a><span class="co"># visualize</span></span>
+<span id="cb664-4"><a href="probs.html#cb664-4"></a><span class="kw">hist</span>(x, <span class="dt">probability=</span><span class="ot">TRUE</span>, <span class="dt">nclass=</span><span class="dv">55</span>, <span class="dt">col=</span><span class="st">&quot;pink&quot;</span>)</span>
+<span id="cb664-5"><a href="probs.html#cb664-5"></a><span class="kw">curve</span>(<span class="kw">dnorm</span>(x, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">1</span>), <span class="dt">xlim=</span><span class="kw">range</span>(x), <span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">add=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-147-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="the-gamma-distribution" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> The gamma distribution</h3>
-<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="probs.html#cb663-1"></a><span class="co"># check parametrization of gamma density in R</span></span>
-<span id="cb663-2"><a href="probs.html#cb663-2"></a>? dgamma</span>
-<span id="cb663-3"><a href="probs.html#cb663-3"></a><span class="co"># grid of points to evaluate the gamma density</span></span>
-<span id="cb663-4"><a href="probs.html#cb663-4"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">0.001</span>)</span>
-<span id="cb663-5"><a href="probs.html#cb663-5"></a><span class="co"># choose a color palette</span></span>
-<span id="cb663-6"><a href="probs.html#cb663-6"></a>colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#000000&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>, <span class="st">&quot;#009E73&quot;</span>, <span class="st">&quot;#F0E442&quot;</span>, <span class="st">&quot;#0072B2&quot;</span>, <span class="st">&quot;#D55E00&quot;</span>, <span class="st">&quot;#CC79A7&quot;</span>)</span>
-<span id="cb663-7"><a href="probs.html#cb663-7"></a><span class="co"># shape and rate parameter combinations shown in the plot</span></span>
-<span id="cb663-8"><a href="probs.html#cb663-8"></a>shape &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb663-9"><a href="probs.html#cb663-9"></a>rate &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)</span>
-<span id="cb663-10"><a href="probs.html#cb663-10"></a><span class="kw">plot</span>(x, <span class="kw">dgamma</span>(x, <span class="dt">shape =</span> shape[<span class="dv">1</span>], <span class="dt">rate =</span> rate[<span class="dv">1</span>]), <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">xlab =</span><span class="st">&#39;x&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Gamma density&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Effect of the shape parameter on the Gamma density&#39;</span>)</span>
-<span id="cb663-11"><a href="probs.html#cb663-11"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(shape)){</span>
-<span id="cb663-12"><a href="probs.html#cb663-12"></a>    <span class="kw">lines</span>(x, <span class="kw">dgamma</span>(x, <span class="dt">shape =</span> shape[i], <span class="dt">rate =</span> rate[i]), <span class="dt">col=</span>colors[i])</span>
-<span id="cb663-13"><a href="probs.html#cb663-13"></a>}</span>
-<span id="cb663-14"><a href="probs.html#cb663-14"></a><span class="co"># add a legend  </span></span>
-<span id="cb663-15"><a href="probs.html#cb663-15"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="kw">paste</span>(<span class="st">&quot;shape = &quot;</span>, shape, <span class="st">&quot;, rate = &quot;</span>, rate, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>), <span class="dt">col =</span> colors, <span class="dt">lty=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="probs.html#cb665-1"></a><span class="co"># check parametrization of gamma density in R</span></span>
+<span id="cb665-2"><a href="probs.html#cb665-2"></a>? dgamma</span>
+<span id="cb665-3"><a href="probs.html#cb665-3"></a><span class="co"># grid of points to evaluate the gamma density</span></span>
+<span id="cb665-4"><a href="probs.html#cb665-4"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">0.001</span>)</span>
+<span id="cb665-5"><a href="probs.html#cb665-5"></a><span class="co"># choose a color palette</span></span>
+<span id="cb665-6"><a href="probs.html#cb665-6"></a>colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#000000&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>, <span class="st">&quot;#009E73&quot;</span>, <span class="st">&quot;#F0E442&quot;</span>, <span class="st">&quot;#0072B2&quot;</span>, <span class="st">&quot;#D55E00&quot;</span>, <span class="st">&quot;#CC79A7&quot;</span>)</span>
+<span id="cb665-7"><a href="probs.html#cb665-7"></a><span class="co"># shape and rate parameter combinations shown in the plot</span></span>
+<span id="cb665-8"><a href="probs.html#cb665-8"></a>shape &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb665-9"><a href="probs.html#cb665-9"></a>rate &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb665-10"><a href="probs.html#cb665-10"></a><span class="kw">plot</span>(x, <span class="kw">dgamma</span>(x, <span class="dt">shape =</span> shape[<span class="dv">1</span>], <span class="dt">rate =</span> rate[<span class="dv">1</span>]), <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">xlab =</span><span class="st">&#39;x&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Gamma density&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Effect of the shape parameter on the Gamma density&#39;</span>)</span>
+<span id="cb665-11"><a href="probs.html#cb665-11"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(shape)){</span>
+<span id="cb665-12"><a href="probs.html#cb665-12"></a>    <span class="kw">lines</span>(x, <span class="kw">dgamma</span>(x, <span class="dt">shape =</span> shape[i], <span class="dt">rate =</span> rate[i]), <span class="dt">col=</span>colors[i])</span>
+<span id="cb665-13"><a href="probs.html#cb665-13"></a>}</span>
+<span id="cb665-14"><a href="probs.html#cb665-14"></a><span class="co"># add a legend  </span></span>
+<span id="cb665-15"><a href="probs.html#cb665-15"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="kw">paste</span>(<span class="st">&quot;shape = &quot;</span>, shape, <span class="st">&quot;, rate = &quot;</span>, rate, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>), <span class="dt">col =</span> colors, <span class="dt">lty=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-148-1.png" width="576" style="display: block; margin: auto;" /></p>
 <hr />
 </div>

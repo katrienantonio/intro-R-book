@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
   
 
-<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo Campo" />
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo DC Campo" />
 
 
 <meta name="date" content="2020-11-27" />
@@ -299,10 +299,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="scatterplot" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> Scatterplot</h3>
 <p>Your starting point is the construction of a scatterplot. You’ll work with the <code>Journals</code> data from the <code>AER</code> package.</p>
-<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="data-viz.html#cb520-1"></a><span class="co"># load the &#39;Journals&#39; data set in the AER package</span></span>
-<span id="cb520-2"><a href="data-viz.html#cb520-2"></a><span class="kw">data</span>(<span class="st">&quot;Journals&quot;</span>)</span>
-<span id="cb520-3"><a href="data-viz.html#cb520-3"></a><span class="co"># scan the data</span></span>
-<span id="cb520-4"><a href="data-viz.html#cb520-4"></a><span class="kw">head</span>(Journals)</span></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="data-viz.html#cb521-1"></a><span class="co"># load the &#39;Journals&#39; data set in the AER package</span></span>
+<span id="cb521-2"><a href="data-viz.html#cb521-2"></a><span class="kw">data</span>(<span class="st">&quot;Journals&quot;</span>)</span>
+<span id="cb521-3"><a href="data-viz.html#cb521-3"></a><span class="co"># scan the data</span></span>
+<span id="cb521-4"><a href="data-viz.html#cb521-4"></a><span class="kw">head</span>(Journals)</span></code></pre></div>
 <pre><code>                                                     title
 APEL                     Asian-Pacific Economic Literature
 SAJoEH           South African Journal of Economic History
@@ -324,11 +324,11 @@ CE       17       Specialized
 MEPiTE    2      Area Studies
 JoSE     96 Interdisciplinary
 LabEc    15             Labor</code></pre>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="data-viz.html#cb522-1"></a><span class="kw">names</span>(Journals)</span></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="data-viz.html#cb523-1"></a><span class="kw">names</span>(Journals)</span></code></pre></div>
 <pre><code> [1] &quot;title&quot;        &quot;publisher&quot;    &quot;society&quot;      &quot;price&quot;        &quot;pages&quot;       
  [6] &quot;charpp&quot;       &quot;citations&quot;    &quot;foundingyear&quot; &quot;subs&quot;         &quot;field&quot;       </code></pre>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="data-viz.html#cb524-1"></a><span class="co"># e.g. get variable &#39;price&#39; </span></span>
-<span id="cb524-2"><a href="data-viz.html#cb524-2"></a>Journals<span class="op">$</span>price</span></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="data-viz.html#cb525-1"></a><span class="co"># e.g. get variable &#39;price&#39; </span></span>
+<span id="cb525-2"><a href="data-viz.html#cb525-2"></a>Journals<span class="op">$</span>price</span></code></pre></div>
 <pre><code>  [1]  123   20  443  276  295  344   90  242  226  262  279  165  242  905  355
  [16]  375  135  171  284  242  371  115  355  355  835  223  172   62  191  411
  [31]  274  130  100   80  235  392  410  464  650  558  317  495  535  123  717
@@ -341,39 +341,39 @@ LabEc    15             Labor</code></pre>
 [136]  914   85  206 1154   45 1146   95  138  115  640  122  110  923 1000 1234
 [151] 1492  810   90  177   74  113  145  590 1154 1450 1431   47   45   47   81
 [166] 1010  334  190  180 1893 1400  301 1339   90  310  226  148  159  178   47</code></pre>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="data-viz.html#cb526-1"></a><span class="kw">summary</span>(Journals<span class="op">$</span>price)</span></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="data-viz.html#cb527-1"></a><span class="kw">summary</span>(Journals<span class="op">$</span>price)</span></code></pre></div>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
      20     134     282     418     541    2120 </code></pre>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="data-viz.html#cb528-1"></a><span class="co"># focus on price of journal per citation</span></span>
-<span id="cb528-2"><a href="data-viz.html#cb528-2"></a>Journals<span class="op">$</span>citeprice &lt;-<span class="st"> </span>Journals<span class="op">$</span>price<span class="op">/</span>Journals<span class="op">$</span>citations</span></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="data-viz.html#cb529-1"></a><span class="co"># focus on price of journal per citation</span></span>
+<span id="cb529-2"><a href="data-viz.html#cb529-2"></a>Journals<span class="op">$</span>citeprice &lt;-<span class="st"> </span>Journals<span class="op">$</span>price<span class="op">/</span>Journals<span class="op">$</span>citations</span></code></pre></div>
 <p>In the next block of code, we construct a scatterplot of the number of subscriptions versus the price per citation.</p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="data-viz.html#cb529-1"></a><span class="kw">with</span>(Journals, <span class="kw">plot</span>(<span class="kw">log</span>(subs), <span class="kw">log</span>(citeprice)))</span>
-<span id="cb529-2"><a href="data-viz.html#cb529-2"></a><span class="kw">with</span>(Journals, <span class="kw">rug</span>(<span class="kw">log</span>(subs)))  <span class="co"># adds ticks, thus visualizing the marginal distributions of</span></span>
-<span id="cb529-3"><a href="data-viz.html#cb529-3"></a>            <span class="co"># the variables, along one or both axes of an existing plot.        </span></span>
-<span id="cb529-4"><a href="data-viz.html#cb529-4"></a><span class="kw">with</span>(Journals, <span class="kw">rug</span>(<span class="kw">log</span>(citeprice), <span class="dt">side =</span> <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="data-viz.html#cb530-1"></a><span class="kw">with</span>(Journals, <span class="kw">plot</span>(<span class="kw">log</span>(subs), <span class="kw">log</span>(citeprice)))</span>
+<span id="cb530-2"><a href="data-viz.html#cb530-2"></a><span class="kw">with</span>(Journals, <span class="kw">rug</span>(<span class="kw">log</span>(subs)))  <span class="co"># adds ticks, thus visualizing the marginal distributions of</span></span>
+<span id="cb530-3"><a href="data-viz.html#cb530-3"></a>            <span class="co"># the variables, along one or both axes of an existing plot.        </span></span>
+<span id="cb530-4"><a href="data-viz.html#cb530-4"></a><span class="kw">with</span>(Journals, <span class="kw">rug</span>(<span class="kw">log</span>(citeprice), <span class="dt">side =</span> <span class="dv">2</span>))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-119-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="data-viz.html#cb530-1"></a><span class="co"># avoid &quot;attach()&quot; and &quot;detach()&quot;</span></span>
-<span id="cb530-2"><a href="data-viz.html#cb530-2"></a><span class="kw">plot</span>(<span class="kw">log</span>(subs) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(citeprice), <span class="dt">data =</span> Journals)</span></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="data-viz.html#cb531-1"></a><span class="co"># avoid &quot;attach()&quot; and &quot;detach()&quot;</span></span>
+<span id="cb531-2"><a href="data-viz.html#cb531-2"></a><span class="kw">plot</span>(<span class="kw">log</span>(subs) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(citeprice), <span class="dt">data =</span> Journals)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-119-2.png" width="576" style="display: block; margin: auto;" /></p>
 <p>R has many plotting options that allow you to flex a graph. For example, <code>pch</code> for the plotting character, <code>col</code> for the color of the plotting characters, <code>xlim</code> and <code>ylim</code> to adjust the limits on the x- and y-axis of the scatterplot. To add a legend, you can use the <code>legend()</code> function.</p>
-<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="data-viz.html#cb531-1"></a><span class="kw">plot</span>(</span>
-<span id="cb531-2"><a href="data-viz.html#cb531-2"></a>  <span class="kw">log</span>(citeprice) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(subs),</span>
-<span id="cb531-3"><a href="data-viz.html#cb531-3"></a>  <span class="dt">data =</span> Journals,</span>
-<span id="cb531-4"><a href="data-viz.html#cb531-4"></a>  <span class="dt">pch =</span> <span class="dv">19</span>,</span>
-<span id="cb531-5"><a href="data-viz.html#cb531-5"></a>  <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
-<span id="cb531-6"><a href="data-viz.html#cb531-6"></a>  <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">8</span>),</span>
-<span id="cb531-7"><a href="data-viz.html#cb531-7"></a>  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">7</span>, <span class="dv">4</span>),</span>
-<span id="cb531-8"><a href="data-viz.html#cb531-8"></a>  <span class="dt">main =</span> <span class="st">&quot;Library subscriptions&quot;</span></span>
-<span id="cb531-9"><a href="data-viz.html#cb531-9"></a>)</span>
-<span id="cb531-10"><a href="data-viz.html#cb531-10"></a><span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>subs))</span>
-<span id="cb531-11"><a href="data-viz.html#cb531-11"></a><span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>citeprice), <span class="dt">side =</span> <span class="dv">2</span>)</span>
-<span id="cb531-12"><a href="data-viz.html#cb531-12"></a><span class="co"># subset data, look at journal entitled &quot;Econometrica&quot;</span></span>
-<span id="cb531-13"><a href="data-viz.html#cb531-13"></a>journal &lt;-<span class="st"> &quot;Econometrica&quot;</span></span>
-<span id="cb531-14"><a href="data-viz.html#cb531-14"></a>journal_info &lt;-<span class="st"> </span><span class="kw">subset</span>(Journals, title <span class="op">==</span><span class="st"> </span>journal)</span>
-<span id="cb531-15"><a href="data-viz.html#cb531-15"></a>x.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>subs)</span>
-<span id="cb531-16"><a href="data-viz.html#cb531-16"></a>y.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>citeprice)</span>
-<span id="cb531-17"><a href="data-viz.html#cb531-17"></a><span class="kw">text</span>(x.val, y.val, journal, <span class="dt">pos =</span> <span class="dv">2</span>)</span>
-<span id="cb531-18"><a href="data-viz.html#cb531-18"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="st">&quot;Individual observations&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="data-viz.html#cb532-1"></a><span class="kw">plot</span>(</span>
+<span id="cb532-2"><a href="data-viz.html#cb532-2"></a>  <span class="kw">log</span>(citeprice) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(subs),</span>
+<span id="cb532-3"><a href="data-viz.html#cb532-3"></a>  <span class="dt">data =</span> Journals,</span>
+<span id="cb532-4"><a href="data-viz.html#cb532-4"></a>  <span class="dt">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb532-5"><a href="data-viz.html#cb532-5"></a>  <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb532-6"><a href="data-viz.html#cb532-6"></a>  <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">8</span>),</span>
+<span id="cb532-7"><a href="data-viz.html#cb532-7"></a>  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">7</span>, <span class="dv">4</span>),</span>
+<span id="cb532-8"><a href="data-viz.html#cb532-8"></a>  <span class="dt">main =</span> <span class="st">&quot;Library subscriptions&quot;</span></span>
+<span id="cb532-9"><a href="data-viz.html#cb532-9"></a>)</span>
+<span id="cb532-10"><a href="data-viz.html#cb532-10"></a><span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>subs))</span>
+<span id="cb532-11"><a href="data-viz.html#cb532-11"></a><span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>citeprice), <span class="dt">side =</span> <span class="dv">2</span>)</span>
+<span id="cb532-12"><a href="data-viz.html#cb532-12"></a><span class="co"># subset data, look at journal entitled &quot;Econometrica&quot;</span></span>
+<span id="cb532-13"><a href="data-viz.html#cb532-13"></a>journal &lt;-<span class="st"> &quot;Econometrica&quot;</span></span>
+<span id="cb532-14"><a href="data-viz.html#cb532-14"></a>journal_info &lt;-<span class="st"> </span><span class="kw">subset</span>(Journals, title <span class="op">==</span><span class="st"> </span>journal)</span>
+<span id="cb532-15"><a href="data-viz.html#cb532-15"></a>x.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>subs)</span>
+<span id="cb532-16"><a href="data-viz.html#cb532-16"></a>y.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>citeprice)</span>
+<span id="cb532-17"><a href="data-viz.html#cb532-17"></a><span class="kw">text</span>(x.val, y.val, journal, <span class="dt">pos =</span> <span class="dv">2</span>)</span>
+<span id="cb532-18"><a href="data-viz.html#cb532-18"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="st">&quot;Individual observations&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-120-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>You can even use your own images as plotting characters! In case you want to find out how you do this, just go to <a href="http://www.statisticstoproveanything.com/2013/09/using-custom-images-as-pch-values-in-r.html" class="uri">http://www.statisticstoproveanything.com/2013/09/using-custom-images-as-pch-values-in-r.html</a>
 <img src="images/PlotCars.png" /></p>
@@ -381,28 +381,28 @@ LabEc    15             Labor</code></pre>
 <div id="saving-the-scatterplot-as-a-pdf" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Saving the scatterplot as a pdf</h3>
 <p>It is often very useful to directly store your customized graph as a pdf (with appropriate dimensions) in a particular directory on your machine. Next to saving a plot as pdf, you can also bmp, jpeg, png and so on (see <code>?png</code>).</p>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="data-viz.html#cb532-1"></a>path &lt;-<span class="st"> </span><span class="kw">tempdir</span>()</span>
-<span id="cb532-2"><a href="data-viz.html#cb532-2"></a>graph.path &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;myfile.pdf&quot;</span>)</span>
-<span id="cb532-3"><a href="data-viz.html#cb532-3"></a><span class="kw">pdf</span>(graph.path, <span class="dt">height =</span> <span class="dv">5</span>, <span class="dt">width =</span> <span class="dv">6</span>)</span>
-<span id="cb532-4"><a href="data-viz.html#cb532-4"></a>    <span class="kw">plot</span>(<span class="kw">log</span>(citeprice)<span class="op">~</span><span class="kw">log</span>(subs), <span class="dt">data =</span> Journals, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">xlim =</span>   </span>
-<span id="cb532-5"><a href="data-viz.html#cb532-5"></a>           <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">8</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">7</span>, <span class="dv">4</span>),</span>
-<span id="cb532-6"><a href="data-viz.html#cb532-6"></a>    <span class="dt">main =</span> <span class="st">&quot;Library subscriptions&quot;</span>)</span>
-<span id="cb532-7"><a href="data-viz.html#cb532-7"></a>    <span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>subs))</span>
-<span id="cb532-8"><a href="data-viz.html#cb532-8"></a>    <span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>citeprice),<span class="dt">side=</span><span class="dv">2</span>)</span>
-<span id="cb532-9"><a href="data-viz.html#cb532-9"></a>    journal &lt;-<span class="st"> &quot;Econometrica&quot;</span></span>
-<span id="cb532-10"><a href="data-viz.html#cb532-10"></a>  journal_info &lt;-<span class="st"> </span><span class="kw">subset</span>(Journals, title<span class="op">==</span>journal)</span>
-<span id="cb532-11"><a href="data-viz.html#cb532-11"></a>  x.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>subs)</span>
-<span id="cb532-12"><a href="data-viz.html#cb532-12"></a>  y.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>citeprice)</span>
-<span id="cb532-13"><a href="data-viz.html#cb532-13"></a>  <span class="kw">text</span>(x.val, y.val, journal, <span class="dt">pos=</span><span class="dv">2</span>)</span>
-<span id="cb532-14"><a href="data-viz.html#cb532-14"></a><span class="kw">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="data-viz.html#cb533-1"></a>path &lt;-<span class="st"> </span><span class="kw">tempdir</span>()</span>
+<span id="cb533-2"><a href="data-viz.html#cb533-2"></a>graph.path &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;myfile.pdf&quot;</span>)</span>
+<span id="cb533-3"><a href="data-viz.html#cb533-3"></a><span class="kw">pdf</span>(graph.path, <span class="dt">height =</span> <span class="dv">5</span>, <span class="dt">width =</span> <span class="dv">6</span>)</span>
+<span id="cb533-4"><a href="data-viz.html#cb533-4"></a>    <span class="kw">plot</span>(<span class="kw">log</span>(citeprice)<span class="op">~</span><span class="kw">log</span>(subs), <span class="dt">data =</span> Journals, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">xlim =</span>   </span>
+<span id="cb533-5"><a href="data-viz.html#cb533-5"></a>           <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">8</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">7</span>, <span class="dv">4</span>),</span>
+<span id="cb533-6"><a href="data-viz.html#cb533-6"></a>    <span class="dt">main =</span> <span class="st">&quot;Library subscriptions&quot;</span>)</span>
+<span id="cb533-7"><a href="data-viz.html#cb533-7"></a>    <span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>subs))</span>
+<span id="cb533-8"><a href="data-viz.html#cb533-8"></a>    <span class="kw">rug</span>(<span class="kw">log</span>(Journals<span class="op">$</span>citeprice),<span class="dt">side=</span><span class="dv">2</span>)</span>
+<span id="cb533-9"><a href="data-viz.html#cb533-9"></a>    journal &lt;-<span class="st"> &quot;Econometrica&quot;</span></span>
+<span id="cb533-10"><a href="data-viz.html#cb533-10"></a>  journal_info &lt;-<span class="st"> </span><span class="kw">subset</span>(Journals, title<span class="op">==</span>journal)</span>
+<span id="cb533-11"><a href="data-viz.html#cb533-11"></a>  x.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>subs)</span>
+<span id="cb533-12"><a href="data-viz.html#cb533-12"></a>  y.val &lt;-<span class="st"> </span><span class="kw">log</span>(journal_info<span class="op">$</span>citeprice)</span>
+<span id="cb533-13"><a href="data-viz.html#cb533-13"></a>  <span class="kw">text</span>(x.val, y.val, journal, <span class="dt">pos=</span><span class="dv">2</span>)</span>
+<span id="cb533-14"><a href="data-viz.html#cb533-14"></a><span class="kw">dev.off</span>()</span></code></pre></div>
 </div>
 <div id="the-curve-function" class="section level3">
 <h3><span class="header-section-number">5.1.3</span> The <code>curve()</code> function</h3>
 <p>This function draws a curve corresponding to a function over the interval [from, to].</p>
-<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="data-viz.html#cb533-1"></a><span class="kw">curve</span>(dnorm, <span class="dt">from =</span> <span class="dv">-5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&quot;slategray&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">main =</span> <span class="st">&quot;Density of the standard normal distribution&quot;</span>)</span>
-<span id="cb533-2"><a href="data-viz.html#cb533-2"></a><span class="kw">text</span>(<span class="op">-</span><span class="dv">5</span>, <span class="fl">0.3</span>, <span class="kw">expression</span>(<span class="kw">f</span>(x) <span class="op">==</span><span class="st"> </span><span class="kw">frac</span>(<span class="dv">1</span>, sigma <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi)) <span class="op">~</span><span class="er">~</span><span class="st"> </span>e<span class="op">^</span>{<span class="op">-</span><span class="kw">frac</span>((x <span class="op">-</span><span class="st"> </span>mu)<span class="op">^</span><span class="dv">2</span>, <span class="dv">2</span><span class="op">*</span>sigma<span class="op">^</span><span class="dv">2</span>)}), <span class="dt">adj =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="data-viz.html#cb534-1"></a><span class="kw">curve</span>(dnorm, <span class="dt">from =</span> <span class="dv">-5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&quot;slategray&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">main =</span> <span class="st">&quot;Density of the standard normal distribution&quot;</span>)</span>
+<span id="cb534-2"><a href="data-viz.html#cb534-2"></a><span class="kw">text</span>(<span class="op">-</span><span class="dv">5</span>, <span class="fl">0.3</span>, <span class="kw">expression</span>(<span class="kw">f</span>(x) <span class="op">==</span><span class="st"> </span><span class="kw">frac</span>(<span class="dv">1</span>, sigma <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi)) <span class="op">~</span><span class="er">~</span><span class="st"> </span>e<span class="op">^</span>{<span class="op">-</span><span class="kw">frac</span>((x <span class="op">-</span><span class="st"> </span>mu)<span class="op">^</span><span class="dv">2</span>, <span class="dv">2</span><span class="op">*</span>sigma<span class="op">^</span><span class="dv">2</span>)}), <span class="dt">adj =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-122-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="data-viz.html#cb534-1"></a>?plotmath</span></code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="data-viz.html#cb535-1"></a>?plotmath</span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -415,59 +415,59 @@ LabEc    15             Labor</code></pre>
 <p>With <code>ggplot2</code>, you begin a plot with the function <code>ggplot()</code>. <code>ggplot()</code> creates a coordinate system that you can add layers to. The first argument of <code>ggplot()</code> is the dataset to use in the graph. So <code>ggplot(data = mpg)</code> or <code>ggplot(mpg)</code> creates an empty graph.</p>
 <p>You complete your graph by adding one or more layers to <code>ggplot()</code>. The function <code>geom_point()</code> adds a layer of points to your plot, which creates a scatterplot. <code>ggplot2</code> comes with many geom functions that each add a different type of layer to a plot.</p>
 <p>Each geom function in <code>ggplot2</code> takes a mapping argument. This defines how variables in your dataset are mapped to visual properties. The mapping argument is always paired with <code>aes()</code>, and the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> arguments of <code>aes()</code> specify which variables to map to the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axes. <code>ggplot2</code> looks for the mapped variable in the data argument, in this case, <code>mpg</code>.</p>
-<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="data-viz.html#cb535-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb535-2"><a href="data-viz.html#cb535-2"></a></span>
-<span id="cb535-3"><a href="data-viz.html#cb535-3"></a><span class="co"># use default theme</span></span>
-<span id="cb535-4"><a href="data-viz.html#cb535-4"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mtcars, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span></span>
-<span id="cb535-5"><a href="data-viz.html#cb535-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span></span>
-<span id="cb535-6"><a href="data-viz.html#cb535-6"></a><span class="st">  </span><span class="kw">geom_smooth</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="data-viz.html#cb536-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb536-2"><a href="data-viz.html#cb536-2"></a></span>
+<span id="cb536-3"><a href="data-viz.html#cb536-3"></a><span class="co"># use default theme</span></span>
+<span id="cb536-4"><a href="data-viz.html#cb536-4"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mtcars, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span></span>
+<span id="cb536-5"><a href="data-viz.html#cb536-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span></span>
+<span id="cb536-6"><a href="data-viz.html#cb536-6"></a><span class="st">  </span><span class="kw">geom_smooth</span>() </span></code></pre></div>
 <pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-123-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="data-viz.html#cb537-1"></a><span class="co"># shorter</span></span>
-<span id="cb537-2"><a href="data-viz.html#cb537-2"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span></span>
-<span id="cb537-3"><a href="data-viz.html#cb537-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span></span>
-<span id="cb537-4"><a href="data-viz.html#cb537-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="data-viz.html#cb538-1"></a><span class="co"># shorter</span></span>
+<span id="cb538-2"><a href="data-viz.html#cb538-2"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span></span>
+<span id="cb538-3"><a href="data-viz.html#cb538-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span></span>
+<span id="cb538-4"><a href="data-viz.html#cb538-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>() </span></code></pre></div>
 <pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-123-2.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="data-viz.html#cb539-1"></a><span class="co"># use black and white lay-out</span></span>
-<span id="cb539-2"><a href="data-viz.html#cb539-2"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb539-3"><a href="data-viz.html#cb539-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span><span class="st"> </span></span>
-<span id="cb539-4"><a href="data-viz.html#cb539-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="data-viz.html#cb540-1"></a><span class="co"># use black and white lay-out</span></span>
+<span id="cb540-2"><a href="data-viz.html#cb540-2"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb540-3"><a href="data-viz.html#cb540-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">+</span><span class="st"> </span></span>
+<span id="cb540-4"><a href="data-viz.html#cb540-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>() </span></code></pre></div>
 <pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-123-3.png" width="576" style="display: block; margin: auto;" /></p>
 <p>You can add a third variable to a two dimensional scatterplot by mapping it to an aesthetic. An aesthetic is a visual property of the objects in your plot. Aesthetics include things like the size, the shape, or the color of your points. You can display a point in different ways by changing the values of its aesthetic properties.</p>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="data-viz.html#cb541-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg))<span class="op">+</span></span>
-<span id="cb541-2"><a href="data-viz.html#cb541-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> gear))</span></code></pre></div>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="data-viz.html#cb542-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg))<span class="op">+</span></span>
+<span id="cb542-2"><a href="data-viz.html#cb542-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> gear))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-124-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Or you could have mapped this variable to the alpha aesthetic, which controls the transparency of the points, or the shape of the points.</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="data-viz.html#cb542-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg))<span class="op">+</span></span>
-<span id="cb542-2"><a href="data-viz.html#cb542-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">alpha =</span> gear))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-125-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="data-viz.html#cb543-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg))<span class="op">+</span></span>
-<span id="cb543-2"><a href="data-viz.html#cb543-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">size =</span> gear))</span></code></pre></div>
+<span id="cb543-2"><a href="data-viz.html#cb543-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">alpha =</span> gear))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-125-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="data-viz.html#cb544-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> hp, <span class="dt">y =</span> mpg))<span class="op">+</span></span>
+<span id="cb544-2"><a href="data-viz.html#cb544-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">size =</span> gear))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-125-2.png" width="576" style="display: block; margin: auto;" /></p>
 <p>You’ll now construct a boxplot of <code>mpg</code> per <code>cyl</code> using <code>ggplot()</code>.</p>
-<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="data-viz.html#cb544-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg))<span class="op">+</span></span>
-<span id="cb544-2"><a href="data-viz.html#cb544-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="data-viz.html#cb545-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg))<span class="op">+</span></span>
+<span id="cb545-2"><a href="data-viz.html#cb545-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-126-1.png" width="576" style="display: block; margin: auto;" />
 Another way to code the same example</p>
-<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="data-viz.html#cb545-1"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg))</span>
-<span id="cb545-2"><a href="data-viz.html#cb545-2"></a>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="data-viz.html#cb546-1"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg))</span>
+<span id="cb546-2"><a href="data-viz.html#cb546-2"></a>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-127-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="fancy-correlation-plots" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> Fancy correlation plots</h3>
 <p>You use the package <code>corrplot</code> to visualize correlations between variables. For more examples, see <a href="http://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html">corrplot</a>.</p>
-<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="data-viz.html#cb546-1"></a><span class="kw">library</span>(corrplot)</span></code></pre></div>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="data-viz.html#cb547-1"></a><span class="kw">library</span>(corrplot)</span></code></pre></div>
 <pre><code>corrplot 0.84 loaded</code></pre>
-<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="data-viz.html#cb548-1"></a><span class="co"># get correlation matrix</span></span>
-<span id="cb548-2"><a href="data-viz.html#cb548-2"></a>M &lt;-<span class="st"> </span><span class="kw">cor</span>(mtcars)</span>
-<span id="cb548-3"><a href="data-viz.html#cb548-3"></a><span class="kw">str</span>(M)</span></code></pre></div>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="data-viz.html#cb549-1"></a><span class="co"># get correlation matrix</span></span>
+<span id="cb549-2"><a href="data-viz.html#cb549-2"></a>M &lt;-<span class="st"> </span><span class="kw">cor</span>(mtcars)</span>
+<span id="cb549-3"><a href="data-viz.html#cb549-3"></a><span class="kw">str</span>(M)</span></code></pre></div>
 <pre><code> num [1:11, 1:11] 1 -0.852 -0.848 -0.776 0.681 ...
  - attr(*, &quot;dimnames&quot;)=List of 2
   ..$ : chr [1:11] &quot;mpg&quot; &quot;cyl&quot; &quot;disp&quot; &quot;hp&quot; ...
   ..$ : chr [1:11] &quot;mpg&quot; &quot;cyl&quot; &quot;disp&quot; &quot;hp&quot; ...</code></pre>
-<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="data-viz.html#cb550-1"></a>M</span></code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="data-viz.html#cb551-1"></a>M</span></code></pre></div>
 <pre><code>          mpg      cyl     disp       hp      drat       wt      qsec       vs
 mpg   1.00000 -0.85216 -0.84755 -0.77617  0.681172 -0.86766  0.418684  0.66404
 cyl  -0.85216  1.00000  0.90203  0.83245 -0.699938  0.78250 -0.591242 -0.81081
@@ -492,16 +492,16 @@ vs    0.168345  0.20602 -0.569607
 am    1.000000  0.79406  0.057534
 gear  0.794059  1.00000  0.274073
 carb  0.057534  0.27407  1.000000</code></pre>
-<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="data-viz.html#cb552-1"></a><span class="co"># visualize the correlation structure</span></span>
-<span id="cb552-2"><a href="data-viz.html#cb552-2"></a><span class="kw">corrplot</span>(M, <span class="dt">method =</span> <span class="st">&quot;circle&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="data-viz.html#cb553-1"></a><span class="co"># visualize the correlation structure</span></span>
+<span id="cb553-2"><a href="data-viz.html#cb553-2"></a><span class="kw">corrplot</span>(M, <span class="dt">method =</span> <span class="st">&quot;circle&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-128-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="data-viz.html#cb553-1"></a><span class="kw">corrplot</span>(M, <span class="dt">method =</span> <span class="st">&quot;square&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="data-viz.html#cb554-1"></a><span class="kw">corrplot</span>(M, <span class="dt">method =</span> <span class="st">&quot;square&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-128-2.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="data-viz.html#cb554-1"></a><span class="kw">corrplot</span>(M, <span class="dt">method =</span> <span class="st">&quot;color&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="data-viz.html#cb555-1"></a><span class="kw">corrplot</span>(M, <span class="dt">method =</span> <span class="st">&quot;color&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-128-3.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="data-viz.html#cb555-1"></a><span class="kw">corrplot</span>(M, <span class="dt">type =</span> <span class="st">&quot;upper&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="data-viz.html#cb556-1"></a><span class="kw">corrplot</span>(M, <span class="dt">type =</span> <span class="st">&quot;upper&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-128-4.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="data-viz.html#cb556-1"></a><span class="kw">corrplot</span>(M, <span class="dt">type =</span> <span class="st">&quot;upper&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;square&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="data-viz.html#cb557-1"></a><span class="kw">corrplot</span>(M, <span class="dt">type =</span> <span class="st">&quot;upper&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;square&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-128-5.png" width="576" style="display: block; margin: auto;" /></p>
 <hr />
 </div>

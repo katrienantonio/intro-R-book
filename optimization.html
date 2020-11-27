@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
   
 
-<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo Campo" />
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo DC Campo" />
 
 
 <meta name="date" content="2020-11-27" />
@@ -297,8 +297,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="find-the-root-of-a-function" class="section level2">
 <h2><span class="header-section-number">9.1</span> Find the root of a function</h2>
 <p>Consider the function <span class="math inline">\(f: x \mapsto x^2-3^{-x}\)</span>. What is the root of this function over the interval <span class="math inline">\([0,1]\)</span>?</p>
-<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb801-1"><a href="optimization.html#cb801-1"></a><span class="co"># in one line of code</span></span>
-<span id="cb801-2"><a href="optimization.html#cb801-2"></a><span class="kw">uniroot</span>(<span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2-3</span><span class="op">^</span>(<span class="op">-</span>x), <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">upper=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="optimization.html#cb803-1"></a><span class="co"># in one line of code</span></span>
+<span id="cb803-2"><a href="optimization.html#cb803-2"></a><span class="kw">uniroot</span>(<span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2-3</span><span class="op">^</span>(<span class="op">-</span>x), <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">upper=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>$root
 [1] 0.68602
 
@@ -313,52 +313,52 @@ $init.it
 
 $estim.prec
 [1] 6.1035e-05</code></pre>
-<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="optimization.html#cb803-1"></a>? uniroot</span>
-<span id="cb803-2"><a href="optimization.html#cb803-2"></a><span class="co"># in more lines of code</span></span>
-<span id="cb803-3"><a href="optimization.html#cb803-3"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb803-4"><a href="optimization.html#cb803-4"></a>    x<span class="op">^</span><span class="dv">2-3</span><span class="op">^</span>(<span class="op">-</span>x)</span>
-<span id="cb803-5"><a href="optimization.html#cb803-5"></a>}</span>
-<span id="cb803-6"><a href="optimization.html#cb803-6"></a><span class="co"># calculate root</span></span>
-<span id="cb803-7"><a href="optimization.html#cb803-7"></a>opt &lt;-<span class="st"> </span><span class="kw">uniroot</span>(f, <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">upper=</span><span class="dv">1</span>)</span>
-<span id="cb803-8"><a href="optimization.html#cb803-8"></a><span class="co"># check arguments</span></span>
-<span id="cb803-9"><a href="optimization.html#cb803-9"></a><span class="kw">names</span>(opt)</span></code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb805-1"><a href="optimization.html#cb805-1"></a>? uniroot</span>
+<span id="cb805-2"><a href="optimization.html#cb805-2"></a><span class="co"># in more lines of code</span></span>
+<span id="cb805-3"><a href="optimization.html#cb805-3"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb805-4"><a href="optimization.html#cb805-4"></a>    x<span class="op">^</span><span class="dv">2-3</span><span class="op">^</span>(<span class="op">-</span>x)</span>
+<span id="cb805-5"><a href="optimization.html#cb805-5"></a>}</span>
+<span id="cb805-6"><a href="optimization.html#cb805-6"></a><span class="co"># calculate root</span></span>
+<span id="cb805-7"><a href="optimization.html#cb805-7"></a>opt &lt;-<span class="st"> </span><span class="kw">uniroot</span>(f, <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">upper=</span><span class="dv">1</span>)</span>
+<span id="cb805-8"><a href="optimization.html#cb805-8"></a><span class="co"># check arguments</span></span>
+<span id="cb805-9"><a href="optimization.html#cb805-9"></a><span class="kw">names</span>(opt)</span></code></pre></div>
 <pre><code>[1] &quot;root&quot;       &quot;f.root&quot;     &quot;iter&quot;       &quot;init.it&quot;    &quot;estim.prec&quot;</code></pre>
-<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb805-1"><a href="optimization.html#cb805-1"></a><span class="co"># evaluate &#39;f(.)&#39; in the root</span></span>
-<span id="cb805-2"><a href="optimization.html#cb805-2"></a><span class="kw">f</span>(opt<span class="op">$</span>root)</span></code></pre></div>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb807-1"><a href="optimization.html#cb807-1"></a><span class="co"># evaluate &#39;f(.)&#39; in the root</span></span>
+<span id="cb807-2"><a href="optimization.html#cb807-2"></a><span class="kw">f</span>(opt<span class="op">$</span>root)</span></code></pre></div>
 <pre><code>[1] -8.0827e-06</code></pre>
-<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb807-1"><a href="optimization.html#cb807-1"></a><span class="co"># visualize the function</span></span>
-<span id="cb807-2"><a href="optimization.html#cb807-2"></a>range &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">by=</span><span class="fl">0.2</span>)</span>
-<span id="cb807-3"><a href="optimization.html#cb807-3"></a><span class="kw">plot</span>(range, <span class="kw">f</span>(range), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span>
-<span id="cb807-4"><a href="optimization.html#cb807-4"></a><span class="kw">points</span>(opt<span class="op">$</span>root, <span class="kw">f</span>(opt<span class="op">$</span>root), <span class="dt">pch=</span><span class="dv">20</span>)</span>
-<span id="cb807-5"><a href="optimization.html#cb807-5"></a><span class="kw">segments</span>(opt<span class="op">$</span>root, <span class="dv">-7</span>, opt<span class="op">$</span>root, <span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span>
-<span id="cb807-6"><a href="optimization.html#cb807-6"></a><span class="kw">segments</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">0</span>, opt<span class="op">$</span>root, <span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb809-1"><a href="optimization.html#cb809-1"></a><span class="co"># visualize the function</span></span>
+<span id="cb809-2"><a href="optimization.html#cb809-2"></a>range &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">by=</span><span class="fl">0.2</span>)</span>
+<span id="cb809-3"><a href="optimization.html#cb809-3"></a><span class="kw">plot</span>(range, <span class="kw">f</span>(range), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb809-4"><a href="optimization.html#cb809-4"></a><span class="kw">points</span>(opt<span class="op">$</span>root, <span class="kw">f</span>(opt<span class="op">$</span>root), <span class="dt">pch=</span><span class="dv">20</span>)</span>
+<span id="cb809-5"><a href="optimization.html#cb809-5"></a><span class="kw">segments</span>(opt<span class="op">$</span>root, <span class="dv">-7</span>, opt<span class="op">$</span>root, <span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb809-6"><a href="optimization.html#cb809-6"></a><span class="kw">segments</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">0</span>, opt<span class="op">$</span>root, <span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-193-1.png" width="576" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 <div id="find-the-maximum-of-a-function" class="section level2">
 <h2><span class="header-section-number">9.2</span> Find the maximum of a function</h2>
 <p>You look for the maximum of the beta density with a given set of parameters.</p>
-<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb808-1"><a href="optimization.html#cb808-1"></a><span class="co"># visualize the density</span></span>
-<span id="cb808-2"><a href="optimization.html#cb808-2"></a>shape1 &lt;-<span class="st"> </span><span class="dv">3</span></span>
-<span id="cb808-3"><a href="optimization.html#cb808-3"></a>shape2 &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb808-4"><a href="optimization.html#cb808-4"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">1</span>, <span class="dt">by=</span><span class="fl">0.01</span>)</span>
-<span id="cb808-5"><a href="optimization.html#cb808-5"></a><span class="kw">curve</span>(<span class="kw">dbeta</span>(x,shape1,shape2), <span class="dt">xlim=</span><span class="kw">range</span>(x))</span>
-<span id="cb808-6"><a href="optimization.html#cb808-6"></a></span>
-<span id="cb808-7"><a href="optimization.html#cb808-7"></a>opt_beta &lt;-<span class="st"> </span><span class="kw">optimize</span>(dbeta, <span class="dt">interval=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">maximum=</span><span class="ot">TRUE</span>, shape1, shape2)</span>
-<span id="cb808-8"><a href="optimization.html#cb808-8"></a><span class="kw">points</span>(opt_beta<span class="op">$</span>maximum, opt_beta<span class="op">$</span>objective, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">1.5</span>)</span>
-<span id="cb808-9"><a href="optimization.html#cb808-9"></a><span class="kw">segments</span>(opt_beta<span class="op">$</span>maximum, <span class="dv">0</span>, opt_beta<span class="op">$</span>maximum, opt_beta<span class="op">$</span>objective, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb810-1"><a href="optimization.html#cb810-1"></a><span class="co"># visualize the density</span></span>
+<span id="cb810-2"><a href="optimization.html#cb810-2"></a>shape1 &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb810-3"><a href="optimization.html#cb810-3"></a>shape2 &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb810-4"><a href="optimization.html#cb810-4"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">1</span>, <span class="dt">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb810-5"><a href="optimization.html#cb810-5"></a><span class="kw">curve</span>(<span class="kw">dbeta</span>(x,shape1,shape2), <span class="dt">xlim=</span><span class="kw">range</span>(x))</span>
+<span id="cb810-6"><a href="optimization.html#cb810-6"></a></span>
+<span id="cb810-7"><a href="optimization.html#cb810-7"></a>opt_beta &lt;-<span class="st"> </span><span class="kw">optimize</span>(dbeta, <span class="dt">interval=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">maximum=</span><span class="ot">TRUE</span>, shape1, shape2)</span>
+<span id="cb810-8"><a href="optimization.html#cb810-8"></a><span class="kw">points</span>(opt_beta<span class="op">$</span>maximum, opt_beta<span class="op">$</span>objective, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">1.5</span>)</span>
+<span id="cb810-9"><a href="optimization.html#cb810-9"></a><span class="kw">segments</span>(opt_beta<span class="op">$</span>maximum, <span class="dv">0</span>, opt_beta<span class="op">$</span>maximum, opt_beta<span class="op">$</span>objective, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-194-1.png" width="576" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 <div id="do-maximum-likelihood-estimation-mle" class="section level2">
 <h2><span class="header-section-number">9.3</span> Do Maximum Likelihood Estimation (MLE)</h2>
-<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb809-1"><a href="optimization.html#cb809-1"></a>nsim &lt;-<span class="st"> </span><span class="dv">10000</span></span>
-<span id="cb809-2"><a href="optimization.html#cb809-2"></a>x &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsim, <span class="dt">shape=</span><span class="dv">3</span>, <span class="dt">rate=</span><span class="fl">1.5</span>)</span>
-<span id="cb809-3"><a href="optimization.html#cb809-3"></a><span class="co"># calculate log-likelihood</span></span>
-<span id="cb809-4"><a href="optimization.html#cb809-4"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(p,x){</span>
-<span id="cb809-5"><a href="optimization.html#cb809-5"></a>    <span class="op">-</span><span class="kw">sum</span>(<span class="kw">dgamma</span>(x, <span class="dt">shape=</span>p[<span class="dv">1</span>], <span class="dt">rate=</span>p[<span class="dv">2</span>], <span class="dt">log=</span><span class="ot">TRUE</span>))</span>
-<span id="cb809-6"><a href="optimization.html#cb809-6"></a>}</span>
-<span id="cb809-7"><a href="optimization.html#cb809-7"></a><span class="kw">nlm</span>(f, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">x=</span>x)</span></code></pre></div>
+<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb811-1"><a href="optimization.html#cb811-1"></a>nsim &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<span id="cb811-2"><a href="optimization.html#cb811-2"></a>x &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsim, <span class="dt">shape=</span><span class="dv">3</span>, <span class="dt">rate=</span><span class="fl">1.5</span>)</span>
+<span id="cb811-3"><a href="optimization.html#cb811-3"></a><span class="co"># calculate log-likelihood</span></span>
+<span id="cb811-4"><a href="optimization.html#cb811-4"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(p,x){</span>
+<span id="cb811-5"><a href="optimization.html#cb811-5"></a>    <span class="op">-</span><span class="kw">sum</span>(<span class="kw">dgamma</span>(x, <span class="dt">shape=</span>p[<span class="dv">1</span>], <span class="dt">rate=</span>p[<span class="dv">2</span>], <span class="dt">log=</span><span class="ot">TRUE</span>))</span>
+<span id="cb811-6"><a href="optimization.html#cb811-6"></a>}</span>
+<span id="cb811-7"><a href="optimization.html#cb811-7"></a><span class="kw">nlm</span>(f, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">x=</span>x)</span></code></pre></div>
 <pre><code>Warning in dgamma(x, shape = p[1], rate = p[2], log = TRUE): NaNs produced</code></pre>
 <pre><code>Warning in nlm(f, c(1, 1), x = x): NA/Inf replaced by maximum positive value</code></pre>
 <pre><code>Warning in dgamma(x, shape = p[1], rate = p[2], log = TRUE): NaNs produced</code></pre>
@@ -366,30 +366,30 @@ $estim.prec
 <pre><code>Warning in dgamma(x, shape = p[1], rate = p[2], log = TRUE): NaNs produced</code></pre>
 <pre><code>Warning in nlm(f, c(1, 1), x = x): NA/Inf replaced by maximum positive value</code></pre>
 <pre><code>$minimum
-[1] 14400
+[1] 14407
 
 $estimate
-[1] 2.9613 1.4909
+[1] 2.9792 1.4956
 
 $gradient
-[1] -0.0023231  0.0024499
+[1] -0.0024856  0.0026648
 
 $code
 [1] 1
 
 $iterations
 [1] 14</code></pre>
-<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb817-1"><a href="optimization.html#cb817-1"></a><span class="co"># same example, now use &#39;optim&#39;</span></span>
-<span id="cb817-2"><a href="optimization.html#cb817-2"></a><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), f, <span class="dt">x=</span>x)</span></code></pre></div>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="optimization.html#cb819-1"></a><span class="co"># same example, now use &#39;optim&#39;</span></span>
+<span id="cb819-2"><a href="optimization.html#cb819-2"></a><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), f, <span class="dt">x=</span>x)</span></code></pre></div>
 <pre><code>$par
-[1] 2.9622 1.4914
+[1] 2.9790 1.4953
 
 $value
-[1] 14400
+[1] 14407
 
 $counts
 function gradient 
-      65       NA 
+      67       NA 
 
 $convergence
 [1] 0

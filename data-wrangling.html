@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
   
 
-<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo Campo" />
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo DC Campo" />
 
 
 <meta name="date" content="2020-11-27" />
@@ -304,8 +304,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-tibble-instead-of-a-data.frame" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> A <code>tibble</code> instead of a <code>data.frame</code></h3>
 <p>Within the <code>tidyverse</code> tibbles are a modern take on data frames. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating (i.e. converting character vectors to factors). (Quote from <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html">tibble vignette</a>) You can use <code>tibble</code> to create a new tibble and <code>as_tibble</code> transforms an object (e.g. a data frame) into a <code>tibble</code>.</p>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="data-wrangling.html#cb557-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb557-2"><a href="data-wrangling.html#cb557-2"></a>diamonds</span></code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="data-wrangling.html#cb558-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb558-2"><a href="data-wrangling.html#cb558-2"></a>diamonds</span></code></pre></div>
 <pre><code># A tibble: 53,940 x 10
    carat cut       color clarity depth table price     x     y     z
    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -328,8 +328,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="filter-observations-using-filter" class="section level3">
 <h3><span class="header-section-number">6.1.3</span> Filter observations using <code>filter</code></h3>
 <p>Here is a first example of using the pipe in R.</p>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="data-wrangling.html#cb559-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb559-2"><a href="data-wrangling.html#cb559-2"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="data-wrangling.html#cb560-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb560-2"><a href="data-wrangling.html#cb560-2"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
 <pre><code>
 Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:car&#39;:
@@ -341,7 +341,7 @@ Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>The following objects are masked from &#39;package:base&#39;:
 
     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="data-wrangling.html#cb564-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="data-wrangling.html#cb565-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 21,551 x 10
    carat cut   color clarity depth table price     x     y     z
    &lt;dbl&gt; &lt;ord&gt; &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -359,7 +359,7 @@ Attaching package: &#39;dplyr&#39;</code></pre>
 <p>The code chunk above will translate to something like “you take the <code>diamonds</code> data, then you subset the data”.
 This is one of the most powerful things about the tidyverse. In fact, having a standardized chain of processing actions is called “a pipeline”.</p>
 <p>Here is another example where you now filter diamonds based on two characteristics.</p>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="data-wrangling.html#cb566-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span> <span class="op">&amp;</span><span class="st"> </span>color <span class="op">==</span><span class="st"> &quot;E&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="data-wrangling.html#cb567-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span> <span class="op">&amp;</span><span class="st"> </span>color <span class="op">==</span><span class="st"> &quot;E&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 3,903 x 10
    carat cut   color clarity depth table price     x     y     z
    &lt;dbl&gt; &lt;ord&gt; &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -374,7 +374,7 @@ This is one of the most powerful things about the tidyverse. In fact, having a s
  9  0.6  Ideal E     VS1      61.7    55  2774  5.41  5.44  3.35
 10  0.7  Ideal E     SI1      62.7    55  2774  5.68  5.74  3.58
 # ... with 3,893 more rows</code></pre>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="data-wrangling.html#cb568-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span> <span class="op">&amp;</span><span class="st"> </span>color <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="data-wrangling.html#cb569-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span> <span class="op">&amp;</span><span class="st"> </span>color <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>))</span></code></pre></div>
 <pre><code># A tibble: 6,737 x 10
    carat cut   color clarity depth table price     x     y     z
    &lt;dbl&gt; &lt;ord&gt; &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -393,7 +393,7 @@ This is one of the most powerful things about the tidyverse. In fact, having a s
 <div id="summarize-variables-using-summarize" class="section level3">
 <h3><span class="header-section-number">6.1.4</span> Summarize variables using <code>summarize</code></h3>
 <p>The code chunk below will translate to something like “you take the <code>diamonds</code> data, then you subset the data and then you calculate mean and standard deviation of these data”.</p>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="data-wrangling.html#cb570-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(price), <span class="dt">std_dev =</span> <span class="kw">sd</span>(price))</span></code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="data-wrangling.html#cb571-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(price), <span class="dt">std_dev =</span> <span class="kw">sd</span>(price))</span></code></pre></div>
 <pre><code># A tibble: 1 x 2
    mean std_dev
   &lt;dbl&gt;   &lt;dbl&gt;
@@ -402,27 +402,27 @@ This is one of the most powerful things about the tidyverse. In fact, having a s
 <div id="summarize-based-on-groupings-of-another-variable" class="section level3">
 <h3><span class="header-section-number">6.1.5</span> Summarize based on groupings of another variable</h3>
 <p>So, here is what you’d like to do.</p>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="data-wrangling.html#cb572-1"></a><span class="co"># base R way with aggregate</span></span>
-<span id="cb572-2"><a href="data-wrangling.html#cb572-2"></a><span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean)</span></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="data-wrangling.html#cb573-1"></a><span class="co"># base R way with aggregate</span></span>
+<span id="cb573-2"><a href="data-wrangling.html#cb573-2"></a><span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean)</span></code></pre></div>
 <pre><code>        cut  price
 1      Fair 4358.8
-2      Good 3928.9
-3 Very Good 3982.0
-4   Premium 4584.5
-5     Ideal 3457.6</code></pre>
+2      Good 3928.7
+3 Very Good 3981.8
+4   Premium 4584.3
+5     Ideal 3457.0</code></pre>
 <p>How can you do this with the pipe?</p>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="data-wrangling.html#cb574-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(price))</span></code></pre></div>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="data-wrangling.html#cb575-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(price))</span></code></pre></div>
 <pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 5 x 2
   cut        mean
   &lt;ord&gt;     &lt;dbl&gt;
 1 Fair      4359.
-2 Good      3929.
-3 Very Good   NA 
-4 Premium     NA 
+2 Good        NA 
+3 Very Good 3982.
+4 Premium   4584.
 5 Ideal       NA </code></pre>
 <p>Now you want to group by multiple variables.</p>
-<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="data-wrangling.html#cb577-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut, color) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price))</span></code></pre></div>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="data-wrangling.html#cb578-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut, color) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price))</span></code></pre></div>
 <pre><code>`summarise()` regrouping output by &#39;cut&#39; (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 35 x 3
 # Groups:   cut [5]
@@ -436,22 +436,22 @@ This is one of the most powerful things about the tidyverse. In fact, having a s
  6 Fair  I     4685.
  7 Fair  J     4976.
  8 Good  D     3405.
- 9 Good  E     3424.
+ 9 Good  E       NA 
 10 Good  F     3496.
 # ... with 25 more rows</code></pre>
 <p>Now you want to calculate multiple metrics.</p>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="data-wrangling.html#cb580-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))</span></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="data-wrangling.html#cb581-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))</span></code></pre></div>
 <pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 5 x 3
   cut       price carat
   &lt;ord&gt;     &lt;dbl&gt; &lt;dbl&gt;
 1 Fair      4359. 1.05 
-2 Good      3929. 0.849
-3 Very Good   NA  0.806
-4 Premium     NA  0.892
+2 Good        NA  0.849
+3 Very Good 3982. 0.806
+4 Premium   4584. 0.892
 5 Ideal       NA  0.703</code></pre>
 <p>And finally, multiple metrics and multiple grouping variables.</p>
-<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="data-wrangling.html#cb583-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut, color) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))</span></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="data-wrangling.html#cb584-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut, color) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))</span></code></pre></div>
 <pre><code>`summarise()` regrouping output by &#39;cut&#39; (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 35 x 4
 # Groups:   cut [5]
@@ -465,18 +465,18 @@ This is one of the most powerful things about the tidyverse. In fact, having a s
  6 Fair  I     4685. 1.20 
  7 Fair  J     4976. 1.34 
  8 Good  D     3405. 0.745
- 9 Good  E     3424. 0.745
+ 9 Good  E       NA  0.745
 10 Good  F     3496. 0.776
 # ... with 25 more rows</code></pre>
 </div>
 <div id="joining-tibbles" class="section level3">
 <h3><span class="header-section-number">6.1.6</span> Joining tibbles</h3>
 <p>Now you want to add the mean price and mean carat per <code>cut</code> to the original tibble. You use the variable <code>cut</code> as the key to identify observations.</p>
-<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="data-wrangling.html#cb586-1"></a>d &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))</span></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="data-wrangling.html#cb587-1"></a>d &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))</span></code></pre></div>
 <pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="data-wrangling.html#cb588-1"></a>new_diamonds &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(d, <span class="dt">by =</span> <span class="st">&quot;cut&quot;</span>)</span>
-<span id="cb588-2"><a href="data-wrangling.html#cb588-2"></a><span class="kw">View</span>(diamonds)</span>
-<span id="cb588-3"><a href="data-wrangling.html#cb588-3"></a><span class="kw">View</span>(new_diamonds)</span></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="data-wrangling.html#cb589-1"></a>new_diamonds &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(d, <span class="dt">by =</span> <span class="st">&quot;cut&quot;</span>)</span>
+<span id="cb589-2"><a href="data-wrangling.html#cb589-2"></a><span class="kw">View</span>(diamonds)</span>
+<span id="cb589-3"><a href="data-wrangling.html#cb589-3"></a><span class="kw">View</span>(new_diamonds)</span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -489,14 +489,15 @@ This is one of the most powerful things about the tidyverse. In fact, having a s
 <div id="what-is-a-data.table" class="section level3">
 <h3><span class="header-section-number">6.2.2</span> What is a <code>data.table</code>?</h3>
 <p>Here you see some basic illustrations with the <code>diamonds</code> data.</p>
-<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="data-wrangling.html#cb589-1"></a><span class="kw">library</span>(data.table)</span></code></pre></div>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="data-wrangling.html#cb590-1"></a><span class="kw">library</span>(data.table)</span></code></pre></div>
+<pre><code>data.table 1.13.2 using 6 threads (see ?getDTthreads).  Latest news: r-datatable.com</code></pre>
 <pre><code>
 Attaching package: &#39;data.table&#39;</code></pre>
 <pre><code>The following objects are masked from &#39;package:dplyr&#39;:
 
     between, first, last</code></pre>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="data-wrangling.html#cb592-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb592-2"><a href="data-wrangling.html#cb592-2"></a><span class="kw">str</span>(diamonds)</span></code></pre></div>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="data-wrangling.html#cb594-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb594-2"><a href="data-wrangling.html#cb594-2"></a><span class="kw">str</span>(diamonds)</span></code></pre></div>
 <pre><code>tibble [53,940 x 10] (S3: tbl_df/tbl/data.frame)
  $ carat  : num [1:53940] 0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
  $ cut    : Ord.factor w/ 5 levels &quot;Fair&quot;&lt;&quot;Good&quot;&lt;..: 5 4 2 4 2 3 3 3 1 3 ...
@@ -508,8 +509,8 @@ Attaching package: &#39;data.table&#39;</code></pre>
  $ x      : num [1:53940] 3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...
  $ y      : num [1:53940] 3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...
  $ z      : num [1:53940] 2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...</code></pre>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="data-wrangling.html#cb594-1"></a>diamonds_DT &lt;-<span class="st"> </span><span class="kw">data.table</span>(diamonds)</span>
-<span id="cb594-2"><a href="data-wrangling.html#cb594-2"></a>diamonds_DT <span class="co"># notice intelligent printing of this DT</span></span></code></pre></div>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="data-wrangling.html#cb596-1"></a>diamonds_DT &lt;-<span class="st"> </span><span class="kw">data.table</span>(diamonds)</span>
+<span id="cb596-2"><a href="data-wrangling.html#cb596-2"></a>diamonds_DT <span class="co"># notice intelligent printing of this DT</span></span></code></pre></div>
 <pre><code>       carat       cut color clarity depth table price    x    y    z
     1:  0.23     Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
     2:  0.21   Premium     E     SI1  59.8    61   326 3.89 3.84 2.31
@@ -522,20 +523,20 @@ Attaching package: &#39;data.table&#39;</code></pre>
 53938:  0.70 Very Good     D     SI1  62.8    60  2757 5.66 5.68 3.56
 53939:  0.86   Premium     H     SI2  61.0    58  2757 6.15 6.12 3.74
 53940:  0.75     Ideal     D     SI2  62.2    55  2757 5.83 5.87 3.64</code></pre>
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="data-wrangling.html#cb596-1"></a><span class="kw">summary</span>(diamonds_DT<span class="op">$</span>cut)</span></code></pre></div>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="data-wrangling.html#cb598-1"></a><span class="kw">summary</span>(diamonds_DT<span class="op">$</span>cut)</span></code></pre></div>
 <pre><code>     Fair      Good Very Good   Premium     Ideal 
      1610      4906     12082     13791     21551 </code></pre>
 </div>
 <div id="identify-keys" class="section level3">
 <h3><span class="header-section-number">6.2.3</span> Identify keys</h3>
 <p>Instead of using <code>subset</code> from the <code>base</code> R, you will use the <code>setkey</code> to extract the observations you want to have.</p>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="data-wrangling.html#cb598-1"></a><span class="co"># key is used to index the data.table and will provide the extra speed</span></span>
-<span id="cb598-2"><a href="data-wrangling.html#cb598-2"></a><span class="kw">setkey</span>(diamonds_DT, cut)</span>
-<span id="cb598-3"><a href="data-wrangling.html#cb598-3"></a><span class="kw">tables</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="data-wrangling.html#cb600-1"></a><span class="co"># key is used to index the data.table and will provide the extra speed</span></span>
+<span id="cb600-2"><a href="data-wrangling.html#cb600-2"></a><span class="kw">setkey</span>(diamonds_DT, cut)</span>
+<span id="cb600-3"><a href="data-wrangling.html#cb600-3"></a><span class="kw">tables</span>()</span></code></pre></div>
 <pre><code>          NAME   NROW NCOL MB                                    COLS KEY
 1: diamonds_DT 53,940   10  3 carat,cut,color,clarity,depth,table,... cut
 Total: 3MB</code></pre>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="data-wrangling.html#cb600-1"></a>diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>), ]</span></code></pre></div>
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="data-wrangling.html#cb602-1"></a>diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>), ]</span></code></pre></div>
 <pre><code>       carat   cut color clarity depth table price    x    y    z
     1:  0.23 Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
     2:  0.23 Ideal     J     VS1  62.8    56   340 3.93 3.90 2.46
@@ -548,14 +549,14 @@ Total: 3MB</code></pre>
 21549:  0.71 Ideal     G     VS1  61.4    56  2756 5.76 5.73 3.53
 21550:  0.72 Ideal     D     SI1  60.8    57  2757 5.75 5.76 3.50
 21551:  0.75 Ideal     D     SI2  62.2    55  2757 5.83 5.87 3.64</code></pre>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="data-wrangling.html#cb602-1"></a><span class="co"># more than one column can be set as key</span></span>
-<span id="cb602-2"><a href="data-wrangling.html#cb602-2"></a><span class="kw">setkey</span>(diamonds_DT, cut, color)</span>
-<span id="cb602-3"><a href="data-wrangling.html#cb602-3"></a><span class="kw">tables</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="data-wrangling.html#cb604-1"></a><span class="co"># more than one column can be set as key</span></span>
+<span id="cb604-2"><a href="data-wrangling.html#cb604-2"></a><span class="kw">setkey</span>(diamonds_DT, cut, color)</span>
+<span id="cb604-3"><a href="data-wrangling.html#cb604-3"></a><span class="kw">tables</span>()</span></code></pre></div>
 <pre><code>          NAME   NROW NCOL MB                                    COLS       KEY
 1: diamonds_DT 53,940   10  3 carat,cut,color,clarity,depth,table,... cut,color
 Total: 3MB</code></pre>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="data-wrangling.html#cb604-1"></a><span class="co"># access rows according to both keys, use function &#39;J&#39;</span></span>
-<span id="cb604-2"><a href="data-wrangling.html#cb604-2"></a>diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>, <span class="st">&quot;E&quot;</span>), ]</span></code></pre></div>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="data-wrangling.html#cb606-1"></a><span class="co"># access rows according to both keys, use function &#39;J&#39;</span></span>
+<span id="cb606-2"><a href="data-wrangling.html#cb606-2"></a>diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>, <span class="st">&quot;E&quot;</span>), ]</span></code></pre></div>
 <pre><code>      carat   cut color clarity depth table price    x    y    z
    1:  0.23 Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
    2:  0.26 Ideal     E    VVS2  62.9    58   554 4.02 4.06 2.54
@@ -568,7 +569,7 @@ Total: 3MB</code></pre>
 3901:  0.56 Ideal     E    VVS1  62.1    56  2750 5.28 5.29 3.28
 3902:  0.77 Ideal     E     SI2  62.1    56  2753 5.84 5.86 3.63
 3903:  0.71 Ideal     E     SI1  61.9    56  2756 5.71 5.73 3.54</code></pre>
-<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="data-wrangling.html#cb606-1"></a>diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>)), ]</span></code></pre></div>
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="data-wrangling.html#cb608-1"></a>diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>)), ]</span></code></pre></div>
 <pre><code>      carat   cut color clarity depth table price    x    y    z
    1:  0.23 Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
    2:  0.26 Ideal     E    VVS2  62.9    58   554 4.02 4.06 2.54
@@ -581,8 +582,8 @@ Total: 3MB</code></pre>
 6735:  0.81 Ideal     D     SI1  61.5    57  2748 6.00 6.03 3.70
 6736:  0.72 Ideal     D     SI1  60.8    57  2757 5.75 5.76 3.50
 6737:  0.75 Ideal     D     SI2  62.2    55  2757 5.83 5.87 3.64</code></pre>
-<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="data-wrangling.html#cb608-1"></a><span class="co"># what would be the alternative with base R?</span></span>
-<span id="cb608-2"><a href="data-wrangling.html#cb608-2"></a><span class="kw">subset</span>(diamonds, diamonds<span class="op">$</span>cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span> <span class="op">&amp;&amp;</span><span class="st"> </span>diamonds<span class="op">$</span>color <span class="op">==</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="data-wrangling.html#cb610-1"></a><span class="co"># what would be the alternative with base R?</span></span>
+<span id="cb610-2"><a href="data-wrangling.html#cb610-2"></a><span class="kw">subset</span>(diamonds, diamonds<span class="op">$</span>cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span> <span class="op">&amp;&amp;</span><span class="st"> </span>diamonds<span class="op">$</span>color <span class="op">==</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>))</span></code></pre></div>
 <pre><code># A tibble: 53,940 x 10
    carat cut       color clarity depth table price     x     y     z
    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -601,39 +602,39 @@ Total: 3MB</code></pre>
 <div id="alternative-and-faster-ways-to-aggregate" class="section level3">
 <h3><span class="header-section-number">6.2.4</span> Alternative and faster ways to <code>aggregate</code></h3>
 <p>Instead of using <code>aggregate</code> from the <code>base</code> R, you will identify the <code>by</code> variable(s).</p>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="data-wrangling.html#cb610-1"></a><span class="co"># base R way with aggregate</span></span>
-<span id="cb610-2"><a href="data-wrangling.html#cb610-2"></a><span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean)</span></code></pre></div>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="data-wrangling.html#cb612-1"></a><span class="co"># base R way with aggregate</span></span>
+<span id="cb612-2"><a href="data-wrangling.html#cb612-2"></a><span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean)</span></code></pre></div>
 <pre><code>        cut  price
 1      Fair 4358.8
-2      Good 3928.9
-3 Very Good 3982.0
-4   Premium 4584.5
-5     Ideal 3457.6</code></pre>
-<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="data-wrangling.html#cb612-1"></a><span class="kw">system.time</span>(<span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean))</span></code></pre></div>
+2      Good 3928.7
+3 Very Good 3981.8
+4   Premium 4584.3
+5     Ideal 3457.0</code></pre>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="data-wrangling.html#cb614-1"></a><span class="kw">system.time</span>(<span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean))</span></code></pre></div>
 <pre><code>   user  system elapsed 
-   0.01    0.00    0.02 </code></pre>
-<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="data-wrangling.html#cb614-1"></a><span class="co"># aggregation with data.table</span></span>
-<span id="cb614-2"><a href="data-wrangling.html#cb614-2"></a><span class="co"># will go faster thanks to indexing</span></span>
-<span id="cb614-3"><a href="data-wrangling.html#cb614-3"></a>diamonds_DT[ , <span class="kw">mean</span>(price), by=cut]</span></code></pre></div>
+   0.01    0.00    0.03 </code></pre>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="data-wrangling.html#cb616-1"></a><span class="co"># aggregation with data.table</span></span>
+<span id="cb616-2"><a href="data-wrangling.html#cb616-2"></a><span class="co"># will go faster thanks to indexing</span></span>
+<span id="cb616-3"><a href="data-wrangling.html#cb616-3"></a>diamonds_DT[ , <span class="kw">mean</span>(price), by=cut]</span></code></pre></div>
 <pre><code>         cut     V1
 1:      Fair 4358.8
-2:      Good 3928.9
-3: Very Good     NA
-4:   Premium     NA
+2:      Good     NA
+3: Very Good 3981.8
+4:   Premium 4584.3
 5:     Ideal     NA</code></pre>
-<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="data-wrangling.html#cb616-1"></a><span class="kw">system.time</span>(diamonds_DT[ , <span class="kw">mean</span>(price), <span class="dt">by=</span>cut])</span></code></pre></div>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="data-wrangling.html#cb618-1"></a><span class="kw">system.time</span>(diamonds_DT[ , <span class="kw">mean</span>(price), <span class="dt">by=</span>cut])</span></code></pre></div>
 <pre><code>   user  system elapsed 
-      0       0       0 </code></pre>
-<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="data-wrangling.html#cb618-1"></a><span class="co"># give variable names in the create date.table</span></span>
-<span id="cb618-2"><a href="data-wrangling.html#cb618-2"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price)), by=cut]</span></code></pre></div>
+   0.01    0.00    0.02 </code></pre>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="data-wrangling.html#cb620-1"></a><span class="co"># give variable names in the create date.table</span></span>
+<span id="cb620-2"><a href="data-wrangling.html#cb620-2"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price)), by=cut]</span></code></pre></div>
 <pre><code>         cut  price
 1:      Fair 4358.8
-2:      Good 3928.9
-3: Very Good     NA
-4:   Premium     NA
+2:      Good     NA
+3: Very Good 3981.8
+4:   Premium 4584.3
 5:     Ideal     NA</code></pre>
-<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="data-wrangling.html#cb620-1"></a><span class="co"># aggregate on multiple columns</span></span>
-<span id="cb620-2"><a href="data-wrangling.html#cb620-2"></a>diamonds_DT[ , <span class="kw">mean</span>(price), by=<span class="kw">list</span>(cut,color)]</span></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="data-wrangling.html#cb622-1"></a><span class="co"># aggregate on multiple columns</span></span>
+<span id="cb622-2"><a href="data-wrangling.html#cb622-2"></a>diamonds_DT[ , <span class="kw">mean</span>(price), by=<span class="kw">list</span>(cut,color)]</span></code></pre></div>
 <pre><code>          cut color     V1
  1:      Fair     D 4291.1
  2:      Fair     E 3682.3
@@ -643,7 +644,7 @@ Total: 3MB</code></pre>
  6:      Fair     I 4685.4
  7:      Fair     J 4975.7
  8:      Good     D 3405.4
- 9:      Good     E 3423.6
+ 9:      Good     E     NA
 10:      Good     F 3495.8
 11:      Good     G 4123.5
 12:      Good     H 4276.3
@@ -654,40 +655,40 @@ Total: 3MB</code></pre>
 17: Very Good     F 3778.8
 18: Very Good     G 3872.8
 19: Very Good     H 4535.4
-20: Very Good     I     NA
+20: Very Good     I 5255.9
 21: Very Good     J 5103.5
 22:   Premium     D 3631.3
-23:   Premium     E     NA
+23:   Premium     E 3538.9
 24:   Premium     F 4324.9
 25:   Premium     G 4500.7
 26:   Premium     H 5216.7
 27:   Premium     I 5946.2
 28:   Premium     J 6294.6
 29:     Ideal     D 2629.1
-30:     Ideal     E     NA
+30:     Ideal     E 2597.6
 31:     Ideal     F 3374.9
 32:     Ideal     G 3720.7
-33:     Ideal     H 3889.3
+33:     Ideal     H     NA
 34:     Ideal     I 4452.0
 35:     Ideal     J 4918.2
           cut color     V1</code></pre>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="data-wrangling.html#cb622-1"></a><span class="co"># aggregate multiple arguments</span></span>
-<span id="cb622-2"><a href="data-wrangling.html#cb622-2"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span>cut]</span></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="data-wrangling.html#cb624-1"></a><span class="co"># aggregate multiple arguments</span></span>
+<span id="cb624-2"><a href="data-wrangling.html#cb624-2"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span>cut]</span></code></pre></div>
 <pre><code>         cut  price   carat
 1:      Fair 4358.8 1.04614
-2:      Good 3928.9 0.84918
-3: Very Good     NA 0.80638
-4:   Premium     NA 0.89195
+2:      Good     NA 0.84918
+3: Very Good 3981.8 0.80638
+4:   Premium 4584.3 0.89195
 5:     Ideal     NA 0.70284</code></pre>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="data-wrangling.html#cb624-1"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat), <span class="dt">caratSum =</span> <span class="kw">sum</span>(carat)), by=cut]</span></code></pre></div>
+<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="data-wrangling.html#cb626-1"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat), <span class="dt">caratSum =</span> <span class="kw">sum</span>(carat)), by=cut]</span></code></pre></div>
 <pre><code>         cut  price   carat caratSum
 1:      Fair 4358.8 1.04614   1684.3
-2:      Good 3928.9 0.84918   4166.1
-3: Very Good     NA 0.80638   9742.7
-4:   Premium     NA 0.89195  12301.0
+2:      Good     NA 0.84918   4166.1
+3: Very Good 3981.8 0.80638   9742.7
+4:   Premium 4584.3 0.89195  12301.0
 5:     Ideal     NA 0.70284  15146.8</code></pre>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="data-wrangling.html#cb626-1"></a><span class="co"># multiple metrics and multiple grouping variables</span></span>
-<span id="cb626-2"><a href="data-wrangling.html#cb626-2"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span><span class="kw">list</span>(cut, color)]</span></code></pre></div>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="data-wrangling.html#cb628-1"></a><span class="co"># multiple metrics and multiple grouping variables</span></span>
+<span id="cb628-2"><a href="data-wrangling.html#cb628-2"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span><span class="kw">list</span>(cut, color)]</span></code></pre></div>
 <pre><code>          cut color  price   carat
  1:      Fair     D 4291.1 0.92012
  2:      Fair     E 3682.3 0.85661
@@ -697,7 +698,7 @@ Total: 3MB</code></pre>
  6:      Fair     I 4685.4 1.19806
  7:      Fair     J 4975.7 1.34118
  8:      Good     D 3405.4 0.74452
- 9:      Good     E 3423.6 0.74513
+ 9:      Good     E     NA 0.74513
 10:      Good     F 3495.8 0.77593
 11:      Good     G 4123.5 0.85090
 12:      Good     H 4276.3 0.91473
@@ -708,20 +709,20 @@ Total: 3MB</code></pre>
 17: Very Good     F 3778.8 0.74096
 18: Very Good     G 3872.8 0.76680
 19: Very Good     H 4535.4 0.91595
-20: Very Good     I     NA 1.04695
+20: Very Good     I 5255.9 1.04695
 21: Very Good     J 5103.5 1.13322
 22:   Premium     D 3631.3 0.72155
-23:   Premium     E     NA 0.71774
+23:   Premium     E 3538.9 0.71774
 24:   Premium     F 4324.9 0.82704
 25:   Premium     G 4500.7 0.84149
 26:   Premium     H 5216.7 1.01645
 27:   Premium     I 5946.2 1.14494
 28:   Premium     J 6294.6 1.29309
 29:     Ideal     D 2629.1 0.56577
-30:     Ideal     E     NA 0.57840
+30:     Ideal     E 2597.6 0.57840
 31:     Ideal     F 3374.9 0.65583
 32:     Ideal     G 3720.7 0.70071
-33:     Ideal     H 3889.3 0.79952
+33:     Ideal     H     NA 0.79952
 34:     Ideal     I 4452.0 0.91303
 35:     Ideal     J 4918.2 1.06359
           cut color  price   carat</code></pre>
@@ -729,18 +730,18 @@ Total: 3MB</code></pre>
 <div id="joining-data.tables" class="section level3">
 <h3><span class="header-section-number">6.2.5</span> Joining <code>data.tables</code></h3>
 <p>How to join <code>data.tables</code>?</p>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="data-wrangling.html#cb628-1"></a><span class="co"># join two data.tables</span></span>
-<span id="cb628-2"><a href="data-wrangling.html#cb628-2"></a>d &lt;-<span class="st"> </span>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span>cut]</span>
-<span id="cb628-3"><a href="data-wrangling.html#cb628-3"></a>d</span></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="data-wrangling.html#cb630-1"></a><span class="co"># join two data.tables</span></span>
+<span id="cb630-2"><a href="data-wrangling.html#cb630-2"></a>d &lt;-<span class="st"> </span>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span>cut]</span>
+<span id="cb630-3"><a href="data-wrangling.html#cb630-3"></a>d</span></code></pre></div>
 <pre><code>         cut  price   carat
 1:      Fair 4358.8 1.04614
-2:      Good 3928.9 0.84918
-3: Very Good     NA 0.80638
-4:   Premium     NA 0.89195
+2:      Good     NA 0.84918
+3: Very Good 3981.8 0.80638
+4:   Premium 4584.3 0.89195
 5:     Ideal     NA 0.70284</code></pre>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="data-wrangling.html#cb630-1"></a><span class="kw">setkey</span>(diamonds_DT, cut)</span>
-<span id="cb630-2"><a href="data-wrangling.html#cb630-2"></a>dmerge &lt;-<span class="st"> </span>diamonds_DT[d]</span>
-<span id="cb630-3"><a href="data-wrangling.html#cb630-3"></a>dmerge</span></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="data-wrangling.html#cb632-1"></a><span class="kw">setkey</span>(diamonds_DT, cut)</span>
+<span id="cb632-2"><a href="data-wrangling.html#cb632-2"></a>dmerge &lt;-<span class="st"> </span>diamonds_DT[d]</span>
+<span id="cb632-3"><a href="data-wrangling.html#cb632-3"></a>dmerge</span></code></pre></div>
 <pre><code>       carat   cut color clarity depth table price    x    y    z i.price
     1:  0.75  Fair     D     SI2  64.6    57  2848 5.74 5.72 3.70  4358.8
     2:  0.71  Fair     D     VS2  56.9    65  2858 5.89 5.84 3.34  4358.8
