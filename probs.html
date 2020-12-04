@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data science in insurance: an R intro</title>
-  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Working with probability distributions in R | Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:title" content="7 Working with probability distributions in R | Data science in insurance: an R intro" />
   <meta property="og:type" content="book" />
   
   
@@ -17,29 +16,31 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  <meta name="twitter:title" content="7 Working with probability distributions in R | Data science in insurance: an R intro" />
   
   <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
   
 
-<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo DC Campo" />
 
 
-<meta name="date" content="2018-10-28">
+<meta name="date" content="2020-11-27" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-wrangling.html">
-<link rel="next" href="functions.html">
+<link rel="prev" href="data-wrangling.html"/>
+<link rel="next" href="functions.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,44 +48,74 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,22 +155,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
 <li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
-<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
-<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
-<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
-<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
-<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
-<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
-<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#subsec:Objects"><i class="fa fa-check"></i><b>3.2</b> Objects</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.3</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.4</b> Basic data types</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="objects-data-types.html"><a href="objects-data-types.html#vector-indexing"><i class="fa fa-check"></i><b>3.5.1</b> Vector indexing</a></li>
+<li class="chapter" data-level="3.5.2" data-path="objects-data-types.html"><a href="objects-data-types.html#character-and-logical-vectors"><i class="fa fa-check"></i><b>3.5.2</b> Character and logical vectors</a></li>
+<li class="chapter" data-level="3.5.3" data-path="objects-data-types.html"><a href="objects-data-types.html#missing-values"><i class="fa fa-check"></i><b>3.5.3</b> Missing values</a></li>
+<li class="chapter" data-level="3.5.4" data-path="objects-data-types.html"><a href="objects-data-types.html#logical-operators"><i class="fa fa-check"></i><b>3.5.4</b> Logical operators</a></li>
+<li class="chapter" data-level="3.5.5" data-path="objects-data-types.html"><a href="objects-data-types.html#factors"><i class="fa fa-check"></i><b>3.5.5</b> Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="objects-data-types.html"><a href="objects-data-types.html#matrix-operations-and-indexing"><i class="fa fa-check"></i><b>3.6.1</b> Matrix operations and indexing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.7</b> Lists</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.8</b> Data frames</a></li>
 <li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
 <li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
 <li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
-<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
-<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
-<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-an-.xlsx-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing an .xlsx file</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
@@ -199,17 +237,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
 <li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
-<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
-<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
-<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators-1"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#conditional-statements"><i class="fa fa-check"></i><b>8.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.4</b> Loops</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.4.1</b> The for loop</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.4.2</b> The while loop</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
-<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
-<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.5</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="functions.html"><a href="functions.html#using-a-function"><i class="fa fa-check"></i><b>8.5.1</b> Using a function</a></li>
+<li class="chapter" data-level="8.5.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.5.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5.3" data-path="functions.html"><a href="functions.html#the-argument"><i class="fa fa-check"></i><b>8.5.3</b> The ‘…’ argument</a></li>
+<li class="chapter" data-level="8.5.4" data-path="functions.html"><a href="functions.html#function-environments-advanced"><i class="fa fa-check"></i><b>8.5.4</b> Function environments (advanced)</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
-<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.6</b> The apply family</a></li>
+<li class="chapter" data-level="8.7" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.7</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
 <li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
@@ -254,70 +295,70 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">7</span> Working with probability distributions in R</h1>
 <p>In this Section you’ll learn how to work with probability distributions in R. Before you start, it is important to know that for many standard distributions R has 4 crucial functions:</p>
 <ul>
-<li>Density: e.g. <code>dexp</code>, <code>dgamma</code>, <code>dlnorm</code></li>
-<li>Quantile: e.g. <code>qexp</code>, <code>qgamma</code>, <code>qlnorm</code></li>
-<li>Cdf: e.g. <code>pexp</code>, <code>pgamma</code>, <code>plnorm</code></li>
-<li>Simulation: e.g. <code>rexp</code>, <code>rgamma</code>, <code>rlnorm</code></li>
+<li>Density: e.g. <code>dexp</code>, <code>dgamma</code>, <code>dlnorm</code></li>
+<li>Quantile: e.g. <code>qexp</code>, <code>qgamma</code>, <code>qlnorm</code></li>
+<li>Cdf: e.g. <code>pexp</code>, <code>pgamma</code>, <code>plnorm</code></li>
+<li>Simulation: e.g. <code>rexp</code>, <code>rgamma</code>, <code>rlnorm</code></li>
 </ul>
 <p>The parameters of the distribution are then specified in the arguments of these functions. Below are some examples from Katrien’s course on Loss Models at KU Leuven.</p>
 <div id="discrete-distributions" class="section level2">
 <h2><span class="header-section-number">7.1</span> Discrete distributions</h2>
 <div id="the-binomial-distribution" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> The binomial distribution</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nSim       &lt;-<span class="st"> </span><span class="dv">100</span>
-p        &lt;-<span class="st"> </span><span class="fl">0.3</span>
-n          &lt;-<span class="st"> </span><span class="dv">6</span>
-
-<span class="co"># generate &#39;nSim&#39; obs. from Bin(n,p) distribution </span>
-data_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(nSim, n, p)
-
-<span class="co"># calculate mean and variance</span>
-<span class="kw">mean</span>(data_binom) <span class="co"># empirical mean</span></code></pre></div>
-<pre><code>[1] 1.9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(data_binom)  <span class="co"># empirical variance</span></code></pre></div>
-<pre><code>[1] 1.2626</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n<span class="op">*</span>p               <span class="co"># theoretical mean</span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="probs.html#cb634-1"></a>nSim       &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb634-2"><a href="probs.html#cb634-2"></a>p        &lt;-<span class="st"> </span><span class="fl">0.3</span></span>
+<span id="cb634-3"><a href="probs.html#cb634-3"></a>n          &lt;-<span class="st"> </span><span class="dv">6</span></span>
+<span id="cb634-4"><a href="probs.html#cb634-4"></a></span>
+<span id="cb634-5"><a href="probs.html#cb634-5"></a><span class="co"># generate &#39;nSim&#39; obs. from Bin(n,p) distribution </span></span>
+<span id="cb634-6"><a href="probs.html#cb634-6"></a>data_binom &lt;-<span class="st"> </span><span class="kw">rbinom</span>(nSim, n, p)</span>
+<span id="cb634-7"><a href="probs.html#cb634-7"></a></span>
+<span id="cb634-8"><a href="probs.html#cb634-8"></a><span class="co"># calculate mean and variance</span></span>
+<span id="cb634-9"><a href="probs.html#cb634-9"></a><span class="kw">mean</span>(data_binom) <span class="co"># empirical mean</span></span></code></pre></div>
+<pre><code>[1] 1.83</code></pre>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="probs.html#cb636-1"></a><span class="kw">var</span>(data_binom)  <span class="co"># empirical variance</span></span></code></pre></div>
+<pre><code>[1] 1.2132</code></pre>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="probs.html#cb638-1"></a>n<span class="op">*</span>p               <span class="co"># theoretical mean</span></span></code></pre></div>
 <pre><code>[1] 1.8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)       <span class="co"># theoretical variance</span></code></pre></div>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="probs.html#cb640-1"></a>n<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)       <span class="co"># theoretical variance</span></span></code></pre></div>
 <pre><code>[1] 1.26</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize</span>
-range &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,n,<span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>)
-<span class="kw">plot</span>(<span class="kw">ecdf</span>(data_binom))   <span class="co"># ecdf</span>
-<span class="kw">lines</span>(range,<span class="kw">pbinom</span>(range, n, p), <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>) <span class="co"># cdf</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-111-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
-<span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span>n, <span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span>n, n, p), <span class="dt">type =</span> <span class="st">&#39;h&#39;</span>) <span class="co"># pdf</span>
-<span class="kw">plot</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(data_binom)))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-111-2.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="probs.html#cb642-1"></a><span class="co"># visualize</span></span>
+<span id="cb642-2"><a href="probs.html#cb642-2"></a>range &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,n,<span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>)</span>
+<span id="cb642-3"><a href="probs.html#cb642-3"></a><span class="kw">plot</span>(<span class="kw">ecdf</span>(data_binom))   <span class="co"># ecdf</span></span>
+<span id="cb642-4"><a href="probs.html#cb642-4"></a><span class="kw">lines</span>(range,<span class="kw">pbinom</span>(range, n, p), <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>) <span class="co"># cdf</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-145-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="probs.html#cb643-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb643-2"><a href="probs.html#cb643-2"></a><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span>n, <span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span>n, n, p), <span class="dt">type =</span> <span class="st">&#39;h&#39;</span>) <span class="co"># pdf</span></span>
+<span id="cb643-3"><a href="probs.html#cb643-3"></a><span class="kw">plot</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(data_binom)))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-145-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="probs.html#cb644-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 </div>
 <div id="the-poisson-distribution" class="section level3">
 <h3><span class="header-section-number">7.1.2</span> The Poisson distribution</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nSim     &lt;-<span class="st"> </span><span class="dv">100</span>
-lambda &lt;-<span class="st"> </span><span class="dv">1</span>
-
-<span class="co"># generate &#39;nSim&#39; observations from Poisson(\lambda) distribution</span>
-data_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(nSim, lambda)
-
-<span class="co"># calculate mean and variance</span>
-<span class="kw">mean</span>(data_pois) <span class="co"># empirical mean</span></code></pre></div>
-<pre><code>[1] 0.99</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(data_pois)  <span class="co"># empirical variance</span></code></pre></div>
-<pre><code>[1] 1.1817</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lambda      <span class="co"># theoretical mean</span></code></pre></div>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="probs.html#cb645-1"></a>nSim     &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb645-2"><a href="probs.html#cb645-2"></a>lambda &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb645-3"><a href="probs.html#cb645-3"></a></span>
+<span id="cb645-4"><a href="probs.html#cb645-4"></a><span class="co"># generate &#39;nSim&#39; observations from Poisson(\lambda) distribution</span></span>
+<span id="cb645-5"><a href="probs.html#cb645-5"></a>data_pois &lt;-<span class="st"> </span><span class="kw">rpois</span>(nSim, lambda)</span>
+<span id="cb645-6"><a href="probs.html#cb645-6"></a></span>
+<span id="cb645-7"><a href="probs.html#cb645-7"></a><span class="co"># calculate mean and variance</span></span>
+<span id="cb645-8"><a href="probs.html#cb645-8"></a><span class="kw">mean</span>(data_pois) <span class="co"># empirical mean</span></span></code></pre></div>
+<pre><code>[1] 0.96</code></pre>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="probs.html#cb647-1"></a><span class="kw">var</span>(data_pois)  <span class="co"># empirical variance</span></span></code></pre></div>
+<pre><code>[1] 1.0085</code></pre>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="probs.html#cb649-1"></a>lambda      <span class="co"># theoretical mean</span></span></code></pre></div>
 <pre><code>[1] 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lambda      <span class="co"># theoretical variance</span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="probs.html#cb651-1"></a>lambda      <span class="co"># theoretical variance</span></span></code></pre></div>
 <pre><code>[1] 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize</span>
-range  &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>)
-<span class="kw">plot</span>(<span class="kw">ecdf</span>(data_pois))   <span class="co"># ecdf</span>
-<span class="kw">lines</span>(range,<span class="kw">ppois</span>(range, lambda), <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>) <span class="co"># cdf</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-112-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
-<span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">8</span>, <span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">8</span>, lambda), <span class="dt">type =</span> <span class="st">&#39;h&#39;</span>) <span class="co"># pdf</span>
-<span class="kw">plot</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(data_pois)))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-112-2.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="probs.html#cb653-1"></a><span class="co"># visualize</span></span>
+<span id="cb653-2"><a href="probs.html#cb653-2"></a>range  &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>)</span>
+<span id="cb653-3"><a href="probs.html#cb653-3"></a><span class="kw">plot</span>(<span class="kw">ecdf</span>(data_pois))   <span class="co"># ecdf</span></span>
+<span id="cb653-4"><a href="probs.html#cb653-4"></a><span class="kw">lines</span>(range,<span class="kw">ppois</span>(range, lambda), <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>) <span class="co"># cdf</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-146-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="probs.html#cb654-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb654-2"><a href="probs.html#cb654-2"></a><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">8</span>, <span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">8</span>, lambda), <span class="dt">type =</span> <span class="st">&#39;h&#39;</span>) <span class="co"># pdf</span></span>
+<span id="cb654-3"><a href="probs.html#cb654-3"></a><span class="kw">plot</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(data_pois)))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-146-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="probs.html#cb655-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -325,43 +366,43 @@ range  &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv
 <h2><span class="header-section-number">7.2</span> Continuous distributions</h2>
 <div id="the-normal-distribution" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> The normal distribution</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># evaluate cdf of N(0,1) in 0</span>
-<span class="kw">pnorm</span>(<span class="dv">0</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="probs.html#cb656-1"></a><span class="co"># evaluate cdf of N(0,1) in 0</span></span>
+<span id="cb656-2"><a href="probs.html#cb656-2"></a><span class="kw">pnorm</span>(<span class="dv">0</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>[1] 0.5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or shorter</span>
-<span class="kw">pnorm</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="probs.html#cb658-1"></a><span class="co"># or shorter</span></span>
+<span id="cb658-2"><a href="probs.html#cb658-2"></a><span class="kw">pnorm</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>[1] 0.5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 95% quantile of N(0,1) </span>
-<span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="probs.html#cb660-1"></a><span class="co"># 95% quantile of N(0,1) </span></span>
+<span id="cb660-2"><a href="probs.html#cb660-2"></a><span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>[1] 1.6449</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a set of quantiles</span>
-<span class="kw">qnorm</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="fl">0.95</span>, <span class="fl">0.975</span>), <span class="dv">0</span>, <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="probs.html#cb662-1"></a><span class="co"># a set of quantiles</span></span>
+<span id="cb662-2"><a href="probs.html#cb662-2"></a><span class="kw">qnorm</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="fl">0.95</span>, <span class="fl">0.975</span>), <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>[1] -1.9600 -1.6449  0.0000  1.6449  1.9600</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate observations from N(0,1)</span>
-x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">1</span>)
-<span class="co"># visualize</span>
-<span class="kw">hist</span>(x, <span class="dt">probability=</span><span class="ot">TRUE</span>, <span class="dt">nclass=</span><span class="dv">55</span>, <span class="dt">col=</span><span class="st">&quot;pink&quot;</span>)
-<span class="kw">curve</span>(<span class="kw">dnorm</span>(x, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">1</span>), <span class="dt">xlim=</span><span class="kw">range</span>(x), <span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-113-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="probs.html#cb664-1"></a><span class="co"># generate observations from N(0,1)</span></span>
+<span id="cb664-2"><a href="probs.html#cb664-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">1</span>)</span>
+<span id="cb664-3"><a href="probs.html#cb664-3"></a><span class="co"># visualize</span></span>
+<span id="cb664-4"><a href="probs.html#cb664-4"></a><span class="kw">hist</span>(x, <span class="dt">probability=</span><span class="ot">TRUE</span>, <span class="dt">nclass=</span><span class="dv">55</span>, <span class="dt">col=</span><span class="st">&quot;pink&quot;</span>)</span>
+<span id="cb664-5"><a href="probs.html#cb664-5"></a><span class="kw">curve</span>(<span class="kw">dnorm</span>(x, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">1</span>), <span class="dt">xlim=</span><span class="kw">range</span>(x), <span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">add=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-147-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="the-gamma-distribution" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> The gamma distribution</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># check parametrization of gamma density in R</span>
-? dgamma
-<span class="co"># grid of points to evaluate the gamma density</span>
-x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">0.001</span>)
-<span class="co"># choose a color palette</span>
-colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#000000&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>, <span class="st">&quot;#009E73&quot;</span>, <span class="st">&quot;#F0E442&quot;</span>, <span class="st">&quot;#0072B2&quot;</span>, <span class="st">&quot;#D55E00&quot;</span>, <span class="st">&quot;#CC79A7&quot;</span>)
-<span class="co"># shape and rate parameter combinations shown in the plot</span>
-shape &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
-rate &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)
-<span class="kw">plot</span>(x, <span class="kw">dgamma</span>(x, <span class="dt">shape =</span> shape[<span class="dv">1</span>], <span class="dt">rate =</span> rate[<span class="dv">1</span>]), <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">xlab =</span><span class="st">&#39;x&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Gamma density&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Effect of the shape parameter on the Gamma density&#39;</span>)
-<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(shape)){
-    <span class="kw">lines</span>(x, <span class="kw">dgamma</span>(x, <span class="dt">shape =</span> shape[i], <span class="dt">rate =</span> rate[i]), <span class="dt">col=</span>colors[i])
-}
-<span class="co"># add a legend  </span>
-<span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="kw">paste</span>(<span class="st">&quot;shape = &quot;</span>, shape, <span class="st">&quot;, rate = &quot;</span>, rate, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>), <span class="dt">col =</span> colors, <span class="dt">lty=</span><span class="dv">1</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-114-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="probs.html#cb665-1"></a><span class="co"># check parametrization of gamma density in R</span></span>
+<span id="cb665-2"><a href="probs.html#cb665-2"></a>? dgamma</span>
+<span id="cb665-3"><a href="probs.html#cb665-3"></a><span class="co"># grid of points to evaluate the gamma density</span></span>
+<span id="cb665-4"><a href="probs.html#cb665-4"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">0.001</span>)</span>
+<span id="cb665-5"><a href="probs.html#cb665-5"></a><span class="co"># choose a color palette</span></span>
+<span id="cb665-6"><a href="probs.html#cb665-6"></a>colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#000000&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>, <span class="st">&quot;#009E73&quot;</span>, <span class="st">&quot;#F0E442&quot;</span>, <span class="st">&quot;#0072B2&quot;</span>, <span class="st">&quot;#D55E00&quot;</span>, <span class="st">&quot;#CC79A7&quot;</span>)</span>
+<span id="cb665-7"><a href="probs.html#cb665-7"></a><span class="co"># shape and rate parameter combinations shown in the plot</span></span>
+<span id="cb665-8"><a href="probs.html#cb665-8"></a>shape &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb665-9"><a href="probs.html#cb665-9"></a>rate &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb665-10"><a href="probs.html#cb665-10"></a><span class="kw">plot</span>(x, <span class="kw">dgamma</span>(x, <span class="dt">shape =</span> shape[<span class="dv">1</span>], <span class="dt">rate =</span> rate[<span class="dv">1</span>]), <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">xlab =</span><span class="st">&#39;x&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Gamma density&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Effect of the shape parameter on the Gamma density&#39;</span>)</span>
+<span id="cb665-11"><a href="probs.html#cb665-11"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(shape)){</span>
+<span id="cb665-12"><a href="probs.html#cb665-12"></a>    <span class="kw">lines</span>(x, <span class="kw">dgamma</span>(x, <span class="dt">shape =</span> shape[i], <span class="dt">rate =</span> rate[i]), <span class="dt">col=</span>colors[i])</span>
+<span id="cb665-13"><a href="probs.html#cb665-13"></a>}</span>
+<span id="cb665-14"><a href="probs.html#cb665-14"></a><span class="co"># add a legend  </span></span>
+<span id="cb665-15"><a href="probs.html#cb665-15"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="kw">paste</span>(<span class="st">&quot;shape = &quot;</span>, shape, <span class="st">&quot;, rate = &quot;</span>, rate, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>), <span class="dt">col =</span> colors, <span class="dt">lty=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-148-1.png" width="576" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 </div>
@@ -407,11 +448,13 @@ rate &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -419,12 +462,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -432,6 +474,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -448,10 +498,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

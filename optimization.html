@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data science in insurance: an R intro</title>
-  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 Optimization in R | Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:title" content="9 Optimization in R | Data science in insurance: an R intro" />
   <meta property="og:type" content="book" />
   
   
@@ -17,29 +16,31 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  <meta name="twitter:title" content="9 Optimization in R | Data science in insurance: an R intro" />
   
   <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
   
 
-<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo DC Campo" />
 
 
-<meta name="date" content="2018-10-28">
+<meta name="date" content="2020-11-27" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="functions.html">
-<link rel="next" href="lms.html">
+<link rel="prev" href="functions.html"/>
+<link rel="next" href="lms.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,44 +48,74 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,22 +155,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
 <li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
-<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
-<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
-<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
-<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
-<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
-<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
-<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#subsec:Objects"><i class="fa fa-check"></i><b>3.2</b> Objects</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.3</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.4</b> Basic data types</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="objects-data-types.html"><a href="objects-data-types.html#vector-indexing"><i class="fa fa-check"></i><b>3.5.1</b> Vector indexing</a></li>
+<li class="chapter" data-level="3.5.2" data-path="objects-data-types.html"><a href="objects-data-types.html#character-and-logical-vectors"><i class="fa fa-check"></i><b>3.5.2</b> Character and logical vectors</a></li>
+<li class="chapter" data-level="3.5.3" data-path="objects-data-types.html"><a href="objects-data-types.html#missing-values"><i class="fa fa-check"></i><b>3.5.3</b> Missing values</a></li>
+<li class="chapter" data-level="3.5.4" data-path="objects-data-types.html"><a href="objects-data-types.html#logical-operators"><i class="fa fa-check"></i><b>3.5.4</b> Logical operators</a></li>
+<li class="chapter" data-level="3.5.5" data-path="objects-data-types.html"><a href="objects-data-types.html#factors"><i class="fa fa-check"></i><b>3.5.5</b> Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="objects-data-types.html"><a href="objects-data-types.html#matrix-operations-and-indexing"><i class="fa fa-check"></i><b>3.6.1</b> Matrix operations and indexing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.7</b> Lists</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.8</b> Data frames</a></li>
 <li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
 <li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
 <li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
-<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
-<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
-<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-an-.xlsx-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing an .xlsx file</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
@@ -199,17 +237,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
 <li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
-<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
-<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
-<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators-1"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#conditional-statements"><i class="fa fa-check"></i><b>8.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.4</b> Loops</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.4.1</b> The for loop</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.4.2</b> The while loop</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
-<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
-<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.5</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="functions.html"><a href="functions.html#using-a-function"><i class="fa fa-check"></i><b>8.5.1</b> Using a function</a></li>
+<li class="chapter" data-level="8.5.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.5.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5.3" data-path="functions.html"><a href="functions.html#the-argument"><i class="fa fa-check"></i><b>8.5.3</b> The ‘…’ argument</a></li>
+<li class="chapter" data-level="8.5.4" data-path="functions.html"><a href="functions.html#function-environments-advanced"><i class="fa fa-check"></i><b>8.5.4</b> Function environments (advanced)</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
-<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.6</b> The apply family</a></li>
+<li class="chapter" data-level="8.7" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.7</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
 <li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
@@ -256,8 +297,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="find-the-root-of-a-function" class="section level2">
 <h2><span class="header-section-number">9.1</span> Find the root of a function</h2>
 <p>Consider the function <span class="math inline">\(f: x \mapsto x^2-3^{-x}\)</span>. What is the root of this function over the interval <span class="math inline">\([0,1]\)</span>?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># in one line of code</span>
-<span class="kw">uniroot</span>(<span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span><span class="op">-</span><span class="dv">3</span><span class="op">^</span>(<span class="op">-</span>x), <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">upper=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="optimization.html#cb803-1"></a><span class="co"># in one line of code</span></span>
+<span id="cb803-2"><a href="optimization.html#cb803-2"></a><span class="kw">uniroot</span>(<span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2-3</span><span class="op">^</span>(<span class="op">-</span>x), <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">upper=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>$root
 [1] 0.68602
 
@@ -272,52 +313,52 @@ $init.it
 
 $estim.prec
 [1] 6.1035e-05</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">? uniroot
-<span class="co"># in more lines of code</span>
-f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
-    x<span class="op">^</span><span class="dv">2</span><span class="op">-</span><span class="dv">3</span><span class="op">^</span>(<span class="op">-</span>x)
-}
-<span class="co"># calculate root</span>
-opt &lt;-<span class="st"> </span><span class="kw">uniroot</span>(f, <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">upper=</span><span class="dv">1</span>)
-<span class="co"># check arguments</span>
-<span class="kw">names</span>(opt)</code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb805-1"><a href="optimization.html#cb805-1"></a>? uniroot</span>
+<span id="cb805-2"><a href="optimization.html#cb805-2"></a><span class="co"># in more lines of code</span></span>
+<span id="cb805-3"><a href="optimization.html#cb805-3"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb805-4"><a href="optimization.html#cb805-4"></a>    x<span class="op">^</span><span class="dv">2-3</span><span class="op">^</span>(<span class="op">-</span>x)</span>
+<span id="cb805-5"><a href="optimization.html#cb805-5"></a>}</span>
+<span id="cb805-6"><a href="optimization.html#cb805-6"></a><span class="co"># calculate root</span></span>
+<span id="cb805-7"><a href="optimization.html#cb805-7"></a>opt &lt;-<span class="st"> </span><span class="kw">uniroot</span>(f, <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">upper=</span><span class="dv">1</span>)</span>
+<span id="cb805-8"><a href="optimization.html#cb805-8"></a><span class="co"># check arguments</span></span>
+<span id="cb805-9"><a href="optimization.html#cb805-9"></a><span class="kw">names</span>(opt)</span></code></pre></div>
 <pre><code>[1] &quot;root&quot;       &quot;f.root&quot;     &quot;iter&quot;       &quot;init.it&quot;    &quot;estim.prec&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># evaluate &#39;f(.)&#39; in the root</span>
-<span class="kw">f</span>(opt<span class="op">$</span>root)</code></pre></div>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb807-1"><a href="optimization.html#cb807-1"></a><span class="co"># evaluate &#39;f(.)&#39; in the root</span></span>
+<span id="cb807-2"><a href="optimization.html#cb807-2"></a><span class="kw">f</span>(opt<span class="op">$</span>root)</span></code></pre></div>
 <pre><code>[1] -8.0827e-06</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize the function</span>
-range &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">by=</span><span class="fl">0.2</span>)
-<span class="kw">plot</span>(range, <span class="kw">f</span>(range), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)
-<span class="kw">points</span>(opt<span class="op">$</span>root, <span class="kw">f</span>(opt<span class="op">$</span>root), <span class="dt">pch=</span><span class="dv">20</span>)
-<span class="kw">segments</span>(opt<span class="op">$</span>root, <span class="op">-</span><span class="dv">7</span>, opt<span class="op">$</span>root, <span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)
-<span class="kw">segments</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">0</span>, opt<span class="op">$</span>root, <span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-139-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb809-1"><a href="optimization.html#cb809-1"></a><span class="co"># visualize the function</span></span>
+<span id="cb809-2"><a href="optimization.html#cb809-2"></a>range &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">by=</span><span class="fl">0.2</span>)</span>
+<span id="cb809-3"><a href="optimization.html#cb809-3"></a><span class="kw">plot</span>(range, <span class="kw">f</span>(range), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb809-4"><a href="optimization.html#cb809-4"></a><span class="kw">points</span>(opt<span class="op">$</span>root, <span class="kw">f</span>(opt<span class="op">$</span>root), <span class="dt">pch=</span><span class="dv">20</span>)</span>
+<span id="cb809-5"><a href="optimization.html#cb809-5"></a><span class="kw">segments</span>(opt<span class="op">$</span>root, <span class="dv">-7</span>, opt<span class="op">$</span>root, <span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb809-6"><a href="optimization.html#cb809-6"></a><span class="kw">segments</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">0</span>, opt<span class="op">$</span>root, <span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-193-1.png" width="576" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 <div id="find-the-maximum-of-a-function" class="section level2">
 <h2><span class="header-section-number">9.2</span> Find the maximum of a function</h2>
 <p>You look for the maximum of the beta density with a given set of parameters.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize the density</span>
-shape1 &lt;-<span class="st"> </span><span class="dv">3</span>
-shape2 &lt;-<span class="st"> </span><span class="dv">2</span>
-x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">1</span>, <span class="dt">by=</span><span class="fl">0.01</span>)
-<span class="kw">curve</span>(<span class="kw">dbeta</span>(x,shape1,shape2), <span class="dt">xlim=</span><span class="kw">range</span>(x))
-
-opt_beta &lt;-<span class="st"> </span><span class="kw">optimize</span>(dbeta, <span class="dt">interval=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">maximum=</span><span class="ot">TRUE</span>, shape1, shape2)
-<span class="kw">points</span>(opt_beta<span class="op">$</span>maximum, opt_beta<span class="op">$</span>objective, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">1.5</span>)
-<span class="kw">segments</span>(opt_beta<span class="op">$</span>maximum, <span class="dv">0</span>, opt_beta<span class="op">$</span>maximum, opt_beta<span class="op">$</span>objective, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-140-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb810-1"><a href="optimization.html#cb810-1"></a><span class="co"># visualize the density</span></span>
+<span id="cb810-2"><a href="optimization.html#cb810-2"></a>shape1 &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb810-3"><a href="optimization.html#cb810-3"></a>shape2 &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb810-4"><a href="optimization.html#cb810-4"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">1</span>, <span class="dt">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb810-5"><a href="optimization.html#cb810-5"></a><span class="kw">curve</span>(<span class="kw">dbeta</span>(x,shape1,shape2), <span class="dt">xlim=</span><span class="kw">range</span>(x))</span>
+<span id="cb810-6"><a href="optimization.html#cb810-6"></a></span>
+<span id="cb810-7"><a href="optimization.html#cb810-7"></a>opt_beta &lt;-<span class="st"> </span><span class="kw">optimize</span>(dbeta, <span class="dt">interval=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">maximum=</span><span class="ot">TRUE</span>, shape1, shape2)</span>
+<span id="cb810-8"><a href="optimization.html#cb810-8"></a><span class="kw">points</span>(opt_beta<span class="op">$</span>maximum, opt_beta<span class="op">$</span>objective, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">1.5</span>)</span>
+<span id="cb810-9"><a href="optimization.html#cb810-9"></a><span class="kw">segments</span>(opt_beta<span class="op">$</span>maximum, <span class="dv">0</span>, opt_beta<span class="op">$</span>maximum, opt_beta<span class="op">$</span>objective, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-194-1.png" width="576" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 <div id="do-maximum-likelihood-estimation-mle" class="section level2">
 <h2><span class="header-section-number">9.3</span> Do Maximum Likelihood Estimation (MLE)</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nsim &lt;-<span class="st"> </span><span class="dv">10000</span>
-x &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsim, <span class="dt">shape=</span><span class="dv">3</span>, <span class="dt">rate=</span><span class="fl">1.5</span>)
-<span class="co"># calculate log-likelihood</span>
-f &lt;-<span class="st"> </span><span class="cf">function</span>(p,x){
-    <span class="op">-</span><span class="kw">sum</span>(<span class="kw">dgamma</span>(x, <span class="dt">shape=</span>p[<span class="dv">1</span>], <span class="dt">rate=</span>p[<span class="dv">2</span>], <span class="dt">log=</span><span class="ot">TRUE</span>))
-}
-<span class="kw">nlm</span>(f, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">x=</span>x)</code></pre></div>
+<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb811-1"><a href="optimization.html#cb811-1"></a>nsim &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<span id="cb811-2"><a href="optimization.html#cb811-2"></a>x &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsim, <span class="dt">shape=</span><span class="dv">3</span>, <span class="dt">rate=</span><span class="fl">1.5</span>)</span>
+<span id="cb811-3"><a href="optimization.html#cb811-3"></a><span class="co"># calculate log-likelihood</span></span>
+<span id="cb811-4"><a href="optimization.html#cb811-4"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(p,x){</span>
+<span id="cb811-5"><a href="optimization.html#cb811-5"></a>    <span class="op">-</span><span class="kw">sum</span>(<span class="kw">dgamma</span>(x, <span class="dt">shape=</span>p[<span class="dv">1</span>], <span class="dt">rate=</span>p[<span class="dv">2</span>], <span class="dt">log=</span><span class="ot">TRUE</span>))</span>
+<span id="cb811-6"><a href="optimization.html#cb811-6"></a>}</span>
+<span id="cb811-7"><a href="optimization.html#cb811-7"></a><span class="kw">nlm</span>(f, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">x=</span>x)</span></code></pre></div>
 <pre><code>Warning in dgamma(x, shape = p[1], rate = p[2], log = TRUE): NaNs produced</code></pre>
 <pre><code>Warning in nlm(f, c(1, 1), x = x): NA/Inf replaced by maximum positive value</code></pre>
 <pre><code>Warning in dgamma(x, shape = p[1], rate = p[2], log = TRUE): NaNs produced</code></pre>
@@ -325,30 +366,30 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(p,x){
 <pre><code>Warning in dgamma(x, shape = p[1], rate = p[2], log = TRUE): NaNs produced</code></pre>
 <pre><code>Warning in nlm(f, c(1, 1), x = x): NA/Inf replaced by maximum positive value</code></pre>
 <pre><code>$minimum
-[1] 14440
+[1] 14407
 
 $estimate
-[1] 3.0432 1.5106
+[1] 2.9792 1.4956
 
 $gradient
-[1] -0.0031518  0.0035787
+[1] -0.0024856  0.0026648
 
 $code
 [1] 1
 
 $iterations
 [1] 14</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># same example, now use &#39;optim&#39;</span>
-<span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), f, <span class="dt">x=</span>x)</code></pre></div>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb819-1"><a href="optimization.html#cb819-1"></a><span class="co"># same example, now use &#39;optim&#39;</span></span>
+<span id="cb819-2"><a href="optimization.html#cb819-2"></a><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), f, <span class="dt">x=</span>x)</span></code></pre></div>
 <pre><code>$par
-[1] 3.0436 1.5109
+[1] 2.9790 1.4953
 
 $value
-[1] 14440
+[1] 14407
 
 $counts
 function gradient 
-      71       NA 
+      67       NA 
 
 $convergence
 [1] 0
@@ -369,11 +410,13 @@ NULL</code></pre>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -381,12 +424,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -394,6 +436,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -410,10 +460,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data science in insurance: an R intro</title>
-  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Writing functions in R | Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:title" content="8 Writing functions in R | Data science in insurance: an R intro" />
   <meta property="og:type" content="book" />
   
   
@@ -17,29 +16,31 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  <meta name="twitter:title" content="8 Writing functions in R | Data science in insurance: an R intro" />
   
   <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
   
 
-<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo DC Campo" />
 
 
-<meta name="date" content="2018-10-28">
+<meta name="date" content="2020-11-27" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="probs.html">
-<link rel="next" href="optimization.html">
+<link rel="prev" href="probs.html"/>
+<link rel="next" href="optimization.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,44 +48,74 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,22 +155,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
 <li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
-<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
-<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
-<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
-<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
-<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
-<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
-<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#subsec:Objects"><i class="fa fa-check"></i><b>3.2</b> Objects</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.3</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.4</b> Basic data types</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="objects-data-types.html"><a href="objects-data-types.html#vector-indexing"><i class="fa fa-check"></i><b>3.5.1</b> Vector indexing</a></li>
+<li class="chapter" data-level="3.5.2" data-path="objects-data-types.html"><a href="objects-data-types.html#character-and-logical-vectors"><i class="fa fa-check"></i><b>3.5.2</b> Character and logical vectors</a></li>
+<li class="chapter" data-level="3.5.3" data-path="objects-data-types.html"><a href="objects-data-types.html#missing-values"><i class="fa fa-check"></i><b>3.5.3</b> Missing values</a></li>
+<li class="chapter" data-level="3.5.4" data-path="objects-data-types.html"><a href="objects-data-types.html#logical-operators"><i class="fa fa-check"></i><b>3.5.4</b> Logical operators</a></li>
+<li class="chapter" data-level="3.5.5" data-path="objects-data-types.html"><a href="objects-data-types.html#factors"><i class="fa fa-check"></i><b>3.5.5</b> Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="objects-data-types.html"><a href="objects-data-types.html#matrix-operations-and-indexing"><i class="fa fa-check"></i><b>3.6.1</b> Matrix operations and indexing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.7</b> Lists</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.8</b> Data frames</a></li>
 <li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
 <li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
 <li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
-<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
-<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
-<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-an-.xlsx-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing an .xlsx file</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
@@ -199,17 +237,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
 <li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
-<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
-<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
-<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators-1"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#conditional-statements"><i class="fa fa-check"></i><b>8.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.4</b> Loops</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.4.1</b> The for loop</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.4.2</b> The while loop</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
-<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
-<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.5</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="functions.html"><a href="functions.html#using-a-function"><i class="fa fa-check"></i><b>8.5.1</b> Using a function</a></li>
+<li class="chapter" data-level="8.5.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.5.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5.3" data-path="functions.html"><a href="functions.html#the-argument"><i class="fa fa-check"></i><b>8.5.3</b> The ‘…’ argument</a></li>
+<li class="chapter" data-level="8.5.4" data-path="functions.html"><a href="functions.html#function-environments-advanced"><i class="fa fa-check"></i><b>8.5.4</b> Function environments (advanced)</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
-<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.6</b> The apply family</a></li>
+<li class="chapter" data-level="8.7" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.7</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
 <li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
@@ -254,107 +295,344 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">8</span> Writing functions in R</h1>
 <div id="conditionals-and-control-flow" class="section level2">
 <h2><span class="header-section-number">8.1</span> Conditionals and control flow</h2>
-<p>In this chapter you’ll learn about relational operators to see how R objects compare and logical operators to combine logicals. Next, you’ll use this knowledge to build conditional statements. [Quote from DataCamp’s `Intermediate R’ course]</p>
-<p>Make sure not to mix up <code>==</code> and <code>=</code>, where the latter is used for assignment and the former checks equality.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span> <span class="op">==</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<p>In this chapter you’ll learn about relational operators to compare R objects and logical operators to combine logical expressions. Next, you’ll use this knowledge to build conditional statements. [Quote from DataCamp’s `Intermediate R’ course]</p>
+<p>Make sure not to mix up <code>==</code> and <code>=</code>, where the latter is used for assignment and the former checks equality (see Section <a href="objects-data-types.html#subsec:Objects">3.2</a>).</p>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="functions.html#cb666-1"></a><span class="dv">3</span> <span class="op">==</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;intermediate&quot;</span> <span class="op">!=</span><span class="st"> &quot;r&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="functions.html#cb668-1"></a><span class="st">&quot;intermediate&quot;</span> <span class="op">!=</span><span class="st"> &quot;r&quot;</span></span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">TRUE</span> <span class="op">!=</span><span class="st"> </span><span class="ot">FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="functions.html#cb670-1"></a><span class="ot">TRUE</span> <span class="op">!=</span><span class="st"> </span><span class="ot">FALSE</span></span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;Rchitect&quot;</span> <span class="op">!=</span><span class="st"> &quot;rchitect&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="functions.html#cb672-1"></a><span class="st">&quot;Rchitect&quot;</span> <span class="op">!=</span><span class="st"> &quot;rchitect&quot;</span></span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>Now you’ll focus on inequalities.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span></code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="functions.html#cb674-1"></a>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span></span></code></pre></div>
 <pre><code>[1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;dog&quot;</span> <span class="op">&lt;</span><span class="st"> &quot;Cats&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="functions.html#cb676-1"></a><span class="st">&quot;dog&quot;</span> <span class="op">&lt;</span><span class="st"> &quot;Cats&quot;</span></span></code></pre></div>
 <pre><code>[1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">TRUE</span> <span class="op">&lt;=</span><span class="st"> </span><span class="ot">FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="functions.html#cb678-1"></a><span class="ot">TRUE</span> <span class="op">&lt;=</span><span class="st"> </span><span class="ot">FALSE</span></span></code></pre></div>
 <pre><code>[1] FALSE</code></pre>
 <p>For string comparison, R determines the greater than relationship based on alphabetical order. Also, keep in mind that <code>TRUE</code> corresponds to 1 in R, and <code>FALSE</code> coerces to 0 behind the scenes.</p>
 <p>R’s relational operators also work on vectors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">katrien &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">19</span>, <span class="dv">22</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>)
-katrien <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="functions.html#cb680-1"></a>katrien &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">19</span>, <span class="dv">22</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb680-2"><a href="functions.html#cb680-2"></a>katrien <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span></span></code></pre></div>
 <pre><code>[1]  TRUE  TRUE FALSE FALSE  TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">jan &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">34</span>, <span class="dv">55</span>, <span class="dv">76</span>, <span class="dv">25</span>, <span class="dv">4</span>)
-jan <span class="op">&lt;=</span><span class="st"> </span><span class="dv">30</span></code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="functions.html#cb682-1"></a>jan &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">34</span>, <span class="dv">55</span>, <span class="dv">76</span>, <span class="dv">25</span>, <span class="dv">4</span>)</span>
+<span id="cb682-2"><a href="functions.html#cb682-2"></a>jan <span class="op">&lt;=</span><span class="st"> </span><span class="dv">30</span></span></code></pre></div>
 <pre><code>[1] FALSE FALSE FALSE  TRUE  TRUE</code></pre>
 <hr />
 </div>
-<div id="logical-operators" class="section level2">
+<div id="logical-operators-1" class="section level2">
 <h2><span class="header-section-number">8.2</span> Logical operators</h2>
-<p>Check the following statements</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="ot">TRUE</span></code></pre></div>
-<pre><code>[1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">FALSE</span> <span class="op">|</span><span class="st"> </span><span class="ot">TRUE</span></code></pre></div>
-<pre><code>[1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">5</span> <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span> <span class="op">&amp;</span><span class="st"> </span><span class="dv">2</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span></code></pre></div>
-<pre><code>[1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">|</span><span class="st"> </span><span class="dv">7</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span></code></pre></div>
-<pre><code>[1] TRUE</code></pre>
+<p>We already discussed the logical operators in Chapter <a href="objects-data-types.html#objects-data-types">3</a>, so you already know the basics. Can you predict what the outcome will be of the following statements?</p>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="functions.html#cb684-1"></a><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb684-2"><a href="functions.html#cb684-2"></a><span class="ot">FALSE</span> <span class="op">|</span><span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb684-3"><a href="functions.html#cb684-3"></a><span class="dv">5</span> <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span> <span class="op">&amp;</span><span class="st"> </span><span class="dv">2</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span></span>
+<span id="cb684-4"><a href="functions.html#cb684-4"></a><span class="dv">3</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">|</span><span class="st"> </span><span class="dv">7</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span></span></code></pre></div>
 <p>The logical operators applied to vectors</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">katrien <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span> <span class="op">&amp;</span><span class="st"> </span>jan <span class="op">&lt;=</span><span class="st"> </span><span class="dv">30</span></code></pre></div>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="functions.html#cb685-1"></a>katrien <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span> <span class="op">&amp;</span><span class="st"> </span>jan <span class="op">&lt;=</span><span class="st"> </span><span class="dv">30</span></span></code></pre></div>
 <pre><code>[1] FALSE FALSE FALSE FALSE  TRUE</code></pre>
-<p>The <code>!</code> operator reverses the result of a logical value.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">!</span><span class="ot">TRUE</span></code></pre></div>
-<pre><code>[1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">!</span>(<span class="dv">5</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>)</code></pre></div>
-<pre><code>[1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">!!</span><span class="ot">FALSE</span></code></pre></div>
-<pre><code>[1] FALSE</code></pre>
-<p>Time to check out the <code>if</code> statement in R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num_attendees &lt;-<span class="st"> </span><span class="dv">30</span>
-<span class="cf">if</span> (num_attendees <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) {
-  <span class="kw">print</span>(<span class="st">&quot;You&#39;re popular!&quot;</span>)
-}</code></pre></div>
-<pre><code>[1] &quot;You&#39;re popular!&quot;</code></pre>
-<p>In the <code>if</code> <code>else</code> statement it is important that the else keyword comes on the same line as the closing bracket of the if part!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num_attendees &lt;-<span class="st"> </span><span class="dv">5</span>
-<span class="cf">if</span> (num_attendees <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) {
-  <span class="kw">print</span>(<span class="st">&quot;You&#39;re popular!&quot;</span>)
-}<span class="cf">else</span>{
-  <span class="kw">print</span>(<span class="st">&quot;You are not so popular!&quot;</span>)
-}</code></pre></div>
-<pre><code>[1] &quot;You are not so popular!&quot;</code></pre>
-<p>Let’s add a control statement</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num_attendees &lt;-<span class="st"> </span><span class="dv">5</span>
-num_questions &lt;-<span class="st"> </span><span class="dv">3</span>
-<span class="cf">if</span> (num_attendees <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span> <span class="op">&amp;</span><span class="st"> </span>num_questions <span class="op">&lt;=</span><span class="dv">2</span>) {
-  <span class="kw">print</span>(<span class="st">&quot;Easy workshop&quot;</span>)
-}<span class="cf">else</span>{
-  <span class="kw">print</span>(<span class="st">&quot;Work to do!&quot;</span>)
-}</code></pre></div>
-<pre><code>[1] &quot;Work to do!&quot;</code></pre>
+</div>
+<div id="conditional-statements" class="section level2">
+<h2><span class="header-section-number">8.3</span> Conditional statements</h2>
+<p>We encounter conditional statements on a daily basis. Just think of the following behavior that perfectly illustrates this.</p>
+<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="functions.html#cb687-1"></a>FunnyJoke &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb687-2"><a href="functions.html#cb687-2"></a><span class="cf">if</span>(FunnyJoke) {</span>
+<span id="cb687-3"><a href="functions.html#cb687-3"></a>  <span class="kw">cat</span>(<span class="st">&quot;Hahahaha =D&quot;</span>)</span>
+<span id="cb687-4"><a href="functions.html#cb687-4"></a>} <span class="cf">else</span> {</span>
+<span id="cb687-5"><a href="functions.html#cb687-5"></a>  <span class="kw">cat</span>(<span class="st">&quot;*Cough* awkward silence...&quot;</span>)</span>
+<span id="cb687-6"><a href="functions.html#cb687-6"></a>}</span></code></pre></div>
+<pre><code>Hahahaha =D</code></pre>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="functions.html#cb689-1"></a>FunnyJoke &lt;-<span class="st"> </span><span class="ot">FALSE</span></span>
+<span id="cb689-2"><a href="functions.html#cb689-2"></a><span class="cf">if</span>(FunnyJoke) {</span>
+<span id="cb689-3"><a href="functions.html#cb689-3"></a>  <span class="kw">cat</span>(<span class="st">&quot;Hahahaha =D&quot;</span>)</span>
+<span id="cb689-4"><a href="functions.html#cb689-4"></a>} <span class="cf">else</span> {</span>
+<span id="cb689-5"><a href="functions.html#cb689-5"></a>  <span class="kw">cat</span>(<span class="st">&quot;*Cough* awkward silence...&quot;</span>)</span>
+<span id="cb689-6"><a href="functions.html#cb689-6"></a>}</span></code></pre></div>
+<pre><code>*Cough* awkward silence...</code></pre>
+<p>With this, we illustrated the basic concept of a conditional statement and with it, a conditional execution. We basically read this code as <code>if</code> this statement is <code>TRUE</code> then we do this. If it is <code>FALSE</code>, we do another thing. With the above example, it is quite obvious. If the joke is funny, we laugh. If not, an awkward silence follows.</p>
+<p><img src="images/ifelse.jpeg" /></p>
+<p>We can also just use the <code>if</code> without specifying <code>else</code> (make sure your volume is not at max when running this code and wearing a headphone).</p>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="functions.html#cb691-1"></a>SoundCheck &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb691-2"><a href="functions.html#cb691-2"></a><span class="cf">if</span>(SoundCheck) {</span>
+<span id="cb691-3"><a href="functions.html#cb691-3"></a>  beepr<span class="op">::</span><span class="kw">beep</span>(<span class="dv">8</span>)</span>
+<span id="cb691-4"><a href="functions.html#cb691-4"></a>}</span></code></pre></div>
+<p>We can also use the function <code>ifelse</code>, which is a vectorized version of the <code>if</code>/<code>else</code> construct <span class="citation">(Douglas et al. 2020)</span>.</p>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="functions.html#cb692-1"></a>FunnyJoke &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</span>
+<span id="cb692-2"><a href="functions.html#cb692-2"></a>CondTRUE  &lt;-<span class="st"> &quot;Hahaha =D&quot;</span></span>
+<span id="cb692-3"><a href="functions.html#cb692-3"></a>CondFALSE &lt;-<span class="st"> &quot;*Cough* awkward silence...&quot;</span></span>
+<span id="cb692-4"><a href="functions.html#cb692-4"></a><span class="kw">ifelse</span>(FunnyJoke, CondTRUE, CondFALSE)</span></code></pre></div>
+<pre><code>[1] &quot;Hahaha =D&quot;                  &quot;*Cough* awkward silence...&quot;</code></pre>
+<p>When using the <code>ifelse()</code> function, you have to make sure that you know what it does. <code>ifelse(test, yes, no)</code> returns a vector of the same length as <code>test</code>, with elements <code>yes[i]</code> when <code>test[i]</code> is <code>TRUE</code> and <code>no[i]</code> when <code>test[i]</code> is <code>FALSE</code>. This might sound confusing, so let’s just illustrate it with an example.</p>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="functions.html#cb694-1"></a>a &lt;-<span class="st"> </span><span class="dv">-1</span><span class="op">:</span><span class="dv">1</span></span>
+<span id="cb694-2"><a href="functions.html#cb694-2"></a>b &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="st">&quot;&lt; 0&quot;</span>, <span class="kw">length</span>(a))</span>
+<span id="cb694-3"><a href="functions.html#cb694-3"></a>c &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="st">&quot;&gt;= 0&quot;</span>, <span class="kw">length</span>(a))</span>
+<span id="cb694-4"><a href="functions.html#cb694-4"></a><span class="kw">ifelse</span>(a <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>, b, c)</span></code></pre></div>
+<pre><code>[1] &quot;&lt; 0&quot;  &quot;&gt;= 0&quot; &quot;&gt;= 0&quot;</code></pre>
+<!-- This is all very logical when you're reading this, but as always with coding, things can go wrong quickly when you don't pay attention. Suppose you have a data frame with variables `x` and `y`. When the value for `x` is negative, you want to take the maximum of `x` and `y`. If `x >= 0`, then you want to keep the value of  -->
+<!-- ```{r} -->
+<!-- df <- data.frame(x = -5:5, y = 10:0) -->
+<!-- with(df, ifelse(x <= 0, max(x, y), x)) -->
+<!-- ``` -->
+<p>We can also use multiple nested <code>if</code> … <code>else</code> statements.</p>
+<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="functions.html#cb696-1"></a>ShellExec  &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb696-2"><a href="functions.html#cb696-2"></a>      <span class="co"># replacement for shell.exe (doesn&#39;t exist on MAC)</span></span>
+<span id="cb696-3"><a href="functions.html#cb696-3"></a>      <span class="cf">if</span> (<span class="kw">exists</span>(<span class="st">&quot;shell.exec&quot;</span>,<span class="dt">where =</span> <span class="st">&quot;package:base&quot;</span>))</span>
+<span id="cb696-4"><a href="functions.html#cb696-4"></a>            <span class="kw">return</span>(base<span class="op">::</span><span class="kw">shell.exec</span>(x))</span>
+<span id="cb696-5"><a href="functions.html#cb696-5"></a>      comm &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;open&quot;</span>,x)</span>
+<span id="cb696-6"><a href="functions.html#cb696-6"></a>      <span class="kw">return</span>(<span class="kw">system</span>(comm))</span>
+<span id="cb696-7"><a href="functions.html#cb696-7"></a>}</span>
+<span id="cb696-8"><a href="functions.html#cb696-8"></a>Samples &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span></span>
+<span id="cb696-9"><a href="functions.html#cb696-9"></a>SampleVideo &lt;-<span class="st"> </span><span class="kw">sample</span>(Samples, <span class="dv">1</span>, <span class="ot">FALSE</span>)</span>
+<span id="cb696-10"><a href="functions.html#cb696-10"></a>OpenVid &lt;-<span class="st"> </span></span>
+<span id="cb696-11"><a href="functions.html#cb696-11"></a><span class="st">  </span><span class="cf">if</span>(SampleVideo <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</span>
+<span id="cb696-12"><a href="functions.html#cb696-12"></a>    <span class="st">&quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot;</span></span>
+<span id="cb696-13"><a href="functions.html#cb696-13"></a>  } <span class="cf">else</span> <span class="cf">if</span>(SampleVideo <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) {</span>
+<span id="cb696-14"><a href="functions.html#cb696-14"></a>    <span class="st">&quot;https://www.youtube.com/watch?v=CsGYh8AacgY&amp;t=12s&quot;</span></span>
+<span id="cb696-15"><a href="functions.html#cb696-15"></a>  } <span class="cf">else</span> {</span>
+<span id="cb696-16"><a href="functions.html#cb696-16"></a>    <span class="st">&quot;https://www.youtube.com/watch?v=1g9sneS2MF4&quot;</span> </span>
+<span id="cb696-17"><a href="functions.html#cb696-17"></a>  }</span>
+<span id="cb696-18"><a href="functions.html#cb696-18"></a><span class="kw">ShellExec</span>(OpenVid)</span>
+<span id="cb696-19"><a href="functions.html#cb696-19"></a>SampleVideo &lt;-<span class="st"> </span><span class="kw">sample</span>(Samples[<span class="op">!</span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">%in%</span><span class="st"> </span>SampleVideo], <span class="dv">1</span>, <span class="ot">FALSE</span>)</span></code></pre></div>
 <hr />
 </div>
 <div id="loops" class="section level2">
-<h2><span class="header-section-number">8.3</span> Loops</h2>
+<h2><span class="header-section-number">8.4</span> Loops</h2>
+<p>When we have to perform a repetitive task, loops are the way to go. This repetitive task is then executed within each loop for a specified number of times or until a specific condition is met. Within R, there are three main types of loops, the <code>for</code> loop, the <code>while</code> loop and the <code>repeat</code> loop @cite(introRbookdown).</p>
+<div id="the-for-loop" class="section level3">
+<h3><span class="header-section-number">8.4.1</span> The for loop</h3>
+<p>The <code>for</code> loop is the most well known loop and also one of the most common loops within programming languages. The following example illustrates how <code>for</code> loops work.</p>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="functions.html#cb697-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
+<span id="cb697-2"><a href="functions.html#cb697-2"></a>  <span class="kw">print</span>(i)</span>
+<span id="cb697-3"><a href="functions.html#cb697-3"></a>}</span></code></pre></div>
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5</code></pre>
+<p>In this example, we <em>loop</em> over the vector <code>1:5</code> and <code>i</code> is used as an index or counter. The inner part of the <code>for</code> loop is then repeated for every iteration. Breaking it down to the basics, we tell R to repeat the inner part (i.e. the code within the curly braces <code>{}</code>) 5 times (<code>length(1:5)</code>), taking subsequent values of the vector <code>1:5</code> in every loop and to keep track of the iteration with <code>i</code>.</p>
+<p>Hence, for the first iteration, <code>i</code> gets the first value of the vector <code>1:5</code> which is <code>1</code> and runs the code <code>print(i)</code>. In the second iteration, it gets the value <code>2</code> and so on.</p>
+<!-- ![](images/ForLoopAdj.png) ![](images/ForLoopSimpsons.png)  -->
+<p><img src="images/ForLoopAdj.png" width="50%" style="display: block; margin: auto;" /><img src="images/ForLoopSimpsons.png" width="50%" style="display: block; margin: auto;" /></p>
+<p>The counter is not limited to <code>i</code>, but basically every valid name can be used. Can you guess what the following output will be?</p>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="functions.html#cb699-1"></a>primes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>, <span class="dv">13</span>)</span>
+<span id="cb699-2"><a href="functions.html#cb699-2"></a></span>
+<span id="cb699-3"><a href="functions.html#cb699-3"></a><span class="co"># loop version 1</span></span>
+<span id="cb699-4"><a href="functions.html#cb699-4"></a><span class="cf">for</span> (p <span class="cf">in</span> primes) {</span>
+<span id="cb699-5"><a href="functions.html#cb699-5"></a>  <span class="kw">print</span>(p)</span>
+<span id="cb699-6"><a href="functions.html#cb699-6"></a>}</span></code></pre></div>
+<pre><code>[1] 2
+[1] 3
+[1] 5
+[1] 7
+[1] 11
+[1] 13</code></pre>
+<p>When working with loops, we have to be careful to not get stuck in an infinite loop. Even though this is more common in <code>while</code> loops, this can also happen in <code>for</code> loops.
+<img src="images/InfiniteLoop.png" /></p>
+<p>For example, when we adjust the counter <code>i</code> in the inner part, we get stuck in an infinite loop. One way to get out of this loop, is by using the <code>break</code> statement.</p>
+<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="functions.html#cb701-1"></a>LoopIter &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb701-2"><a href="functions.html#cb701-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</span>
+<span id="cb701-3"><a href="functions.html#cb701-3"></a>  i &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb701-4"><a href="functions.html#cb701-4"></a>  <span class="kw">print</span>(i)</span>
+<span id="cb701-5"><a href="functions.html#cb701-5"></a>  LoopIter &lt;-<span class="st"> </span>LoopIter <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb701-6"><a href="functions.html#cb701-6"></a>  <span class="cf">if</span>(LoopIter <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)</span>
+<span id="cb701-7"><a href="functions.html#cb701-7"></a>    <span class="cf">break</span></span>
+<span id="cb701-8"><a href="functions.html#cb701-8"></a>}</span></code></pre></div>
+<pre><code>[1] 1
+[1] 1
+[1] 1</code></pre>
+<p>Consequently, when using a for loop, make sure that you don’t adjust the counter variable <code>i</code> that keeps track of the iterations! To make sure that everything goes as expected in the inner part of your <code>for</code> loop, you can always run a test by first creating <code>i &lt;- 1</code> (or whatever value of the vector you are looping over) for example and then run the inner part.</p>
+<p>To save the results of each iteration, we can basically use any data structure. A list is most often used, as its structure is quite intuitive to save the results of our loop. To save our results in this way, we create an empty list. Let’s work with the data base <code>birthwt</code> from the package <code>MASS</code></p>
+<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb703-1"><a href="functions.html#cb703-1"></a><span class="kw">library</span>(MASS)</span></code></pre></div>
+<pre><code>
+Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    select</code></pre>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="functions.html#cb706-1"></a>bwt &lt;-<span class="st"> </span><span class="kw">with</span>(birthwt, {</span>
+<span id="cb706-2"><a href="functions.html#cb706-2"></a>race &lt;-<span class="st"> </span><span class="kw">factor</span>(race, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;other&quot;</span>))</span>
+<span id="cb706-3"><a href="functions.html#cb706-3"></a>ptd &lt;-<span class="st"> </span><span class="kw">factor</span>(ptl <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
+<span id="cb706-4"><a href="functions.html#cb706-4"></a>ftv &lt;-<span class="st"> </span><span class="kw">factor</span>(ftv)</span>
+<span id="cb706-5"><a href="functions.html#cb706-5"></a><span class="kw">levels</span>(ftv)[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)] &lt;-<span class="st"> &quot;2+&quot;</span></span>
+<span id="cb706-6"><a href="functions.html#cb706-6"></a><span class="kw">data.frame</span>(<span class="dt">low =</span> <span class="kw">factor</span>(low), age, lwt, race, <span class="dt">smoke =</span> (smoke <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>),</span>
+<span id="cb706-7"><a href="functions.html#cb706-7"></a>           ptd, <span class="dt">ht =</span> (ht <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="dt">ui =</span> (ui <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), ftv)</span>
+<span id="cb706-8"><a href="functions.html#cb706-8"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="functions.html#cb707-1"></a>Cols      &lt;-<span class="st"> </span><span class="kw">colnames</span>(bwt)</span>
+<span id="cb707-2"><a href="functions.html#cb707-2"></a>DescrVars &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb707-3"><a href="functions.html#cb707-3"></a><span class="cf">for</span>(Var <span class="cf">in</span> Cols) {</span>
+<span id="cb707-4"><a href="functions.html#cb707-4"></a>  x &lt;-<span class="st"> </span>bwt[, Var]</span>
+<span id="cb707-5"><a href="functions.html#cb707-5"></a>  DescrVars[[Var]] &lt;-<span class="st"> </span></span>
+<span id="cb707-6"><a href="functions.html#cb707-6"></a><span class="st">    </span><span class="cf">if</span>(<span class="kw">is.numeric</span>(x)) {</span>
+<span id="cb707-7"><a href="functions.html#cb707-7"></a>      <span class="kw">mean</span>(x)</span>
+<span id="cb707-8"><a href="functions.html#cb707-8"></a>    } <span class="cf">else</span> {</span>
+<span id="cb707-9"><a href="functions.html#cb707-9"></a>      <span class="kw">table</span>(x)</span>
+<span id="cb707-10"><a href="functions.html#cb707-10"></a>    }</span>
+<span id="cb707-11"><a href="functions.html#cb707-11"></a>}</span>
+<span id="cb707-12"><a href="functions.html#cb707-12"></a>DescrVars</span></code></pre></div>
+<pre><code>$low
+x
+  0   1 
+130  59 
+
+$age
+[1] 23.238
+
+$lwt
+[1] 129.81
+
+$race
+x
+white black other 
+   96    26    67 
+
+$smoke
+x
+FALSE  TRUE 
+  115    74 
+
+$ptd
+x
+FALSE  TRUE 
+  159    30 
+
+$ht
+x
+FALSE  TRUE 
+  177    12 
+
+$ui
+x
+FALSE  TRUE 
+  161    28 
+
+$ftv
+x
+  0   1  2+ 
+100  47  42 </code></pre>
+<p>When using loops, it is also important to try to be as efficiently as possible by avoiding repetition within the loop. Try to avoid recomputing the same thing within the same loop. This is why we use <code>x &lt;- bwt[, Var]</code> in the above example and not</p>
+<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="functions.html#cb709-1"></a>DescrVars &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb709-2"><a href="functions.html#cb709-2"></a><span class="cf">for</span>(Var <span class="cf">in</span> Cols) {</span>
+<span id="cb709-3"><a href="functions.html#cb709-3"></a>  DescrVars[[Var]] &lt;-<span class="st"> </span></span>
+<span id="cb709-4"><a href="functions.html#cb709-4"></a><span class="st">    </span><span class="cf">if</span>(<span class="kw">is.numeric</span>(bwt[, Var])) {</span>
+<span id="cb709-5"><a href="functions.html#cb709-5"></a>      <span class="kw">mean</span>(bwt[, Var])</span>
+<span id="cb709-6"><a href="functions.html#cb709-6"></a>    } <span class="cf">else</span> {</span>
+<span id="cb709-7"><a href="functions.html#cb709-7"></a>      <span class="kw">table</span>(bwt[, Var])</span>
+<span id="cb709-8"><a href="functions.html#cb709-8"></a>    }</span>
+<span id="cb709-9"><a href="functions.html#cb709-9"></a>}</span></code></pre></div>
+<p>By avoiding repetition, the code will run faster and this will be more important when working with large inner functions or large data sets. In addition, the chance of a coding error is also smaller in this case.</p>
+<div id="nested-for-loops" class="section level4">
+<h4><span class="header-section-number">8.4.1.1</span> Nested for loops</h4>
+<p>We can also use a <code>for</code> loop within another <code>for</code> loop and that’s what we called nested <code>for</code> loops. For example,</p>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="functions.html#cb710-1"></a>Alph =<span class="st"> </span><span class="kw">matrix</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb710-2"><a href="functions.html#cb710-2"></a><span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(Alph)) {</span>
+<span id="cb710-3"><a href="functions.html#cb710-3"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Alph)) {</span>
+<span id="cb710-4"><a href="functions.html#cb710-4"></a>    <span class="kw">cat</span>(<span class="kw">paste0</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Alph[&quot;</span>,i, <span class="st">&quot;, &quot;</span>, j , <span class="st">&quot;]  = &quot;</span>, Alph[i, j], <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>))</span>
+<span id="cb710-5"><a href="functions.html#cb710-5"></a>  }</span>
+<span id="cb710-6"><a href="functions.html#cb710-6"></a>}</span></code></pre></div>
+<pre><code>
+Alph[1, 1]  = a
+
+Alph[2, 1]  = b
+
+Alph[1, 2]  = c
+
+Alph[2, 2]  = d</code></pre>
+<p>To save the results of nested loops, lists are the perfect type of object. In order to be able to save the results in an empty list (which does not have the nested structure yet), we have to use names when saving these in the slots of the list.</p>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="functions.html#cb712-1"></a>Results &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb712-2"><a href="functions.html#cb712-2"></a><span class="cf">for</span>(j <span class="cf">in</span> <span class="kw">seq_len</span>(<span class="kw">ncol</span>(Alph))) {</span>
+<span id="cb712-3"><a href="functions.html#cb712-3"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_len</span>(<span class="kw">nrow</span>(Alph))) {</span>
+<span id="cb712-4"><a href="functions.html#cb712-4"></a>    Results[[<span class="kw">paste0</span>(<span class="st">&quot;Column&quot;</span>, j)]][[<span class="kw">paste0</span>(<span class="st">&quot;Row&quot;</span>, i)]] &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Alph[&quot;</span>,i, <span class="st">&quot;, &quot;</span>, j , <span class="st">&quot;]  = &quot;</span>, Alph[i, j])</span>
+<span id="cb712-5"><a href="functions.html#cb712-5"></a>  }</span>
+<span id="cb712-6"><a href="functions.html#cb712-6"></a>}</span>
+<span id="cb712-7"><a href="functions.html#cb712-7"></a>Results</span></code></pre></div>
+<pre><code>$Column1
+$Column1$Row1
+[1] &quot;Alph[1, 1]  = a&quot;
+
+$Column1$Row2
+[1] &quot;Alph[2, 1]  = b&quot;
+
+
+$Column2
+$Column2$Row1
+[1] &quot;Alph[1, 2]  = c&quot;
+
+$Column2$Row2
+[1] &quot;Alph[2, 2]  = d&quot;</code></pre>
+<p>Alternatively, we can already specify the dimensions of the nested list using the following code.</p>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="functions.html#cb714-1"></a>Results &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="dv">2</span>), <span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="dv">2</span>)) <span class="co"># Create an empty nested list</span></span>
+<span id="cb714-2"><a href="functions.html#cb714-2"></a><span class="cf">for</span>(j <span class="cf">in</span> <span class="kw">seq_len</span>(<span class="kw">ncol</span>(Alph))) {</span>
+<span id="cb714-3"><a href="functions.html#cb714-3"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_len</span>(<span class="kw">nrow</span>(Alph))) {</span>
+<span id="cb714-4"><a href="functions.html#cb714-4"></a>    Results[[j]][[i]] &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;Alph[&quot;</span>,i, <span class="st">&quot;, &quot;</span>, j , <span class="st">&quot;]  = &quot;</span>, Alph[i, j])</span>
+<span id="cb714-5"><a href="functions.html#cb714-5"></a>  }</span>
+<span id="cb714-6"><a href="functions.html#cb714-6"></a>}</span>
+<span id="cb714-7"><a href="functions.html#cb714-7"></a>Results</span></code></pre></div>
+<pre><code>[[1]]
+[[1]][[1]]
+[1] &quot;Alph[1, 1]  = a&quot;
+
+[[1]][[2]]
+[1] &quot;Alph[2, 1]  = b&quot;
+
+
+[[2]]
+[[2]][[1]]
+[1] &quot;Alph[1, 2]  = c&quot;
+
+[[2]][[2]]
+[1] &quot;Alph[2, 2]  = d&quot;</code></pre>
+</div>
+</div>
 <div id="the-while-loop" class="section level3">
-<h3><span class="header-section-number">8.3.1</span> The while loop</h3>
-<p>You’ll start with a <code>while</code> loop.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">todo &lt;-<span class="st"> </span><span class="dv">64</span>
-
-<span class="cf">while</span> (todo <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>) {
-  <span class="kw">print</span>(<span class="st">&quot;Work harder&quot;</span>)
-  todo &lt;-<span class="st"> </span>todo <span class="op">-</span><span class="st"> </span><span class="dv">7</span>
-}</code></pre></div>
-<pre><code>[1] &quot;Work harder&quot;
-[1] &quot;Work harder&quot;
-[1] &quot;Work harder&quot;
-[1] &quot;Work harder&quot;
-[1] &quot;Work harder&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">todo</code></pre></div>
-<pre><code>[1] 29</code></pre>
+<h3><span class="header-section-number">8.4.2</span> The while loop</h3>
+<p>With a <code>while</code> loop, you repeat the inner part until some logical condition is met.</p>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="functions.html#cb716-1"></a><span class="cf">while</span>(LogicalCondition) {</span>
+<span id="cb716-2"><a href="functions.html#cb716-2"></a>  <span class="kw">DoSomething</span>(<span class="st">&quot;ButIDon&#39;tKnowWhat&quot;</span>)</span>
+<span id="cb716-3"><a href="functions.html#cb716-3"></a>}</span></code></pre></div>
+<p>Take, for example, that we have 64 tasks on our to-do list and we want to get at least 5 tasks done for today.</p>
+<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="functions.html#cb717-1"></a>todo &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb717-2"><a href="functions.html#cb717-2"></a></span>
+<span id="cb717-3"><a href="functions.html#cb717-3"></a><span class="cf">while</span> (todo <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) {</span>
+<span id="cb717-4"><a href="functions.html#cb717-4"></a>  <span class="kw">cat</span>(todo, <span class="st">&quot;tasks left</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb717-5"><a href="functions.html#cb717-5"></a>  todo &lt;-<span class="st"> </span>todo <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb717-6"><a href="functions.html#cb717-6"></a>}</span></code></pre></div>
+<pre><code>10 tasks left
+9 tasks left
+8 tasks left
+7 tasks left
+6 tasks left</code></pre>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="functions.html#cb719-1"></a>todo</span></code></pre></div>
+<pre><code>[1] 5</code></pre>
+<p>Another example is the following.</p>
+<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="functions.html#cb721-1"></a>Tired &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb721-2"><a href="functions.html#cb721-2"></a>Sleep &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb721-3"><a href="functions.html#cb721-3"></a><span class="cf">while</span>(Tired) {</span>
+<span id="cb721-4"><a href="functions.html#cb721-4"></a>  Sleep &lt;-<span class="st"> </span>Sleep <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb721-5"><a href="functions.html#cb721-5"></a>  <span class="cf">if</span>(Sleep <span class="op">&gt;=</span><span class="st"> </span><span class="dv">8</span>)</span>
+<span id="cb721-6"><a href="functions.html#cb721-6"></a>    Tired &lt;-<span class="st"> </span><span class="ot">FALSE</span></span>
+<span id="cb721-7"><a href="functions.html#cb721-7"></a>}</span>
+<span id="cb721-8"><a href="functions.html#cb721-8"></a>Tired</span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<p>As with <code>for</code> loops, we can also use the <code>break</code> statement to stop the loop.</p>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="functions.html#cb723-1"></a>Tired &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb723-2"><a href="functions.html#cb723-2"></a>Sleep &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb723-3"><a href="functions.html#cb723-3"></a><span class="cf">while</span>(Tired) {</span>
+<span id="cb723-4"><a href="functions.html#cb723-4"></a>  Sleep &lt;-<span class="st"> </span>Sleep <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb723-5"><a href="functions.html#cb723-5"></a>  <span class="cf">if</span>(Sleep <span class="op">&gt;=</span><span class="st"> </span><span class="dv">8</span>)</span>
+<span id="cb723-6"><a href="functions.html#cb723-6"></a>    <span class="cf">break</span></span>
+<span id="cb723-7"><a href="functions.html#cb723-7"></a>}</span>
+<span id="cb723-8"><a href="functions.html#cb723-8"></a>Sleep</span></code></pre></div>
+<pre><code>[1] 8</code></pre>
 <p>The example below puts many things together (taken from DataCamp’s `Intermediate R’ course).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="dv">1</span>
-
-<span class="cf">while</span> (i <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>) {
-  <span class="kw">print</span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>i)
-  <span class="cf">if</span> ( (<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>i) <span class="op">%%</span><span class="st"> </span><span class="dv">8</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
-    <span class="cf">break</span>
-  }
-  i &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-}</code></pre></div>
+<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="functions.html#cb725-1"></a>i &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb725-2"><a href="functions.html#cb725-2"></a></span>
+<span id="cb725-3"><a href="functions.html#cb725-3"></a><span class="cf">while</span> (i <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>) {</span>
+<span id="cb725-4"><a href="functions.html#cb725-4"></a>  <span class="kw">print</span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>i)</span>
+<span id="cb725-5"><a href="functions.html#cb725-5"></a>  <span class="cf">if</span> ( (<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>i) <span class="op">%%</span><span class="st"> </span><span class="dv">8</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb725-6"><a href="functions.html#cb725-6"></a>    <span class="cf">break</span></span>
+<span id="cb725-7"><a href="functions.html#cb725-7"></a>  }</span>
+<span id="cb725-8"><a href="functions.html#cb725-8"></a>  i &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb725-9"><a href="functions.html#cb725-9"></a>}</span></code></pre></div>
 <pre><code>[1] 3
 [1] 6
 [1] 9
@@ -363,168 +641,249 @@ num_questions &lt;-<span class="st"> </span><span class="dv">3</span>
 [1] 18
 [1] 21
 [1] 24</code></pre>
-</div>
-<div id="the-for-loop" class="section level3">
-<h3><span class="header-section-number">8.3.2</span> The for loop</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">primes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>, <span class="dv">13</span>)
-
-<span class="co"># loop version 1</span>
-<span class="cf">for</span> (p <span class="cf">in</span> primes) {
-  <span class="kw">print</span>(p)
-}</code></pre></div>
-<pre><code>[1] 2
-[1] 3
-[1] 5
-[1] 7
-[1] 11
-[1] 13</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># loop version 2</span>
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(primes)) {
-  <span class="kw">print</span>(primes[i])
-}</code></pre></div>
-<pre><code>[1] 2
-[1] 3
-[1] 5
-[1] 7
-[1] 11
-[1] 13</code></pre>
-<p>A loop to count the number of r’s in a given character string.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rquote &lt;-<span class="st"> &quot;r&#39;s internals are irrefutably intriguing&quot;</span>
-chars &lt;-<span class="st"> </span><span class="kw">strsplit</span>(rquote, <span class="dt">split =</span> <span class="st">&quot;&quot;</span>)[[<span class="dv">1</span>]]
-chars</code></pre></div>
-<pre><code> [1] &quot;r&quot; &quot;&#39;&quot; &quot;s&quot; &quot; &quot; &quot;i&quot; &quot;n&quot; &quot;t&quot; &quot;e&quot; &quot;r&quot; &quot;n&quot; &quot;a&quot; &quot;l&quot; &quot;s&quot; &quot; &quot; &quot;a&quot; &quot;r&quot; &quot;e&quot; &quot; &quot; &quot;i&quot;
-[20] &quot;r&quot; &quot;r&quot; &quot;e&quot; &quot;f&quot; &quot;u&quot; &quot;t&quot; &quot;a&quot; &quot;b&quot; &quot;l&quot; &quot;y&quot; &quot; &quot; &quot;i&quot; &quot;n&quot; &quot;t&quot; &quot;r&quot; &quot;i&quot; &quot;g&quot; &quot;u&quot; &quot;i&quot;
-[39] &quot;n&quot; &quot;g&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Initialize rcount</span>
-rcount &lt;-<span class="st"> </span><span class="dv">0</span>
-
-<span class="co"># Finish the for loop</span>
-<span class="cf">for</span> (char <span class="cf">in</span> chars) {
-  <span class="cf">if</span> (char <span class="op">==</span><span class="st"> &quot;r&quot;</span>) {
-    rcount &lt;-<span class="st"> </span>rcount <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-  }
-  <span class="cf">if</span> (char <span class="op">==</span><span class="st"> &quot;u&quot;</span>) {
-    <span class="cf">break</span>
-  }
-}
-
-<span class="co"># Print out rcount</span>
-rcount</code></pre></div>
-<pre><code>[1] 5</code></pre>
+<p>The <code>repeat</code> loop is similar to the <code>while</code> loop, but has no conditional check <span class="citation">(Douglas et al. 2020)</span>. So in this case, you have to make sure that you don’t get stuck in an infinite loop by building in a <code>break</code> statement.</p>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="functions.html#cb727-1"></a>i &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb727-2"><a href="functions.html#cb727-2"></a><span class="cf">repeat</span> {</span>
+<span id="cb727-3"><a href="functions.html#cb727-3"></a>  <span class="kw">print</span>(<span class="st">&quot;Eat&quot;</span>)</span>
+<span id="cb727-4"><a href="functions.html#cb727-4"></a>  <span class="kw">print</span>(<span class="st">&quot;Sleep&quot;</span>)</span>
+<span id="cb727-5"><a href="functions.html#cb727-5"></a>  <span class="kw">print</span>(<span class="st">&quot;Rave&quot;</span>)</span>
+<span id="cb727-6"><a href="functions.html#cb727-6"></a>  <span class="kw">print</span>(<span class="st">&quot;Repeat&quot;</span>)</span>
+<span id="cb727-7"><a href="functions.html#cb727-7"></a>  i &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb727-8"><a href="functions.html#cb727-8"></a>  <span class="cf">if</span>(i <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span>)</span>
+<span id="cb727-9"><a href="functions.html#cb727-9"></a>    <span class="cf">break</span></span>
+<span id="cb727-10"><a href="functions.html#cb727-10"></a>}</span></code></pre></div>
+<pre><code>[1] &quot;Eat&quot;
+[1] &quot;Sleep&quot;
+[1] &quot;Rave&quot;
+[1] &quot;Repeat&quot;
+[1] &quot;Eat&quot;
+[1] &quot;Sleep&quot;
+[1] &quot;Rave&quot;
+[1] &quot;Repeat&quot;
+[1] &quot;Eat&quot;
+[1] &quot;Sleep&quot;
+[1] &quot;Rave&quot;
+[1] &quot;Repeat&quot;</code></pre>
 <hr />
 </div>
 </div>
 <div id="functions-in-r" class="section level2">
-<h2><span class="header-section-number">8.4</span> Functions in R</h2>
-<div id="use-a-function" class="section level3">
-<h3><span class="header-section-number">8.4.1</span> Use a function</h3>
-<p>What is a function? Let’s start from a classic one, the `mean()’.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">? mean
-<span class="kw">help</span>(mean)
-<span class="kw">args</span>(mean)</code></pre></div>
+<h2><span class="header-section-number">8.5</span> Functions in R</h2>
+<p>The book ‘An Introduction to R’ <span class="citation">(Douglas et al. 2020)</span> gives a splendid (and funny) description of functions:<br />
+<em>Functions are your loyal servants, waiting patiently to do your bidding to the best of their ability. They’re made with the utmost care and attention … though sometimes may end up being something of a Frankenstein’s monster - with an extra limb or two and a head put on backwards. But no matter how ugly they may be, they’re completely faithful to you.</em></p>
+<p><em>They’re also very stupid.</em></p>
+<div id="using-a-function" class="section level3">
+<h3><span class="header-section-number">8.5.1</span> Using a function</h3>
+<p>Throughout this book, we have already been using functions, but what exactly is a function? Let’s start from a classic one, the <code>mean()</code> function.</p>
+<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="functions.html#cb729-1"></a>? mean</span>
+<span id="cb729-2"><a href="functions.html#cb729-2"></a><span class="kw">help</span>(mean)</span>
+<span id="cb729-3"><a href="functions.html#cb729-3"></a><span class="kw">args</span>(mean)</span></code></pre></div>
 <pre><code>function (x, ...) 
 NULL</code></pre>
-<p>In <code>mean(x, trim = 0, na.rm = FALSE, ...)</code> <code>x</code> is required; if you do not specify it, R will throw an error. <code>trim</code> and <code>na.rm</code> are optional arguments: they have a default value which is used if the arguments are not explicitly specified. [Quote from DataCamp’s ‘Intermediate R’ course.]</p>
+<p>Basically, we give input to this function and it will return the arithmetic mean. In <code>mean(x, trim = 0, na.rm = FALSE, ...)</code> <code>x</code> is required; if you do not specify it, R will throw an error. This is a good thing, because you of course need to tell R of what object you want to compute the mean. Here, <code>x</code> is an argument of the function <code>mean()</code> and with <code>mean(x = a)</code>, you tell R to compute the mean of the object <code>a</code>. <code>trim</code> and <code>na.rm</code> are optional arguments: they have a default value which is used if the arguments are not explicitly specified. [Quote from DataCamp’s ‘Intermediate R’ course.]</p>
 <p>You will now use the <code>mean</code> function as follows</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">katrien &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="ot">NA</span>)
-
-<span class="kw">mean</span>(katrien)</code></pre></div>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="functions.html#cb731-1"></a>katrien &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="ot">NA</span>)</span>
+<span id="cb731-2"><a href="functions.html#cb731-2"></a></span>
+<span id="cb731-3"><a href="functions.html#cb731-3"></a><span class="kw">mean</span>(katrien)</span></code></pre></div>
 <pre><code>[1] NA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(katrien, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="functions.html#cb733-1"></a><span class="kw">mean</span>(katrien, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>[1] 6.25</code></pre>
 <p>Functions return objects that can be used elsewhere. As such, you can use a function within function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">katrien &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="ot">NA</span>)
-jan &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">5</span>)
-katrien <span class="op">-</span><span class="st"> </span>jan</code></pre></div>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="functions.html#cb735-1"></a>katrien &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="ot">NA</span>)</span>
+<span id="cb735-2"><a href="functions.html#cb735-2"></a>jan &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">5</span>)</span>
+<span id="cb735-3"><a href="functions.html#cb735-3"></a>katrien <span class="op">-</span><span class="st"> </span>jan</span></code></pre></div>
 <pre><code>[1]  2  6  4 NA NA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">abs</span>(katrien <span class="op">-</span><span class="st"> </span>jan), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="functions.html#cb737-1"></a><span class="kw">mean</span>(<span class="kw">abs</span>(katrien <span class="op">-</span><span class="st"> </span>jan), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>[1] 4</code></pre>
 </div>
 <div id="write-your-own-function" class="section level3">
-<h3><span class="header-section-number">8.4.2</span> Write your own function</h3>
-<p>Creating a function in R is basically the assignment of a function object to a variable. That’s why you will use the assignment operator <code>-&gt;</code>. Here is the basic syntax for writing a function in R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_sqrt &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
-  <span class="kw">sqrt</span>(x)
-}
-
-<span class="co"># Use the function</span>
-<span class="kw">my_sqrt</span>(<span class="dv">12</span>)</code></pre></div>
+<h3><span class="header-section-number">8.5.2</span> Write your own function</h3>
+<p>The ability to use self-written functions makes R incredibly powerful, efficient, convenient and elegant. Once you learn how to write your own functions, programming with R will be even more comfortable and productive <span class="citation">(Venables, Smith, and R Core Team 2020)</span>.</p>
+<p>Creating a function in R is basically the assignment of a function object to a variable. That’s why you will use the assignment operator <code>&lt;-</code>. The basic form of a function is given by (slightly altered example and text from <span class="citation">(Douglas et al. 2020)</span>):</p>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="functions.html#cb739-1"></a>NameFunction &lt;-<span class="st"> </span><span class="cf">function</span>(Argument1, Argument2) {</span>
+<span id="cb739-2"><a href="functions.html#cb739-2"></a>  Expression</span>
+<span id="cb739-3"><a href="functions.html#cb739-3"></a>}</span></code></pre></div>
+<p>With this code, we are telling R that we want to create an object of type <strong>function</strong> and that we want to give it the name <code>NameFunction</code>. As input, it takes <code>Argument1</code> and <code>Argument2</code> and it then performs the inner part of the function which is denoted by <code>Expression</code>.</p>
+<p>As always, it’s easier to comprehend this with an example.</p>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb740-1"><a href="functions.html#cb740-1"></a>my_sqrt &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb740-2"><a href="functions.html#cb740-2"></a>  <span class="kw">sqrt</span>(x)</span>
+<span id="cb740-3"><a href="functions.html#cb740-3"></a>}</span>
+<span id="cb740-4"><a href="functions.html#cb740-4"></a></span>
+<span id="cb740-5"><a href="functions.html#cb740-5"></a><span class="co"># Use the function</span></span>
+<span id="cb740-6"><a href="functions.html#cb740-6"></a><span class="kw">my_sqrt</span>(<span class="dv">12</span>)</span></code></pre></div>
 <pre><code>[1] 3.4641</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_sqrt</span>(<span class="dv">16</span>)</code></pre></div>
+<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="functions.html#cb742-1"></a><span class="kw">my_sqrt</span>(<span class="dv">16</span>)</span></code></pre></div>
 <pre><code>[1] 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sum_abs &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {
-  <span class="kw">abs</span>(x) <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(y)
-}
-
-<span class="co"># Use the function</span>
-<span class="kw">sum_abs</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="functions.html#cb744-1"></a>sum_abs &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {</span>
+<span id="cb744-2"><a href="functions.html#cb744-2"></a>  <span class="kw">abs</span>(x) <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(y)</span>
+<span id="cb744-3"><a href="functions.html#cb744-3"></a>}</span>
+<span id="cb744-4"><a href="functions.html#cb744-4"></a></span>
+<span id="cb744-5"><a href="functions.html#cb744-5"></a><span class="co"># Use the function</span></span>
+<span id="cb744-6"><a href="functions.html#cb744-6"></a><span class="kw">sum_abs</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>[1] 5</code></pre>
 <p>You can define default argument values in your own R functions as well. Here you see an example.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_sqrt &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">print_info =</span> <span class="ot">TRUE</span>) {
-  y &lt;-<span class="st"> </span><span class="kw">sqrt</span>(x)
-  <span class="cf">if</span> (print_info) {
-    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;sqrt&quot;</span>, x, <span class="st">&quot;equals&quot;</span>, y))
-  }
-  <span class="kw">return</span>(y)
-}
-
-<span class="co"># some calls of the function</span>
-<span class="kw">my_sqrt</span>(<span class="dv">16</span>)</code></pre></div>
+<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb746-1"><a href="functions.html#cb746-1"></a>my_sqrt &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">print_info =</span> <span class="ot">TRUE</span>) {</span>
+<span id="cb746-2"><a href="functions.html#cb746-2"></a>  y &lt;-<span class="st"> </span><span class="kw">sqrt</span>(x)</span>
+<span id="cb746-3"><a href="functions.html#cb746-3"></a>  <span class="cf">if</span> (print_info) {</span>
+<span id="cb746-4"><a href="functions.html#cb746-4"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;sqrt&quot;</span>, x, <span class="st">&quot;equals&quot;</span>, y))</span>
+<span id="cb746-5"><a href="functions.html#cb746-5"></a>  }</span>
+<span id="cb746-6"><a href="functions.html#cb746-6"></a>  <span class="kw">return</span>(y)</span>
+<span id="cb746-7"><a href="functions.html#cb746-7"></a>}</span>
+<span id="cb746-8"><a href="functions.html#cb746-8"></a></span>
+<span id="cb746-9"><a href="functions.html#cb746-9"></a><span class="co"># some calls of the function</span></span>
+<span id="cb746-10"><a href="functions.html#cb746-10"></a><span class="kw">my_sqrt</span>(<span class="dv">16</span>)</span></code></pre></div>
 <pre><code>[1] &quot;sqrt 16 equals 4&quot;</code></pre>
 <pre><code>[1] 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_sqrt</span>(<span class="dv">16</span>, <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb749-1"><a href="functions.html#cb749-1"></a><span class="kw">my_sqrt</span>(<span class="dv">16</span>, <span class="ot">FALSE</span>)</span></code></pre></div>
 <pre><code>[1] 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">my_sqrt</span>(<span class="dv">16</span>, <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb751-1"><a href="functions.html#cb751-1"></a><span class="kw">my_sqrt</span>(<span class="dv">16</span>, <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>[1] &quot;sqrt 16 equals 4&quot;</code></pre>
 <pre><code>[1] 4</code></pre>
-<p>R works in a vectorized way. Check this by calling the function <code>my_sqrt</code> on an input vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">25</span>, <span class="dv">36</span>)
-<span class="kw">my_sqrt</span>(v)</code></pre></div>
+<p>R works in a vectorized way and most of R’s functions are vectorized. This means that the function will operate on all elements of a vector. Check this by calling the function <code>my_sqrt</code> on an input vector.</p>
+<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb754-1"><a href="functions.html#cb754-1"></a>v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">25</span>, <span class="dv">36</span>)</span>
+<span id="cb754-2"><a href="functions.html#cb754-2"></a><span class="kw">my_sqrt</span>(v)</span></code></pre></div>
 <pre><code>[1] &quot;sqrt 16 equals 4&quot; &quot;sqrt 25 equals 5&quot; &quot;sqrt 36 equals 6&quot;</code></pre>
 <pre><code>[1] 4 5 6</code></pre>
+<p>With this simple self-written function, we can also illustrated why functions can be called ‘stupid’ and why we should always include checks for the arguments of your self-written function. With regard to this issue, <span class="citation">(Douglas et al. 2020)</span> gives an accurate description of what it means to be a programmer:<br />
+<strong>Remember two things: the intelligence of code comes from the coder, not the computer and functions need exact instructions to work.</strong></p>
+<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb757-1"><a href="functions.html#cb757-1"></a><span class="kw">my_sqrt</span>(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>Warning in sqrt(x): NaNs produced</code></pre>
+<pre><code>[1] &quot;sqrt -1 equals NaN&quot;</code></pre>
+<pre><code>[1] NaN</code></pre>
+<p>We can fix this issue by adding some checks to our self-written function. It’s up to you to decide on the checks that you add to your function and also what action will be taken. With the function <code>stop()</code> the code will be stopped and with the function <code>warning()</code> the function will proceed, but a warning will be given when using the function.</p>
+<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="functions.html#cb761-1"></a>my_sqrt &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">print_info =</span> <span class="ot">TRUE</span>) {</span>
+<span id="cb761-2"><a href="functions.html#cb761-2"></a>  <span class="cf">if</span>(<span class="op">!</span><span class="kw">is.complex</span>(x)) {</span>
+<span id="cb761-3"><a href="functions.html#cb761-3"></a>    <span class="cf">if</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb761-4"><a href="functions.html#cb761-4"></a>      <span class="kw">stop</span>(<span class="st">&quot;Computer says no.&quot;</span>)</span>
+<span id="cb761-5"><a href="functions.html#cb761-5"></a>    }</span>
+<span id="cb761-6"><a href="functions.html#cb761-6"></a>  }</span>
+<span id="cb761-7"><a href="functions.html#cb761-7"></a>  y &lt;-<span class="st"> </span><span class="kw">sqrt</span>(x)</span>
+<span id="cb761-8"><a href="functions.html#cb761-8"></a>  <span class="cf">if</span> (print_info) {</span>
+<span id="cb761-9"><a href="functions.html#cb761-9"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;sqrt&quot;</span>, x, <span class="st">&quot;equals&quot;</span>, y))</span>
+<span id="cb761-10"><a href="functions.html#cb761-10"></a>  }</span>
+<span id="cb761-11"><a href="functions.html#cb761-11"></a>  <span class="kw">return</span>(y)</span>
+<span id="cb761-12"><a href="functions.html#cb761-12"></a>}</span>
+<span id="cb761-13"><a href="functions.html#cb761-13"></a><span class="kw">my_sqrt</span>(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>Error in my_sqrt(-1): Computer says no.</code></pre>
+<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="functions.html#cb763-1"></a>x &lt;-<span class="st"> </span>3i<span class="op">^</span><span class="dv">2</span> <span class="co"># </span></span>
+<span id="cb763-2"><a href="functions.html#cb763-2"></a><span class="kw">my_sqrt</span>(x)</span></code></pre></div>
+<pre><code>[1] &quot;sqrt -9+0i equals 0+3i&quot;</code></pre>
+<pre><code>[1] 0+3i</code></pre>
+<p>The example also illustrates that you can specify the error/warning message yourself. Even if it’s not the case for this example, make sure that these messages are informative. Both for the user and yourself. This way, the user will know what went wrong and why the function doesn’t work. This will save you a lot of time in the future, when you will use code that you have written a long time ago.</p>
+<!-- ![](images/OldCode1.jpg) ![](images/OldCode2.jpg) -->
+<p><img src="images/OldCode1.jpg" width="50%" /><img src="images/OldCode2.jpg" width="50%" /></p>
+</div>
+<div id="the-argument" class="section level3">
+<h3><span class="header-section-number">8.5.3</span> The ‘…’ argument</h3>
+<p>You probably already encountered the ellipsis argument <code>...</code> in the help files of some functions (see <code>?plot</code> for example). This argument allows you to pass the arguments of your self-written function to another function (within your function).</p>
+<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="functions.html#cb766-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, ...) {</span>
+<span id="cb766-2"><a href="functions.html#cb766-2"></a>  <span class="kw">plot</span>(x, y, ...)</span>
+<span id="cb766-3"><a href="functions.html#cb766-3"></a>  lmFit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb766-4"><a href="functions.html#cb766-4"></a>  muHat &lt;-<span class="st"> </span><span class="kw">fitted</span>(lmFit)</span>
+<span id="cb766-5"><a href="functions.html#cb766-5"></a>  muHat &lt;-<span class="st"> </span>muHat[<span class="kw">order</span>(x)]</span>
+<span id="cb766-6"><a href="functions.html#cb766-6"></a>  x     &lt;-<span class="st"> </span>x[<span class="kw">order</span>(x)]</span>
+<span id="cb766-7"><a href="functions.html#cb766-7"></a>  <span class="kw">lines</span>(x, muHat, <span class="dt">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb766-8"><a href="functions.html#cb766-8"></a>}</span>
+<span id="cb766-9"><a href="functions.html#cb766-9"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e2</span>)</span>
+<span id="cb766-10"><a href="functions.html#cb766-10"></a>y &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e2</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb766-11"><a href="functions.html#cb766-11"></a><span class="kw">f</span>(x, y, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;x-values&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;y-values&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;OLS plot&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-185-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="function-environments-advanced" class="section level3">
+<h3><span class="header-section-number">8.5.4</span> Function environments (advanced)</h3>
+<p>This part is a bit more advanced, so don’t worry if you don’t fully understand everything in this section. Know that it suffices to have a general understanding of this chapter and that you can read it again once you are more familiar with writing functions. For an in-depth discussion on (function) environments, we refer the reader to the Advanced R book <span class="citation">(Wickham 2019)</span>.</p>
+<p>Remember the sandbox analogy? Our global environment is our big sandbox and the objects that we create in this sandbox, stay in it. When we define a function and give it a name, we create a new object in our sandbox. Just like any other object, we can call it by using its name. Keeping the sandbox analogy, we can look at a function as a mini-sandbox within our larger sandbox, just like other objects. Functions, however, are fundamentally different from other objects. Not only because of their class, but also because of how they operate and their interaction with the different environments in R.</p>
+<p>The inner part of the function (i.e. the part in the curly braces <code>{}</code>) has its own environment, called the execution environment. Further, functions have what they call a fresh start principle <span class="citation">(Wickham 2019)</span>. This means that, every time we run a function, a new execution environment is created in which the inner part is executed. Translating this to the sandbox analogy, we start with a clean mini-sandbox every time we run the function and after the function has been completed, we throw away everything that was computed and created in this mini-sandbox.</p>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb767-1"><a href="functions.html#cb767-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>() {</span>
+<span id="cb767-2"><a href="functions.html#cb767-2"></a>  a &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb767-3"><a href="functions.html#cb767-3"></a>  a &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb767-4"><a href="functions.html#cb767-4"></a>  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">environment:&quot;</span>)</span>
+<span id="cb767-5"><a href="functions.html#cb767-5"></a>  <span class="kw">print</span>(<span class="kw">environment</span>())</span>
+<span id="cb767-6"><a href="functions.html#cb767-6"></a>  a</span>
+<span id="cb767-7"><a href="functions.html#cb767-7"></a>}</span>
+<span id="cb767-8"><a href="functions.html#cb767-8"></a><span class="kw">f</span>()</span></code></pre></div>
+<pre><code>
+environment:&lt;environment: 0x000001aeaa2b6788&gt;</code></pre>
+<pre><code>[1] 2</code></pre>
+<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="functions.html#cb770-1"></a><span class="kw">f</span>()</span></code></pre></div>
+<pre><code>
+environment:&lt;environment: 0x000001aeaa31ecd0&gt;</code></pre>
+<pre><code>[1] 2</code></pre>
+<p>In this example we see that a new (execution) environment is created every time the function is called. Due to this fresh start principle, R makes sure that results are not contaminated due to previous function calls and that we get the same result when we run the function with the same arguments.</p>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb773-1"><a href="functions.html#cb773-1"></a><span class="kw">rm</span>(x, a)</span>
+<span id="cb773-2"><a href="functions.html#cb773-2"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb773-3"><a href="functions.html#cb773-3"></a>  x <span class="op">*</span><span class="st"> </span>a</span>
+<span id="cb773-4"><a href="functions.html#cb773-4"></a>}</span>
+<span id="cb773-5"><a href="functions.html#cb773-5"></a><span class="kw">f</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>Error in f(2): object &#39;a&#39; not found</code></pre>
+<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb775-1"><a href="functions.html#cb775-1"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb775-2"><a href="functions.html#cb775-2"></a><span class="kw">f</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>[1] 6</code></pre>
 <hr />
 </div>
 </div>
 <div id="the-apply-family" class="section level2">
-<h2><span class="header-section-number">8.5</span> The apply family</h2>
-<p>Whenever you’re using a for loop, you might want to revise your code and see whether you can a member of the <code>apply</code> family instead. [Quote from DataCamp’s `Intermediate R’ course]</p>
-<p><code>apply</code> is the first member of this family.</p>
+<h2><span class="header-section-number">8.6</span> The apply family</h2>
+<p>Whenever you’re using a for loop, you might want to revise your code and see whether you can use a member of the <code>apply</code> family instead. [Quote from DataCamp’s `Intermediate R’ course]</p>
+<p>These functions may be a bit confusing at first, but once you get the hang of them they will be your best friends. With this family of functions, we are able to avoid loops, to run our code faster (certainly when using the parallel versions) and the risk of having an error is considerably lower. As <span class="citation">(Douglas et al. 2020)</span> accurately and honestly put it:
+<strong>If you can, use the apply version. There’s nothing worse than realizing there was a small, tiny, seemingly meaningless mistake in a loop which weeks, months or years down the line has propagated into a huge mess. We strongly recommend trying to use the apply functions whenever possible.</strong></p>
+<p><img src="images/TaskFailedSuccesfully.jpg" /></p>
+<p>Just look at the following example which is a simplification of what might happen in reality. This all has to do with our (execution) environment. In the <code>for</code> loop this is our global environment and that’s why the original <code>x</code> gets overwritten. Conversely, when using <code>sapply()</code> we have the fresh start principle. Every ‘loop’ within <code>sapply</code> starts with a ‘clean’ environment.</p>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="functions.html#cb777-1"></a>x &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb777-2"><a href="functions.html#cb777-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</span>
+<span id="cb777-3"><a href="functions.html#cb777-3"></a>  x =<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>i</span>
+<span id="cb777-4"><a href="functions.html#cb777-4"></a>  <span class="kw">print</span>(x)</span>
+<span id="cb777-5"><a href="functions.html#cb777-5"></a>}</span></code></pre></div>
+<pre><code>[1] 4
+[1] 6
+[1] 9</code></pre>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="functions.html#cb779-1"></a>x &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb779-2"><a href="functions.html#cb779-2"></a><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(i) {</span>
+<span id="cb779-3"><a href="functions.html#cb779-3"></a>  x &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>i</span>
+<span id="cb779-4"><a href="functions.html#cb779-4"></a>  x</span>
+<span id="cb779-5"><a href="functions.html#cb779-5"></a>})</span></code></pre></div>
+<pre><code>[1] 4 5 6</code></pre>
+<p>The first member of this family is the function <code>apply</code>.</p>
 <ul>
-<li>It must be applied on a matrix.</li>
-<li>It takes the following arguments:</li>
+<li>It must be applied on an array and is also applicable to a matrix and a data.frame.</li>
+<li>It takes the following arguments:
+<ul>
 <li>first argument: matrix you are working with</li>
-<li>second argument: margin to apply the function over (1 for rows and 2 for columns)</li>
+<li>second argument: margin to apply the function over (1 for rows and 2
+for columns)</li>
 <li>third argument: function you want to apply.</li>
+</ul></li>
 </ul>
 <p>Here you see how it works.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>)
-<span class="co"># sum the rows</span>
-<span class="kw">apply</span>(my_matrix, <span class="dv">1</span>, sum)</code></pre></div>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="functions.html#cb781-1"></a>my_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>)</span>
+<span id="cb781-2"><a href="functions.html#cb781-2"></a><span class="co"># sum the rows</span></span>
+<span id="cb781-3"><a href="functions.html#cb781-3"></a><span class="kw">apply</span>(my_matrix, <span class="dv">1</span>, sum)</span></code></pre></div>
 <pre><code>[1] 12 15 18</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sum the columns</span>
-<span class="kw">apply</span>(my_matrix, <span class="dv">2</span>, sum)</code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="functions.html#cb783-1"></a><span class="co"># sum the columns</span></span>
+<span id="cb783-2"><a href="functions.html#cb783-2"></a><span class="kw">apply</span>(my_matrix, <span class="dv">2</span>, sum)</span></code></pre></div>
 <pre><code>[1]  6 15 24</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># impute a missing observation in my_matrix</span>
-my_matrix[<span class="dv">2</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
-<span class="kw">apply</span>(my_matrix, <span class="dv">1</span>, sum)</code></pre></div>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="functions.html#cb785-1"></a><span class="co"># impute a missing observation in my_matrix</span></span>
+<span id="cb785-2"><a href="functions.html#cb785-2"></a>my_matrix[<span class="dv">2</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb785-3"><a href="functions.html#cb785-3"></a><span class="kw">apply</span>(my_matrix, <span class="dv">1</span>, sum)</span></code></pre></div>
 <pre><code>[1] 12 NA 18</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(my_matrix, <span class="dv">1</span>, sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="functions.html#cb787-1"></a><span class="kw">apply</span>(my_matrix, <span class="dv">1</span>, sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>[1] 12 13 18</code></pre>
 <p>You already encountered a first illustration of <code>tapply</code> in Chapter <a href="started-with-data.html#started-with-data">4</a>. The <code>tapply</code> function is useful when we need to break up a vector into groups defined by some classifying factor, compute a function on the subsets, and return the results in a convenient form.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5500</span>, <span class="dv">3500</span>, <span class="dv">6500</span>, <span class="dv">7500</span>)
-gender &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;F&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;M&quot;</span>)
-region &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;North&quot;</span>, <span class="st">&quot;South&quot;</span>, <span class="st">&quot;North&quot;</span>, <span class="st">&quot;South&quot;</span>)
-salary &lt;-<span class="st"> </span><span class="kw">data.frame</span>(wages, gender, region)
-<span class="kw">tapply</span>(salary<span class="op">$</span>wages, salary<span class="op">$</span>gender, mean)</code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="functions.html#cb789-1"></a>wages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5500</span>, <span class="dv">3500</span>, <span class="dv">6500</span>, <span class="dv">7500</span>)</span>
+<span id="cb789-2"><a href="functions.html#cb789-2"></a>gender &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;F&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;M&quot;</span>)</span>
+<span id="cb789-3"><a href="functions.html#cb789-3"></a>region &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;North&quot;</span>, <span class="st">&quot;South&quot;</span>, <span class="st">&quot;North&quot;</span>, <span class="st">&quot;South&quot;</span>)</span>
+<span id="cb789-4"><a href="functions.html#cb789-4"></a>salary &lt;-<span class="st"> </span><span class="kw">data.frame</span>(wages, gender, region)</span>
+<span id="cb789-5"><a href="functions.html#cb789-5"></a><span class="kw">tapply</span>(salary<span class="op">$</span>wages, salary<span class="op">$</span>gender, mean)</span></code></pre></div>
 <pre><code>   F    M 
 4500 7000 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(salary<span class="op">$</span>wages, <span class="kw">list</span>(salary<span class="op">$</span>gender, salary<span class="op">$</span>region), mean)</code></pre></div>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="functions.html#cb791-1"></a><span class="kw">tapply</span>(salary<span class="op">$</span>wages, <span class="kw">list</span>(salary<span class="op">$</span>gender, salary<span class="op">$</span>region), mean)</span></code></pre></div>
 <pre><code>  North South
 F  5500  3500
 M  6500  7500</code></pre>
-<p><code>lapply</code> works by applying a function to each element of a list and returning the results as a list. To return the result of <code>lapply</code> as a vector instead of a list, use <code>sapply</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">A =</span> <span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>), <span class="dt">B =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">C =</span> <span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">2</span>), <span class="dt">D =</span> <span class="dv">2</span>)
-my_list</code></pre></div>
+<p><code>lapply</code> works by applying a function to each element of a list and
+returning the results as a list. To return the result of <code>lapply</code> as a vector instead of a list, use <code>sapply</code>.</p>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb793-1"><a href="functions.html#cb793-1"></a>my_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">A =</span> <span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>), <span class="dt">B =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">C =</span> <span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">2</span>), <span class="dt">D =</span> <span class="dv">2</span>)</span>
+<span id="cb793-2"><a href="functions.html#cb793-2"></a>my_list</span></code></pre></div>
 <pre><code>$A
      [,1] [,2] [,3]
 [1,]    1    4    7
@@ -541,7 +900,7 @@ $C
 
 $D
 [1] 2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(my_list, sum)</code></pre></div>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb795-1"><a href="functions.html#cb795-1"></a><span class="kw">lapply</span>(my_list, sum)</span></code></pre></div>
 <pre><code>$A
 [1] 45
 
@@ -553,11 +912,11 @@ $C
 
 $D
 [1] 2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(my_list, sum)</code></pre></div>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb797-1"><a href="functions.html#cb797-1"></a><span class="kw">sapply</span>(my_list, sum)</span></code></pre></div>
 <pre><code> A  B  C  D 
 45 15 10  2 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Katrien&quot;</span>, <span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Leen&quot;</span>)
-<span class="kw">lapply</span>(my_names, nchar)</code></pre></div>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb799-1"><a href="functions.html#cb799-1"></a>my_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Katrien&quot;</span>, <span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Leen&quot;</span>)</span>
+<span id="cb799-2"><a href="functions.html#cb799-2"></a><span class="kw">lapply</span>(my_names, nchar)</span></code></pre></div>
 <pre><code>[[1]]
 [1] 7
 
@@ -566,14 +925,14 @@ $D
 
 [[3]]
 [1] 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(my_names, nchar)</code></pre></div>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb801-1"><a href="functions.html#cb801-1"></a><span class="kw">sapply</span>(my_names, nchar)</span></code></pre></div>
 <pre><code>Katrien     Jan    Leen 
       7       3       4 </code></pre>
 <p><code>mapply</code> applies a function to each element of multiple lists.</p>
 <hr />
 </div>
 <div id="exercises-5" class="section level2">
-<h2><span class="header-section-number">8.6</span> Exercises</h2>
+<h2><span class="header-section-number">8.7</span> Exercises</h2>
 <div class="learncheck">
 <p>
 <strong><em>Learning check</em></strong>
@@ -581,7 +940,13 @@ $D
 </div>
 <ol style="list-style-type: decimal">
 <li><p>Create a function that will return the sum of 2 integers.</p></li>
-<li><p>The function <code>var</code> in R calculates the unbiased variance estimator, given a random sample of data. Write a function <code>variance</code> which returns the biased or unbiased estimate of the variance, depending on the value of the argument <code>bias</code> which can be <code>TRUE</code> or <code>FALSE</code>. By default the function <code>variance</code> should produce the same result as <code>var</code>. Formulas: unbiased = <span class="math inline">\(\frac{1}{n-1}\sum_i (x_i-\bar{x})^2\)</span> and biased = <span class="math inline">\(\frac{1}{n}\sum_i(x_i-\bar{x})^2\)</span> where <span class="math inline">\(\bar{x}=\frac{1}{n} \sum_i x_i\)</span>.</p></li>
+<li><p>The function <code>var</code> in R calculates the unbiased variance estimator, given
+a random sample of data. Write a function <code>variance</code> which returns the biased
+or unbiased estimate of the variance, depending on the value of the argument
+<code>bias</code> which can be <code>TRUE</code> or <code>FALSE</code>. By default the function <code>variance</code>
+should produce the same result as <code>var</code>.
+Formulas: unbiased = <span class="math inline">\(\frac{1}{n-1}\sum_i (x_i-\bar{x})^2\)</span> and
+biased = <span class="math inline">\(\frac{1}{n}\sum_i(x_i-\bar{x})^2\)</span> where <span class="math inline">\(\bar{x}=\frac{1}{n} \sum_i x_i\)</span>.</p></li>
 <li><p>Create a function that given a vector and an integer will return how many times the integer appears inside the vector.</p></li>
 <li><p>Create a function that given a vector will print by screen the mean and the standard deviation, it will optionally also print the median.</p></li>
 </ol>
@@ -602,11 +967,13 @@ $D
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -614,12 +981,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -627,6 +993,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -643,10 +1017,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

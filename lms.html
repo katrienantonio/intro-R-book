@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data science in insurance: an R intro</title>
-  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10 Linear Regression Models in R | Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:title" content="10 Linear Regression Models in R | Data science in insurance: an R intro" />
   <meta property="og:type" content="book" />
   
   
@@ -17,29 +16,31 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  <meta name="twitter:title" content="10 Linear Regression Models in R | Data science in insurance: an R intro" />
   
   <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
   
 
-<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo DC Campo" />
 
 
-<meta name="date" content="2018-10-28">
+<meta name="date" content="2020-11-27" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="optimization.html">
-<link rel="next" href="glms.html">
+<link rel="prev" href="optimization.html"/>
+<link rel="next" href="glms.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,44 +48,74 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,22 +155,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
 <li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
-<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
-<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
-<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
-<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
-<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
-<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
-<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#subsec:Objects"><i class="fa fa-check"></i><b>3.2</b> Objects</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.3</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.4</b> Basic data types</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="objects-data-types.html"><a href="objects-data-types.html#vector-indexing"><i class="fa fa-check"></i><b>3.5.1</b> Vector indexing</a></li>
+<li class="chapter" data-level="3.5.2" data-path="objects-data-types.html"><a href="objects-data-types.html#character-and-logical-vectors"><i class="fa fa-check"></i><b>3.5.2</b> Character and logical vectors</a></li>
+<li class="chapter" data-level="3.5.3" data-path="objects-data-types.html"><a href="objects-data-types.html#missing-values"><i class="fa fa-check"></i><b>3.5.3</b> Missing values</a></li>
+<li class="chapter" data-level="3.5.4" data-path="objects-data-types.html"><a href="objects-data-types.html#logical-operators"><i class="fa fa-check"></i><b>3.5.4</b> Logical operators</a></li>
+<li class="chapter" data-level="3.5.5" data-path="objects-data-types.html"><a href="objects-data-types.html#factors"><i class="fa fa-check"></i><b>3.5.5</b> Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="objects-data-types.html"><a href="objects-data-types.html#matrix-operations-and-indexing"><i class="fa fa-check"></i><b>3.6.1</b> Matrix operations and indexing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.7</b> Lists</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.8</b> Data frames</a></li>
 <li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
 <li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
 <li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
-<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
-<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
-<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-an-.xlsx-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing an .xlsx file</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
@@ -199,17 +237,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
 <li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
-<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
-<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
-<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators-1"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#conditional-statements"><i class="fa fa-check"></i><b>8.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.4</b> Loops</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.4.1</b> The for loop</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.4.2</b> The while loop</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
-<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
-<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.5</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="functions.html"><a href="functions.html#using-a-function"><i class="fa fa-check"></i><b>8.5.1</b> Using a function</a></li>
+<li class="chapter" data-level="8.5.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.5.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5.3" data-path="functions.html"><a href="functions.html#the-argument"><i class="fa fa-check"></i><b>8.5.3</b> The ‘…’ argument</a></li>
+<li class="chapter" data-level="8.5.4" data-path="functions.html"><a href="functions.html#function-environments-advanced"><i class="fa fa-check"></i><b>8.5.4</b> Function environments (advanced)</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
-<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.6</b> The apply family</a></li>
+<li class="chapter" data-level="8.7" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.7</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
 <li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
@@ -255,69 +296,69 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Your journey as a model builder in R will start from studying linear models and the use of the <code>lm</code> function.</p>
 <div id="a-simple-linear-regression-model" class="section level2">
 <h2><span class="header-section-number">10.1</span> A simple linear regression model</h2>
-<p>You analayze Ford dealership data as registered in Milwaukee, September/October 1990. Data on 62 credit card applicants are available, including the car purchase price <span class="math inline">\(Y\)</span> and the applicant’s annual income <span class="math inline">\(X\)</span>. Data are available in the <code>.csv</code> file <code>car_price</code>.</p>
+<p>You analyze Ford dealership data as registered in Milwaukee, September/October 1990. Data on 62 credit card applicants are available, including the car purchase price <span class="math inline">\(Y\)</span> and the applicant’s annual income <span class="math inline">\(X\)</span>. Data are available in the <code>.csv</code> file <code>car_price</code>.</p>
 <p>You first load the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&#39;data&#39;</span>)
-path.car &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;car_price.csv&quot;</span>)
-car_price &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.car)</code></pre></div>
+<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb821-1"><a href="lms.html#cb821-1"></a>path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&#39;data&#39;</span>)</span>
+<span id="cb821-2"><a href="lms.html#cb821-2"></a>path.car &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;car_price.csv&quot;</span>)</span>
+<span id="cb821-3"><a href="lms.html#cb821-3"></a>car_price &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.car)</span></code></pre></div>
 <p>Then you explore the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(car_price)
-<span class="kw">summary</span>(price)</code></pre></div>
+<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="lms.html#cb822-1"></a><span class="kw">attach</span>(car_price)</span>
+<span id="cb822-2"><a href="lms.html#cb822-2"></a><span class="kw">summary</span>(price)</span></code></pre></div>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    7200   11850   14500   15416   18500   28000 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(income)</code></pre></div>
+<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="lms.html#cb824-1"></a><span class="kw">summary</span>(income)</span></code></pre></div>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   15000   30500   40950   45190   55500  102000 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># average</span>
-<span class="kw">mean</span>(price)</code></pre></div>
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="lms.html#cb826-1"></a><span class="co"># average</span></span>
+<span id="cb826-2"><a href="lms.html#cb826-2"></a><span class="kw">mean</span>(price)</span></code></pre></div>
 <pre><code>[1] 15416</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(income)</code></pre></div>
+<div class="sourceCode" id="cb828"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb828-1"><a href="lms.html#cb828-1"></a><span class="kw">mean</span>(income)</span></code></pre></div>
 <pre><code>[1] 45190</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># standard deviation</span>
-<span class="kw">sd</span>(price)</code></pre></div>
+<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb830-1"><a href="lms.html#cb830-1"></a><span class="co"># standard deviation</span></span>
+<span id="cb830-2"><a href="lms.html#cb830-2"></a><span class="kw">sd</span>(price)</span></code></pre></div>
 <pre><code>[1] 5040.4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(income)</code></pre></div>
+<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb832-1"><a href="lms.html#cb832-1"></a><span class="kw">sd</span>(income)</span></code></pre></div>
 <pre><code>[1] 20873</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the 5-th and 95-th percentiles</span>
-<span class="kw">quantile</span>(price, <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</code></pre></div>
+<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="lms.html#cb834-1"></a><span class="co"># the 5-th and 95-th percentiles</span></span>
+<span id="cb834-2"><a href="lms.html#cb834-2"></a><span class="kw">quantile</span>(price, <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</span></code></pre></div>
 <pre><code>   5%   95% 
  7830 25900 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(income, <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</code></pre></div>
+<div class="sourceCode" id="cb836"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb836-1"><a href="lms.html#cb836-1"></a><span class="kw">quantile</span>(income, <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</span></code></pre></div>
 <pre><code>   5%   95% 
 18150 85700 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># histograms of price and income</span>
-<span class="co"># density histogram for &#39;price&#39;</span>
-<span class="kw">hist</span>(price, <span class="dt">br =</span> <span class="dv">20</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">5000</span>, <span class="dv">30000</span>), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">freq=</span><span class="ot">FALSE</span>)
-<span class="kw">lines</span>(<span class="kw">density</span>(price), <span class="dt">col=</span><span class="dv">4</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-143-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># frequency histogram for &#39;income/1000&#39;</span>
-<span class="kw">hist</span>(income<span class="op">/</span><span class="dv">1000</span>, <span class="dt">br=</span><span class="dv">10</span>, <span class="dt">xlab=</span><span class="st">&quot;income (in $000&#39;s)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">120</span>), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-143-2.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># scatter plot &#39;income/1000&#39; versus &#39;price&#39;</span>
-<span class="kw">plot</span>(income<span class="op">/</span><span class="dv">1000</span>, price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab=</span><span class="st">&quot;income (in $000&#39;s)&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-143-3.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(car_price)</code></pre></div>
+<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="lms.html#cb838-1"></a><span class="co"># histograms of price and income</span></span>
+<span id="cb838-2"><a href="lms.html#cb838-2"></a><span class="co"># density histogram for &#39;price&#39;</span></span>
+<span id="cb838-3"><a href="lms.html#cb838-3"></a><span class="kw">hist</span>(price, <span class="dt">br =</span> <span class="dv">20</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">5000</span>, <span class="dv">30000</span>), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">freq=</span><span class="ot">FALSE</span>)</span>
+<span id="cb838-4"><a href="lms.html#cb838-4"></a><span class="kw">lines</span>(<span class="kw">density</span>(price), <span class="dt">col=</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-197-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="lms.html#cb839-1"></a><span class="co"># frequency histogram for &#39;income/1000&#39;</span></span>
+<span id="cb839-2"><a href="lms.html#cb839-2"></a><span class="kw">hist</span>(income<span class="op">/</span><span class="dv">1000</span>, <span class="dt">br=</span><span class="dv">10</span>, <span class="dt">xlab=</span><span class="st">&quot;income (in $000&#39;s)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">120</span>), <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-197-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="lms.html#cb840-1"></a><span class="co"># scatter plot &#39;income/1000&#39; versus &#39;price&#39;</span></span>
+<span id="cb840-2"><a href="lms.html#cb840-2"></a><span class="kw">plot</span>(income<span class="op">/</span><span class="dv">1000</span>, price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab=</span><span class="st">&quot;income (in $000&#39;s)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-197-3.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb841-1"><a href="lms.html#cb841-1"></a><span class="kw">detach</span>(car_price)</span></code></pre></div>
 <p>Explore the data with <code>ggplot</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ggplot2&quot;</span>)
-<span class="kw">ggplot</span>(car_price, <span class="kw">aes</span>(<span class="dt">x =</span> income<span class="op">/</span><span class="dv">1000</span>, <span class="dt">y =</span> price)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_smooth</span>() </code></pre></div>
+<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb842-1"><a href="lms.html#cb842-1"></a><span class="kw">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb842-2"><a href="lms.html#cb842-2"></a><span class="kw">ggplot</span>(car_price, <span class="kw">aes</span>(<span class="dt">x =</span> income<span class="op">/</span><span class="dv">1000</span>, <span class="dt">y =</span> price)) <span class="op">+</span></span>
+<span id="cb842-3"><a href="lms.html#cb842-3"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb842-4"><a href="lms.html#cb842-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb842-5"><a href="lms.html#cb842-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>() </span></code></pre></div>
 <pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-144-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-198-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>You will now fit a simple regression model with income as predictor to purchase price. That is:</p>
-<span class="math display">\[\begin{eqnarray*}
+<p><span class="math display">\[\begin{eqnarray*}
 Y_i &amp;=&amp; \beta_0+\beta_1 \cdot x_i +\epsilon_i,
 \end{eqnarray*}\]</span>
-<p>where <span class="math inline">\(Y_i\)</span> is the car price for observation <span class="math inline">\(i\)</span>, <span class="math inline">\(x_i\)</span> the corresponding income and <span class="math inline">\(\epsilon_i\)</span> an error term. <span class="math inline">\(\beta_0\)</span> is the intercept and <span class="math inline">\(\beta_1\)</span> the slope.</p>
+where <span class="math inline">\(Y_i\)</span> is the car price for observation <span class="math inline">\(i\)</span>, <span class="math inline">\(x_i\)</span> the corresponding income and <span class="math inline">\(\epsilon_i\)</span> an error term. <span class="math inline">\(\beta_0\)</span> is the intercept and <span class="math inline">\(\beta_1\)</span> the slope.</p>
 <p>Recall that fitting a (simple) linear regression model implies minimizing the residual sum of squares. That is:</p>
-<span class="math display">\[\begin{eqnarray*}
+<p><span class="math display">\[\begin{eqnarray*}
 (\hat{\beta}_0,\ \hat{\beta}_1) = \min_{\beta_0, \beta_1} \sum_{i=1}^n \left(Y_i - (\beta_0+\beta_1 \cdot x_{i})\right)^2,
 \end{eqnarray*}\]</span>
-<p>and the fitted values are then specified as <span class="math inline">\(\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1\cdot x_{i}\)</span>. The corresponding residuals are then defined as <span class="math inline">\(\hat{\epsilon}_i = y_i - \hat{y}_i\)</span>.</p>
+and the fitted values are then specified as <span class="math inline">\(\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1\cdot x_{i}\)</span>. The corresponding residuals are then defined as <span class="math inline">\(\hat{\epsilon}_i = y_i - \hat{y}_i\)</span>.</p>
 <p>You assign the output of the <code>lm</code> function to the object <code>lm1</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> car_price)
-<span class="kw">summary</span>(lm1)</code></pre></div>
+<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb844-1"><a href="lms.html#cb844-1"></a>lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>income, <span class="dt">data =</span> car_price)</span>
+<span id="cb844-2"><a href="lms.html#cb844-2"></a><span class="kw">summary</span>(lm1)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = price ~ income, data = car_price)
@@ -336,16 +377,16 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 2460 on 60 degrees of freedom
 Multiple R-squared:  0.766, Adjusted R-squared:  0.762 
 F-statistic:  196 on 1 and 60 DF,  p-value: &lt;2e-16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># check attributes of object &#39;lm1&#39;</span>
-<span class="kw">names</span>(lm1)</code></pre></div>
+<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="lms.html#cb846-1"></a><span class="co"># check attributes of object &#39;lm1&#39;</span></span>
+<span id="cb846-2"><a href="lms.html#cb846-2"></a><span class="kw">names</span>(lm1)</span></code></pre></div>
 <pre><code> [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;        </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># some useful stuff: &#39;coefficients&#39;, &#39;residuals&#39;, &#39;fitted.values&#39;, &#39;model&#39;</span>
-lm1<span class="op">$</span>coef</code></pre></div>
+<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="lms.html#cb848-1"></a><span class="co"># some useful stuff: &#39;coefficients&#39;, &#39;residuals&#39;, &#39;fitted.values&#39;, &#39;model&#39;</span></span>
+<span id="cb848-2"><a href="lms.html#cb848-2"></a>lm1<span class="op">$</span>coef</span></code></pre></div>
 <pre><code>(Intercept)      income 
  5866.33390     0.21132 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1<span class="op">$</span>residuals</code></pre></div>
+<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb850-1"><a href="lms.html#cb850-1"></a>lm1<span class="op">$</span>residuals</span></code></pre></div>
 <pre><code>        1         2         3         4         5         6         7         8 
  -719.290  1146.822  4329.836  3258.062 -3649.431  -483.570  4144.823 -1206.051 
         9        10        11        12        13        14        15        16 
@@ -362,7 +403,7 @@ lm1<span class="op">$</span>coef</code></pre></div>
 -3653.428   190.119 -1616.575 -1085.318 -1866.501 -4379.739  1980.943   -40.023 
        57        58        59        60        61        62 
  3735.415 -1000.472  -672.079  -245.684 -1087.233 -5364.585 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1<span class="op">$</span>fitted.values</code></pre></div>
+<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb852-1"><a href="lms.html#cb852-1"></a>lm1<span class="op">$</span>fitted.values</span></code></pre></div>
 <pre><code>      1       2       3       4       5       6       7       8       9      10 
 14319.3  9353.2  9670.2 14741.9 11149.4 22983.6 16855.2 12206.1 15164.6 14319.3 
      11      12      13      14      15      16      17      18      19      20 
@@ -378,34 +419,34 @@ lm1<span class="op">$</span>coef</code></pre></div>
      61      62 
 15587.2 15164.6 </code></pre>
 <p>To visualize this linear model fit you can use the built-in <code>plot</code> function, applied to object <code>lm1</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use built-in plot function</span>
-<span class="co"># you may have noticed that we have used the function plot with all kinds of arguments: </span>
-<span class="co"># one or two variables, a data frame, and now a linear model fit;</span>
-<span class="co"># in R jargon plot is a generic function; it checks for the kind of object that you # are plotting and then calls the appropriate (more specialized) function to do the work.</span>
-<span class="kw">plot</span>(lm1)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-146-1.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-146-2.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-146-3.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-146-4.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb854"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb854-1"><a href="lms.html#cb854-1"></a><span class="co"># use built-in plot function</span></span>
+<span id="cb854-2"><a href="lms.html#cb854-2"></a><span class="co"># you may have noticed that we have used the function plot with all kinds of arguments: </span></span>
+<span id="cb854-3"><a href="lms.html#cb854-3"></a><span class="co"># one or two variables, a data frame, and now a linear model fit;</span></span>
+<span id="cb854-4"><a href="lms.html#cb854-4"></a><span class="co"># in R jargon plot is a generic function; it checks for the kind of object that you # are plotting and then calls the appropriate (more specialized) function to do the work.</span></span>
+<span id="cb854-5"><a href="lms.html#cb854-5"></a><span class="kw">plot</span>(lm1)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-200-1.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-200-2.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-200-3.png" width="576" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-200-4.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Or you can construct your own plots, e.g. by adding the least squares line to the scatter plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add the regression line to the scatter plot</span>
-<span class="kw">plot</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab =</span> <span class="st">&quot;income&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Simple linear regression&quot;</span>)
-<span class="co"># add LS line like this</span>
-<span class="kw">abline</span>(lm1, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
-<span class="co"># or like this</span>
-<span class="kw">abline</span>(lm1<span class="op">$</span>coefficients[<span class="dv">1</span>], lm1<span class="op">$</span>coefficients[<span class="dv">2</span>])</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-147-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb855-1"><a href="lms.html#cb855-1"></a><span class="co"># add the regression line to the scatter plot</span></span>
+<span id="cb855-2"><a href="lms.html#cb855-2"></a><span class="kw">plot</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab =</span> <span class="st">&quot;income&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Simple linear regression&quot;</span>)</span>
+<span id="cb855-3"><a href="lms.html#cb855-3"></a><span class="co"># add LS line like this</span></span>
+<span id="cb855-4"><a href="lms.html#cb855-4"></a><span class="kw">abline</span>(lm1, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb855-5"><a href="lms.html#cb855-5"></a><span class="co"># or like this</span></span>
+<span id="cb855-6"><a href="lms.html#cb855-6"></a><span class="kw">abline</span>(lm1<span class="op">$</span>coefficients[<span class="dv">1</span>], lm1<span class="op">$</span>coefficients[<span class="dv">2</span>])</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-201-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Similarly, you can illustrate the fit with <code>ggplot</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(car_price, <span class="kw">aes</span>(<span class="dt">x =</span> income, <span class="dt">y =</span> price)) <span class="op">+</span><span class="st"> </span>
-<span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
-<span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st"> </span><span class="kw">geom_smooth</span>()<span class="op">+</span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> lm1<span class="op">$</span>coef[<span class="dv">1</span>], <span class="dt">slope =</span> lm1<span class="op">$</span>coef[<span class="dv">2</span>],   <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="fl">1.25</span>) </code></pre></div>
+<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb856-1"><a href="lms.html#cb856-1"></a><span class="kw">ggplot</span>(car_price, <span class="kw">aes</span>(<span class="dt">x =</span> income, <span class="dt">y =</span> price)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb856-2"><a href="lms.html#cb856-2"></a><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb856-3"><a href="lms.html#cb856-3"></a><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb856-4"><a href="lms.html#cb856-4"></a><span class="st"> </span><span class="kw">geom_smooth</span>()<span class="op">+</span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> lm1<span class="op">$</span>coef[<span class="dv">1</span>], <span class="dt">slope =</span> lm1<span class="op">$</span>coef[<span class="dv">2</span>],   <span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="fl">1.25</span>) </span></code></pre></div>
 <pre><code>`geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-148-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-202-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The least squares fit minimizes the sum of the squares of the vertical distances between the observed response values and the least squares line (or plane). You now graphically illustrate what vertical distance means.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab =</span> <span class="st">&quot;income&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Simple linear regression&quot;</span>)
-<span class="kw">abline</span>(lm1, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
-<span class="kw">segments</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, car_price<span class="op">$</span>income, lm1<span class="op">$</span>fitted.values, <span class="dt">lty=</span><span class="dv">1</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-149-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb858-1"><a href="lms.html#cb858-1"></a><span class="kw">plot</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">xlab =</span> <span class="st">&quot;income&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Simple linear regression&quot;</span>)</span>
+<span id="cb858-2"><a href="lms.html#cb858-2"></a><span class="kw">abline</span>(lm1, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb858-3"><a href="lms.html#cb858-3"></a><span class="kw">segments</span>(car_price<span class="op">$</span>income, car_price<span class="op">$</span>price, car_price<span class="op">$</span>income, lm1<span class="op">$</span>fitted.values, <span class="dt">lty=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-203-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>You now return to the <code>summary(lm1)</code> and try to understand the (rest of the) output that is printed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lm1)</code></pre></div>
+<div class="sourceCode" id="cb859"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb859-1"><a href="lms.html#cb859-1"></a><span class="kw">summary</span>(lm1)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = price ~ income, data = car_price)
@@ -424,38 +465,38 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 2460 on 60 degrees of freedom
 Multiple R-squared:  0.766, Adjusted R-squared:  0.762 
 F-statistic:  196 on 1 and 60 DF,  p-value: &lt;2e-16</code></pre>
-Recall that in a general linear model <span class="math inline">\(Y = X\beta + \epsilon\)</span> where <span class="math inline">\(E[\epsilon]=0\)</span> and <span class="math inline">\(\text{Var}(\epsilon)=\sigma^2 I\)</span> with <span class="math inline">\(I\)</span> the identity matrix, the following estimator is used for the variance of the error terms
+<p>Recall that in a general linear model <span class="math inline">\(Y = X\beta + \epsilon\)</span> where <span class="math inline">\(E[\epsilon]=0\)</span> and <span class="math inline">\(\text{Var}(\epsilon)=\sigma^2 I\)</span> with <span class="math inline">\(I\)</span> the identity matrix, the following estimator is used for the variance of the error terms
 <span class="math display">\[\begin{eqnarray*}
 s^2 &amp;=&amp; \frac{1}{n-(p+1)}(Y-X\hat{\beta})^{&#39;}(Y-X\hat{\beta}),
 \end{eqnarray*}\]</span>
-<p>where <span class="math inline">\(\beta = (\beta_0, \beta_1, \ldots, \beta_p)^{&#39;}\)</span>.</p>
+where <span class="math inline">\(\beta = (\beta_0, \beta_1, \ldots, \beta_p)^{&#39;}\)</span>.</p>
 <p>You can recognize this in the output of <code>lm1</code> as follows</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">error.SS &lt;-<span class="st"> </span><span class="kw">sum</span>(lm1<span class="op">$</span>resid<span class="op">^</span><span class="dv">2</span>)
-error.SS</code></pre></div>
+<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb861-1"><a href="lms.html#cb861-1"></a>error.SS &lt;-<span class="st"> </span><span class="kw">sum</span>(lm1<span class="op">$</span>resid<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb861-2"><a href="lms.html#cb861-2"></a>error.SS</span></code></pre></div>
 <pre><code>[1] 362851718</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(error.SS<span class="op">/</span>(<span class="kw">nrow</span>(car_price)<span class="op">-</span><span class="dv">2</span>))</code></pre></div>
+<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb863-1"><a href="lms.html#cb863-1"></a><span class="kw">sqrt</span>(error.SS<span class="op">/</span>(<span class="kw">nrow</span>(car_price)<span class="op">-</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>[1] 2459.2</code></pre>
-The proportion of the variability in the data that is explained by the regression model is
+<p>The proportion of the variability in the data that is explained by the regression model is
 <span class="math display">\[\begin{eqnarray*}
 R^2 &amp;=&amp; \frac{\text{Regression SS}}{\text{Total SS}} \\
 &amp;=&amp; \frac{\sum_{i=1}^n (\hat{Y}_i-\bar{Y})^2}{\sum_{i=1}^n (Y_i-\bar{Y})^2} \\
 &amp;=&amp; \frac{\sum_{i=1}^n (Y_i-\bar{Y})^2 - \sum_{i=1}^n (Y_i-\hat{Y})^2}{\sum_{i=1}^n (Y_i-\bar{Y})^2}.
-\end{eqnarray*}\]</span>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(car_price)
-total.SS &lt;-<span class="st"> </span><span class="kw">sum</span>((price<span class="op">-</span><span class="kw">mean</span>(price))<span class="op">^</span><span class="dv">2</span>)
-total.SS</code></pre></div>
+\end{eqnarray*}\]</span></p>
+<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb865-1"><a href="lms.html#cb865-1"></a><span class="kw">attach</span>(car_price)</span>
+<span id="cb865-2"><a href="lms.html#cb865-2"></a>total.SS &lt;-<span class="st"> </span><span class="kw">sum</span>((price<span class="op">-</span><span class="kw">mean</span>(price))<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb865-3"><a href="lms.html#cb865-3"></a>total.SS</span></code></pre></div>
 <pre><code>[1] 1549743871</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">error.SS &lt;-<span class="st"> </span><span class="kw">sum</span>(lm1<span class="op">$</span>resid<span class="op">^</span><span class="dv">2</span>)
-error.SS</code></pre></div>
+<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb867-1"><a href="lms.html#cb867-1"></a>error.SS &lt;-<span class="st"> </span><span class="kw">sum</span>(lm1<span class="op">$</span>resid<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb867-2"><a href="lms.html#cb867-2"></a>error.SS</span></code></pre></div>
 <pre><code>[1] 362851718</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># R^2?</span>
-(total.SS<span class="op">-</span>error.SS)<span class="op">/</span>total.SS</code></pre></div>
+<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="lms.html#cb869-1"></a><span class="co"># R^2?</span></span>
+<span id="cb869-2"><a href="lms.html#cb869-2"></a>(total.SS<span class="op">-</span>error.SS)<span class="op">/</span>total.SS</span></code></pre></div>
 <pre><code>[1] 0.76586</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(car_price)</code></pre></div>
+<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="lms.html#cb871-1"></a><span class="kw">detach</span>(car_price)</span></code></pre></div>
 <p>Finally, the output of <code>lm1</code> displays the result of a so-called <span class="math inline">\(F\)</span> test, constructed as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(car_price)
-<span class="co"># anova table in R?</span>
-<span class="kw">anova</span>(lm1)</code></pre></div>
+<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb872-1"><a href="lms.html#cb872-1"></a><span class="kw">attach</span>(car_price)</span>
+<span id="cb872-2"><a href="lms.html#cb872-2"></a><span class="co"># anova table in R?</span></span>
+<span id="cb872-3"><a href="lms.html#cb872-3"></a><span class="kw">anova</span>(lm1)</span></code></pre></div>
 <pre><code>Analysis of Variance Table
 
 Response: price
@@ -464,25 +505,27 @@ income     1 1.19e+09 1.19e+09     196 &lt;2e-16 ***
 Residuals 60 3.63e+08 6.05e+06                   
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># F-statistic in anova and in output lm1?</span>
-lm0 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)
-error0.SS &lt;-<span class="st"> </span><span class="kw">sum</span>(lm0<span class="op">$</span>resid<span class="op">^</span><span class="dv">2</span>)
-
-<span class="co"># calculate F-statistic</span>
-F &lt;-<span class="st"> </span>((<span class="kw">anova</span>(lm0)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>)<span class="op">-</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">2</span>]))<span class="op">/</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Mean Sq&quot;</span>[<span class="dv">2</span>]) 
-F</code></pre></div>
+<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb874-1"><a href="lms.html#cb874-1"></a><span class="co"># F-statistic in anova and in output lm1?</span></span>
+<span id="cb874-2"><a href="lms.html#cb874-2"></a>lm0 &lt;-<span class="st"> </span><span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb874-3"><a href="lms.html#cb874-3"></a>error0.SS &lt;-<span class="st"> </span><span class="kw">sum</span>(lm0<span class="op">$</span>resid<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb874-4"><a href="lms.html#cb874-4"></a></span>
+<span id="cb874-5"><a href="lms.html#cb874-5"></a><span class="co"># calculate F-statistic</span></span>
+<span id="cb874-6"><a href="lms.html#cb874-6"></a>F &lt;-<span class="st"> </span>((<span class="kw">anova</span>(lm0)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>)<span class="op">-</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">2</span>]))<span class="op">/</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Mean Sq&quot;</span>[<span class="dv">2</span>]) </span>
+<span id="cb874-7"><a href="lms.html#cb874-7"></a>F</span></code></pre></div>
 <pre><code>[1] 196.26</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># critical values</span>
-<span class="kw">qf</span>(<span class="fl">0.95</span>, <span class="dv">1</span>, <span class="dv">60</span>)</code></pre></div>
+<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb876-1"><a href="lms.html#cb876-1"></a><span class="co"># critical values</span></span>
+<span id="cb876-2"><a href="lms.html#cb876-2"></a><span class="kw">qf</span>(<span class="fl">0.95</span>, <span class="dv">1</span>, <span class="dv">60</span>)</span></code></pre></div>
 <pre><code>[1] 4.0012</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(F, <span class="dv">1</span>, <span class="dv">60</span>)</code></pre></div>
+<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb878-1"><a href="lms.html#cb878-1"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(F, <span class="dv">1</span>, <span class="dv">60</span>)</span></code></pre></div>
 <pre><code>[1] 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(car_price)</code></pre></div>
+<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb880-1"><a href="lms.html#cb880-1"></a><span class="kw">detach</span>(car_price)</span></code></pre></div>
 <hr />
 </div>
 <div id="a-multiple-linear-regression-model" class="section level2">
 <h2><span class="header-section-number">10.2</span> A multiple linear regression model</h2>
-<p>You’ll now move on from simple to multiple linear regression. You model the data by McDonald and Schwing (1973) published in Technometrics. The sampled data consists of variables obtained for year 1960 for 60 Standard Metropolitan Statistical Areas (SMSA) in the US. The goal is to relate mortality in these SMSA to explanatory variables. For each sample area, you have information concerning the age-adjusted mortality rate for all causes, expressed as deaths per 100,000 population. This will be your response variable. The list of explanatory variables is:</p>
+<p>You’ll now move on from simple to multiple linear regression. You model the
+data by McDonald and Schwing (1973) published in Technometrics. The sampled data consists of variables obtained for year 1960 for 60 Standard Metropolitan
+Statistical Areas (SMSA) in the US. The goal is to relate mortality in these SMSA to explanatory variables. For each sample area, you have information concerning the age-adjusted mortality rate for all causes, expressed as deaths per 100,000 population. This will be your response variable. The list of explanatory variables is:</p>
 <ul>
 <li>weather-related variables:</li>
 <li><code>prec</code>: average annual precipitation in inches</li>
@@ -505,32 +548,12 @@ F</code></pre></div>
 <li><code>so2</code>: relative pollution potential of sulfur dioxides</li>
 </ul>
 <p>First, you’ll load the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&#39;data&#39;</span>)
-path.mort &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;pollution.csv&quot;</span>)
-mort_poll &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.mort)</code></pre></div>
+<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb881-1"><a href="lms.html#cb881-1"></a>path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&#39;data&#39;</span>)</span>
+<span id="cb881-2"><a href="lms.html#cb881-2"></a>path.mort &lt;-<span class="st"> </span><span class="kw">file.path</span>(path, <span class="st">&quot;pollution.csv&quot;</span>)</span>
+<span id="cb881-3"><a href="lms.html#cb881-3"></a>mort_poll &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.mort)</span></code></pre></div>
 <p>Then, you’ll explore the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 17):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 18):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 19):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 20):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 21):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mort_poll)</code></pre></div>
+<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb882-1"><a href="lms.html#cb882-1"></a><span class="kw">attach</span>(mort_poll)</span>
+<span id="cb882-2"><a href="lms.html#cb882-2"></a><span class="kw">summary</span>(mort_poll)</span></code></pre></div>
 <pre><code>      prec           jant           jult          ovr65            popn     
  Min.   :10.0   Min.   :12.0   Min.   :63.0   Min.   : 5.60   Min.   :2.92  
  1st Qu.:32.8   1st Qu.:27.0   1st Qu.:72.0   1st Qu.: 7.67   1st Qu.:3.21  
@@ -559,8 +582,8 @@ mort_poll &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path.mo
  Mean   : 940  
  3rd Qu.: 983  
  Max.   :1113  </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># get correlation matrix</span>
-<span class="kw">round</span>(<span class="kw">cor</span>(mort_poll), <span class="dv">4</span>)</code></pre></div>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="lms.html#cb884-1"></a><span class="co"># get correlation matrix</span></span>
+<span id="cb884-2"><a href="lms.html#cb884-2"></a><span class="kw">round</span>(<span class="kw">cor</span>(mort_poll), <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>         prec    jant    jult   ovr65    popn    educ    hous    dens    nonw
 prec   1.0000  0.0922  0.5033  0.1011  0.2634 -0.4904 -0.4908 -0.0035  0.4132
 jant   0.0922  1.0000  0.3463 -0.3981 -0.2092  0.1163  0.0149 -0.1001  0.4538
@@ -595,50 +618,30 @@ nox    0.1600 -0.1025  0.9838  1.0000  0.4094 -0.0459 -0.0774
 so2   -0.0685 -0.0965  0.2823  0.4094  1.0000 -0.1026  0.4259
 humid  0.0607 -0.1522 -0.0202 -0.0459 -0.1026  1.0000 -0.0885
 mort  -0.2848  0.4105 -0.1772 -0.0774  0.4259 -0.0885  1.0000</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create dataframes</span>
-<span class="co"># weather related vars</span>
-mort_poll_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(mort, prec, jant, jult, humid)
-<span class="co"># socio-economic vars</span>
-mort_poll_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(mort, ovr65, popn, educ, hous, dens, nonw, wwdrk, poor)
-<span class="co"># pollution effects</span>
-mort_poll_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(mort, hc, nox, so2)
-
-<span class="co"># matrix scatterplots</span>
-<span class="kw">pairs</span>(mort_poll_<span class="dv">1</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">19</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-155-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(mort_poll_<span class="dv">2</span>, <span class="dt">cex=</span><span class="fl">0.5</span>, <span class="dt">pch=</span><span class="dv">19</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-155-2.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(mort_poll_<span class="dv">3</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">19</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-155-3.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
-First, you fit a rather simple linear model to explain <code>mort</code>. That is
+<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="lms.html#cb886-1"></a><span class="co"># create dataframes</span></span>
+<span id="cb886-2"><a href="lms.html#cb886-2"></a><span class="co"># weather related vars</span></span>
+<span id="cb886-3"><a href="lms.html#cb886-3"></a>mort_poll_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(mort, prec, jant, jult, humid)</span>
+<span id="cb886-4"><a href="lms.html#cb886-4"></a><span class="co"># socio-economic vars</span></span>
+<span id="cb886-5"><a href="lms.html#cb886-5"></a>mort_poll_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(mort, ovr65, popn, educ, hous, dens, nonw, wwdrk, poor)</span>
+<span id="cb886-6"><a href="lms.html#cb886-6"></a><span class="co"># pollution effects</span></span>
+<span id="cb886-7"><a href="lms.html#cb886-7"></a>mort_poll_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(mort, hc, nox, so2)</span>
+<span id="cb886-8"><a href="lms.html#cb886-8"></a></span>
+<span id="cb886-9"><a href="lms.html#cb886-9"></a><span class="co"># matrix scatterplots</span></span>
+<span id="cb886-10"><a href="lms.html#cb886-10"></a><span class="kw">pairs</span>(mort_poll_<span class="dv">1</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-209-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb887-1"><a href="lms.html#cb887-1"></a><span class="kw">pairs</span>(mort_poll_<span class="dv">2</span>, <span class="dt">cex=</span><span class="fl">0.5</span>, <span class="dt">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-209-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="lms.html#cb888-1"></a><span class="kw">pairs</span>(mort_poll_<span class="dv">3</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-209-3.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb889-1"><a href="lms.html#cb889-1"></a><span class="kw">detach</span>(mort_poll)</span></code></pre></div>
+<p>First, you fit a rather simple linear model to explain <code>mort</code>. That is
 <span class="math display">\[\begin{eqnarray*}
 Y &amp;=&amp; \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i,
 \end{eqnarray*}\]</span>
-<p>where <span class="math inline">\(\beta_0\)</span> is the intercept, <span class="math inline">\(x_1\)</span> the <code>educ</code> and <span class="math inline">\(x_2\)</span> the <code>so2</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 17):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 18):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 19):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 20):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 21):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>so2)
-<span class="kw">summary</span>(lm1)</code></pre></div>
+where <span class="math inline">\(\beta_0\)</span> is the intercept, <span class="math inline">\(x_1\)</span> the <code>educ</code> and <span class="math inline">\(x_2\)</span> the <code>so2</code>.</p>
+<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb890-1"><a href="lms.html#cb890-1"></a><span class="kw">attach</span>(mort_poll)</span>
+<span id="cb890-2"><a href="lms.html#cb890-2"></a>lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>so2)</span>
+<span id="cb890-3"><a href="lms.html#cb890-3"></a><span class="kw">summary</span>(lm1)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = mort ~ educ + so2)
@@ -658,9 +661,9 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 50.6 on 57 degrees of freedom
 Multiple R-squared:  0.36,  Adjusted R-squared:  0.338 
 F-statistic: 16.1 on 2 and 57 DF,  p-value: 2.96e-06</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb892-1"><a href="lms.html#cb892-1"></a><span class="kw">detach</span>(mort_poll)</span></code></pre></div>
 <p>You inspect the analysis-of-variance table for this linear model <code>lm1</code>. That is</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lm1)</code></pre></div>
+<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb893-1"><a href="lms.html#cb893-1"></a><span class="kw">anova</span>(lm1)</span></code></pre></div>
 <pre><code>Analysis of Variance Table
 
 Response: mort
@@ -670,30 +673,10 @@ so2        1  22642   22642    8.84  0.0043 **
 Residuals 57 146054    2562                    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 17):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 18):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 19):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 20):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 21):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm0 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)
-lm_educ &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>educ)
-<span class="kw">anova</span>(lm_educ)</code></pre></div>
+<div class="sourceCode" id="cb895"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb895-1"><a href="lms.html#cb895-1"></a><span class="kw">attach</span>(mort_poll)</span>
+<span id="cb895-2"><a href="lms.html#cb895-2"></a>lm0 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb895-3"><a href="lms.html#cb895-3"></a>lm_educ &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>educ)</span>
+<span id="cb895-4"><a href="lms.html#cb895-4"></a><span class="kw">anova</span>(lm_educ)</span></code></pre></div>
 <pre><code>Analysis of Variance Table
 
 Response: mort
@@ -702,149 +685,64 @@ educ       1  59612   59612    20.5  3e-05 ***
 Residuals 58 168696    2909                   
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">F_educ &lt;-<span class="st"> </span>((<span class="kw">anova</span>(lm0)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>)<span class="op">-</span>(<span class="kw">anova</span>(lm_educ)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">2</span>]))<span class="op">/</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Mean Sq&quot;</span>[<span class="dv">3</span>]) 
-F_educ</code></pre></div>
+<div class="sourceCode" id="cb897"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb897-1"><a href="lms.html#cb897-1"></a>F_educ &lt;-<span class="st"> </span>((<span class="kw">anova</span>(lm0)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>)<span class="op">-</span>(<span class="kw">anova</span>(lm_educ)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">2</span>]))<span class="op">/</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Mean Sq&quot;</span>[<span class="dv">3</span>]) </span>
+<span id="cb897-2"><a href="lms.html#cb897-2"></a>F_educ</span></code></pre></div>
 <pre><code>[1] 23.265</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">F_so2 &lt;-<span class="st"> </span>((<span class="kw">anova</span>(lm_educ)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">2</span>])<span class="op">-</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">3</span>]))<span class="op">/</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Mean Sq&quot;</span>[<span class="dv">3</span>]) 
-F_so2</code></pre></div>
+<div class="sourceCode" id="cb899"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb899-1"><a href="lms.html#cb899-1"></a>F_so2 &lt;-<span class="st"> </span>((<span class="kw">anova</span>(lm_educ)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">2</span>])<span class="op">-</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Sum Sq&quot;</span>[<span class="dv">3</span>]))<span class="op">/</span>(<span class="kw">anova</span>(lm1)<span class="op">$</span><span class="st">&quot;Mean Sq&quot;</span>[<span class="dv">3</span>]) </span>
+<span id="cb899-2"><a href="lms.html#cb899-2"></a>F_so2</span></code></pre></div>
 <pre><code>[1] 8.8363</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+<div class="sourceCode" id="cb901"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb901-1"><a href="lms.html#cb901-1"></a><span class="kw">detach</span>(mort_poll)</span></code></pre></div>
 <p>You will now use the object <code>lm1</code> to construct confidence and prediction intervals for a single observation. Given a set of predictor values in <span class="math inline">\(x_0\)</span> the predicted response is <span class="math inline">\(\hat{y}_0 = x_0^{&#39;}\hat{\beta}\)</span>. The uncertainty in predicting the mean response is <span class="math inline">\(\text{Var}(x_0^{&#39;}\hat{\beta})\)</span> whereas the uncertainty in predicting the value of an observation is <span class="math inline">\(\text{Var}(x_0^{&#39;}\hat{\beta}+\epsilon_0)\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 17):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 18):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 19):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 20):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 21):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x0 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">educ =</span> <span class="dv">10</span>, <span class="dt">so2 =</span> <span class="kw">exp</span>(<span class="dv">2</span>))
-<span class="kw">predict</span>(lm1, x0, <span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb902"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb902-1"><a href="lms.html#cb902-1"></a><span class="kw">attach</span>(mort_poll)</span>
+<span id="cb902-2"><a href="lms.html#cb902-2"></a>x0 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">educ =</span> <span class="dv">10</span>, <span class="dt">so2 =</span> <span class="kw">exp</span>(<span class="dv">2</span>))</span>
+<span id="cb902-3"><a href="lms.html#cb902-3"></a><span class="kw">predict</span>(lm1, x0, <span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span></code></pre></div>
 <pre><code>     fit    lwr    upr
 1 956.78 932.55 981.01</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(lm1, x0, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb904-1"><a href="lms.html#cb904-1"></a><span class="kw">predict</span>(lm1, x0, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
 <pre><code>     fit    lwr  upr
 1 956.78 852.56 1061</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb906-1"><a href="lms.html#cb906-1"></a><span class="kw">detach</span>(mort_poll)</span></code></pre></div>
 <p>For a grid of <code>educ</code> values, when <code>so2</code> is fixed, this goes as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 17):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 18):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 19):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 20):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 21):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grid &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">8</span>, <span class="dv">15</span>, <span class="fl">0.1</span>)
-x.new &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">educ =</span> grid, <span class="dt">so2 =</span> <span class="kw">exp</span>(<span class="dv">2</span>))
-p &lt;-<span class="st"> </span><span class="kw">predict</span>(lm1, x.new, <span class="dt">se=</span><span class="ot">TRUE</span>, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>)
-p1 &lt;-<span class="st"> </span><span class="kw">predict</span>(lm1, x.new, <span class="dt">se=</span><span class="ot">TRUE</span>, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>)
-<span class="co"># use `matplot` to plot the columns of one matrix against the columnsof another</span>
-<span class="kw">matplot</span>(grid, p<span class="op">$</span>fit, <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;educ&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;mort&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Predicted mort over a range of educ, log(so2)=2&quot;</span>)
-<span class="kw">matlines</span>(grid, p1<span class="op">$</span>fit, <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;blue&quot;</span>))
-<span class="kw">rug</span>(educ)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-159-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># for an explanation wrt different shapes, see </span>
-<span class="co"># http://stats.stackexchange.com/questions/85560/shape-of-confidence-interval-for-p# redicted-values-in-linear-regression</span>
-<span class="kw">detach</span>(mort_poll)</code></pre></div>
+<div class="sourceCode" id="cb907"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb907-1"><a href="lms.html#cb907-1"></a><span class="kw">attach</span>(mort_poll)</span>
+<span id="cb907-2"><a href="lms.html#cb907-2"></a>grid &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">8</span>, <span class="dv">15</span>, <span class="fl">0.1</span>)</span>
+<span id="cb907-3"><a href="lms.html#cb907-3"></a>x.new &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">educ =</span> grid, <span class="dt">so2 =</span> <span class="kw">exp</span>(<span class="dv">2</span>))</span>
+<span id="cb907-4"><a href="lms.html#cb907-4"></a>p &lt;-<span class="st"> </span><span class="kw">predict</span>(lm1, x.new, <span class="dt">se=</span><span class="ot">TRUE</span>, <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>)</span>
+<span id="cb907-5"><a href="lms.html#cb907-5"></a>p1 &lt;-<span class="st"> </span><span class="kw">predict</span>(lm1, x.new, <span class="dt">se=</span><span class="ot">TRUE</span>, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb907-6"><a href="lms.html#cb907-6"></a><span class="co"># use `matplot` to plot the columns of one matrix against the columnsof another</span></span>
+<span id="cb907-7"><a href="lms.html#cb907-7"></a><span class="kw">matplot</span>(grid, p<span class="op">$</span>fit, <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;educ&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;mort&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Predicted mort over a range of educ, log(so2)=2&quot;</span>)</span>
+<span id="cb907-8"><a href="lms.html#cb907-8"></a><span class="kw">matlines</span>(grid, p1<span class="op">$</span>fit, <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span>
+<span id="cb907-9"><a href="lms.html#cb907-9"></a><span class="kw">rug</span>(educ)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-213-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb908-1"><a href="lms.html#cb908-1"></a><span class="co"># for an explanation wrt different shapes, see </span></span>
+<span id="cb908-2"><a href="lms.html#cb908-2"></a><span class="co"># http://stats.stackexchange.com/questions/85560/shape-of-confidence-interval-for-p# redicted-values-in-linear-regression</span></span>
+<span id="cb908-3"><a href="lms.html#cb908-3"></a><span class="kw">detach</span>(mort_poll)</span></code></pre></div>
 <p>Then you fit a linear model with all 15 variables in the dataset.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 17):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 18):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 19):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 20):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 21):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>humid <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span>nox <span class="op">+</span><span class="st"> </span>so2 <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor)
-lm2<span class="op">$</span>coef</code></pre></div>
+<div class="sourceCode" id="cb909"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb909-1"><a href="lms.html#cb909-1"></a><span class="kw">attach</span>(mort_poll)</span>
+<span id="cb909-2"><a href="lms.html#cb909-2"></a>lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>humid <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span>nox <span class="op">+</span><span class="st"> </span>so2 <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor)</span>
+<span id="cb909-3"><a href="lms.html#cb909-3"></a>lm2<span class="op">$</span>coef</span></code></pre></div>
 <pre><code>(Intercept)        prec        jant        jult       humid          hc 
  1.7640e+03  1.9054e+00 -1.9376e+00 -3.1004e+00  1.0680e-01 -6.7214e-01 
         nox         so2       ovr65        popn        educ        hous 
  1.3401e+00  8.6252e-02 -9.0654e+00 -1.0683e+02 -1.7157e+01 -6.5112e-01 
        dens        nonw       wwdrk        poor 
  3.6005e-03  4.4596e+00 -1.8706e-01 -1.6764e-01 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+<div class="sourceCode" id="cb911"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb911-1"><a href="lms.html#cb911-1"></a><span class="kw">detach</span>(mort_poll)</span></code></pre></div>
 <p>Now perform model selection stepwise, based on AIC.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># model selection based on AIC</span>
-<span class="kw">library</span>(MASS)</code></pre></div>
-<pre><code>
-Attaching package: &#39;MASS&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:dplyr&#39;:
-
-    select</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(mort_poll)</code></pre></div>
-<pre><code>The following objects are masked from mort_poll (pos = 18):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 19):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 20):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 21):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<pre><code>The following objects are masked from mort_poll (pos = 22):
-
-    dens, educ, hc, hous, humid, jant, jult, mort, nonw, nox, ovr65,
-    poor, popn, prec, so2, wwdrk</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)
-<span class="co"># get AIC, mind the difference</span>
-<span class="kw">AIC</span>(lm1)</code></pre></div>
+<div class="sourceCode" id="cb912"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb912-1"><a href="lms.html#cb912-1"></a><span class="co"># model selection based on AIC</span></span>
+<span id="cb912-2"><a href="lms.html#cb912-2"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb912-3"><a href="lms.html#cb912-3"></a><span class="kw">attach</span>(mort_poll)</span>
+<span id="cb912-4"><a href="lms.html#cb912-4"></a>lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb912-5"><a href="lms.html#cb912-5"></a><span class="co"># get AIC, mind the difference</span></span>
+<span id="cb912-6"><a href="lms.html#cb912-6"></a><span class="kw">AIC</span>(lm1)</span></code></pre></div>
 <pre><code>[1] 668.92</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">extractAIC</span>(lm1)</code></pre></div>
+<div class="sourceCode" id="cb914"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb914-1"><a href="lms.html#cb914-1"></a><span class="kw">extractAIC</span>(lm1)</span></code></pre></div>
 <pre><code>[1]   1.00 496.65</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># for linear models with unknown scale (i.e., for lm and aov), </span>
-<span class="co"># -2 log L is computed from the deviance and uses a different additive constant to </span>
-<span class="co"># logLik and hence AIC </span>
-
-<span class="co"># forward search</span>
-<span class="kw">stepAIC</span>(lm1, <span class="kw">list</span>(<span class="dt">upper =</span> <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid, <span class="dt">lower =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb916"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb916-1"><a href="lms.html#cb916-1"></a><span class="co"># for linear models with unknown scale (i.e., for lm and aov), </span></span>
+<span id="cb916-2"><a href="lms.html#cb916-2"></a><span class="co"># -2 log L is computed from the deviance and uses a different additive constant to </span></span>
+<span id="cb916-3"><a href="lms.html#cb916-3"></a><span class="co"># logLik and hence AIC </span></span>
+<span id="cb916-4"><a href="lms.html#cb916-4"></a></span>
+<span id="cb916-5"><a href="lms.html#cb916-5"></a><span class="co"># forward search</span></span>
+<span id="cb916-6"><a href="lms.html#cb916-6"></a><span class="kw">stepAIC</span>(lm1, <span class="kw">list</span>(<span class="dt">upper =</span> <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid, <span class="dt">lower =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">direction =</span> <span class="st">&quot;forward&quot;</span>)</span></code></pre></div>
 <pre><code>Start:  AIC=496.65
 mort ~ 1
 
@@ -994,10 +892,10 @@ Coefficients:
     1315.91         4.50       -19.04        -6.15         2.19        -2.86  
    log(nox)         popn  
       24.01       -73.76  </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># backward search</span>
-lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span>
-<span class="st">         </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid)
-<span class="kw">stepAIC</span>(lm1, <span class="kw">list</span>(<span class="dt">upper =</span> <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid, <span class="dt">lower =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb919-1"><a href="lms.html#cb919-1"></a><span class="co"># backward search</span></span>
+<span id="cb919-2"><a href="lms.html#cb919-2"></a>lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span></span>
+<span id="cb919-3"><a href="lms.html#cb919-3"></a><span class="st">         </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid)</span>
+<span id="cb919-4"><a href="lms.html#cb919-4"></a><span class="kw">stepAIC</span>(lm1, <span class="kw">list</span>(<span class="dt">upper =</span> <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid, <span class="dt">lower =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">direction =</span> <span class="st">&quot;backward&quot;</span>)</span></code></pre></div>
 <pre><code>Start:  AIC=435.55
 mort ~ prec + jant + jult + ovr65 + popn + educ + hous + dens + 
     nonw + wwdrk + poor + hc + log(nox) + log(so2) + humid
@@ -1178,11 +1076,11 @@ Coefficients:
     1232.06         2.08        -2.38       -60.09       -16.88         4.36  
    log(nox)  
       17.74  </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># both directions search</span>
-lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)
-lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span>
-<span class="st">         </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid)
-<span class="kw">stepAIC</span>(lm1, <span class="kw">list</span>(<span class="dt">upper =</span> <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid, <span class="dt">lower =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">direction =</span> <span class="st">&quot;both&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb922"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb922-1"><a href="lms.html#cb922-1"></a><span class="co"># both directions search</span></span>
+<span id="cb922-2"><a href="lms.html#cb922-2"></a>lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb922-3"><a href="lms.html#cb922-3"></a>lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(mort <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span></span>
+<span id="cb922-4"><a href="lms.html#cb922-4"></a><span class="st">         </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid)</span>
+<span id="cb922-5"><a href="lms.html#cb922-5"></a><span class="kw">stepAIC</span>(lm1, <span class="kw">list</span>(<span class="dt">upper =</span> <span class="op">~</span><span class="st"> </span>prec <span class="op">+</span><span class="st"> </span>jant <span class="op">+</span><span class="st"> </span>jult <span class="op">+</span><span class="st"> </span>ovr65 <span class="op">+</span><span class="st"> </span>popn <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>hous <span class="op">+</span><span class="st"> </span>dens <span class="op">+</span><span class="st"> </span>nonw <span class="op">+</span><span class="st"> </span>wwdrk <span class="op">+</span><span class="st"> </span>poor <span class="op">+</span><span class="st"> </span>hc <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(nox) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(so2) <span class="op">+</span><span class="st"> </span>humid, <span class="dt">lower =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">direction =</span> <span class="st">&quot;both&quot;</span>)</span></code></pre></div>
 <pre><code>Start:  AIC=435.55
 mort ~ prec + jant + jult + ovr65 + popn + educ + hous + dens + 
     nonw + wwdrk + poor + hc + log(nox) + log(so2) + humid
@@ -1408,7 +1306,7 @@ Coefficients:
     1232.06         2.08        -2.38       -60.09       -16.88         4.36  
    log(nox)  
       17.74  </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(mort_poll)</code></pre></div>
+<div class="sourceCode" id="cb925"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb925-1"><a href="lms.html#cb925-1"></a><span class="kw">detach</span>(mort_poll)</span></code></pre></div>
 <hr />
 </div>
 <div id="exercises-6" class="section level2">
@@ -1420,8 +1318,8 @@ Coefficients:
 <ul>
 <li>Use the following instructions</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mlbench)
-<span class="kw">data</span>(<span class="st">&quot;BostonHousing&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb926"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb926-1"><a href="lms.html#cb926-1"></a><span class="kw">library</span>(mlbench)</span>
+<span id="cb926-2"><a href="lms.html#cb926-2"></a><span class="kw">data</span>(<span class="st">&quot;BostonHousing&quot;</span>)</span></code></pre></div>
 <ul>
 <li>Inspect the different types of variables present.</li>
 <li>Explore and visualize the distribution of our target variable <code>medv</code>.</li>
@@ -1430,7 +1328,8 @@ Coefficients:
 <li>We have seen that <code>crim</code>, <code>rm</code>, <code>tax</code>, and <code>lstat</code> could be good predictors of <code>medv</code>. To get the ball rolling, let us fit a linear model for these terms.</li>
 <li>Obtain an R-squared value for your model and examine the diagnostic plots found by plotting your linear model.</li>
 <li>We can see a few problems with our model immediately with variables such as 381 exhibiting a high leverage, a poor QQ plot in the tails a relatively poor r-squared value. Let us try another model, this time transforming <code>medv</code> due to the positive skewness it exhibited.</li>
-<li>Examine the diagnostics for the model. What do you conclude? Is this an improvement on the first model? One assumption of a linear model is that the mean of the residuals is zero. You could try and test this.</li>
+<li>Examine the diagnostics for the model. What do you conclude? Is this an improvement on the first model?
+One assumption of a linear model is that the mean of the residuals is zero. You could try and test this.</li>
 <li>Create a data frame of your predicted values and the original values.</li>
 <li>Plot this to visualize the performance of your model.</li>
 </ul>
@@ -1448,11 +1347,13 @@ Coefficients:
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1460,12 +1361,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1473,6 +1373,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -1489,10 +1397,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

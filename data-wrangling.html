@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data science in insurance: an R intro</title>
-  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Data wrangling in R | Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:title" content="6 Data wrangling in R | Data science in insurance: an R intro" />
   <meta property="og:type" content="book" />
   
   
@@ -17,29 +16,31 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  <meta name="twitter:title" content="6 Data wrangling in R | Data science in insurance: an R intro" />
   
   <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
   
 
-<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo DC Campo" />
 
 
-<meta name="date" content="2018-10-28">
+<meta name="date" content="2020-11-27" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-viz.html">
-<link rel="next" href="probs.html">
+<link rel="prev" href="data-viz.html"/>
+<link rel="next" href="probs.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,44 +48,74 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,22 +155,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
 <li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
-<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
-<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
-<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
-<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
-<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
-<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
-<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#subsec:Objects"><i class="fa fa-check"></i><b>3.2</b> Objects</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.3</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.4</b> Basic data types</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="objects-data-types.html"><a href="objects-data-types.html#vector-indexing"><i class="fa fa-check"></i><b>3.5.1</b> Vector indexing</a></li>
+<li class="chapter" data-level="3.5.2" data-path="objects-data-types.html"><a href="objects-data-types.html#character-and-logical-vectors"><i class="fa fa-check"></i><b>3.5.2</b> Character and logical vectors</a></li>
+<li class="chapter" data-level="3.5.3" data-path="objects-data-types.html"><a href="objects-data-types.html#missing-values"><i class="fa fa-check"></i><b>3.5.3</b> Missing values</a></li>
+<li class="chapter" data-level="3.5.4" data-path="objects-data-types.html"><a href="objects-data-types.html#logical-operators"><i class="fa fa-check"></i><b>3.5.4</b> Logical operators</a></li>
+<li class="chapter" data-level="3.5.5" data-path="objects-data-types.html"><a href="objects-data-types.html#factors"><i class="fa fa-check"></i><b>3.5.5</b> Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="objects-data-types.html"><a href="objects-data-types.html#matrix-operations-and-indexing"><i class="fa fa-check"></i><b>3.6.1</b> Matrix operations and indexing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.7</b> Lists</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.8</b> Data frames</a></li>
 <li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
 <li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
 <li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
-<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
-<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
-<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-an-.xlsx-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing an .xlsx file</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
@@ -199,17 +237,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
 <li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
-<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
-<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
-<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators-1"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#conditional-statements"><i class="fa fa-check"></i><b>8.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.4</b> Loops</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.4.1</b> The for loop</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.4.2</b> The while loop</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
-<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
-<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.5</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="functions.html"><a href="functions.html#using-a-function"><i class="fa fa-check"></i><b>8.5.1</b> Using a function</a></li>
+<li class="chapter" data-level="8.5.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.5.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5.3" data-path="functions.html"><a href="functions.html#the-argument"><i class="fa fa-check"></i><b>8.5.3</b> The ‘…’ argument</a></li>
+<li class="chapter" data-level="8.5.4" data-path="functions.html"><a href="functions.html#function-environments-advanced"><i class="fa fa-check"></i><b>8.5.4</b> Function environments (advanced)</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
-<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.6</b> The apply family</a></li>
+<li class="chapter" data-level="8.7" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.7</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
 <li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
@@ -255,7 +296,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>For advanced, and fast, data handling with large R objects and lots of flexibility, two lines of work are available:</p>
 <ul>
 <li>the RStudio line (with Hadley Wickham) offering the packages from the <code>tidyverse</code>: see <a href="https://www.tidyverse.org/">tidyverse</a></li>
-<li>the <code>data.table</code> line developed by Matt Dowle, see e.g. <a href="https://www.datacamp.com/courses/data-table-data-manipulation-r-tutorial">DataCamp’s course on <code>data.table</code></a>.</li>
+<li>the <code>data.table</code> line developed by Matt Dowle, see e.g. <a href="https://www.datacamp.com/courses/data-table-data-manipulation-r-tutorial">DataCamp’s course on <code>data.table</code></a>.</li>
 </ul>
 <p>Both have a very specific syntax, with a demanding learning curve.</p>
 <div id="ideas-from-the-tidyverse" class="section level2">
@@ -263,8 +304,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="a-tibble-instead-of-a-data.frame" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> A <code>tibble</code> instead of a <code>data.frame</code></h3>
 <p>Within the <code>tidyverse</code> tibbles are a modern take on data frames. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating (i.e. converting character vectors to factors). (Quote from <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html">tibble vignette</a>) You can use <code>tibble</code> to create a new tibble and <code>as_tibble</code> transforms an object (e.g. a data frame) into a <code>tibble</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-diamonds</code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="data-wrangling.html#cb558-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb558-2"><a href="data-wrangling.html#cb558-2"></a>diamonds</span></code></pre></div>
 <pre><code># A tibble: 53,940 x 10
    carat cut       color clarity depth table price     x     y     z
    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -287,8 +328,8 @@ diamonds</code></pre></div>
 <div id="filter-observations-using-filter" class="section level3">
 <h3><span class="header-section-number">6.1.3</span> Filter observations using <code>filter</code></h3>
 <p>Here is a first example of using the pipe in R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-<span class="kw">library</span>(dplyr)</code></pre></div>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="data-wrangling.html#cb560-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb560-2"><a href="data-wrangling.html#cb560-2"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
 <pre><code>
 Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:car&#39;:
@@ -300,7 +341,7 @@ Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>The following objects are masked from &#39;package:base&#39;:
 
     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="data-wrangling.html#cb565-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 21,551 x 10
    carat cut   color clarity depth table price     x     y     z
    &lt;dbl&gt; &lt;ord&gt; &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -315,9 +356,10 @@ Attaching package: &#39;dplyr&#39;</code></pre>
  9  0.32 Ideal I     SI1      60.9    55   404  4.45  4.48  2.72
 10  0.3  Ideal I     SI2      61      59   405  4.3   4.33  2.63
 # ... with 21,541 more rows</code></pre>
-<p>The code chunk above will translate to something like “you take the <code>diamonds</code> data, then you subset the data”. This is one of the most powerful things about the tidyverse. In fact, having a standardized chain of processing actions is called “a pipeline”.</p>
+<p>The code chunk above will translate to something like “you take the <code>diamonds</code> data, then you subset the data”.
+This is one of the most powerful things about the tidyverse. In fact, having a standardized chain of processing actions is called “a pipeline”.</p>
 <p>Here is another example where you now filter diamonds based on two characteristics.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span> <span class="op">&amp;</span><span class="st"> </span>color <span class="op">==</span><span class="st"> &quot;E&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="data-wrangling.html#cb567-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span> <span class="op">&amp;</span><span class="st"> </span>color <span class="op">==</span><span class="st"> &quot;E&quot;</span>)</span></code></pre></div>
 <pre><code># A tibble: 3,903 x 10
    carat cut   color clarity depth table price     x     y     z
    &lt;dbl&gt; &lt;ord&gt; &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -332,7 +374,7 @@ Attaching package: &#39;dplyr&#39;</code></pre>
  9  0.6  Ideal E     VS1      61.7    55  2774  5.41  5.44  3.35
 10  0.7  Ideal E     SI1      62.7    55  2774  5.68  5.74  3.58
 # ... with 3,893 more rows</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span> <span class="op">&amp;</span><span class="st"> </span>color <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="data-wrangling.html#cb569-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span> <span class="op">&amp;</span><span class="st"> </span>color <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>))</span></code></pre></div>
 <pre><code># A tibble: 6,737 x 10
    carat cut   color clarity depth table price     x     y     z
    &lt;dbl&gt; &lt;ord&gt; &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -351,37 +393,39 @@ Attaching package: &#39;dplyr&#39;</code></pre>
 <div id="summarize-variables-using-summarize" class="section level3">
 <h3><span class="header-section-number">6.1.4</span> Summarize variables using <code>summarize</code></h3>
 <p>The code chunk below will translate to something like “you take the <code>diamonds</code> data, then you subset the data and then you calculate mean and standard deviation of these data”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(price), <span class="dt">std_dev =</span> <span class="kw">sd</span>(price))</code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="data-wrangling.html#cb571-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(price), <span class="dt">std_dev =</span> <span class="kw">sd</span>(price))</span></code></pre></div>
 <pre><code># A tibble: 1 x 2
    mean std_dev
   &lt;dbl&gt;   &lt;dbl&gt;
-1 3458.   3808.</code></pre>
+1    NA      NA</code></pre>
 </div>
 <div id="summarize-based-on-groupings-of-another-variable" class="section level3">
 <h3><span class="header-section-number">6.1.5</span> Summarize based on groupings of another variable</h3>
 <p>So, here is what you’d like to do.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R way with aggregate</span>
-<span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean)</code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="data-wrangling.html#cb573-1"></a><span class="co"># base R way with aggregate</span></span>
+<span id="cb573-2"><a href="data-wrangling.html#cb573-2"></a><span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean)</span></code></pre></div>
 <pre><code>        cut  price
 1      Fair 4358.8
-2      Good 3928.9
+2      Good 3928.7
 3 Very Good 3981.8
 4   Premium 4584.3
-5     Ideal 3457.5</code></pre>
+5     Ideal 3457.0</code></pre>
 <p>How can you do this with the pipe?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(price))</code></pre></div>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="data-wrangling.html#cb575-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(price))</span></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 5 x 2
   cut        mean
   &lt;ord&gt;     &lt;dbl&gt;
 1 Fair      4359.
-2 Good      3929.
+2 Good        NA 
 3 Very Good 3982.
 4 Premium   4584.
-5 Ideal     3458.</code></pre>
+5 Ideal       NA </code></pre>
 <p>Now you want to group by multiple variables.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut, color) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price))</code></pre></div>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="data-wrangling.html#cb578-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut, color) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price))</span></code></pre></div>
+<pre><code>`summarise()` regrouping output by &#39;cut&#39; (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 35 x 3
-# Groups:   cut [?]
+# Groups:   cut [5]
    cut   color price
    &lt;ord&gt; &lt;ord&gt; &lt;dbl&gt;
  1 Fair  D     4291.
@@ -392,23 +436,25 @@ Attaching package: &#39;dplyr&#39;</code></pre>
  6 Fair  I     4685.
  7 Fair  J     4976.
  8 Good  D     3405.
- 9 Good  E     3424.
+ 9 Good  E       NA 
 10 Good  F     3496.
 # ... with 25 more rows</code></pre>
 <p>Now you want to calculate multiple metrics.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))</code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="data-wrangling.html#cb581-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))</span></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 5 x 3
   cut       price carat
   &lt;ord&gt;     &lt;dbl&gt; &lt;dbl&gt;
 1 Fair      4359. 1.05 
-2 Good      3929. 0.849
+2 Good        NA  0.849
 3 Very Good 3982. 0.806
 4 Premium   4584. 0.892
-5 Ideal     3458. 0.703</code></pre>
+5 Ideal       NA  0.703</code></pre>
 <p>And finally, multiple metrics and multiple grouping variables.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut, color) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))</code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="data-wrangling.html#cb584-1"></a>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut, color) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))</span></code></pre></div>
+<pre><code>`summarise()` regrouping output by &#39;cut&#39; (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 35 x 4
-# Groups:   cut [?]
+# Groups:   cut [5]
    cut   color price carat
    &lt;ord&gt; &lt;ord&gt; &lt;dbl&gt; &lt;dbl&gt;
  1 Fair  D     4291. 0.920
@@ -419,17 +465,18 @@ Attaching package: &#39;dplyr&#39;</code></pre>
  6 Fair  I     4685. 1.20 
  7 Fair  J     4976. 1.34 
  8 Good  D     3405. 0.745
- 9 Good  E     3424. 0.745
+ 9 Good  E       NA  0.745
 10 Good  F     3496. 0.776
 # ... with 25 more rows</code></pre>
 </div>
 <div id="joining-tibbles" class="section level3">
 <h3><span class="header-section-number">6.1.6</span> Joining tibbles</h3>
 <p>Now you want to add the mean price and mean carat per <code>cut</code> to the original tibble. You use the variable <code>cut</code> as the key to identify observations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))
-new_diamonds &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(d, <span class="dt">by =</span> <span class="st">&quot;cut&quot;</span>)
-<span class="kw">View</span>(diamonds)
-<span class="kw">View</span>(new_diamonds)</code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="data-wrangling.html#cb587-1"></a>d &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat))</span></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="data-wrangling.html#cb589-1"></a>new_diamonds &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(d, <span class="dt">by =</span> <span class="st">&quot;cut&quot;</span>)</span>
+<span id="cb589-2"><a href="data-wrangling.html#cb589-2"></a><span class="kw">View</span>(diamonds)</span>
+<span id="cb589-3"><a href="data-wrangling.html#cb589-3"></a><span class="kw">View</span>(new_diamonds)</span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -442,28 +489,28 @@ new_diamonds &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</spa
 <div id="what-is-a-data.table" class="section level3">
 <h3><span class="header-section-number">6.2.2</span> What is a <code>data.table</code>?</h3>
 <p>Here you see some basic illustrations with the <code>diamonds</code> data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)</code></pre></div>
-<pre><code>data.table 1.11.6  Latest news: r-datatable.com</code></pre>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="data-wrangling.html#cb590-1"></a><span class="kw">library</span>(data.table)</span></code></pre></div>
+<pre><code>data.table 1.13.2 using 6 threads (see ?getDTthreads).  Latest news: r-datatable.com</code></pre>
 <pre><code>
 Attaching package: &#39;data.table&#39;</code></pre>
 <pre><code>The following objects are masked from &#39;package:dplyr&#39;:
 
     between, first, last</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-<span class="kw">str</span>(diamonds)</code></pre></div>
-<pre><code>Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:   53940 obs. of  10 variables:
- $ carat  : num  0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="data-wrangling.html#cb594-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb594-2"><a href="data-wrangling.html#cb594-2"></a><span class="kw">str</span>(diamonds)</span></code></pre></div>
+<pre><code>tibble [53,940 x 10] (S3: tbl_df/tbl/data.frame)
+ $ carat  : num [1:53940] 0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
  $ cut    : Ord.factor w/ 5 levels &quot;Fair&quot;&lt;&quot;Good&quot;&lt;..: 5 4 2 4 2 3 3 3 1 3 ...
  $ color  : Ord.factor w/ 7 levels &quot;D&quot;&lt;&quot;E&quot;&lt;&quot;F&quot;&lt;&quot;G&quot;&lt;..: 2 2 2 6 7 7 6 5 2 5 ...
  $ clarity: Ord.factor w/ 8 levels &quot;I1&quot;&lt;&quot;SI2&quot;&lt;&quot;SI1&quot;&lt;..: 2 3 5 4 2 6 7 3 4 5 ...
- $ depth  : num  61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...
- $ table  : num  55 61 65 58 58 57 57 55 61 61 ...
- $ price  : int  326 326 327 334 335 336 336 337 337 338 ...
- $ x      : num  3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...
- $ y      : num  3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...
- $ z      : num  2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds_DT &lt;-<span class="st"> </span><span class="kw">data.table</span>(diamonds)
-diamonds_DT <span class="co"># notice intelligent printing of this DT</span></code></pre></div>
+ $ depth  : num [1:53940] 61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...
+ $ table  : num [1:53940] 55 61 65 58 58 57 57 55 61 61 ...
+ $ price  : int [1:53940] 326 326 327 334 335 336 336 337 337 338 ...
+ $ x      : num [1:53940] 3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...
+ $ y      : num [1:53940] 3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...
+ $ z      : num [1:53940] 2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...</code></pre>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="data-wrangling.html#cb596-1"></a>diamonds_DT &lt;-<span class="st"> </span><span class="kw">data.table</span>(diamonds)</span>
+<span id="cb596-2"><a href="data-wrangling.html#cb596-2"></a>diamonds_DT <span class="co"># notice intelligent printing of this DT</span></span></code></pre></div>
 <pre><code>       carat       cut color clarity depth table price    x    y    z
     1:  0.23     Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
     2:  0.21   Premium     E     SI1  59.8    61   326 3.89 3.84 2.31
@@ -476,20 +523,20 @@ diamonds_DT <span class="co"># notice intelligent printing of this DT</span></co
 53938:  0.70 Very Good     D     SI1  62.8    60  2757 5.66 5.68 3.56
 53939:  0.86   Premium     H     SI2  61.0    58  2757 6.15 6.12 3.74
 53940:  0.75     Ideal     D     SI2  62.2    55  2757 5.83 5.87 3.64</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(diamonds_DT<span class="op">$</span>cut)</code></pre></div>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="data-wrangling.html#cb598-1"></a><span class="kw">summary</span>(diamonds_DT<span class="op">$</span>cut)</span></code></pre></div>
 <pre><code>     Fair      Good Very Good   Premium     Ideal 
      1610      4906     12082     13791     21551 </code></pre>
 </div>
 <div id="identify-keys" class="section level3">
 <h3><span class="header-section-number">6.2.3</span> Identify keys</h3>
 <p>Instead of using <code>subset</code> from the <code>base</code> R, you will use the <code>setkey</code> to extract the observations you want to have.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># key is used to index the data.table and will provide the extra speed</span>
-<span class="kw">setkey</span>(diamonds_DT, cut)
-<span class="kw">tables</span>()</code></pre></div>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="data-wrangling.html#cb600-1"></a><span class="co"># key is used to index the data.table and will provide the extra speed</span></span>
+<span id="cb600-2"><a href="data-wrangling.html#cb600-2"></a><span class="kw">setkey</span>(diamonds_DT, cut)</span>
+<span id="cb600-3"><a href="data-wrangling.html#cb600-3"></a><span class="kw">tables</span>()</span></code></pre></div>
 <pre><code>          NAME   NROW NCOL MB                                    COLS KEY
 1: diamonds_DT 53,940   10  3 carat,cut,color,clarity,depth,table,... cut
 Total: 3MB</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>), ]</code></pre></div>
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="data-wrangling.html#cb602-1"></a>diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>), ]</span></code></pre></div>
 <pre><code>       carat   cut color clarity depth table price    x    y    z
     1:  0.23 Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
     2:  0.23 Ideal     J     VS1  62.8    56   340 3.93 3.90 2.46
@@ -502,14 +549,14 @@ Total: 3MB</code></pre>
 21549:  0.71 Ideal     G     VS1  61.4    56  2756 5.76 5.73 3.53
 21550:  0.72 Ideal     D     SI1  60.8    57  2757 5.75 5.76 3.50
 21551:  0.75 Ideal     D     SI2  62.2    55  2757 5.83 5.87 3.64</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># more than one column can be set as key</span>
-<span class="kw">setkey</span>(diamonds_DT, cut, color)
-<span class="kw">tables</span>()</code></pre></div>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="data-wrangling.html#cb604-1"></a><span class="co"># more than one column can be set as key</span></span>
+<span id="cb604-2"><a href="data-wrangling.html#cb604-2"></a><span class="kw">setkey</span>(diamonds_DT, cut, color)</span>
+<span id="cb604-3"><a href="data-wrangling.html#cb604-3"></a><span class="kw">tables</span>()</span></code></pre></div>
 <pre><code>          NAME   NROW NCOL MB                                    COLS       KEY
 1: diamonds_DT 53,940   10  3 carat,cut,color,clarity,depth,table,... cut,color
 Total: 3MB</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access rows according to both keys, use function &#39;J&#39;</span>
-diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>, <span class="st">&quot;E&quot;</span>), ]</code></pre></div>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="data-wrangling.html#cb606-1"></a><span class="co"># access rows according to both keys, use function &#39;J&#39;</span></span>
+<span id="cb606-2"><a href="data-wrangling.html#cb606-2"></a>diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>, <span class="st">&quot;E&quot;</span>), ]</span></code></pre></div>
 <pre><code>      carat   cut color clarity depth table price    x    y    z
    1:  0.23 Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
    2:  0.26 Ideal     E    VVS2  62.9    58   554 4.02 4.06 2.54
@@ -522,7 +569,7 @@ diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>,
 3901:  0.56 Ideal     E    VVS1  62.1    56  2750 5.28 5.29 3.28
 3902:  0.77 Ideal     E     SI2  62.1    56  2753 5.84 5.86 3.63
 3903:  0.71 Ideal     E     SI1  61.9    56  2756 5.71 5.73 3.54</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>)), ]</code></pre></div>
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="data-wrangling.html#cb608-1"></a>diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>)), ]</span></code></pre></div>
 <pre><code>      carat   cut color clarity depth table price    x    y    z
    1:  0.23 Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
    2:  0.26 Ideal     E    VVS2  62.9    58   554 4.02 4.06 2.54
@@ -535,8 +582,8 @@ diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>,
 6735:  0.81 Ideal     D     SI1  61.5    57  2748 6.00 6.03 3.70
 6736:  0.72 Ideal     D     SI1  60.8    57  2757 5.75 5.76 3.50
 6737:  0.75 Ideal     D     SI2  62.2    55  2757 5.83 5.87 3.64</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># what would be the alternative with base R?</span>
-<span class="kw">subset</span>(diamonds, diamonds<span class="op">$</span>cut<span class="op">==</span><span class="st">&quot;Ideal&quot;</span> <span class="op">&amp;&amp;</span><span class="st"> </span>diamonds<span class="op">$</span>color<span class="op">==</span><span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="data-wrangling.html#cb610-1"></a><span class="co"># what would be the alternative with base R?</span></span>
+<span id="cb610-2"><a href="data-wrangling.html#cb610-2"></a><span class="kw">subset</span>(diamonds, diamonds<span class="op">$</span>cut <span class="op">==</span><span class="st"> &quot;Ideal&quot;</span> <span class="op">&amp;&amp;</span><span class="st"> </span>diamonds<span class="op">$</span>color <span class="op">==</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;E&quot;</span>, <span class="st">&quot;D&quot;</span>))</span></code></pre></div>
 <pre><code># A tibble: 53,940 x 10
    carat cut       color clarity depth table price     x     y     z
    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -555,39 +602,39 @@ diamonds_DT[<span class="kw">J</span>(<span class="st">&quot;Ideal&quot;</span>,
 <div id="alternative-and-faster-ways-to-aggregate" class="section level3">
 <h3><span class="header-section-number">6.2.4</span> Alternative and faster ways to <code>aggregate</code></h3>
 <p>Instead of using <code>aggregate</code> from the <code>base</code> R, you will identify the <code>by</code> variable(s).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R way with aggregate</span>
-<span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean)</code></pre></div>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="data-wrangling.html#cb612-1"></a><span class="co"># base R way with aggregate</span></span>
+<span id="cb612-2"><a href="data-wrangling.html#cb612-2"></a><span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean)</span></code></pre></div>
 <pre><code>        cut  price
 1      Fair 4358.8
-2      Good 3928.9
+2      Good 3928.7
 3 Very Good 3981.8
 4   Premium 4584.3
-5     Ideal 3457.5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean))</code></pre></div>
+5     Ideal 3457.0</code></pre>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="data-wrangling.html#cb614-1"></a><span class="kw">system.time</span>(<span class="kw">aggregate</span>(price <span class="op">~</span><span class="st"> </span>cut, diamonds, mean))</span></code></pre></div>
 <pre><code>   user  system elapsed 
-   0.03    0.00    0.03 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># aggregation with data.table</span>
-<span class="co"># will go faster thanks to indexing</span>
-diamonds_DT[ , <span class="kw">mean</span>(price), by=cut]</code></pre></div>
+   0.01    0.00    0.03 </code></pre>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="data-wrangling.html#cb616-1"></a><span class="co"># aggregation with data.table</span></span>
+<span id="cb616-2"><a href="data-wrangling.html#cb616-2"></a><span class="co"># will go faster thanks to indexing</span></span>
+<span id="cb616-3"><a href="data-wrangling.html#cb616-3"></a>diamonds_DT[ , <span class="kw">mean</span>(price), by=cut]</span></code></pre></div>
 <pre><code>         cut     V1
 1:      Fair 4358.8
-2:      Good 3928.9
+2:      Good     NA
 3: Very Good 3981.8
 4:   Premium 4584.3
-5:     Ideal 3457.5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(diamonds_DT[ , <span class="kw">mean</span>(price), <span class="dt">by=</span>cut])</code></pre></div>
+5:     Ideal     NA</code></pre>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="data-wrangling.html#cb618-1"></a><span class="kw">system.time</span>(diamonds_DT[ , <span class="kw">mean</span>(price), <span class="dt">by=</span>cut])</span></code></pre></div>
 <pre><code>   user  system elapsed 
-   0.01    0.07    0.08 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># give variable names in the create date.table</span>
-diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price)), by=cut]</code></pre></div>
+   0.01    0.00    0.02 </code></pre>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="data-wrangling.html#cb620-1"></a><span class="co"># give variable names in the create date.table</span></span>
+<span id="cb620-2"><a href="data-wrangling.html#cb620-2"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price)), by=cut]</span></code></pre></div>
 <pre><code>         cut  price
 1:      Fair 4358.8
-2:      Good 3928.9
+2:      Good     NA
 3: Very Good 3981.8
 4:   Premium 4584.3
-5:     Ideal 3457.5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># aggregate on multiple columns</span>
-diamonds_DT[ , <span class="kw">mean</span>(price), by=<span class="kw">list</span>(cut,color)]</code></pre></div>
+5:     Ideal     NA</code></pre>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="data-wrangling.html#cb622-1"></a><span class="co"># aggregate on multiple columns</span></span>
+<span id="cb622-2"><a href="data-wrangling.html#cb622-2"></a>diamonds_DT[ , <span class="kw">mean</span>(price), by=<span class="kw">list</span>(cut,color)]</span></code></pre></div>
 <pre><code>          cut color     V1
  1:      Fair     D 4291.1
  2:      Fair     E 3682.3
@@ -597,7 +644,7 @@ diamonds_DT[ , <span class="kw">mean</span>(price), by=<span class="kw">list</sp
  6:      Fair     I 4685.4
  7:      Fair     J 4975.7
  8:      Good     D 3405.4
- 9:      Good     E 3423.6
+ 9:      Good     E     NA
 10:      Good     F 3495.8
 11:      Good     G 4123.5
 12:      Good     H 4276.3
@@ -621,27 +668,27 @@ diamonds_DT[ , <span class="kw">mean</span>(price), by=<span class="kw">list</sp
 30:     Ideal     E 2597.6
 31:     Ideal     F 3374.9
 32:     Ideal     G 3720.7
-33:     Ideal     H 3889.3
+33:     Ideal     H     NA
 34:     Ideal     I 4452.0
 35:     Ideal     J 4918.2
           cut color     V1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># aggregate multiple arguments</span>
-diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span>cut]</code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="data-wrangling.html#cb624-1"></a><span class="co"># aggregate multiple arguments</span></span>
+<span id="cb624-2"><a href="data-wrangling.html#cb624-2"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span>cut]</span></code></pre></div>
 <pre><code>         cut  price   carat
 1:      Fair 4358.8 1.04614
-2:      Good 3928.9 0.84918
+2:      Good     NA 0.84918
 3: Very Good 3981.8 0.80638
 4:   Premium 4584.3 0.89195
-5:     Ideal 3457.5 0.70284</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat), <span class="dt">caratSum =</span> <span class="kw">sum</span>(carat)), by=cut]</code></pre></div>
+5:     Ideal     NA 0.70284</code></pre>
+<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="data-wrangling.html#cb626-1"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat), <span class="dt">caratSum =</span> <span class="kw">sum</span>(carat)), by=cut]</span></code></pre></div>
 <pre><code>         cut  price   carat caratSum
 1:      Fair 4358.8 1.04614   1684.3
-2:      Good 3928.9 0.84918   4166.1
+2:      Good     NA 0.84918   4166.1
 3: Very Good 3981.8 0.80638   9742.7
 4:   Premium 4584.3 0.89195  12301.0
-5:     Ideal 3457.5 0.70284  15146.8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># multiple metrics and multiple grouping variables</span>
-diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span><span class="kw">list</span>(cut, color)]</code></pre></div>
+5:     Ideal     NA 0.70284  15146.8</code></pre>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="data-wrangling.html#cb628-1"></a><span class="co"># multiple metrics and multiple grouping variables</span></span>
+<span id="cb628-2"><a href="data-wrangling.html#cb628-2"></a>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span><span class="kw">list</span>(cut, color)]</span></code></pre></div>
 <pre><code>          cut color  price   carat
  1:      Fair     D 4291.1 0.92012
  2:      Fair     E 3682.3 0.85661
@@ -651,7 +698,7 @@ diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <spa
  6:      Fair     I 4685.4 1.19806
  7:      Fair     J 4975.7 1.34118
  8:      Good     D 3405.4 0.74452
- 9:      Good     E 3423.6 0.74513
+ 9:      Good     E     NA 0.74513
 10:      Good     F 3495.8 0.77593
 11:      Good     G 4123.5 0.85090
 12:      Good     H 4276.3 0.91473
@@ -675,7 +722,7 @@ diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <spa
 30:     Ideal     E 2597.6 0.57840
 31:     Ideal     F 3374.9 0.65583
 32:     Ideal     G 3720.7 0.70071
-33:     Ideal     H 3889.3 0.79952
+33:     Ideal     H     NA 0.79952
 34:     Ideal     I 4452.0 0.91303
 35:     Ideal     J 4918.2 1.06359
           cut color  price   carat</code></pre>
@@ -683,18 +730,18 @@ diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <spa
 <div id="joining-data.tables" class="section level3">
 <h3><span class="header-section-number">6.2.5</span> Joining <code>data.tables</code></h3>
 <p>How to join <code>data.tables</code>?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># join two data.tables</span>
-d &lt;-<span class="st"> </span>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span>cut]
-d</code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="data-wrangling.html#cb630-1"></a><span class="co"># join two data.tables</span></span>
+<span id="cb630-2"><a href="data-wrangling.html#cb630-2"></a>d &lt;-<span class="st"> </span>diamonds_DT[ , <span class="kw">list</span>(<span class="dt">price =</span> <span class="kw">mean</span>(price), <span class="dt">carat =</span> <span class="kw">mean</span>(carat)), by =<span class="st"> </span>cut]</span>
+<span id="cb630-3"><a href="data-wrangling.html#cb630-3"></a>d</span></code></pre></div>
 <pre><code>         cut  price   carat
 1:      Fair 4358.8 1.04614
-2:      Good 3928.9 0.84918
+2:      Good     NA 0.84918
 3: Very Good 3981.8 0.80638
 4:   Premium 4584.3 0.89195
-5:     Ideal 3457.5 0.70284</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setkey</span>(diamonds_DT, cut)
-dmerge &lt;-<span class="st"> </span>diamonds_DT[d]
-dmerge</code></pre></div>
+5:     Ideal     NA 0.70284</code></pre>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="data-wrangling.html#cb632-1"></a><span class="kw">setkey</span>(diamonds_DT, cut)</span>
+<span id="cb632-2"><a href="data-wrangling.html#cb632-2"></a>dmerge &lt;-<span class="st"> </span>diamonds_DT[d]</span>
+<span id="cb632-3"><a href="data-wrangling.html#cb632-3"></a>dmerge</span></code></pre></div>
 <pre><code>       carat   cut color clarity depth table price    x    y    z i.price
     1:  0.75  Fair     D     SI2  64.6    57  2848 5.74 5.72 3.70  4358.8
     2:  0.71  Fair     D     VS2  56.9    65  2858 5.89 5.84 3.34  4358.8
@@ -702,11 +749,11 @@ dmerge</code></pre></div>
     4:  1.00  Fair     D     SI2  69.3    58  2974 5.96 5.87 4.10  4358.8
     5:  1.01  Fair     D     SI2  64.6    56  3003 6.31 6.24 4.05  4358.8
    ---                                                                   
-53936:  0.71 Ideal     J     SI1  60.6    57  2700 5.78 5.83 3.52  3457.5
-53937:  0.81 Ideal     J     VS2  62.1    56  2708 5.92 5.97 3.69  3457.5
-53938:  0.84 Ideal     J     VS2  61.1    57  2709 6.09 6.12 3.73  3457.5
-53939:  0.82 Ideal     J     VS2  61.6    56  2741 6.00 6.04 3.71  3457.5
-53940:  0.83 Ideal     J     VS2  62.3    55  2742 6.01 6.03 3.75  3457.5
+53936:  0.71 Ideal     J     SI1  60.6    57  2700 5.78 5.83 3.52      NA
+53937:  0.81 Ideal     J     VS2  62.1    56  2708 5.92 5.97 3.69      NA
+53938:  0.84 Ideal     J     VS2  61.1    57  2709 6.09 6.12 3.73      NA
+53939:  0.82 Ideal     J     VS2  61.6    56  2741 6.00 6.04 3.71      NA
+53940:  0.83 Ideal     J     VS2  62.3    55  2742 6.01 6.03 3.75      NA
        i.carat
     1: 1.04614
     2: 1.04614
@@ -730,10 +777,15 @@ dmerge</code></pre></div>
 </p>
 </div>
 <ol style="list-style-type: decimal">
-<li>(An exercise taken from <span class="citation">(Kleiber and Zeileis 2008)</span>) “PARADE” is the Sunday newspaper magazine supplementing the Sunday or weekend edition of some 500 daily newspapers in the United States of America. An important yearly feature is an article providing information on some 120150 “randomly” selected US citizens, indicating their profession, hometown and state, and their yearly earnings. The Parade2005 (in library AER) data contain the 2005 version, amended by a variable indicating celebrity status (motivated by substantial oversampling of celebrities in these data). For the Parade2005 data and by using <code>%&gt;%</code> answer the following questions.</li>
+<li>(An exercise taken from <span class="citation">(Kleiber and Zeileis 2008)</span>) “PARADE” is the Sunday newspaper magazine supplementing the Sunday or weekend edition of some 500 daily newspapers in the United States of America. An important
+yearly feature is an article providing information on some 120150 “randomly” selected
+US citizens, indicating their profession, hometown and state, and their yearly earnings.
+The Parade2005 (in library AER) data contain the 2005 version, amended by a variable
+indicating celebrity status (motivated by substantial oversampling of celebrities in these data).
+For the Parade2005 data and by using <code>%&gt;%</code> answer the following questions.</li>
 </ol>
 <ul>
-<li>Load the data <code>Parade2005</code> from the <code>AER</code> package, use <code>data(&quot;Parade2005&quot;)</code> to make the data accessible.</li>
+<li>Load the data <code>Parade2005</code> from the <code>AER</code> package, use <code>data("Parade2005")</code> to make the data accessible.</li>
 <li>Determine the mean earnings in California.</li>
 <li>Determine the number of individuals residing in Idaho.</li>
 <li>Determine the mean and the median earnings of celebrities.</li>
@@ -755,11 +807,13 @@ dmerge</code></pre></div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -767,12 +821,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -780,6 +833,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -796,10 +857,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

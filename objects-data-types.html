@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data science in insurance: an R intro</title>
-  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Objects and data types in R | Data science in insurance: an R intro</title>
+  <meta name="description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data science in insurance: an R intro" />
+  <meta property="og:title" content="3 Objects and data types in R | Data science in insurance: an R intro" />
   <meta property="og:type" content="book" />
   
   
@@ -17,29 +16,31 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data science in insurance: an R intro" />
+  <meta name="twitter:title" content="3 Objects and data types in R | Data science in insurance: an R intro" />
   
   <meta name="twitter:description" content="An open-source and fully-reproducible electronic textbook introducing the use of R to actuarial students and professionals." />
   
 
-<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio">
+<meta name="author" content="Chester Ismay and Albert Y. Kim and Katrien Antonio and Bavo DC Campo" />
 
 
-<meta name="date" content="2018-10-28">
+<meta name="date" content="2020-11-27" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="getting-started.html">
-<link rel="next" href="started-with-data.html">
+<link rel="prev" href="getting-started.html"/>
+<link rel="next" href="started-with-data.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,44 +48,74 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,22 +155,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3" data-path="objects-data-types.html"><a href="objects-data-types.html"><i class="fa fa-check"></i><b>3</b> Objects and data types in R</a><ul>
 <li class="chapter" data-level="3.1" data-path="objects-data-types.html"><a href="objects-data-types.html#how-it-works"><i class="fa fa-check"></i><b>3.1</b> How it works</a></li>
-<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#variables"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
-<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.3</b> Basic data types</a></li>
-<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.4</b> Everything is an object</a></li>
-<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a></li>
-<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a></li>
-<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.7</b> Data frames</a></li>
-<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.8</b> Lists</a></li>
+<li class="chapter" data-level="3.2" data-path="objects-data-types.html"><a href="objects-data-types.html#subsec:Objects"><i class="fa fa-check"></i><b>3.2</b> Objects</a></li>
+<li class="chapter" data-level="3.3" data-path="objects-data-types.html"><a href="objects-data-types.html#everything-is-an-object"><i class="fa fa-check"></i><b>3.3</b> Everything is an object</a></li>
+<li class="chapter" data-level="3.4" data-path="objects-data-types.html"><a href="objects-data-types.html#basic-data-types"><i class="fa fa-check"></i><b>3.4</b> Basic data types</a></li>
+<li class="chapter" data-level="3.5" data-path="objects-data-types.html"><a href="objects-data-types.html#vectors"><i class="fa fa-check"></i><b>3.5</b> Vectors</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="objects-data-types.html"><a href="objects-data-types.html#vector-indexing"><i class="fa fa-check"></i><b>3.5.1</b> Vector indexing</a></li>
+<li class="chapter" data-level="3.5.2" data-path="objects-data-types.html"><a href="objects-data-types.html#character-and-logical-vectors"><i class="fa fa-check"></i><b>3.5.2</b> Character and logical vectors</a></li>
+<li class="chapter" data-level="3.5.3" data-path="objects-data-types.html"><a href="objects-data-types.html#missing-values"><i class="fa fa-check"></i><b>3.5.3</b> Missing values</a></li>
+<li class="chapter" data-level="3.5.4" data-path="objects-data-types.html"><a href="objects-data-types.html#logical-operators"><i class="fa fa-check"></i><b>3.5.4</b> Logical operators</a></li>
+<li class="chapter" data-level="3.5.5" data-path="objects-data-types.html"><a href="objects-data-types.html#factors"><i class="fa fa-check"></i><b>3.5.5</b> Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="objects-data-types.html"><a href="objects-data-types.html#matrices"><i class="fa fa-check"></i><b>3.6</b> Matrices</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="objects-data-types.html"><a href="objects-data-types.html#matrix-operations-and-indexing"><i class="fa fa-check"></i><b>3.6.1</b> Matrix operations and indexing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="objects-data-types.html"><a href="objects-data-types.html#lists"><i class="fa fa-check"></i><b>3.7</b> Lists</a></li>
+<li class="chapter" data-level="3.8" data-path="objects-data-types.html"><a href="objects-data-types.html#data-frames"><i class="fa fa-check"></i><b>3.8</b> Data frames</a></li>
 <li class="chapter" data-level="3.9" data-path="objects-data-types.html"><a href="objects-data-types.html#exercises"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="started-with-data.html"><a href="started-with-data.html"><i class="fa fa-check"></i><b>4</b> Getting started with data in R</a><ul>
 <li class="chapter" data-level="4.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-data"><i class="fa fa-check"></i><b>4.1</b> Importing data</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-with-read.csv"><i class="fa fa-check"></i><b>4.1.1</b> Importing a .csv file with <code>read.csv()</code></a></li>
 <li class="chapter" data-level="4.1.2" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.txt-file-the-danish-fire-insurance-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing a .txt file: the Danish fire insurance data</a></li>
-<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.csv-file-policy-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .csv file: policy data</a></li>
-<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing a .sas7bdat file</a></li>
-<li class="chapter" data-level="4.1.5" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.xlsx-file"><i class="fa fa-check"></i><b>4.1.5</b> Importing a .xlsx file</a></li>
+<li class="chapter" data-level="4.1.3" data-path="started-with-data.html"><a href="started-with-data.html#importing-a-.sas7bdat-file"><i class="fa fa-check"></i><b>4.1.3</b> Importing a .sas7bdat file</a></li>
+<li class="chapter" data-level="4.1.4" data-path="started-with-data.html"><a href="started-with-data.html#importing-an-.xlsx-file"><i class="fa fa-check"></i><b>4.1.4</b> Importing an .xlsx file</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="started-with-data.html"><a href="started-with-data.html#basic-data-handling-steps"><i class="fa fa-check"></i><b>4.2</b> Basic data handling steps</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="started-with-data.html"><a href="started-with-data.html#subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Subsetting</a></li>
@@ -199,17 +237,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>8</b> Writing functions in R</a><ul>
 <li class="chapter" data-level="8.1" data-path="functions.html"><a href="functions.html#conditionals-and-control-flow"><i class="fa fa-check"></i><b>8.1</b> Conditionals and control flow</a></li>
-<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
-<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.3</b> Loops</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.3.1</b> The while loop</a></li>
-<li class="chapter" data-level="8.3.2" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.3.2</b> The for loop</a></li>
+<li class="chapter" data-level="8.2" data-path="functions.html"><a href="functions.html#logical-operators-1"><i class="fa fa-check"></i><b>8.2</b> Logical operators</a></li>
+<li class="chapter" data-level="8.3" data-path="functions.html"><a href="functions.html#conditional-statements"><i class="fa fa-check"></i><b>8.3</b> Conditional statements</a></li>
+<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#loops"><i class="fa fa-check"></i><b>8.4</b> Loops</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#the-for-loop"><i class="fa fa-check"></i><b>8.4.1</b> The for loop</a></li>
+<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#the-while-loop"><i class="fa fa-check"></i><b>8.4.2</b> The while loop</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.4</b> Functions in R</a><ul>
-<li class="chapter" data-level="8.4.1" data-path="functions.html"><a href="functions.html#use-a-function"><i class="fa fa-check"></i><b>8.4.1</b> Use a function</a></li>
-<li class="chapter" data-level="8.4.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.4.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#functions-in-r"><i class="fa fa-check"></i><b>8.5</b> Functions in R</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="functions.html"><a href="functions.html#using-a-function"><i class="fa fa-check"></i><b>8.5.1</b> Using a function</a></li>
+<li class="chapter" data-level="8.5.2" data-path="functions.html"><a href="functions.html#write-your-own-function"><i class="fa fa-check"></i><b>8.5.2</b> Write your own function</a></li>
+<li class="chapter" data-level="8.5.3" data-path="functions.html"><a href="functions.html#the-argument"><i class="fa fa-check"></i><b>8.5.3</b> The ‘…’ argument</a></li>
+<li class="chapter" data-level="8.5.4" data-path="functions.html"><a href="functions.html#function-environments-advanced"><i class="fa fa-check"></i><b>8.5.4</b> Function environments (advanced)</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.5</b> The apply family</a></li>
-<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+<li class="chapter" data-level="8.6" data-path="functions.html"><a href="functions.html#the-apply-family"><i class="fa fa-check"></i><b>8.6</b> The apply family</a></li>
+<li class="chapter" data-level="8.7" data-path="functions.html"><a href="functions.html#exercises-5"><i class="fa fa-check"></i><b>8.7</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>9</b> Optimization in R</a><ul>
 <li class="chapter" data-level="9.1" data-path="optimization.html"><a href="optimization.html#find-the-root-of-a-function"><i class="fa fa-check"></i><b>9.1</b> Find the root of a function</a></li>
@@ -254,34 +295,84 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">3</span> Objects and data types in R</h1>
 <div id="how-it-works" class="section level2">
 <h2><span class="header-section-number">3.1</span> How it works</h2>
-<p>You will now start with writing R code in the console and you will explore a first script of R code. Every line of code is interpreted and executed by R and you get a message whether or not your code was correct. The output of your R code is then shown in the console. R makes use of the # sign to add comments, so that you and others can understand what the R code is about. Just like Twitter! Comments are not run as R code, so they will not influence your result. [Quote from DataCamp’s ‘Introduction to R’ course.] In its most basic form, R can be used as a simple calculator. We illustrate the use of some arithmetic operators in the code below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use &#39;right click, run line or selection&#39;, of Ctrl+R</span>
-<span class="dv">10</span><span class="op">^</span><span class="dv">2</span><span class="op">+</span><span class="dv">36</span></code></pre></div>
+<p>You will now start with writing R code in the console and you will explore a first script of R code. Every line of code is interpreted and executed by R. Once R is done computing, the output of your R code will be shown in the console. In some cases, however, something might go wrong (e.g. due to an error in the code) and then you will either get a warning or an error. R makes use of the # sign to add comments, so that you and others can understand what the R code is about. Just like Twitter! Luckily, here your comments are not limited to 280 characters. When passing lines of code preceded by # to the R console, these will simply be ignored and hence, will not influence your results. [Quote from DataCamp’s ‘Introduction to R’ course.] In its most basic form, R can be used as a simple calculator. We illustrate the use of some arithmetic operators in the code below.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="objects-data-types.html#cb4-1"></a><span class="co"># use &#39;right click, run line or selection&#39;, of Ctrl + R</span></span>
+<span id="cb4-2"><a href="objects-data-types.html#cb4-2"></a><span class="dv">10</span><span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">36</span></span></code></pre></div>
 <pre><code>[1] 136</code></pre>
 <hr />
 </div>
-<div id="variables" class="section level2">
-<h2><span class="header-section-number">3.2</span> Variables</h2>
-<p>A basic concept in (statistical) programming is called a <em>variable</em>. A variable allows you to store a value (e.g. 4) or an object (e.g. a function description) in R. You can then later use this variable’s name to easily access the value or the object that is stored within this variable. [Quote from DataCamp’s ‘Introduction to R’ course.]</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># assign value &#39;4&#39; to &#39;a&#39;</span>
-a &lt;-<span class="st"> </span><span class="dv">4</span>
-a</code></pre></div>
-<pre><code>[1] 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># now R remembers what &#39;a&#39; is</span>
-<span class="co"># calculations with &#39;a&#39;</span>
-a<span class="op">*</span><span class="dv">5</span></code></pre></div>
-<pre><code>[1] 20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(a<span class="op">+</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">2</span></code></pre></div>
-<pre><code>[1] 7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or give a new value to &#39;a&#39;</span>
-a &lt;-<span class="st"> </span>a<span class="op">+</span><span class="dv">1</span>
-a</code></pre></div>
+<div id="subsec:Objects" class="section level2">
+<h2><span class="header-section-number">3.2</span> Objects</h2>
+<p>A basic concept in (statistical) programming is called a <em>variable</em> and in R, this is commonly referred to as an <em>object</em>.
+An object allows you to store a value (e.g. 4) or a more complex data structure (e.g. a database). You can then later use this object’s name to easily access the value or the data structure that is stored within this object. [Quote from DataCamp’s ‘Introduction to R’ course.]</p>
+<p>We create an object by giving it a name and using the assignment operator <code>&lt;-</code> or <code>-&gt;</code> to assign a value to this object <span class="citation">(Douglas et al. 2020)</span>. The value gets stored into the object to which the arrow is pointing. You can then view the value of the object by passing it to the console and the value will then be given as output.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="objects-data-types.html#cb6-1"></a>HappyObject &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb6-2"><a href="objects-data-types.html#cb6-2"></a><span class="dv">-1</span> -&gt;<span class="st"> </span>SadObject</span>
+<span id="cb6-3"><a href="objects-data-types.html#cb6-3"></a>HappyObject</span></code></pre></div>
+<pre><code>[1] 1</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="objects-data-types.html#cb8-1"></a>SadObject <span class="co"># Don&#39;t be so negative</span></span></code></pre></div>
+<pre><code>[1] -1</code></pre>
+<p>Can you guess what the output will be for the following code?</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="objects-data-types.html#cb10-1"></a>HappyObject -&gt;<span class="st"> </span>SadObject</span>
+<span id="cb10-2"><a href="objects-data-types.html#cb10-2"></a>IAmConfused &lt;-<span class="st"> </span>SadObject</span>
+<span id="cb10-3"><a href="objects-data-types.html#cb10-3"></a>IAmConfused</span></code></pre></div>
+<pre><code>[1] 1</code></pre>
+<p>Once we have created an object, we can easily perform some calculations with it.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="objects-data-types.html#cb12-1"></a>HappyObject <span class="op">*</span><span class="st"> </span><span class="dv">5</span></span></code></pre></div>
 <pre><code>[1] 5</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="objects-data-types.html#cb14-1"></a>(HappyObject <span class="op">+</span><span class="st"> </span><span class="dv">10</span>) <span class="op">/</span><span class="st"> </span><span class="dv">2</span></span></code></pre></div>
+<pre><code>[1] 5.5</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="objects-data-types.html#cb16-1"></a>SadObject<span class="op">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>[1] 1</code></pre>
+<p>Further, <code>=</code> is an alternative assignment operator to <code>&lt;-</code>, but is often discouraged for people new to R. The <code>&lt;-</code> operator is considered to be more important by R and precedes <code>=</code> in importance (for a more detailed explanation see <a href="https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r" class="uri">https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r</a>). In most contexts, however, <code>=</code> can be used as a safe alternative <span class="citation">(Venables, Smith, and R Core Team 2020)</span>. Just know that you should use it with care.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="objects-data-types.html#cb18-1"></a>a &lt;-<span class="st"> </span>b =<span class="st"> </span><span class="dv">2</span>      <span class="co"># throws an error, these 2 operators should not be mixed</span></span>
+<span id="cb18-2"><a href="objects-data-types.html#cb18-2"></a><span class="kw">mean</span>(<span class="dt">b =</span> <span class="dv">5</span><span class="op">:</span><span class="dv">10</span>)  <span class="co"># b is not an argument in this function and the object b is not created</span></span>
+<span id="cb18-3"><a href="objects-data-types.html#cb18-3"></a><span class="kw">mean</span>(b &lt;-<span class="st"> </span><span class="dv">5</span><span class="op">:</span><span class="dv">10</span>) <span class="co"># here, b is created and then considered to be the argument of the function</span></span>
+<span id="cb18-4"><a href="objects-data-types.html#cb18-4"></a>b</span></code></pre></div>
+<p>In addition, the code above illustrates that, within functions, <code>=</code> is reserved to assign objects to the arguments.</p>
+<hr />
+</div>
+<div id="everything-is-an-object" class="section level2">
+<h2><span class="header-section-number">3.3</span> Everything is an object</h2>
+<p>In R, an analysis is normally broken down into a series
+of steps. Intermediate results are stored in objects, with minimal output at
+each step (often none). Instead, the objects are further manipulated to obtain
+the information required. In fact, the fundamental design principle underlying R (and S) is “everything
+is an object”. Hence, not only vectors and matrices are objects that
+can be passed to and returned by functions, but also functions themselves,
+and even function calls. (Quote from ‘Applied Econometrics in R’, by Kleiber &amp; Zeileis) A variable in R can take on any available data type, or hold any R object.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="objects-data-types.html#cb19-1"></a><span class="co"># see all objects stored in R&#39;s memory, where &#39;ls()&#39; is for &#39;List Objects&#39; </span></span>
+<span id="cb19-2"><a href="objects-data-types.html#cb19-2"></a><span class="co"># and returns a vector of character strings</span></span>
+<span id="cb19-3"><a href="objects-data-types.html#cb19-3"></a><span class="co"># giving the names of the objects in the specified environment</span></span>
+<span id="cb19-4"><a href="objects-data-types.html#cb19-4"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>()[<span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;Object|Confused&quot;</span>, <span class="kw">ls</span>(), <span class="dt">perl =</span> T)]) <span class="co"># Clean environment to have a short list</span></span>
+<span id="cb19-5"><a href="objects-data-types.html#cb19-5"></a><span class="kw">ls</span>()</span></code></pre></div>
+<pre><code>[1] &quot;HappyObject&quot; &quot;IAmConfused&quot; &quot;SadObject&quot;  </code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="objects-data-types.html#cb21-1"></a><span class="co"># to remove objects from R&#39;s memory, use</span></span>
+<span id="cb21-2"><a href="objects-data-types.html#cb21-2"></a><span class="kw">rm</span>(SadObject)</span>
+<span id="cb21-3"><a href="objects-data-types.html#cb21-3"></a><span class="kw">ls</span>()</span></code></pre></div>
+<pre><code>[1] &quot;HappyObject&quot; &quot;IAmConfused&quot;</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="objects-data-types.html#cb23-1"></a>a &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb23-2"><a href="objects-data-types.html#cb23-2"></a>b &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb23-3"><a href="objects-data-types.html#cb23-3"></a>c &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb23-4"><a href="objects-data-types.html#cb23-4"></a>d &lt;-<span class="st"> </span><span class="dv">4</span></span>
+<span id="cb23-5"><a href="objects-data-types.html#cb23-5"></a><span class="kw">rm</span>(a, b)</span>
+<span id="cb23-6"><a href="objects-data-types.html#cb23-6"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">c</span>(<span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>))</span>
+<span id="cb23-7"><a href="objects-data-types.html#cb23-7"></a>a &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb23-8"><a href="objects-data-types.html#cb23-8"></a>b &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb23-9"><a href="objects-data-types.html#cb23-9"></a>c &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb23-10"><a href="objects-data-types.html#cb23-10"></a>d &lt;-<span class="st"> </span><span class="dv">4</span></span>
+<span id="cb23-11"><a href="objects-data-types.html#cb23-11"></a><span class="co"># with the following code, you will remove everything in your working directory</span></span>
+<span id="cb23-12"><a href="objects-data-types.html#cb23-12"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span></code></pre></div>
+<p>All objects that you create, are stored in your current workspace and in RStudio you can view the list of objects by clicking on the ‘Environment’ tab in the top right hand pane. This workspace is also referred to as the global environment and this is where all the interactive computations take place (i.e. outside of a function) <span class="citation">(Wickham 2019)</span>.</p>
+<p><img src="images/WorkingSpace.png" /></p>
+<p>Without going to much into the technical details, we can sort of compare your workspace with your own, special sandbox.</p>
+<p><img src="images/Sandbox2.jpg" /></p>
+<p>Everything that you create in your sandbox, stays there and gets saved in your <code>.RData</code> file when you close your session. When creating an Rstudio project, this <code>RData</code> gets automatically imported (with the default settings) when you open your project again and with this, your session gets ‘restored’ as it contains all objects you created last time. When creating a new project in a different directory, you create a new sandbox and this makes it easy to structure all of your different projects and analyses.</p>
 <hr />
 </div>
 <div id="basic-data-types" class="section level2">
-<h2><span class="header-section-number">3.3</span> Basic data types</h2>
-<p>R works with numerous data types. Some of the most basic types to get started are:</p>
+<h2><span class="header-section-number">3.4</span> Basic data types</h2>
+<p>R works with numerous data types. Some of the most basic types to get started with are:</p>
 <ul>
 <li>Decimal values like 4.5 are called numerics.</li>
 <li>Natural numbers like 4 are called integers. Integers are also numerics.</li>
@@ -290,145 +381,480 @@ a</code></pre></div>
 <li>Text (or string) values are called characters.</li>
 </ul>
 <p>Note how the quotation marks on the right indicate that “some text” is a character.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_numeric &lt;-<span class="st"> </span><span class="fl">42.5</span>
-
-my_character &lt;-<span class="st"> &quot;some text&quot;</span>
-
-my_logical &lt;-<span class="st"> </span><span class="ot">TRUE</span>
-
-my_date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;05/29/2018&quot;</span>, <span class="st">&quot;%m/%d/%Y&quot;</span>)</code></pre></div>
-<p>You can check the data type of a variable beforehand. You can do this with the class() function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(my_numeric)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="objects-data-types.html#cb24-1"></a>my_numeric &lt;-<span class="st"> </span><span class="fl">42.5</span></span>
+<span id="cb24-2"><a href="objects-data-types.html#cb24-2"></a></span>
+<span id="cb24-3"><a href="objects-data-types.html#cb24-3"></a>my_character &lt;-<span class="st"> &quot;some text&quot;</span></span>
+<span id="cb24-4"><a href="objects-data-types.html#cb24-4"></a></span>
+<span id="cb24-5"><a href="objects-data-types.html#cb24-5"></a>my_logical &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb24-6"><a href="objects-data-types.html#cb24-6"></a></span>
+<span id="cb24-7"><a href="objects-data-types.html#cb24-7"></a>my_date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;05/29/2018&quot;</span>, <span class="st">&quot;%m/%d/%Y&quot;</span>)</span></code></pre></div>
+<p>Note that the logical values <code>TRUE</code> and <code>FALSE</code> can also be abbreviated as <code>T</code> and <code>F</code>, respectively.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="objects-data-types.html#cb25-1"></a>T</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="objects-data-types.html#cb27-1"></a>F</span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<p>You can check the data type of an object beforehand. You can do this with the class() function.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="objects-data-types.html#cb29-1"></a><span class="kw">class</span>(my_numeric)</span></code></pre></div>
 <pre><code>[1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># your turn to check the type of &#39;my_character&#39; and &#39;my_logical&#39; and &#39;my_date&#39;</span></code></pre></div>
-<hr />
-</div>
-<div id="everything-is-an-object" class="section level2">
-<h2><span class="header-section-number">3.4</span> Everything is an object</h2>
-<p>In R, an analysis is normally broken down into a series of steps. Intermediate results are stored in objects, with minimal output at each step (often none). Instead, the objects are further manipulated to obtain the information required. In fact, the fundamental design principle underlying R (and S) is “everything is an object”. Hence, not only vectors and matrices are objects that can be passed to and returned by functions, but also functions themselves, and even function calls. (Quote from ‘Applied Econometrics in R’, by Kleiber &amp; Zeileis) A variable in R can take on any available data type, or hold any R object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># see all objects stored in R&#39;s memory, where &#39;ls()&#39; is for &#39;List Objects&#39; </span>
-<span class="co"># and returns a vector of character strings</span>
-<span class="co"># giving the names of the objects in the specified environment</span>
-<span class="kw">ls</span>()</code></pre></div>
-<pre><code> [1] &quot;a&quot;            &quot;car_price&quot;    &quot;F&quot;            &quot;F_educ&quot;       &quot;F_so2&quot;       
- [6] &quot;grid&quot;         &quot;lm_educ&quot;      &quot;lm_so2&quot;       &quot;lm0&quot;          &quot;lm00&quot;        
-[11] &quot;lm1&quot;          &quot;lm1_alt&quot;      &quot;lm1_alt_2&quot;    &quot;mort_poll&quot;    &quot;my_character&quot;
-[16] &quot;my_date&quot;      &quot;my_logical&quot;   &quot;my_numeric&quot;   &quot;needed_pkgs&quot;  &quot;new_pkgs&quot;    
-[21] &quot;p&quot;            &quot;p1&quot;           &quot;path&quot;         &quot;path.car&quot;     &quot;path.mort&quot;   
-[26] &quot;x.new&quot;       </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to remove objects from R&#39;s memory, use</span>
-<span class="kw">rm</span>(a)
-<span class="kw">rm</span>(my_character, my_logical)
-<span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">c</span>(<span class="st">&#39;my_date&#39;</span>, <span class="st">&#39;my_numeric&#39;</span>))
-<span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())</code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="objects-data-types.html#cb31-1"></a><span class="co"># your turn to check the type of &#39;my_character&#39; and &#39;my_logical&#39; and &#39;my_date&#39;</span></span></code></pre></div>
+<p>When you are interested if an object is of a certain type, you can use the following functions:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="objects-data-types.html#cb32-1"></a><span class="kw">is.numeric</span>(my_numeric)</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="objects-data-types.html#cb34-1"></a><span class="kw">is.character</span>(my_numeric)</span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="objects-data-types.html#cb36-1"></a><span class="kw">is.character</span>(my_character)</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="objects-data-types.html#cb38-1"></a><span class="kw">is.logical</span>(my_logical)</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<p>This is incredibly useful when you have to check the input that’s passed to a self-written function and to prevent that objects of a wrong type get passed. In addition, as you might have noticed, there’s no function <code>is.Date</code>. No need to worry, however, because R’s flexibility allows us to create a function like this ourselves, but we’ll go over it more in detail in Chapter <a href="functions.html#functions">8</a>. For now, just know that you can alternatively use the function <code>inherits</code> or <code>is</code></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="objects-data-types.html#cb40-1"></a><span class="kw">inherits</span>(my_date, <span class="st">&quot;Date&quot;</span>)</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="objects-data-types.html#cb42-1"></a><span class="kw">is</span>(my_date, <span class="st">&quot;Date&quot;</span>)</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
 <hr />
 </div>
 <div id="vectors" class="section level2">
 <h2><span class="header-section-number">3.5</span> Vectors</h2>
 <p>Vectors are one-dimension arrays that can hold numeric data, character data, or logical data. In other words, a vector is a simple tool to store data. In R, you create a vector with the combine function c(). You place the vector elements separated by a comma between the parentheses. (Quote from DataCamp’s ‘Introduction to R course’) Vectors are key! Operations are applied to each element of the vector automatically, there is no need to loop through the vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To combine elements into a vector, use c():</span>
-<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</code></pre></div>
-<pre><code>[1] 1 2 3 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or</span>
-<span class="dv">1</span><span class="op">:</span><span class="dv">10</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="objects-data-types.html#cb44-1"></a><span class="co"># To combine elements into a vector, use c():</span></span>
+<span id="cb44-2"><a href="objects-data-types.html#cb44-2"></a>a =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span></code></pre></div>
+<p>Once we have created this vector, we can pass it to functions to gather some useful information about it.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="objects-data-types.html#cb45-1"></a>?min</span>
+<span id="cb45-2"><a href="objects-data-types.html#cb45-2"></a>?max</span>
+<span id="cb45-3"><a href="objects-data-types.html#cb45-3"></a>?mean</span>
+<span id="cb45-4"><a href="objects-data-types.html#cb45-4"></a>?sd</span>
+<span id="cb45-5"><a href="objects-data-types.html#cb45-5"></a>?var</span>
+<span id="cb45-6"><a href="objects-data-types.html#cb45-6"></a></span>
+<span id="cb45-7"><a href="objects-data-types.html#cb45-7"></a><span class="kw">min</span>(a)</span>
+<span id="cb45-8"><a href="objects-data-types.html#cb45-8"></a><span class="kw">max</span>(a)</span>
+<span id="cb45-9"><a href="objects-data-types.html#cb45-9"></a><span class="kw">mean</span>(a)</span>
+<span id="cb45-10"><a href="objects-data-types.html#cb45-10"></a><span class="kw">sd</span>(a)</span>
+<span id="cb45-11"><a href="objects-data-types.html#cb45-11"></a><span class="kw">var</span>(a)</span></code></pre></div>
+<p>In addition to the above functions, <code>length</code> is another function that’s incredibly useful and one of the functions you will use a lot. When passing a vector to this function, it returns the number of elements that it contains</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="objects-data-types.html#cb46-1"></a><span class="kw">length</span>(a)</span></code></pre></div>
+<pre><code>[1] 4</code></pre>
+<p>Often, we want to create a vector that’s a sequence of numbers. In this case, we can use the <code>:</code> symbol to create a sequence of values in steps of one <span class="citation">(Douglas et al. 2020)</span>. Alternatively, we can use the function <code>seq</code> which allows for more flexibility.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="objects-data-types.html#cb48-1"></a><span class="co"># steps of one</span></span>
+<span id="cb48-2"><a href="objects-data-types.html#cb48-2"></a><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span></code></pre></div>
 <pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or</span>
-<span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">10</span>, <span class="dt">by=</span><span class="fl">0.5</span>)</code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="objects-data-types.html#cb50-1"></a><span class="kw">seq_len</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="objects-data-types.html#cb52-1"></a><span class="co"># specify the steps yourself</span></span>
+<span id="cb52-2"><a href="objects-data-types.html#cb52-2"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code> [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0
 [16]  7.5  8.0  8.5  9.0  9.5 10.0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a variable x</span>
-x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span>
-x</code></pre></div>
-<pre><code> [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x[<span class="dv">6</span><span class="op">:</span><span class="dv">9</span>]</code></pre></div>
-<pre><code>[1] 6 7 8 9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">13</span>)]</code></pre></div>
-<pre><code>[1]  2  5 13</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or</span>
-xx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">20</span>, <span class="dv">0</span>)
-xx</code></pre></div>
-<pre><code>[1]  0  3  4  5 20  0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xx[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>]</code></pre></div>
-<pre><code>[1] 3 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(xx)</code></pre></div>
-<pre><code>[1] 6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># but c(.) can also concatenate other things than numbers</span>
-family &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Katrien&quot;</span>, <span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Leen&quot;</span>)
-family</code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="objects-data-types.html#cb54-1"></a><span class="co"># or the length of the vector, and the steps will be computed by R</span></span>
+<span id="cb54-2"><a href="objects-data-types.html#cb54-2"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">6</span>)</span></code></pre></div>
+<pre><code>[1]  0  2  4  6  8 10</code></pre>
+<p>When we need to repeat certain values, we can use the <code>rep</code> function.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="objects-data-types.html#cb56-1"></a><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dt">times =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>[1] 1 1 1 1 1</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="objects-data-types.html#cb58-1"></a><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">times =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code> [1] 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="objects-data-types.html#cb60-1"></a><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">each =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code> [1] 1 1 2 2 3 3 4 4 5 5</code></pre>
+<div id="vector-indexing" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> Vector indexing</h3>
+<p>To access certain elements of a vector, we use the square brackets <code>[]</code>. For example,</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="objects-data-types.html#cb62-1"></a>Abra =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb62-2"><a href="objects-data-types.html#cb62-2"></a>Abra[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>[1] 1</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="objects-data-types.html#cb64-1"></a>Abra[<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>[1] 5</code></pre>
+<p>To select a subset of elements, we can specify an <em>index vector</em> <span class="citation">(Venables, Smith, and R Core Team 2020)</span> that specifies which elements should be selected and in which order.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="objects-data-types.html#cb66-1"></a>Abra[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>)]</span></code></pre></div>
+<pre><code>[1] 2 4</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="objects-data-types.html#cb68-1"></a>Abra[<span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>)]</span></code></pre></div>
+<pre><code>[1] 4 2</code></pre>
+<p>The index vector can be of four different types <span class="citation">(Venables, Smith, and R Core Team 2020)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>A logical vector.</li>
+</ol>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="objects-data-types.html#cb70-1"></a>Abra[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)]</span></code></pre></div>
+<pre><code>[1] 1 3 4</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="objects-data-types.html#cb72-1"></a>Kadabra &lt;-<span class="st"> </span>Abra <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span></span>
+<span id="cb72-2"><a href="objects-data-types.html#cb72-2"></a>Kadabra</span></code></pre></div>
+<pre><code>[1] FALSE FALSE FALSE  TRUE  TRUE</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="objects-data-types.html#cb74-1"></a>Abra[Kadabra]</span></code></pre></div>
+<pre><code>[1] 4 5</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>A vector with positive indices, which specifies which elements should be selected.</li>
+</ol>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="objects-data-types.html#cb76-1"></a>Abra[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>[1] 1 2 3</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>A vector with negative indices, which specifies which elements should be <em>excluded</em>.</li>
+</ol>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="objects-data-types.html#cb78-1"></a>Abra[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]</span></code></pre></div>
+<pre><code>[1] 4 5</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>A vector of character strings, in case of a named vector. This is then similar to the index vector with positive indices, but now we select the items based on their names. This will be particularly useful later on, when we are working with data frames.</li>
+</ol>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="objects-data-types.html#cb80-1"></a>a &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span></span>
+<span id="cb80-2"><a href="objects-data-types.html#cb80-2"></a><span class="kw">names</span>(a) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Squirtle&quot;</span>, <span class="st">&quot;Bulbasaur&quot;</span>, <span class="st">&quot;Charmander&quot;</span>)</span>
+<span id="cb80-3"><a href="objects-data-types.html#cb80-3"></a>a</span></code></pre></div>
+<pre><code>  Squirtle  Bulbasaur Charmander 
+         1          2          3 </code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="objects-data-types.html#cb82-1"></a>a[<span class="st">&quot;Squirtle&quot;</span>]</span></code></pre></div>
+<pre><code>Squirtle 
+       1 </code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="objects-data-types.html#cb84-1"></a><span class="co"># or</span></span>
+<span id="cb84-2"><a href="objects-data-types.html#cb84-2"></a>IChooseyou &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Charmander&quot;</span>)</span>
+<span id="cb84-3"><a href="objects-data-types.html#cb84-3"></a>a[IChooseyou]</span></code></pre></div>
+<pre><code>Charmander 
+         3 </code></pre>
+<p>Next to selecting elements, we can also use this to perform an operation on these elements only.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="objects-data-types.html#cb86-1"></a>a[<span class="dv">1</span>] =<span class="st"> </span><span class="dv">25</span></span>
+<span id="cb86-2"><a href="objects-data-types.html#cb86-2"></a>a</span></code></pre></div>
+<pre><code>  Squirtle  Bulbasaur Charmander 
+        25          2          3 </code></pre>
+</div>
+<div id="character-and-logical-vectors" class="section level3">
+<h3><span class="header-section-number">3.5.2</span> Character and logical vectors</h3>
+<p>A vector can either hold numeric, character or logical values.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="objects-data-types.html#cb88-1"></a>family &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Katrien&quot;</span>, <span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Leen&quot;</span>)</span>
+<span id="cb88-2"><a href="objects-data-types.html#cb88-2"></a>family</span></code></pre></div>
 <pre><code>[1] &quot;Katrien&quot; &quot;Jan&quot;     &quot;Leen&quot;   </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">family[<span class="dv">2</span>]</code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="objects-data-types.html#cb90-1"></a>family[<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>[1] &quot;Jan&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(family) <span class="co"># str() displays the structure of an R object in compact way</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="objects-data-types.html#cb92-1"></a><span class="kw">str</span>(family) <span class="co"># str() displays the structure of an R object in compact way</span></span></code></pre></div>
 <pre><code> chr [1:3] &quot;Katrien&quot; &quot;Jan&quot; &quot;Leen&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(family)</code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="objects-data-types.html#cb94-1"></a><span class="kw">class</span>(family)</span></code></pre></div>
 <pre><code>[1] &quot;character&quot;</code></pre>
-<p>You can give a name to the elements of a vector with the <code>names()</code> function. Here is how it works</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Katrien Antonio&quot;</span>, <span class="st">&quot;teacher&quot;</span>)
-<span class="kw">names</span>(my_vector) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Name&quot;</span>, <span class="st">&quot;Profession&quot;</span>)
-my_vector</code></pre></div>
+<p>In addition, you can give a name to the elements of a vector with the <code>names()</code> function. Here is how it works</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="objects-data-types.html#cb96-1"></a>my_vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Katrien Antonio&quot;</span>, <span class="st">&quot;teacher&quot;</span>)</span>
+<span id="cb96-2"><a href="objects-data-types.html#cb96-2"></a><span class="kw">names</span>(my_vector) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Name&quot;</span>, <span class="st">&quot;Profession&quot;</span>)</span>
+<span id="cb96-3"><a href="objects-data-types.html#cb96-3"></a>my_vector</span></code></pre></div>
 <pre><code>             Name        Profession 
 &quot;Katrien Antonio&quot;         &quot;teacher&quot; </code></pre>
+<p>Important to remember is that a vector can only hold elements of the same type. Consequently, when you specify elements of different types in a vector, it saves it to that type that contains the most information (logical &lt; numeric &lt; character).</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="objects-data-types.html#cb98-1"></a><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>[1] 0 1</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="objects-data-types.html#cb100-1"></a><span class="kw">c</span>(<span class="dv">0</span>, <span class="st">&quot;Character&quot;</span>)</span></code></pre></div>
+<pre><code>[1] &quot;0&quot;         &quot;Character&quot;</code></pre>
+</div>
+<div id="missing-values" class="section level3">
+<h3><span class="header-section-number">3.5.3</span> Missing values</h3>
+<p>When working with real-life data, you are confronted with missing data more often than you’d care to admit. The values are indicated by <code>NA</code> and any operation on this value will remain <code>NA</code>. To assess which elements are missing in a vector, you can use the function <code>is.na</code>.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="objects-data-types.html#cb102-1"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>)</span>
+<span id="cb102-2"><a href="objects-data-types.html#cb102-2"></a>a</span></code></pre></div>
+<pre><code>[1]  1  2 NA  4  5</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="objects-data-types.html#cb104-1"></a><span class="kw">is.na</span>(a)</span></code></pre></div>
+<pre><code>[1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<p>As it returns a logical vector, we can use it as an index vector.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="objects-data-types.html#cb106-1"></a>a[<span class="kw">is.na</span>(a)]</span></code></pre></div>
+<pre><code>[1] NA</code></pre>
+</div>
+<div id="logical-operators" class="section level3">
+<h3><span class="header-section-number">3.5.4</span> Logical operators</h3>
+<p>We are able to create logical expressions using the logical operators <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>==</code>, where the last one is reserved exact equality. This enables us to select subset of elements. Further, we can combine logical expressions using <code>&amp;</code> or <code>|</code> to denote their intersection or union, respectively.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="objects-data-types.html#cb108-1"></a>a &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb108-2"><a href="objects-data-types.html#cb108-2"></a>a <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span></span></code></pre></div>
+<pre><code>[1] FALSE FALSE FALSE  TRUE  TRUE</code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="objects-data-types.html#cb110-1"></a>a <span class="op">==</span><span class="st"> </span><span class="dv">3</span></span></code></pre></div>
+<pre><code>[1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="objects-data-types.html#cb112-1"></a>a[a <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span> <span class="op">&amp;</span><span class="st"> </span>a <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>]</span></code></pre></div>
+<pre><code>[1] 3</code></pre>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="objects-data-types.html#cb114-1"></a>a[a <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>a <span class="op">==</span><span class="st"> </span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>[1] 3 5</code></pre>
+<p>To get the negation of a logical expression, we make use of the <code>!</code> operator.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="objects-data-types.html#cb116-1"></a><span class="ot">FALSE</span></span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="objects-data-types.html#cb118-1"></a><span class="op">!</span><span class="ot">FALSE</span></span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="objects-data-types.html#cb120-1"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>)</span>
+<span id="cb120-2"><a href="objects-data-types.html#cb120-2"></a><span class="op">!</span>b</span></code></pre></div>
+<pre><code>[1] FALSE  TRUE FALSE FALSE</code></pre>
+<p>This <code>!</code> operator can then be used for a whole range of useful manipulations. Going back to the vector with missing values, we can use this to exclude the missing values in the vector.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="objects-data-types.html#cb122-1"></a>a =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span><span class="op">:</span><span class="dv">5</span>)</span>
+<span id="cb122-2"><a href="objects-data-types.html#cb122-2"></a>a[<span class="op">!</span><span class="kw">is.na</span>(a)]</span></code></pre></div>
+<pre><code>[1] 1 2 4 5</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="objects-data-types.html#cb124-1"></a><span class="kw">na.omit</span>(a) <span class="co"># alternative to omit missing values</span></span></code></pre></div>
+<pre><code>[1] 1 2 4 5
+attr(,&quot;na.action&quot;)
+[1] 3
+attr(,&quot;class&quot;)
+[1] &quot;omit&quot;</code></pre>
+<p>The above also illustrates that we can combine multiple statements or manipulations in one line of code. Combining them gives us a very powerful tool to handle and analyze data in an efficient way.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="objects-data-types.html#cb126-1"></a>a &lt;-<span class="st"> </span><span class="dv">-5</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb126-2"><a href="objects-data-types.html#cb126-2"></a><span class="kw">max</span>(a[a <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>a <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>])</span></code></pre></div>
+<pre><code>[1] 3</code></pre>
+</div>
+<div id="factors" class="section level3">
+<h3><span class="header-section-number">3.5.5</span> Factors</h3>
+<p>To specify that you have a vector with a discrete classification, we make use of a <em>factor</em> object which can either be ordered or unordered. These are mainly used in formulae, but we will already introduce the basics here.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="objects-data-types.html#cb128-1"></a>Fruits &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Apple&quot;</span>, <span class="st">&quot;Banana&quot;</span>, <span class="st">&quot;Grape&quot;</span>, <span class="st">&quot;Lemons&quot;</span>)</span>
+<span id="cb128-2"><a href="objects-data-types.html#cb128-2"></a>Fruits &lt;-<span class="st"> </span><span class="kw">factor</span>(Fruits)</span>
+<span id="cb128-3"><a href="objects-data-types.html#cb128-3"></a>Var    &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">each =</span> <span class="dv">2</span>)</span>
+<span id="cb128-4"><a href="objects-data-types.html#cb128-4"></a>Var    &lt;-<span class="st"> </span><span class="kw">factor</span>(Var, <span class="dt">levels =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Apple&quot;</span>, <span class="st">&quot;Banana&quot;</span>, <span class="st">&quot;Grape&quot;</span>, <span class="st">&quot;Lemons&quot;</span>))</span>
+<span id="cb128-5"><a href="objects-data-types.html#cb128-5"></a>Var</span></code></pre></div>
+<pre><code>[1] Apple  Apple  Banana Banana Grape  Grape  Lemons Lemons
+Levels: Apple Banana Grape Lemons</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="objects-data-types.html#cb130-1"></a><span class="kw">levels</span>(Var)</span></code></pre></div>
+<pre><code>[1] &quot;Apple&quot;  &quot;Banana&quot; &quot;Grape&quot;  &quot;Lemons&quot;</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="objects-data-types.html#cb132-1"></a><span class="kw">nlevels</span>(Var)</span></code></pre></div>
+<pre><code>[1] 4</code></pre>
+<p>Be careful, however, when converting factor variables to numeric. The factor variables have an underlying numeric value assigned to them and you should therefore always be careful when converting them.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="objects-data-types.html#cb134-1"></a><span class="kw">as.numeric</span>(Var)</span></code></pre></div>
+<pre><code>[1] 1 1 2 2 3 3 4 4</code></pre>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="objects-data-types.html#cb136-1"></a>a &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">29</span>, <span class="dv">5</span>))</span>
+<span id="cb136-2"><a href="objects-data-types.html#cb136-2"></a>a &lt;-<span class="st"> </span><span class="kw">factor</span>(a)</span>
+<span id="cb136-3"><a href="objects-data-types.html#cb136-3"></a>a</span></code></pre></div>
+<pre><code>[1] 3  5  29 5 
+Levels: 29 3 5</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="objects-data-types.html#cb138-1"></a><span class="kw">as.numeric</span>(a)</span></code></pre></div>
+<pre><code>[1] 2 3 1 3</code></pre>
 <hr />
+</div>
 </div>
 <div id="matrices" class="section level2">
 <h2><span class="header-section-number">3.6</span> Matrices</h2>
 <p>In R, a matrix is a collection of elements of the same data type (numeric, character, or logical) arranged into a fixed number of rows and columns. Since you are only working with rows and columns, a matrix is called two-dimensional. You can construct a matrix in R with the <code>matrix()</code> function. (Quote from DataCamp’s ‘Introduction to R course’)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a 3x4 matrix, filled with 1,2,..., 12</span>
-<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="objects-data-types.html#cb140-1"></a><span class="co"># a 3x4 matrix, filled with 1,2,..., 12</span></span>
+<span id="cb140-2"><a href="objects-data-types.html#cb140-2"></a><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]    1    2    3    4
 [2,]    5    6    7    8
 [3,]    9   10   11   12</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="objects-data-types.html#cb142-1"></a><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>, <span class="dt">nrow =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]    1    2    3    4
 [2,]    5    6    7    8
 [3,]    9   10   11   12</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># hmmm, check help on &#39;matrix&#39;</span>
-? matrix
-<span class="co"># one way of creating matrices is to bind vectors together</span>
-<span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">9</span>)     <span class="co"># by columns</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="objects-data-types.html#cb144-1"></a><span class="co"># hmmm, check help on &#39;matrix&#39;</span></span>
+<span id="cb144-2"><a href="objects-data-types.html#cb144-2"></a>? matrix</span></code></pre></div>
+<p>In addition to the function <code>matrix</code>, we can also create matrices by combining vectors through use of the <code>cbind</code> and <code>rbind</code> functions.</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="objects-data-types.html#cb145-1"></a><span class="co"># one way of creating matrices is to bind vectors together</span></span>
+<span id="cb145-2"><a href="objects-data-types.html#cb145-2"></a><span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">9</span>)     <span class="co"># by columns</span></span></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    1    6
 [2,]    2    7
 [3,]    1    8
 [4,]    2    9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbind</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>))  <span class="co"># by rows</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="objects-data-types.html#cb147-1"></a><span class="kw">rbind</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>))  <span class="co"># by rows</span></span></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    2    3
 [2,]   -1   -2   -3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create matrix object &#39;m&#39;</span>
-m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">4</span>)
-m</code></pre></div>
-<pre><code>     [,1] [,2] [,3] [,4]
-[1,]    1    4    7   10
-[2,]    2    5    8   11
-[3,]    3    6    9   12</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m[<span class="dv">1</span>,<span class="dv">4</span>] <span class="co"># extract an element</span></code></pre></div>
-<pre><code>[1] 10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m[,<span class="dv">2</span>]  <span class="co"># extract a column</span></code></pre></div>
-<pre><code>[1] 4 5 6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(m);<span class="kw">ncol</span>(m);<span class="kw">dim</span>(m) <span class="co"># useful stuff</span></code></pre></div>
-<pre><code>[1] 3</code></pre>
-<pre><code>[1] 4</code></pre>
-<pre><code>[1] 3 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># another example</span>
-m &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">b =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])
-m</code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="objects-data-types.html#cb149-1"></a>m &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">b =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])</span>
+<span id="cb149-2"><a href="objects-data-types.html#cb149-2"></a>m</span></code></pre></div>
 <pre><code>     a   b  
 [1,] &quot;1&quot; &quot;a&quot;
 [2,] &quot;2&quot; &quot;b&quot;
 [3,] &quot;3&quot; &quot;c&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ask help, what is the built-in &#39;letters&#39;?</span>
-? letters</code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="objects-data-types.html#cb151-1"></a><span class="kw">rbind</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">b =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])</span></code></pre></div>
+<pre><code>  [,1] [,2] [,3]
+a &quot;1&quot;  &quot;2&quot;  &quot;3&quot; 
+b &quot;a&quot;  &quot;b&quot;  &quot;c&quot; </code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="objects-data-types.html#cb153-1"></a><span class="co"># ask help, what is the built-in &#39;letters&#39;?</span></span>
+<span id="cb153-2"><a href="objects-data-types.html#cb153-2"></a>? letters</span></code></pre></div>
+<div id="matrix-operations-and-indexing" class="section level3">
+<h3><span class="header-section-number">3.6.1</span> Matrix operations and indexing</h3>
+<p>Matrices and their theory are an essential part of linear algebra and R therefore has a lot of functions specifically designed for matrices.</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="objects-data-types.html#cb154-1"></a><span class="co"># create matrix object &#39;m&#39;</span></span>
+<span id="cb154-2"><a href="objects-data-types.html#cb154-2"></a>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb154-3"><a href="objects-data-types.html#cb154-3"></a>x</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    4    7   10
+[2,]    2    5    8   11
+[3,]    3    6    9   12</code></pre>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="objects-data-types.html#cb156-1"></a><span class="kw">nrow</span>(x)</span></code></pre></div>
+<pre><code>[1] 3</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="objects-data-types.html#cb158-1"></a><span class="kw">ncol</span>(x)</span></code></pre></div>
+<pre><code>[1] 4</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="objects-data-types.html#cb160-1"></a><span class="kw">dim</span>(x)</span></code></pre></div>
+<pre><code>[1] 3 4</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="objects-data-types.html#cb162-1"></a><span class="kw">t</span>(x)    <span class="co"># matrix transpose</span></span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+[3,]    7    8    9
+[4,]   10   11   12</code></pre>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="objects-data-types.html#cb164-1"></a>x =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb164-2"><a href="objects-data-types.html#cb164-2"></a>x <span class="op">%o%</span><span class="st"> </span>x          <span class="co"># outer product</span></span></code></pre></div>
+<pre><code>, , 1, 1
+
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+, , 2, 1
+
+     [,1] [,2]
+[1,]    2    6
+[2,]    4    8
+
+, , 1, 2
+
+     [,1] [,2]
+[1,]    3    9
+[2,]    6   12
+
+, , 2, 2
+
+     [,1] [,2]
+[1,]    4   12
+[2,]    8   16</code></pre>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="objects-data-types.html#cb166-1"></a><span class="kw">outer</span>(x, x, <span class="st">&quot;*&quot;</span>) <span class="co"># alternative</span></span></code></pre></div>
+<pre><code>, , 1, 1
+
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+, , 2, 1
+
+     [,1] [,2]
+[1,]    2    6
+[2,]    4    8
+
+, , 1, 2
+
+     [,1] [,2]
+[1,]    3    9
+[2,]    6   12
+
+, , 2, 2
+
+     [,1] [,2]
+[1,]    4   12
+[2,]    8   16</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="objects-data-types.html#cb168-1"></a><span class="kw">diag</span>(x)          <span class="co"># extract diagonal elements</span></span></code></pre></div>
+<pre><code>[1] 1 4</code></pre>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="objects-data-types.html#cb170-1"></a><span class="kw">det</span>(x)           <span class="co"># determinant</span></span></code></pre></div>
+<pre><code>[1] -2</code></pre>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="objects-data-types.html#cb172-1"></a><span class="kw">eigen</span>(x)         <span class="co"># eigenvalues and eigenvectors</span></span></code></pre></div>
+<pre><code>eigen() decomposition
+$values
+[1]  5.3723 -0.3723
+
+$vectors
+        [,1]    [,2]
+[1,] -0.5658 -0.9094
+[2,] -0.8246  0.4160</code></pre>
+<p>An important difference with other statistical software programs, is that <code>*</code> is used for element-wise multiplication. When you want to multiply matrices, you should use the <code>%*%</code> operator.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="objects-data-types.html#cb174-1"></a>x <span class="op">*</span><span class="st"> </span>x        <span class="co"># element-wise multiplication</span></span></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    1    9
+[2,]    4   16</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="objects-data-types.html#cb176-1"></a><span class="kw">t</span>(x) <span class="op">%*%</span><span class="st"> </span>x   <span class="co"># use %*% for matrix multiplication</span></span></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    5   11
+[2,]   11   25</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="objects-data-types.html#cb178-1"></a><span class="kw">crossprod</span>(x) <span class="co"># alternative to t(x) %*% x</span></span></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    5   11
+[2,]   11   25</code></pre>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="objects-data-types.html#cb180-1"></a>x <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(x)</span></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]   10   14
+[2,]   14   20</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="objects-data-types.html#cb182-1"></a><span class="kw">tcrossprod</span>(x)</span></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]   10   14
+[2,]   14   20</code></pre>
+<p>Further, to get the inverse of a matrix, we use the <code>solve</code> function.</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="objects-data-types.html#cb184-1"></a><span class="kw">solve</span>(x)</span></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]   -2  1.5
+[2,]    1 -0.5</code></pre>
+<p>To select a subset of elements of a matrix, we again use vector indices within the square brackets <code>[]</code>. When we only want to select certain rows, columns or both, we put a comma in the square brackets.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="objects-data-types.html#cb186-1"></a>x[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]  <span class="co"># select first 5 elements, starts from 1st element from the 1st column and proceeds to the next elements in the 1st column</span></span></code></pre></div>
+<pre><code>[1]  1  2  3  4 NA</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="objects-data-types.html#cb188-1"></a>x[<span class="dv">1</span>, ]  <span class="co"># select first row</span></span></code></pre></div>
+<pre><code>[1] 1 3</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="objects-data-types.html#cb190-1"></a>x[, <span class="dv">1</span>]  <span class="co"># select first column</span></span></code></pre></div>
+<pre><code>[1] 1 2</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="objects-data-types.html#cb192-1"></a>x[<span class="dv">2</span>, <span class="dv">2</span>] <span class="co"># select fourth element in fourth column</span></span></code></pre></div>
+<pre><code>[1] 4</code></pre>
+<hr />
+</div>
+</div>
+<div id="lists" class="section level2">
+<h2><span class="header-section-number">3.7</span> Lists</h2>
+<p>A list in R allows you to gather a variety of objects under one object in an ordered way. These objects can be matrices, vectors, data frames, even other lists, etc. It is not even required that these objects are related to each other in any way. You could say that a list is some kind super data type: you can store practically any piece of information in it! (Quote from DataCamp’s ‘Introduction to R course’)</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="objects-data-types.html#cb194-1"></a><span class="co"># a first example of a list</span></span>
+<span id="cb194-2"><a href="objects-data-types.html#cb194-2"></a>L &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">one =</span> <span class="dv">1</span>, <span class="dt">two =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">five =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dt">length=</span><span class="dv">5</span>),</span>
+<span id="cb194-3"><a href="objects-data-types.html#cb194-3"></a>          <span class="dt">six =</span> <span class="kw">c</span>(<span class="st">&quot;Katrien&quot;</span>, <span class="st">&quot;Jan&quot;</span>))</span>
+<span id="cb194-4"><a href="objects-data-types.html#cb194-4"></a><span class="kw">names</span>(L)</span></code></pre></div>
+<pre><code>[1] &quot;one&quot;  &quot;two&quot;  &quot;five&quot; &quot;six&quot; </code></pre>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="objects-data-types.html#cb196-1"></a><span class="kw">summary</span>(L)</span></code></pre></div>
+<pre><code>     Length Class  Mode     
+one  1      -none- numeric  
+two  2      -none- numeric  
+five 5      -none- numeric  
+six  2      -none- character</code></pre>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="objects-data-types.html#cb198-1"></a><span class="kw">class</span>(L)</span></code></pre></div>
+<pre><code>[1] &quot;list&quot;</code></pre>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="objects-data-types.html#cb200-1"></a><span class="kw">str</span>(L)</span></code></pre></div>
+<pre><code>List of 4
+ $ one : num 1
+ $ two : num [1:2] 1 2
+ $ five: num [1:5] 1 1.75 2.5 3.25 4
+ $ six : chr [1:2] &quot;Katrien&quot; &quot;Jan&quot;</code></pre>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="objects-data-types.html#cb202-1"></a><span class="co"># list within a list</span></span>
+<span id="cb202-2"><a href="objects-data-types.html#cb202-2"></a><span class="co"># a list containing: a sample from a N(0,1), plus some markup</span></span>
+<span id="cb202-3"><a href="objects-data-types.html#cb202-3"></a><span class="co"># list within list</span></span>
+<span id="cb202-4"><a href="objects-data-types.html#cb202-4"></a>mylist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">sample =</span> <span class="kw">rnorm</span>(<span class="dv">5</span>), <span class="dt">family =</span> <span class="st">&quot;normal distribution&quot;</span>, <span class="dt">parameters =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb202-5"><a href="objects-data-types.html#cb202-5"></a>mylist</span></code></pre></div>
+<pre><code>$sample
+[1]  2.2183  1.0956  0.2483  0.0319 -1.2080
+
+$family
+[1] &quot;normal distribution&quot;
+
+$parameters
+$parameters$mean
+[1] 0
+
+$parameters$sd
+[1] 1</code></pre>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="objects-data-types.html#cb204-1"></a><span class="kw">str</span>(mylist)</span></code></pre></div>
+<pre><code>List of 3
+ $ sample    : num [1:5] 2.2183 1.0956 0.2483 0.0319 -1.208
+ $ family    : chr &quot;normal distribution&quot;
+ $ parameters:List of 2
+  ..$ mean: num 0
+  ..$ sd  : num 1</code></pre>
+<p>The objects stored on the list are known as its components <span class="citation">(Venables, Smith, and R Core Team 2020)</span> and to access these components, we either use a numerical value indicating the position in the list or the name of the component (only possible when it has been given a name of course).</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="objects-data-types.html#cb206-1"></a><span class="co"># now check</span></span>
+<span id="cb206-2"><a href="objects-data-types.html#cb206-2"></a>mylist[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>[1]  2.2183  1.0956  0.2483  0.0319 -1.2080</code></pre>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="objects-data-types.html#cb208-1"></a>mylist[[<span class="st">&quot;sample&quot;</span>]]</span></code></pre></div>
+<pre><code>[1]  2.2183  1.0956  0.2483  0.0319 -1.2080</code></pre>
+<p>If the components have names, we can also access them using the <code>$</code> operator in the following way.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="objects-data-types.html#cb210-1"></a>mylist<span class="op">$</span>sample</span></code></pre></div>
+<pre><code>[1]  2.2183  1.0956  0.2483  0.0319 -1.2080</code></pre>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="objects-data-types.html#cb212-1"></a>mylist<span class="op">$</span>parameter</span></code></pre></div>
+<pre><code>$mean
+[1] 0
+
+$sd
+[1] 1</code></pre>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="objects-data-types.html#cb214-1"></a>mylist<span class="op">$</span>parameters<span class="op">$</span>mean</span></code></pre></div>
+<pre><code>[1] 0</code></pre>
+<p>Moreover, we can even access the elements of the component in the same way as we did before.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="objects-data-types.html#cb216-1"></a>mylist[[<span class="dv">1</span>]][<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</span></code></pre></div>
+<pre><code>[1] 1.0956 0.2483 0.0319</code></pre>
+<p>To access lists within lists, we use the following code</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="objects-data-types.html#cb218-1"></a>Dream =<span class="st"> </span><span class="kw">list</span>(<span class="dt">WithinADream =</span> <span class="kw">list</span>(<span class="dt">WithinAnotherDream =</span> <span class="st">&quot;DieTraumdeutung&quot;</span>))</span>
+<span id="cb218-2"><a href="objects-data-types.html#cb218-2"></a>Dream<span class="op">$</span>WithinADream<span class="op">$</span>WithinAnotherDream</span></code></pre></div>
+<pre><code>[1] &quot;DieTraumdeutung&quot;</code></pre>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="objects-data-types.html#cb220-1"></a>Dream[[<span class="dv">1</span>]][[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>[1] &quot;DieTraumdeutung&quot;</code></pre>
+<p>We use double square brackets to get the component in its original form. If we just use single brackets, we get it as an object of class list.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="objects-data-types.html#cb222-1"></a>Dream =<span class="st"> </span><span class="kw">list</span>(<span class="dt">WithinADream =</span> <span class="st">&quot;SomethingFunny&quot;</span>)</span>
+<span id="cb222-2"><a href="objects-data-types.html#cb222-2"></a><span class="kw">class</span>(Dream[[<span class="dv">1</span>]])</span></code></pre></div>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="objects-data-types.html#cb224-1"></a><span class="kw">class</span>(Dream[<span class="dv">1</span>])</span></code></pre></div>
+<pre><code>[1] &quot;list&quot;</code></pre>
 <hr />
 </div>
 <div id="data-frames" class="section level2">
-<h2><span class="header-section-number">3.7</span> Data frames</h2>
+<h2><span class="header-section-number">3.8</span> Data frames</h2>
 <p>Most data sets you will be working with will be stored as data frames. A data frame has the variables of a data set as columns and the observations as rows. This will be a familiar concept for those coming from different statistical software packages such as SAS or SPSS.</p>
 <p>First, you will look at a ‘classic’ data set from the <code>datasets</code> package that comes with the base R installation. The <code>mtcars</code> (Motor Trend Car Road Tests) data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models). (Quote from DataCamp’s ‘Introduction to R course’)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(mtcars)</code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="objects-data-types.html#cb226-1"></a>mtcars</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="objects-data-types.html#cb227-1"></a><span class="kw">str</span>(mtcars)</span></code></pre></div>
 <pre><code>&#39;data.frame&#39;:   32 obs. of  11 variables:
  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
@@ -441,7 +867,7 @@ m</code></pre></div>
  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mtcars)</code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="objects-data-types.html#cb229-1"></a><span class="kw">head</span>(mtcars)</span></code></pre></div>
 <pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -449,7 +875,7 @@ Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
 Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(mtcars)</code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="objects-data-types.html#cb231-1"></a><span class="kw">tail</span>(mtcars)</span></code></pre></div>
 <pre><code>                mpg cyl  disp  hp drat    wt qsec vs am gear carb
 Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.7  0  1    5    2
 Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.9  1  1    5    2
@@ -458,13 +884,9 @@ Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.5  0  1    5    6
 Maserati Bora  15.0   8 301.0 335 3.54 3.570 14.6  0  1    5    8
 Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.6  1  1    4    2</code></pre>
 <p>Since using built-in data sets is not even half the fun of creating your own data sets, you will now work with your own personally created data set. (Quote from DataCamp’s ‘Introduction to R course’)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">7</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>), <span class="dt">z =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">7</span>))
-t<span class="op">$</span>x</code></pre></div>
-<pre><code>[1] 11 12  7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t[[<span class="st">&quot;x&quot;</span>]]</code></pre></div>
-<pre><code>[1] 11 12  7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># quick scan of the object &#39;t&#39;</span>
-<span class="kw">summary</span>(t)</code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="objects-data-types.html#cb233-1"></a>Df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">7</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>), <span class="dt">z =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">7</span>))</span>
+<span id="cb233-2"><a href="objects-data-types.html#cb233-2"></a><span class="co"># quick scan of the object &#39;t&#39;</span></span>
+<span id="cb233-3"><a href="objects-data-types.html#cb233-3"></a><span class="kw">summary</span>(Df)</span></code></pre></div>
 <pre><code>       x              y              z        
  Min.   : 7.0   Min.   :19.0   Min.   : 7.00  
  1st Qu.: 9.0   1st Qu.:19.5   1st Qu.: 8.00  
@@ -472,110 +894,85 @@ t<span class="op">$</span>x</code></pre></div>
  Mean   :10.0   Mean   :20.0   Mean   : 8.67  
  3rd Qu.:11.5   3rd Qu.:20.5   3rd Qu.: 9.50  
  Max.   :12.0   Max.   :21.0   Max.   :10.00  </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(t)</code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="objects-data-types.html#cb235-1"></a><span class="kw">str</span>(Df)</span></code></pre></div>
 <pre><code>&#39;data.frame&#39;:   3 obs. of  3 variables:
  $ x: num  11 12 7
  $ y: num  19 20 21
  $ z: num  10 9 7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># another way to create the same data frame</span>
-x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">7</span>)
-y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>)
-z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">7</span>)
-t &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x, y, z)</code></pre></div>
-<p>A first data exploration, let’s calculate the <code>mean</code> of the variable <code>z</code> in data frame <code>t</code>!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(t<span class="op">$</span>z)   </code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="objects-data-types.html#cb237-1"></a><span class="co"># another way to create the same data frame</span></span>
+<span id="cb237-2"><a href="objects-data-types.html#cb237-2"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">7</span>)</span>
+<span id="cb237-3"><a href="objects-data-types.html#cb237-3"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>)</span>
+<span id="cb237-4"><a href="objects-data-types.html#cb237-4"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">7</span>)</span>
+<span id="cb237-5"><a href="objects-data-types.html#cb237-5"></a>Df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x, y, z)</span></code></pre></div>
+<p>Accessing elements in a data frame is similar to how we access elements in a matrix. We can again use an index vector to access either the rows, columns or both. In addition, similar to lists, we can access columns using the <code>$</code> operator or using the double square brackets.</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="objects-data-types.html#cb238-1"></a>Df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]</span></code></pre></div>
+<pre><code>   x  y  z
+1 11 19 10
+2 12 20  9</code></pre>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="objects-data-types.html#cb240-1"></a>Df[, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>   y  z
+1 19 10
+2 20  9
+3 21  7</code></pre>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="objects-data-types.html#cb242-1"></a>Df<span class="op">$</span>x</span></code></pre></div>
+<pre><code>[1] 11 12  7</code></pre>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="objects-data-types.html#cb244-1"></a>Df[[<span class="st">&quot;x&quot;</span>]]</span></code></pre></div>
+<pre><code>[1] 11 12  7</code></pre>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="objects-data-types.html#cb246-1"></a>Df[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>[1] 11 12  7</code></pre>
+<p>In essence, a data frame can be seen as a combination of a list and a matrix. The variables are its components and the object has a separate class <code>"data.frame"</code> <span class="citation">(Venables, Smith, and R Core Team 2020)</span>.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="objects-data-types.html#cb248-1"></a><span class="kw">is.list</span>(Df)</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="objects-data-types.html#cb250-1"></a><span class="kw">class</span>(Df)</span></code></pre></div>
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<p>But that’s enough technical stuff for now, let’s do our first data exploration and calculate the <code>mean</code> of the variable <code>z</code> in data frame <code>t</code>!</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="objects-data-types.html#cb252-1"></a><span class="kw">mean</span>(Df<span class="op">$</span>z)   </span></code></pre></div>
 <pre><code>[1] 8.667</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(z)   <span class="co"># does not work, why not?</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="objects-data-types.html#cb254-1"></a><span class="kw">mean</span>(z)   <span class="co"># does not work, why not?</span></span></code></pre></div>
 <pre><code>[1] 8.667</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(t) <span class="co"># but...</span></code></pre></div>
+<p>The code <code>mean(z)</code> doesn’t work, because z wasn’t defined in the global environment but only within your data frame. Going back to the sandbox analogy, you can look at the data frame as a mini-sandbox within your bigger sandbox. Everything that gets defined in this sandbox, stays there. This way, we keep our sandbox nice and organized. Just imagine the mess when all of your variables of your data frame would just float around in your sandbox.</p>
+<p><img src="images/Sandbox.jpg" /></p>
+<p>One ‘dirty’ way to access the variables in your data frame without specifying the said data frame, is to use the <code>attach</code> function. With this function, we tell R that it also has to search within the attached data frame.</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="objects-data-types.html#cb256-1"></a><span class="kw">rm</span>(x, y, z) <span class="co"># Remove variables</span></span>
+<span id="cb256-2"><a href="objects-data-types.html#cb256-2"></a><span class="kw">attach</span>(Df)</span>
+<span id="cb256-3"><a href="objects-data-types.html#cb256-3"></a><span class="kw">mean</span>(z)</span></code></pre></div>
+<pre><code>[1] 8.667</code></pre>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="objects-data-types.html#cb258-1"></a><span class="kw">detach</span>(Df)</span></code></pre></div>
+<p>Using attach, however, can be dangerous. If you created an object with a similar name to a variable in your data frame, R will <strong>not</strong> use the variable in your data frame but the one that was created before.</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="objects-data-types.html#cb259-1"></a>x =<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e2</span>)</span>
+<span id="cb259-2"><a href="objects-data-types.html#cb259-2"></a>z =<span class="st"> &quot;KadabraCastsConfusion&quot;</span></span>
+<span id="cb259-3"><a href="objects-data-types.html#cb259-3"></a><span class="kw">attach</span>(Df)</span></code></pre></div>
 <pre><code>The following objects are masked _by_ .GlobalEnv:
 
-    x, y, z</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(z)</code></pre></div>
-<pre><code>[1] 8.667</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(t) <span class="co"># does the job</span>
-<span class="co"># or, avoid &quot;attach(.)&quot; and &quot;detach(.)&quot;</span>
-<span class="kw">with</span>(t, <span class="kw">mean</span>(z))</code></pre></div>
+    x, z</code></pre>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="objects-data-types.html#cb261-1"></a><span class="kw">mean</span>(x)</span></code></pre></div>
+<pre><code>[1] -0.1203</code></pre>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="objects-data-types.html#cb263-1"></a><span class="kw">mean</span>(Df<span class="op">$</span>x)</span></code></pre></div>
+<pre><code>[1] 10</code></pre>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="objects-data-types.html#cb265-1"></a><span class="kw">mean</span>(z)</span></code></pre></div>
+<pre><code>Warning in mean.default(z): argument is not numeric or logical: returning NA</code></pre>
+<pre><code>[1] NA</code></pre>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="objects-data-types.html#cb268-1"></a><span class="kw">detach</span>(Df)</span></code></pre></div>
+<p>One way to avoid this, is to use the function <code>with</code>.</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="objects-data-types.html#cb269-1"></a><span class="kw">with</span>(Df, <span class="kw">mean</span>(z))</span></code></pre></div>
 <pre><code>[1] 8.667</code></pre>
 <p>More on data frames</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this does not work</span>
-<span class="co"># t &lt;- data.frame(x = c(11,12), y = c(19,20,21), z = c(10,9,7)) </span>
-<span class="co"># but you _can_ do</span>
-t &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">12</span>, <span class="ot">NA</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>), <span class="dt">z =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">7</span>))
-<span class="co"># data frame with different types of information</span>
-b &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">12</span>, <span class="ot">NA</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="st">&quot;me&quot;</span>, <span class="st">&quot;you&quot;</span>, <span class="st">&quot;everyone&quot;</span>))
-<span class="kw">str</span>(b)</code></pre></div>
-<pre><code>&#39;data.frame&#39;:   3 obs. of  2 variables:
- $ x: num  11 12 NA
- $ y: Factor w/ 3 levels &quot;everyone&quot;,&quot;me&quot;,..: 2 3 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># hey there! &#39;y&#39; should not be factor, but character variable</span>
-b<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">as.character</span>(b<span class="op">$</span>y)
-<span class="kw">str</span>(b)</code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="objects-data-types.html#cb271-1"></a><span class="co"># this does not work</span></span>
+<span id="cb271-2"><a href="objects-data-types.html#cb271-2"></a><span class="co"># Df &lt;- data.frame(x = c(11,12), y = c(19,20,21), z = c(10,9,7)) </span></span>
+<span id="cb271-3"><a href="objects-data-types.html#cb271-3"></a><span class="co"># but you _can_ do</span></span>
+<span id="cb271-4"><a href="objects-data-types.html#cb271-4"></a>Df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">12</span>, <span class="ot">NA</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>), <span class="dt">z =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">7</span>))</span>
+<span id="cb271-5"><a href="objects-data-types.html#cb271-5"></a><span class="co"># data frame with different types of information</span></span>
+<span id="cb271-6"><a href="objects-data-types.html#cb271-6"></a>b &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">12</span>, <span class="ot">NA</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="st">&quot;me&quot;</span>, <span class="st">&quot;you&quot;</span>, <span class="st">&quot;everyone&quot;</span>))</span>
+<span id="cb271-7"><a href="objects-data-types.html#cb271-7"></a><span class="kw">str</span>(b)</span></code></pre></div>
 <pre><code>&#39;data.frame&#39;:   3 obs. of  2 variables:
  $ x: num  11 12 NA
  $ y: chr  &quot;me&quot; &quot;you&quot; &quot;everyone&quot;</code></pre>
-<p>So, you here you encountered a factor variable. The term factor refers to a statistical data type used to store categorical variables. The difference between a categorical variable and a continuous variable is that a categorical variable can belong to a limited number of categories. A continuous variable, on the other hand, can correspond to an infinite number of values. (Quote from DataCamp’s ‘Introduction to R course’)</p>
-<hr />
-</div>
-<div id="lists" class="section level2">
-<h2><span class="header-section-number">3.8</span> Lists</h2>
-<p>A list in R allows you to gather a variety of objects under one name (that is, the name of the list) in an ordered way. These objects can be matrices, vectors, data frames, even other lists, etc. It is not even required that these objects are related to each other in any way. You could say that a list is some kind super data type: you can store practically any piece of information in it! (Quote from DataCamp’s ‘Introduction to R course’)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a first example of a list</span>
-L &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">one =</span> <span class="dv">1</span>, <span class="dt">two =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">five =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dt">length=</span><span class="dv">5</span>),
-          <span class="dt">six =</span> <span class="kw">c</span>(<span class="st">&quot;Katrien&quot;</span>, <span class="st">&quot;Jan&quot;</span>))
-<span class="kw">names</span>(L)</code></pre></div>
-<pre><code>[1] &quot;one&quot;  &quot;two&quot;  &quot;five&quot; &quot;six&quot; </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(L)</code></pre></div>
-<pre><code>     Length Class  Mode     
-one  1      -none- numeric  
-two  2      -none- numeric  
-five 5      -none- numeric  
-six  2      -none- character</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(L)</code></pre></div>
-<pre><code>[1] &quot;list&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(L)</code></pre></div>
-<pre><code>List of 4
- $ one : num 1
- $ two : num [1:2] 1 2
- $ five: num [1:5] 1 1.75 2.5 3.25 4
- $ six : chr [1:2] &quot;Katrien&quot; &quot;Jan&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># list within a list</span>
-<span class="co"># a list containing: a sample from a N(0,1), plus some markup</span>
-<span class="co"># list within list</span>
-mylist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">sample =</span> <span class="kw">rnorm</span>(<span class="dv">5</span>), <span class="dt">family =</span> <span class="st">&quot;normal distribution&quot;</span>, <span class="dt">parameters =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>))
-mylist</code></pre></div>
-<pre><code>$sample
-[1] -1.24274  0.08772  0.40050  0.58066 -0.14351
-
-$family
-[1] &quot;normal distribution&quot;
-
-$parameters
-$parameters$mean
-[1] 0
-
-$parameters$sd
-[1] 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(mylist)</code></pre></div>
-<pre><code>List of 3
- $ sample    : num [1:5] -1.2427 0.0877 0.4005 0.5807 -0.1435
- $ family    : chr &quot;normal distribution&quot;
- $ parameters:List of 2
-  ..$ mean: num 0
-  ..$ sd  : num 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># now check</span>
-mylist[[<span class="dv">1</span>]]</code></pre></div>
-<pre><code>[1] -1.24274  0.08772  0.40050  0.58066 -0.14351</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist<span class="op">$</span>sample</code></pre></div>
-<pre><code>[1] -1.24274  0.08772  0.40050  0.58066 -0.14351</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist<span class="op">$</span>parameters</code></pre></div>
-<pre><code>$mean
-[1] 0
-
-$sd
-[1] 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist<span class="op">$</span>parameters<span class="op">$</span>mean</code></pre></div>
-<pre><code>[1] 0</code></pre>
+<p>In previous versions of R, character variables in a data frame were automatically converted to factor variables. They were briefly mentioned before and in essence, factor variables are used to store categorical variables (i.e. nominal, ordinal or dichotomous variables). Categorical variables can only take on a limited number of values. Conversely, continuous variables can take on an uncountable set of values. If you want to R to convert the variables with character strings to factor variables when creating a data frame, just specify <code>stringsAsFactors = TRUE</code>.</p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="objects-data-types.html#cb273-1"></a>b &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">12</span>, <span class="ot">NA</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="st">&quot;me&quot;</span>, <span class="st">&quot;you&quot;</span>, <span class="st">&quot;everyone&quot;</span>), <span class="dt">stringsAsFactors =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb273-2"><a href="objects-data-types.html#cb273-2"></a><span class="kw">str</span>(b)</span></code></pre></div>
+<pre><code>&#39;data.frame&#39;:   3 obs. of  2 variables:
+ $ x: num  11 12 NA
+ $ y: Factor w/ 3 levels &quot;everyone&quot;,&quot;me&quot;,..: 2 3 1</code></pre>
 <hr />
 </div>
 <div id="exercises" class="section level2">
@@ -585,7 +982,7 @@ $sd
 <li>Explore the objects and data types in R.</li>
 </ol>
 <ul>
-<li>Create a vector <code>fav_music</code> with the names of your favourite artists.</li>
+<li>Create a vector <code>fav_music</code> with the names of your favorite artists.</li>
 <li>Create a vector <code>num_records</code> with the number of records you have in your collection of each of those artists.</li>
 <li>Create vector <code>num_concerts</code> with the number of times you attended a concert of these artists.</li>
 <li>Put everything together in a data frame, assign the name <code>my_music</code> to this data frame and change the labels of the information stored in the columns to <code>artist</code>, <code>records</code> and <code>concerts</code>.</li>
@@ -605,11 +1002,13 @@ $sd
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -617,12 +1016,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -630,6 +1028,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -646,10 +1052,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
